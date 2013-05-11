@@ -28,7 +28,9 @@ Contribute -
 ========
 
 -> You are experienced in PHP or in object oriented programing concept ? 
+
 -> Getting bore with same kind of development work daily ?
+
 -> Want to learn something interesting to make your knowledge sharpen ?
 
 We welcome you to perticipate on our Cygnite development. 

@@ -27,20 +27,21 @@ x.   Not end here, we still adding new features daily to fulfill all your needs.
 Contribute -
 ========
 
--> You are experienced in PHP or in object oriented programing concept ? 
+-> Are you experienced in PHP or in object oriented programing concept ? 
 
 -> Getting bore with same kind of development work daily ?
 
--> Want to learn something interesting to make your knowledge sharpen ?
+-> Want to learn something interesting and to make your knowledge sharp ?
 
-We welcome you to perticipate on our Cygnite development. 
+You are in right place. We welcome you to perticipate on our Cygnite development. 
+
 Contribute on cygnite framework development and grow with us. Join my our team learn, get help and help others, find, report
 bugs, send us your feedback, send your wishlist to keep adding new features, write and send us patches if you find any 
 on Cygnite Framework. 
 
 
 History -
-======
+=======
 
 
 

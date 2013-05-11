@@ -18,14 +18,23 @@ Core features of Cygnite Framework -
 =============================
 
 i.   Inbuilt multiple libraries to make your work simpler.
+
 ii.  Better performance with inbuilt caching libraries.
+
 iii. Zero configuration.
+
 iv.  Object oriented programming with MVC architechture.
+
 v.   User friendly structures of cygnite framework make you to understand the framework easily.
+
 vi.  We are still adding and updating features to make your work simple.
+
 vii. Cygnite has great user guide which will allow you to grab the speed as quick as possible.
+
 viii.Secure your application with its inbuilt library.
+
 ix.  Cygnite Framework gives you flexibility for both beginners as well as advance php programmers to develop dynamic applications.
+
 x.   Not end here, we still adding new features daily to fulfill all your needs. 
 
 

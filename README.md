@@ -1,21 +1,21 @@
 Appsntech Dev Team
 ==================
-APPSNTECH dev team brought you Cygnite Framework for php web artist. Cygnite Framework (beta 1.0) is not full fledged 
+APPSNTECH dev team brought you Cygnite Framework for php web artist. Cygnite Framework (Alpha 1.0) is not full fledged 
 it's just an small footprint to give you creative experience of developing web application. 
 
 We are just at the begenning though we have long way to move. We are still growing and soon we will brought you dynamic 
 application based on your needs.
 
 
-Cygnite Framework (Beta Version 1.0)
-==============================
+Cygnite Framework (Alpha Version 1.0)
+====================================
 
 Cygnigte Framework is rapid web application development framework for PHP. Our primary goal is to provide developers - mutiple libraries
 at one place with better way to develop dynamic applications. Discover Cygnite to make your work smarter,simpler and faster.
 
 
 Core features of Cygnite Framework -
-=============================
+==================================
 
 i.   Inbuilt multiple libraries to make your work simpler.
 

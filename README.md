@@ -47,9 +47,12 @@ on Cygnite Framework.
 
 Getting Started with Cygnite -
 ============================
-i.  Make sure you have GitHub Account
+i.  Make sure you have GitHub Account.
+
 ii. Clearly describe the issue you find to fix shortly.
+
 iii.Create a branch where you would like to place your changes and send the patches to us.
+
 iv. Fork Cygnite Repository on GitHub.
 
 

@@ -1,0 +1,116 @@
+<?php if ( ! defined('CF_BASEPATH')) exit('Direct script access not allowed');
+/*
+ * To change this template, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
+/**
+ * Description of login
+ *
+ * @author SANJOY
+ */
+
+
+class CF_AuthManager  implements IRegistry
+{
+    var $query = NULL;
+    private $db = NULL;
+    private $db_name = NULL;
+    private $user_password =NULL;
+    private $app_object = NULL;
+    private $sess_key = NULL;
+
+    function __construct()
+    {
+             $this->app_object=  GlobalHelper::get_singleton();
+    }
+
+    public static function initialize($dirRegistry = array()) {}
+
+    public function apps_load($key) { }
+
+     public function validate($queryArray = array(),$db_name)
+     {
+           $arraykey= array_keys($queryArray);
+            if(empty($queryArray))
+                   throw new ErrorException('Empty argument  passed to '.__FUNCTION__);
+            if($db_name == "")
+                    throw new ErrorException('Database name should not be empty '.__FUNCTION__);
+
+            if($this->query == NULL):
+                    $status = ($queryArray[$arraykey[3]]  != "" || $queryArray[$arraykey[3]]  != 0) ? " AND `".$arraykey[3]."` = '".$queryArray[$arraykey[3]]."' " : '';
+                    $this->query = (string) "SELECT * FROM `".$queryArray[$arraykey[0]]."` WHERE `".$arraykey[1]."` = '".$queryArray[$arraykey[1]]."'  ".$status;
+                    $this->user_password = $queryArray[$arraykey[2]];
+                    $this->db_name = $db_name;
+            endif;
+
+           return $this;
+     }
+
+     /*
+      * Checking for user authentication process
+      * @param array
+      * @return bolean
+      */
+     public function build_user_session($sess_details = array())
+     {
+                $this->db =  CF_ApplicationModel::get_cnXn_obj($this->db_name);
+                $user_credentials = array();
+                $select_query = (!is_null($this->query)) ? $this->query : "";
+
+                if(is_null($select_query))
+                       throw new Exception('Empty query passed ');
+                $stmt = $this->db->query($select_query);   //build user query
+                $stmt->execute();
+                $user_credentials = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                if($stmt->rowCount() > 0):
+                           $user_credentials[0]['password']= $this->app_object->request('Encrypt')->decrypt($user_credentials[0]['password']);
+
+                         if(($user_credentials[0]['password'] == $this->user_password)):
+                                     $user_credentials['logged_in'] =  TRUE;
+                                     $user_credentials['flash_message'] = 'You have Successfully logged in !';
+                                     $this->sess_key = $sess_details['session_key'];
+                                                 foreach ($sess_details['session_value'] as $key => $val):
+                                                            $user_credentials[$val] =    $user_credentials[0][$val];
+                                                            unset($user_credentials[0][$val]);
+                                               endforeach;
+                                               foreach($user_credentials as $userkey => $uservalue):
+                                                             unset($user_credentials[0]);
+                                               endforeach;
+                                                $is_set_sess= $this->app_object->request('Session')->setsession($this->sess_key,$user_credentials);
+                                     return ($is_set_sess == TRUE) ? TRUE : FALSE;
+                        else:
+                                return FALSE;
+                        endif; // password validation end
+
+                 else:
+                        return FALSE;
+                endif; // row count end
+        }
+
+         /*
+     * Check user logged in or not
+     * @return bolean
+     *
+     */
+    public function is_logged_in($login_key)
+    {
+            if($this->app_object->request('Session')):
+                    //If user has valid session, and such is logged in
+                    $sess_array = $this->app_object->request('Session')->getsession($login_key);
+                    if(!empty($sess_array['logged_in']))
+                           return TRUE;
+                    else
+                             return FALSE;
+            else:
+                    return FALSE;
+            endif;
+     }
+
+     function __destruct()
+     {
+           unset($this->app_object);
+           unset($this->db);
+     }
+}

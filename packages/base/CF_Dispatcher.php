@@ -1,0 +1,99 @@
+<?php
+
+/*
+*---------------------------------------------------------------------------------
+* ROUTER CONFIG
+* --------------------------------------------------------------------------------
+* This file is used to specify which ..
+*
+*
+* Created Date   : 05-07-2012
+* Modified Date  : 06-07-2012
+*/
+
+    class Dispatcher
+    {
+
+             private static $default_method = "index";
+             private static $controller = NULL;
+             private static $method = NULL;
+             private static $args = array();
+             private static $instance = NULL;
+
+            public static function response_user_request($expression,$find_index,$router = FALSE)
+            {
+                     if($find_index):
+                               self::$controller = ucfirst($expression[$find_index+1]).ucfirst(str_replace('/', '',APPPATH)).'Controller';
+                               self::$method = strtolower($expression[$find_index+2]);
+                               self::$args = array_slice($expression,$find_index+3);
+                               self::import_controller($expression[$find_index+1]);
+                               self::call_requested_controller();
+                     elseif(empty($find_index) && is_null(self::get_self_instance())):
+                              //echo "If index file not available";
+                            $config =  CF_AppRegistry::load('Config')->get_config_items('config_items');
+                             //var_dump($config['GLOBAL_CONFIG']['default_controller']);
+                             $find_index = array_search(CSDIR,$expression);
+                             self::$controller = ucfirst($config['GLOBAL_CONFIG']['default_controller']).ucfirst(str_replace('/', '',APPPATH)).'Controller';
+                             self::$args = array_slice($expression,$find_index+2);
+                             self::import_controller($config['GLOBAL_CONFIG']['default_controller']);
+                             self::call_requested_controller();
+                     endif;
+
+            }
+
+            private static function import_controller()
+           {
+                     $args = func_get_args();
+
+                     if(is_readable(str_replace("/",DS,APPPATH)."controllers".DS.strtolower($args[0]).EXT))
+                             require_once FPATH.'/'.APPPATH."controllers".DS.strtolower($args[0]).EXT;
+                     else
+                           exit("<span style='color:#FF0000;'>Error: 404 Page not Found.<br> Requested $args[0] Controller not found </span>");
+           }
+
+           private static function call_requested_controller()
+           {
+                    //var_dump(preg_replace('/[^a-zA-Z0-9]/', '', self::$controller));
+                    self::setselfObject(self::$controller);
+                    if(empty(self::$method)|| self::$method == ""):
+                               call_user_func_array(array(self::get_self_instance(),"action_".self::$default_method), self::$args);
+                    elseif(TRUE !== method_exists(self::get_self_instance(), "action_".self::$method)):
+                             exit("<span style='color:#FF0000;'>Error: 500  : Undefined method action_".self::$method ." in ".self::$controller."</span>");
+                    else:
+                                try{
+                                            call_user_func_array(array(self::get_self_instance(),"action_".self::$method), self::$args);
+                                }catch(Exception $ex) {
+                                            throw new Exception("Cannot call the controller ");
+                                }
+                    endif;
+           }
+
+            private static function setselfObject($controller)
+                {
+                    if(self::$instance == NULL):
+                            if (!class_exists($controller, TRUE))
+                                     throw new Exception("'Controller name should be combination of filename and controller path name (WelcomeAppsController). Please check the user manual.");
+                            self::$instance =new $controller();
+                    endif;
+                }
+
+                public static function get_self_instance()
+                {
+                     if(self::$instance != NULL)
+                         return self::$instance;
+                     return NULL;
+                }
+
+                public function get_url_segment($uri = "")
+                {
+                            $uriarray = array();
+                            $uriarray = explode('/',($_SERVER['REQUEST_URI']));
+
+                                if(array_search('index.php',$uriarray))
+                                         $index_count = array_search('index.php',$uriarray);
+                                elseif(array_search('index.php',$uriarray))
+                           // var_dump($uriarray);
+                            $uriarray[$indexCount+$uri];
+                           return @$uriarray[$indexCount+$uri];
+                }
+    }

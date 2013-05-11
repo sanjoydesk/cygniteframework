@@ -1,5 +1,5 @@
 <?php
-       /* 
+       /*
          *===============================================================================================
          *  An open source application development framework for PHP 5.2 or newer
          *
@@ -16,9 +16,10 @@
          * ===============================================================================================
          */
 //namespace common\cf_Uri;
+ //AppLogger::write_error_log(' URI Initialized',__FILE__);
     CF_AppRegistry::import('base', 'Dispatcher',CF_BASEPATH);
     CF_AppRegistry::import('base', 'RouteMapper',CF_BASEPATH);
- //AppLogger::write_error_log(' URI Initialized',__FILE__);
+
     class CF_Uri
     {
             private $index_page = "index.php";
@@ -41,7 +42,7 @@
                             $excep->getMessage();
                        }
                      if(TRUE=== RouteMapper::$is_router_enabled):
-                            static ::$router_enabled = TRUE;
+                            self ::$router_enabled = TRUE;
                             return TRUE;
                     endif;
 

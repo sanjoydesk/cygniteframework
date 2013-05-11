@@ -19,9 +19,13 @@ class WelcomeAppsController extends CF_ApplicationController
             $data['values'] = "Sanjay";
             $this->app()->render("user_details_view",$data);
         }
-
-        private function action_test()
+        public function action_userlist()
         {
+            echo "This is userlist";
+        }
+        public function action_testing()
+        {
+                echo "I am in ".__METHOD__;
 
         }
 

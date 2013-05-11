@@ -22,7 +22,7 @@
 
             /*
             * ------------------------------------------------------
-            *  Define the Phcfgnite Version
+            *  Define the Cygnite Version
             * ------------------------------------------------------
             */
             define('CF_VERSION', '1.0');

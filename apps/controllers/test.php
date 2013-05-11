@@ -1,4 +1,9 @@
 <?php
+/*
+*===============================================================================================
+*
+* ===============================================================================================
+*/
 echo "This is test ";exit;
 
 class WelcomeAppsController extends cf_ApplicationController
@@ -10,7 +15,7 @@ class WelcomeAppsController extends cf_ApplicationController
 
           public function action_index()
         {
-                
+
         }
 
 }

@@ -1,20 +1,24 @@
 <?php
-/*======================================================================================
-*  An open source application development framework for PHP 5.1.6 or newer
-*
-*
-*This file is used to maintain session of  cf Framework
-*
-*@Author                     :         Sanjoy Dey
-*@Modified By            :         Sanjoy Dey
-*@Modified Portion  :          Checked for is classname is array
-*@Warning                :          Any changes in this file can cause abnormal behaviour of the framework
-*@Developed By       :          PHP-ignite Team
-*
-* =======================================================================================
-*/
+       /*
+         *===============================================================================================
+         *  An open source application development framework for PHP 5.2 or newer
+         *
+         * @Package                         :
+         * @Filename                       :
+         * @Description                   :
+         * @Autho                            : Appsntech Dev Team
+         * @Copyright                     : Copyright (c) 2013 - 2014,
+         * @License                         : http://www.appsntech.com/license.txt
+         * @Link	                          : http://appsntech.com
+         * @Since	                          : Version 1.0
+         * @Filesource
+         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
+         * ===============================================================================================
+         */
+
+
 //CF_AppRegistry::import('library', 'Encrypt',CF_BASEPATH);
-class cf_Session 
+class cf_Session
 {
     const SESSION_PREFIX = 'Php-Ignite';
     var $time_reference = 'time',$now,$config = array();

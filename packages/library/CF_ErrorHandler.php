@@ -1,17 +1,21 @@
 <?php  if ( ! defined('CF_BASEPATH')) exit('No direct script access allowed');
 
-
-/*===============================================================================
-*  An open source application development framework for PHP 5.1.6 or newer
-*
-*  This file is to encrypt string
-* @access public
-* @Warning      :         Any changes in this file can cause abnormal behaviour of the framework
-* @Developed   :         PHP-ignite Team
-* @Framework Version 1.0
-* ================================================================================
-*/
-
+/*
+         *===============================================================================================
+         *  An open source application development framework for PHP 5.2 or newer
+         *
+         * @Package                         :
+         * @Filename                       :
+         * @Description                   :
+         * @Autho                            : Appsntech Dev Team
+         * @Copyright                     : Copyright (c) 2013 - 2014,
+         * @License                         : http://www.appsntech.com/license.txt
+         * @Link	                          : http://appsntech.com
+         * @Since	                          : Version 1.0
+         * @Filesource
+         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
+         * ===============================================================================================
+         */
 
     class CF_ErrorHandler
     {

@@ -1,5 +1,9 @@
 <?php if ( ! defined('PI_BASEPATH')) exit('No direct script access allowed');
-
+/*
+*===============================================================================================
+*
+* ===============================================================================================
+*/
 class WelcomeAppsController extends PI_ApplicationController
 {
             function __construct()

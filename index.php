@@ -1,17 +1,20 @@
 <?PHP
-/*===============================================================================
-*  An open source application development framework for PHP 5.1.6 or newer
-*
-*  This file is entry point of the framework.
-* @access public
-* @Author          :         Sanjoy Dey
-* @Modified By :
-* @Warning      :         Any changes in this file can cause abnormal behaviour of the framework
-* @Developed   :         PHP-ignite Team
-* @Framework Version 1.0
-* @ Define Application and system folder
-* ================================================================================
-*/
+       /*
+         *===============================================================================================
+         *  An open source application development framework for PHP 5.1.6 or newer
+         *
+         * @Package                         :
+         * @Filename                       : index.php
+         * @Description                   : 
+         * @Autho                            : Appsntech Dev Team
+         * @Copyright                     : Copyright (c) 2013 - 2014,
+         * @License                         : http://www.appsntech.com/license.txt
+         * @Link	                          : http://appsntech.com
+         * @Since	                          : Version 1.0
+         * @Filesource
+         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
+         * ===============================================================================================
+         */
 
              // Define Directory Separator
             define('DS',DIRECTORY_SEPARATOR);

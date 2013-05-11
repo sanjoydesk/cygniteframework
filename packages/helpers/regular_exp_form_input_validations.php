@@ -1,4 +1,21 @@
 <?php
+
+       /*
+         *===============================================================================================
+         *  An open source application development framework for PHP 5.2 or newer
+         *
+         * @Package                         :
+         * @Filename                       :
+         * @Description                   :
+         * @Autho                            : Appsntech Dev Team
+         * @Copyright                     : Copyright (c) 2013 - 2014,
+         * @License                         : http://www.appsntech.com/license.txt
+         * @Link	                          : http://appsntech.com
+         * @Since	                          : Version 1.0
+         * @Filesource
+         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
+         * ===============================================================================================
+         */
 /*
 Form Validation using Regular expressions
 website : http://www.phpjabbers.com/php-validation-and-verification-php27.html
@@ -20,11 +37,11 @@ $errEmail = '<p class="errText">Email must comply with this mask: chars(.chars)@
 
 
 // Passport must be only digits
-if(preg_match("/^d{10}$|^d{12}$/", $_POST["passport"]) === 0) 
+if(preg_match("/^d{10}$|^d{12}$/", $_POST["passport"]) === 0)
 $errPassport = '<p class="errText">Passport must be 10 or 12 digits</p>';
 
 
-// Phone mask             1-800-999-9999      
+// Phone mask             1-800-999-9999
 if(preg_match("/^d{1}-d{3}-d{3}-d{4}$/", $_POST["phone"]) === 0)
 $errPhone = '<p class="errText">Phone must comply with this mask: 1-333-333-4444</p>';
 // Zip must be 4 digits

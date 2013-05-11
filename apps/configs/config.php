@@ -1,24 +1,30 @@
 <?php
-/*
-*=========================================================================
-*  An open source racfd application development framework for PHP 5.1.6 or newer
-*
- * If you don't protect this directory from direct web access, anybody will be able to see your cpmfiguaration and password.
- *
-* Global Configuration Settings
-* config.php
-* Set all configuration variables
-*
-* @access	                   :           public
-* @param                     :          $CF_CONFIG array
-* @Author                   :           Sanjoy Dey
-* @Modified By         :           Sanjoy Dey
-* @Created Date      :         08-05-2012
-* @Modified Date   :          06-08-2012
-* @Warning             :         Any changes in this file can cause abnormal behaviour of the framework
-* @Developed By   :         PHP-ignite Team
-*=========================================================================
-*/
+
+        /*
+         *===============================================================================================
+         *  An open source application development framework for PHP 5.2 or newer
+         *
+         * @Package                         :
+         * @Filename                       :
+         * @Description                   :
+         * @Autho                            : Appsntech Dev Team
+         * @Copyright                     : Copyright (c) 2013 - 2014,
+         * @License                         : http://www.appsntech.com/license.txt
+         * @Link	                          : http://appsntech.com
+         * @Since	                          : Version 1.0
+         * @Filesource
+         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
+         * ===============================================================================================
+        * If you don't protect this directory from direct web access, anybody will be able to see your cpmfiguaration and password.
+        *
+        * Global Configuration Settings
+        * config.php
+        * Set all configuration variables
+        *
+        * @access	                   :           public
+        * @param                     :          $CF_CONFIG array
+        * @Author                   :           Sanjoy Dey
+         */
 
 $CF_CONFIG = array(
                                   /*

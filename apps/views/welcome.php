@@ -8,7 +8,7 @@
     </span> <br>
     <?php //var_dump($userdetails);
     ?>
-    <span  style="font-weight:bold;margin-top:15px;"> <?php echo "This is Beta version. Soon you can enjoy all its features and simplicity."; ?></span>
+    <span  style="font-weight:bold;margin-top:15px;"> <?php echo "This is Alpha version. Soon you can enjoy all its features and simplicity."; ?></span>
 
 </div>
 
@@ -27,4 +27,4 @@
 </form>
 </div>
 
-<script src="http://localhost/phcfgnite/webroot/jquery.js">  </script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js">  </script>

@@ -1,16 +1,20 @@
 <?php if ( ! defined('CF_BASEPATH')) exit('Direct script access not allowed');
 /*
- * ===========================================================================
- *  An open source application development framework for PHP 5.1.6 or newer
- *
- * Load class is to load requested database and view files
- * @access public
- * @Author          :         Sanjoy Dey
- * @Modified By :
- * @Warning      :         Any changes in this file can cause abnormal behaviour of the framework
- * @Developed By  :         PHP-ignite Team
- * ===========================================================================
- */
+         *===============================================================================================
+         *  An open source application development framework for PHP 5.2 or newer
+         *
+         * @Package                         :
+         * @Filename                       :
+         * @Description                   :
+         * @Autho                            : Appsntech Dev Team
+         * @Copyright                     : Copyright (c) 2013 - 2014,
+         * @License                         : http://www.appsntech.com/license.txt
+         * @Link	                          : http://appsntech.com
+         * @Since	                          : Version 1.0
+         * @Filesource
+         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
+         * ===============================================================================================
+         */
 
 CF_AppRegistry::import('loader', 'AppLibraryRegistry',CF_BASEPATH);
 

@@ -1,21 +1,20 @@
 <?php
-    /*
-     *==============================================================================================
-     *  An open source application development framework for PHP 5.1.6 or newer
-     *
-     * @Package
-     * @Filename                             : cf_Zip.php
-     * @Class                                    : cf_Zip
-     * @Description                         : This library is used to load memory driver libraries based on users need
-     * @Author	     	 : Appsntech Dev Team
-     * @Copyright	: Copyright (c) 2013 - 2014,
-     * @License		: http://www.appsntech.com/license.txt
-     * @Link		: http://appsntech.com
-     * @Since		: Version 1.0
-     * @Filesource
-     * @Warning                            : Any changes in this library can cause abnormal behaviour of the framework
-     * ===============================================================================================
-     */
+   /*
+         *===============================================================================================
+         *  An open source application development framework for PHP 5.2 or newer
+         *
+         * @Package                         :
+         * @Filename                       :
+         * @Description                   :
+         * @Autho                            : Appsntech Dev Team
+         * @Copyright                     : Copyright (c) 2013 - 2014,
+         * @License                         : http://www.appsntech.com/license.txt
+         * @Link	                          : http://appsntech.com
+         * @Since	                          : Version 1.0
+         * @Filesource
+         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
+         * ===============================================================================================
+         */
 
     class CF_Zip
     {

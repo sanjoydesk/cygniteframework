@@ -1,0 +1,3 @@
+Memcache and APC cahing library added.
+Directory structure has been changed - utils directory added to have built in social login, share and authentication libraries
+Apploader has been changed. Removed un wanted code from the loader library.

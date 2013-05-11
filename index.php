@@ -5,7 +5,7 @@
          *
          * @Package                         :
          * @Filename                       : index.php
-         * @Description                   :  
+         * @Description                   :
          * @Autho                            : Appsntech Dev Team
          * @Copyright                     : Copyright (c) 2013 - 2014,
          * @License                         : http://www.appsntech.com/license.txt
@@ -14,7 +14,7 @@
          * @Filesource
          * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
          * ===============================================================================================
-         */
+         */ 
 
              // Define Directory Separator
             define('DS',DIRECTORY_SEPARATOR);

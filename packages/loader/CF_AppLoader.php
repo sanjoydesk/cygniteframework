@@ -14,7 +14,7 @@
          * @Filesource
          * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
          * ===============================================================================================
-         */ 
+         */
 
 CF_AppRegistry::import('loader', 'AppLibraryRegistry',CF_BASEPATH);
 
@@ -83,7 +83,7 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
                     */
                      public function model($model_name)
                       {
-                        $this->directory = APPPATH."model".DS;
+                        $this->directory = APPPATH."models".DS;
                                 if(is_readable($this->directory.$model_name.EXT)) :
 
                                                  require_once($this->directory.$model_name.EXT);

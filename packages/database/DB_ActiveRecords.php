@@ -12,7 +12,7 @@
          * @Link	                          : http://appsntech.com
          * @Since	                          : Version 1.0
          * @Filesource
-         * @todo                              :  Have to implement for group by, where in, distinct, like, having, aggregate functions, truncate , Join functions, Store Procedures etc.
+         * @todo                              :   Have to implement for group by, where in, distinct, like, having, aggregate functions, truncate , Join functions, Store Procedures etc.
          * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
          * ===============================================================================================
          */

@@ -110,7 +110,7 @@
 
 
 </dl>
-<div class="clear"></div>
+<div class="clear"></div> 
    <div class="buttons">
                             <input type="submit" class="button"  name="btnSubmit" value="Submit" />
                             <button type="button" class="button white" name="txtReset" value="Reset" >Reset</button>

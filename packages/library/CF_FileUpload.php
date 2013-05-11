@@ -1,6 +1,6 @@
 <?php  if ( ! defined('CF_BASEPATH')) exit('No direct script access allowed');
 
-       /*
+        /*
          *===============================================================================================
          *  An open source application development framework for PHP 5.2 or newer
          *

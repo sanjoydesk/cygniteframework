@@ -17,7 +17,7 @@
          * ===============================================================================================
         * If you don't protect this directory from direct web access, anybody will be able to see your cpmfiguaration and password.
         *
-        * Global Configuration Settings
+        * Global Configuration Settings 
         * config.php
         * Set all configuration variables
         *

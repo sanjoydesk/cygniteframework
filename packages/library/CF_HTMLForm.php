@@ -17,7 +17,7 @@
          */
 
 /********************************************************
- * Example Usage
+ * Example Usage 
  *
  * $object = Form::createForm("form");
  * print $object->input("name",array("type"=>"text"))->class("textbox","required")->id("name");

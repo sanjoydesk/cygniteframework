@@ -57,5 +57,5 @@ class CF_Profiler
        public function memory_space_usage()
        {          //round(memory_get_usage()/1024/1024, 2).'MB';
                     return round(((memory_get_usage() - MEMORY_START_POINT) / 1024), 2). '  KB<br />';
-        }
+        } 
 }

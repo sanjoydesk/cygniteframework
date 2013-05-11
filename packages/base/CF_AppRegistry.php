@@ -14,7 +14,7 @@
          * @Filesource
          * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
          * ===============================================================================================
-         */
+         */ 
 
     abstract class CF_AppRegistry
     {

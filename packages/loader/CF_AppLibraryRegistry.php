@@ -14,7 +14,7 @@
          * @Filesource
          * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
          * ===============================================================================================
-         */
+         */ 
 
 require CF_BASEPATH.DS.'loader'.DS.'IRegistry'.EXT;
 class CF_AppLibraryRegistry implements IRegistry

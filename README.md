@@ -1,6 +1,11 @@
 Appsntech Dev Team
-================
-APPSNTECH dev team brought you Cygnite Framework for php web artist. 
+==================
+APPSNTECH dev team brought you Cygnite Framework for php web artist. Cygnite Framework (beta 1.0) is not full fledged 
+it's just an small footprint to give you creative experience of developing web application. 
+
+We are just at the begenning though we have long way to move. We are still growing and soon we will brought you dynamic 
+application based on your needs.
+
 
 Cygnite Framework (Beta Version 1.0)
 ==============================
@@ -38,6 +43,17 @@ You are in right place. We welcome you to perticipate on our Cygnite development
 Contribute on cygnite framework development and grow with us. Join my our team learn, get help and help others, find, report
 bugs, send us your feedback, send your wishlist to keep adding new features, write and send us patches if you find any 
 on Cygnite Framework. 
+
+
+Getting Started with Cygnite -
+============================
+i.  Make sure you have GitHub Account.
+
+ii. Clearly describe the issue you find to fix shortly.
+
+iii.Create a branch where you would like to place your changes and send the patches to us.
+
+iv. Fork Cygnite Repository on GitHub.
 
 
 History -

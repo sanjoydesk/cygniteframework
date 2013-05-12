@@ -64,6 +64,8 @@ iii.Create a branch where you would like to place your changes and send the patc
 
 iv. Fork Cygnite Repository on GitHub.
 
+v. Please follow the coding standard as followed or request for coding standard to follow. 
+
 
 History -
 =======

@@ -17,7 +17,7 @@
          * ===============================================================================================
         * If you don't protect this directory from direct web access, anybody will be able to see your cpmfiguaration and password.
         *
-        * Global Configuration Settings 
+        * Global Configuration Settings
         * config.php
         * Set all configuration variables
         *
@@ -43,7 +43,7 @@ $CF_CONFIG = array(
                                                                             'host_name' => 'localhost',
                                                                             'username'  => 'root',
                                                                             'password'  => '',
-                                                                            'dbname'    => 'phpignite',
+                                                                            'dbname'    => 'cygnite',
                                                                             'dbprefix'  => '',
                                                                             'dbtype'    => 'mysql',
                                                                             'port'        => '',

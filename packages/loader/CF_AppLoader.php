@@ -83,14 +83,14 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
                     */
                      public function model($model_name)
                       {
-                        $this->directory = APPPATH."models".DS;
+                               $this->directory = str_replace('/', '', APPPATH).DS."models".DS;
                                 if(is_readable($this->directory.$model_name.EXT)) :
-
+                                                 $this->directory.$model_name.EXT;
                                                  require_once($this->directory.$model_name.EXT);
+                                                     $modelname = $this->make_model($model_name);
+                                                if (empty($this->data[$model_name]))
+                                                         $modelobj = new $modelname();
 
-                                         	 $modelname = $this->make_model($model_name);
-                                                if (empty($this->data))
-                                                       $modelobj = new $modelname();													   $this->__set($model_name, $modelobj);
                                                 $this->_set_object($model_name, $modelobj);
                                 else:
                                     throw new ErrorException("Unable to load Requested file ".$model_name.EXT);
@@ -106,7 +106,7 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
                      private function make_model($modelname)
                      {
                             if(!empty($modelname))
-                                     $standard_model_name = ucfirst($modelname).ucfirst(str_replace('/', '',APPPATH)).'Model';
+                                     $standard_model_name = ucfirst($modelname).ucfirst(str_replace('/', '',APPPATH)).'Models';
                             return $standard_model_name;
                      }
 

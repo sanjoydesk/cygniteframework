@@ -13,8 +13,8 @@
  * 
  * @Copyright    : Copyright (c) 2013 - 2014,
  * @License      : http://www.appsntech.com/license.txt
- * @Link	     : http://appsntech.com
- * @Since	     : Version 1.0
+ * @Link	 : http://appsntech.com
+ * @Since	 : Version 1.0
  * @Filesource
  * @Warning      : Any changes in this library can cause abnormal behaviour of the framework
  * 
@@ -27,10 +27,10 @@ interface SecureData {
 	
     public function __get($key);
 	
-	public function __isset($key);
-	
-	public function __unset($key);
-	
-	public function doValidation($key);
+    public function __isset($key);
+
+    public function __unset($key);
+
+    public function doValidation($key);
 
 }

@@ -9,8 +9,8 @@
          function __construct()
         {
                parent::__construct();
-               //$this->cygnite->drivers();
-               //$this->cygnite->properties();
+               //$this->petro_dir->drivers();
+               //$this->petro_dir->properties();
         }
 
         public function getuserlist()
@@ -19,11 +19,11 @@
                                     'username'=> 'Sanjay',
                                     'email'=> 'sanjoy09@hotmail.com'
             );  */
-          // $this->cygnite->select('all');
-           $data =  $this->cygnite->fetch_all('userdetails'); //,'FETCH_BOTH'
-           $this->cygnite->flushresult();
-          // $this->cygnite->debug_query();
-           if($this->cygnite->num_row_count() > 0)
+          // $this->petro_dir->select('all');
+           $data =  $this->petro_dir->fetch_all('userdetails'); //,'FETCH_BOTH'
+           $this->petro_dir->flushresult();
+          // $this->petro_dir->debug_query();
+           if($this->petro_dir->num_row_count() > 0)
                     return $data;
         }
 }

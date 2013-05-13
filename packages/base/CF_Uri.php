@@ -36,12 +36,13 @@
                 }
 
             private function _is_enabled()
-            {       try{
+            {      
+                try{
                             include_once APPPATH.'routerconfig'.EXT;
                        }  catch (Exception $excep) {
                             $excep->getMessage();
-                       }
-                     if(TRUE=== RouteMapper::$is_router_enabled):
+                       } 
+                     if(TRUE===RouteMapper::$is_router_enabled):
                             self ::$router_enabled = TRUE;
                             return TRUE;
                     endif;
@@ -58,7 +59,7 @@
             */
          public function make_request($profiler = NULL)
            {
-                        $expression  = $querystring = array();
+                       $expression  = $querystring = array();
                        $querystring = explode('?',$_SERVER['REQUEST_URI'],2);
                        $calee = debug_backtrace();
                        if(!empty($querystring[1]))
@@ -73,8 +74,8 @@
                       //$router['url'],$expression);
                       //var_dump($segment);
 
-                     if(TRUE == $this->_is_enabled() ): //&& $search_route !==  TRUE
-                                RouteMapper::route(RouteMapper::$url, RouteMapper::$route_to);
+                    if(TRUE == $this->_is_enabled()): //&& $search_route !==  TRUE 
+                           RouteMapper::route(RouteMapper::$url, RouteMapper::$route_to);
                     endif;
                     $find_index = array_search($this->index_page,$expression);
                      Dispatcher::response_user_request($expression, $find_index);

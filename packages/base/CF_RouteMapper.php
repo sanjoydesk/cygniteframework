@@ -47,9 +47,9 @@
                                  // throw new Exception ("Route to has not been set in ".__METHOD__);
 
                      return array(
-                                            'url'=>  static::$url ,
-                                            'route_to' =>static::$route_to
-                                        );
+                                'url'=>  static::$url ,
+                                'route_to' =>static::$route_to
+                                 );
             }
 
 
@@ -112,6 +112,4 @@
 
                 endswitch;
             }
-
-
 }

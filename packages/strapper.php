@@ -91,7 +91,7 @@
             if($CF_CONFIG['GLOBAL_CONFIG']['enable_profiling']==TRUE)
                      CF_AppRegistry::load('Profiler')->start_profiling();
 
-            CF_AppRegistry::load_lib_class(array('CF_Uri','CF_Security','CF_AppAutoLoader'));
+            CF_AppRegistry::load_lib_class(array('CF_Uri','CF_BaseSecurity','CF_AppAutoLoader'));
 
 
             // get instance of the core files

@@ -1,30 +1,30 @@
 <?php
-
-        /*
-         *===============================================================================================
-         *  An open source application development framework for PHP 5.2 or newer
-         *
-         * @Package                         :
-         * @Filename                       :
-         * @Description                   :
-         * @Autho                            : Appsntech Dev Team
-         * @Copyright                     : Copyright (c) 2013 - 2014,
-         * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
-         * @Since	                          : Version 1.0
-         * @Filesource
-         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-         * ===============================================================================================
-        * If you don't protect this directory from direct web access, anybody will be able to see your cpmfiguaration and password.
-        *
-        * Global Configuration Settings
-        * config.php
-        * Set all configuration variables
-        *
-        * @access	                   :           public
-        * @param                     :          $CF_CONFIG array
-        * @Author                   :           Sanjoy Dey
-         */
+/*
+*===============================================================================================
+*  An open source application development framework for PHP 5.2 or newer
+*
+* @Package                         :
+* @Filename                       :
+* @Description                   :
+* @Autho                            : Appsntech Dev Team
+* @Copyright                     : Copyright (c) 2013 - 2014,
+* @License                         : http://www.appsntech.com/license.txt
+* @Link	                          : http://appsntech.com
+* @Since	                          : Version 1.0
+* @Filesource
+* @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
+* ===============================================================================================
+* If you don't protect this directory from direct web access, anybody will be able to see your cpmfiguaration and password.
+*
+* Global Configuration Settings
+* config.php
+* Set all configuration variables
+*
+* @access	                   :           public
+* @param                     :          $CF_CONFIG array
+* @Author                   :           Sanjoy Dey
+*/
+$CF_CONFIG = array();
 
 $CF_CONFIG = array(
                                   /*
@@ -42,8 +42,8 @@ $CF_CONFIG = array(
                                                             'db' =>array(
                                                                             'host_name' => 'localhost',
                                                                             'username'  => 'root',
-                                                                            'password'  => '',
-                                                                            'dbname'    => 'cygnite',
+                                                                            'password'  => 'colaninfotech',
+                                                                            'dbname'    => 'petro_dir',
                                                                             'dbprefix'  => '',
                                                                             'dbtype'    => 'mysql',
                                                                             'port'        => '',
@@ -68,7 +68,7 @@ $CF_CONFIG = array(
                                   * @prototype enable profiling TRUE or FALSE
                                   */
                                   'GLOBAL_CONFIG' => array(
-                                                                                'base_path'           => 'http://'.$_SERVER['HTTP_HOST'].'/appsntech-dev-team/',
+                                                                                'base_path'           => 'http://'.$_SERVER['HTTP_HOST'].'/cy/',
                                                                                'default_controller'          => 'welcomeuser',
                                                                                 'cf_encryption_key'          => 'cygnite-sha1',
                                                                                 'enable_profiling'             => TRUE,

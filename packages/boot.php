@@ -26,6 +26,7 @@
 
             //$site_url = CF_AppRegistry::load('Uri')->site_url($base_url);
             $url_string = CF_AppRegistry::load('Uri')->urisegment('1');
+            
              if(empty($url_string))
                      CF_AppRegistry::load('Uri')->redirect($default_controller);
 
@@ -34,8 +35,8 @@
 
 
          /* Check register globals and remove them */
-         CF_AppRegistry::load('Security')->unset_globals();
-         CF_AppRegistry::load('Security')->unset_magicquotes();
+         CF_AppRegistry::load('BaseSecurity')->unset_globals();
+         CF_AppRegistry::load('BaseSecurity')->unset_magicquotes();
 
          /* Rewrite url structure  urlstucture($default_controller);*/
-        CF_AppRegistry::load('Uri')->make_request();
+        CF_AppRegistry::load('Uri')->make_request(); 

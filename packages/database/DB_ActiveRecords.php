@@ -284,7 +284,9 @@ class CF_ActiveRecords extends PDO
 
                     if($searchedkey === FALSE):
                                  ($this->field_where) ?  $where = '  WHERE  '.$this->field_where.' =  :where '    :  $where = ' ';
-                                $this->debugqry = "SELECT ".$this->selectfields." FROM ".$tblname.'  WHERE  '.$this->field_where." = '".$this->from_where."'".$orderby.$limit;
+                                 $where = (is_null($this->field_where) && is_null($this->from_where)) ? '' : ' WHERE  '.$this->field_where." = '".$this->from_where."'";
+
+                                 $this->debugqry = "SELECT ".$this->selectfields." FROM `".$tblname.'`'.$where.$orderby.$limit;
                                  $this->sqlqry = "SELECT ".$this->selectfields." FROM ".$tblname.$where.$orderby.$limit;
                    else:
                                 ($this->from_where !="") ? $where = " WHERE ".$this->from_where :  $where = "";
@@ -311,7 +313,8 @@ class CF_ActiveRecords extends PDO
             *
             * @return unknown
             */
-            public function get_error_code(){
+            public function get_error_code()
+            {
                          return $this->_dbstatement->errorCode();
             }
 
@@ -326,10 +329,18 @@ class CF_ActiveRecords extends PDO
 
                 public function flushresult()
                 {
-                    if($this->is_closed() == FALSE):
-                                $this->close();
-                                $this->_closed=FALSE;
-                    endif;
+                        if($this->is_closed() == FALSE):
+                               $this->close();
+                               $this->_closed=FALSE;
+                               unset($this->selectfields);
+                                unset($this->from_where);
+                                unset($this->field_where);
+                                unset($this->field_where_in);
+                                unset($this->limit_value);
+                                unset($this->field_name);
+                                unset($this->offset_value);
+                                unset($this->order_type);
+                        endif;
                 }
 
                 public function debug_query()
@@ -497,13 +508,15 @@ class CF_ActiveRecords extends PDO
 
             /**
             * @brief properties, print all drivers capables for the server. */
-            public function drivers(){
+            public function drivers()
+            {
                     print_r(PDO::getAvailableDrivers());
             }
 
             /**
             * @brief properties, print connection properties. */
-            public function properties(){
+            public function properties()
+            {
                     echo "<span style='display:block;color:brown;border:1px solid chocolate;padding:2px 4px 2px 4px;margin-bottom:5px;'>";
                     print_r("<span style='color:#000'>Database :</span>&nbsp;".$this->getAttribute(PDO::ATTR_DRIVER_NAME)."&nbsp;".$this->getAttribute(PDO::ATTR_SERVER_VERSION)."<br/>");
                     print_r("<span style='color:#000'>Status :</span>&nbsp;".$this->getAttribute(PDO::ATTR_CONNECTION_STATUS)."<br/>");
@@ -557,7 +570,8 @@ class CF_ActiveRecords extends PDO
                 return $output;
         }
 
-        function __destruct() {
+        function __destruct()
+        {
                 unset($this->selectfields);
                 unset($this->from_where);
                 unset($this->field_where);

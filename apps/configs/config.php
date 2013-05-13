@@ -17,7 +17,7 @@
          * ===============================================================================================
         * If you don't protect this directory from direct web access, anybody will be able to see your cpmfiguaration and password.
         *
-        * Global Configuration Settings 
+        * Global Configuration Settings
         * config.php
         * Set all configuration variables
         *
@@ -43,7 +43,7 @@ $CF_CONFIG = array(
                                                                             'host_name' => 'localhost',
                                                                             'username'  => 'root',
                                                                             'password'  => '',
-                                                                            'dbname'    => 'phpignite',
+                                                                            'dbname'    => 'cygnite',
                                                                             'dbprefix'  => '',
                                                                             'dbtype'    => 'mysql',
                                                                             'port'        => '',
@@ -70,7 +70,7 @@ $CF_CONFIG = array(
                                   'GLOBAL_CONFIG' => array(
                                                                                 'base_path'           => 'http://'.$_SERVER['HTTP_HOST'].'/appsntech-dev-team/',
                                                                                'default_controller'          => 'welcomeuser',
-                                                                                'cf_encryption_key'          => 'cygnus-sha1',
+                                                                                'cf_encryption_key'          => 'cygnite-sha1',
                                                                                 'enable_profiling'             => TRUE,
                                                                                 'enable_cache'                  => TRUE, //Enable cache bollean TRUE/FALSE
                                                                                 'cache_name'                    => 'cf_cache',

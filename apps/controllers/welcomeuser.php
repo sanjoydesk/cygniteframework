@@ -10,14 +10,14 @@ class WelcomeuserAppsController extends CF_ApplicationController
            public function __construct()
            {
                 parent::__construct();
-               $this->app()->model('DBmodel');
+               $this->app()->model('usermodel');
                $enc = $this->request('Encrypt')->encrypt("sanjay@123");
                $this->request('Encrypt')->decrypt($enc);
           }
 
           public function action_index()
         {
-                 $data['userdetails']=  $this->app()->DBmodel->getdetails(); //show($data['userdetails']);
+                 $data['userdetails']=  $this->app()->usermodel->getdetails(); //show($data['userdetails']);
                 $insertarray = array(
                                             'Name' => 'Framework 6 ',
                                             'EntryDate' => date('Y-m-d H:m:s'),

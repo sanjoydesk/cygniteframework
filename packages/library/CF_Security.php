@@ -1,7 +1,7 @@
 <?php 
 /**
- *  Security package : GLOBAL variables will be accesed securly through this package
- *                     this package provides necessary	 in built validation for users data
+ *  Security package : GLOBAL variables will be accesed securly through Security package.
+ *                     This package provides necessary in built validation for users data.
  *                     
  *  PHP version 5.1.6 or newer 
  *  
@@ -20,15 +20,15 @@
  * 
  */
 
-include_once("globals/CF_Globals.php"); // includes GLOBAL class
-include_once("globals/CF_SecureData.php"); // includes SecureData Interface
-include_once("globals/CF_Cookie.php"); // includes Cookie class
-include_once("globals/CF_Files.php"); // includes Files class
-include_once("globals/CF_Get.php"); // includes Get class
-include_once("globals/CF_Post.php"); // includes Post class
-include_once("globals/CF_Request.php"); // includes Request class
-include_once("globals/CF_Server.php"); // includes Server class
-include_once("globals/CF_Session.php"); // includes Session class
+include_once('globals/'.FRAMEWORK_PREFIX.'Globals.php'); // includes GLOBAL class
+include_once('globals/'.FRAMEWORK_PREFIX.'SecureData.php'); // includes SecureData Interface
+include_once('globals/'.FRAMEWORK_PREFIX.'Cookie.php'); // includes Cookie class
+include_once('globals/'.FRAMEWORK_PREFIX.'Files.php'); // includes Files class
+include_once('globals/'.FRAMEWORK_PREFIX.'Get.php'); // includes Get class
+include_once('globals/'.FRAMEWORK_PREFIX.'Post.php'); // includes Post class
+include_once('globals/'.FRAMEWORK_PREFIX.'Request.php'); // includes Request class
+include_once('globals/'.FRAMEWORK_PREFIX.'Server.php'); // includes Server class
+include_once('globals/'.FRAMEWORK_PREFIX.'Session.php'); // includes Session class
 
 /**
  * 
@@ -41,7 +41,8 @@ include_once("globals/CF_Session.php"); // includes Session class
  * 
  */
 
-class Security{
+class Security
+{
 	
 	public $register_global = array(); // Array to object instances
 	
@@ -63,7 +64,8 @@ class Security{
 	 *  @return Globals $instance
 	 */
 	
-	public function __get($key){
+	public function __get($key)
+	{
 		$key = ucwords($key);
 		if(isset($this->register_global[$key])): // determines whether requested instance exists
 			return $this->register_global[$key];
@@ -84,7 +86,8 @@ class Security{
 	 * @return string quotes escaped string
 	 */
 	
-	public function escape($data){
+	public function escape($data)
+	{
 		
 		return "'".addslashes($data)."'";
 		
@@ -102,7 +105,8 @@ class Security{
 	 * @return string quotes escaped string
 	 */
 	
-	public function escape_for_like($data){
+	public function escape_for_like($data)
+	{
 		
 		return "'".addcslashes(addslashes($data), "%_")."'";
 	} // end escape_for_like method
@@ -110,6 +114,3 @@ class Security{
 	public function __destruct(){ }
 	
 } // end security class 
-
-?>
-

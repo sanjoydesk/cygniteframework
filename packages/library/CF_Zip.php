@@ -73,7 +73,7 @@
                         endwhile;
                 endif;
                 closedir($dir_handler);
-                $this->close_zip_archive(); echo $file;exit;
+                $this->close_zip_archive();// echo $file;exit;
                 $this->download_zip($zip_name,$pathlocation.$file);
 
         }
@@ -108,7 +108,7 @@
                 if(! file_exists( $zip_name) || $zip_name == "" )
                         throw new Exception("The zip archive file not specified to download.");
 
-                  CF_AppRegistry::load_lib_class('cf_Downloader');
+                  CF_AppRegistry::load_lib_class('CF_Downloader');
                   CF_AppRegistry::load('Downloader')->download($file_path);
 
                 header("Pragma: public");
@@ -122,7 +122,8 @@
                 readfile("$zip_name");
         }
 
-        protected function parseDirectory($rootPath, $seperator="/"){
+        protected function parseDirectory($rootPath, $seperator="/")
+        {
 		$fileArray=array();
 		$handle = opendir($rootPath);
 		while( ($file = @readdir($handle))!==false) {
@@ -146,7 +147,8 @@
 	 * @access public
 	 * @return void
 	 */
-	public function zipDirectory($dirName, $outputDir) {
+	public function zipDirectory($dirName, $outputDir)
+	{
 		if (!is_dir($dirName)){
 			trigger_error("CreateZipFile FATAL ERROR: Could not locate the specified directory $dirName", E_USER_ERROR);
 		}

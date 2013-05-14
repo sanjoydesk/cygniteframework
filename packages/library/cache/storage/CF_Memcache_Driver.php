@@ -98,7 +98,7 @@
             * @param int $excfre (seconds before item excfres)
             * @return bool
             */
-            protected function set_data($key, $value, $compress=0, $excfre=600)
+            protected function set_data($key, $value, $compress=0, $expire_time=600)
             {
                      if(is_null($key) || $key == "")
                          throw new Exception ("Empty key passed ".__FUNCTION__);
@@ -106,7 +106,7 @@
                          throw new Exception ("Empty key passed ".__FUNCTION__);
 
                     //Used MEMCACHE_COMPRESSED to store the item compressed (uses zlib).  $this->life_time
-                    return $this->memobj->set($key, $value, $compress ? MEMCACHE_COMPRESSED:NULL,$excfre_time);
+                    return $this->memobj->set($key, $value, $compress ? MEMCACHE_COMPRESSED:NULL,$expire_time);
             }
              /**
             * Get data from memory based on its key

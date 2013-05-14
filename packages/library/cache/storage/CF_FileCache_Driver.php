@@ -6,9 +6,9 @@
      */
 
     /**
-     * Description of cf_FileCache
+     * Description of CF_FileCache
      *This library is influnced by simple cache class
-     * @author
+     * 
      */
 
 
@@ -46,7 +46,7 @@
                        );
                         $this->initialize($cache_config);
                         if($globalconfig['GLOBAL_CONFIG']['cache_directory'] == "none"):
-                                throw new Exception('You must provide cache directory to  use cache mechanism',E_COMcfLE_ERROR ,NULL);
+                                throw new Exception('You must provide cache directory to  use cache mechanism',E_COMPILE_ERROR ,NULL);
                         else:
                                  $this->_cachepath = APPPATH.$globalconfig['GLOBAL_CONFIG']['cache_directory'].'/';
                         endif;
@@ -90,7 +90,7 @@
                          // $this->get_timeout(); Do delete based on the session time out
                           $data = array(
                                                   'time'   => time(),
-                                                  'excfre' => $excfration,
+                                                  'expire' => $expiration,
                                                   'data'   => $value
                                                 );
                                     if (is_array($this->_getcache())) :
@@ -128,7 +128,7 @@
                     if (file_exists($this->get_cache_directory()))
                               return json_decode(file_get_contents($this->get_cache_directory()), TRUE);
                     else
-                             return false;
+                        return false;
               }
 
               private function get_cache_directory()
@@ -147,7 +147,7 @@
                                GlobalHelper::display_errors(E_USER_NOTICE, 'Cache Path Error ','Unable to create cache directory ' . $this->get_path(), __FILE__, __LINE__);
                     elseif (!is_readable($this->get_path()) || !is_writable($this->get_path())):
                             if (!chmod($this->get_path(), 0775))
-                                 GlobalHelper::display_errors(E_USER_NOTICE, 'Cache Path Error ',$this->get_path() . ' directory must be writeable', __FILE__, __LINE__);
+                               GlobalHelper::display_errors(E_USER_NOTICE, 'Cache Path Error ',$this->get_path() . ' directory must be writeable', __FILE__, __LINE__);
                     endif;
                     return true;
               }
@@ -195,7 +195,7 @@
                      return $this->_extension;
               }
 
-              private function _is_excfred($timestamp, $excfration)
+              private function _is_expired($timestamp, $excfration)
              {
                     $result = false;
                     if ($excfration !== 0):
@@ -205,13 +205,13 @@
                     return $result;
               }
 
-               public function delete_excfred_cache()
+               public function delete_expired_cache()
               {
                 $cacheData = $this->_getcache();
                 if (true === is_array($cacheData)) :
                       $counter = 0;
                       foreach ($cacheData as $key => $entry) :
-                        if (TRUE === $this->_is_excfred($entry['time'], $entry['excfre'])) :
+                        if (TRUE === $this->_is_expired($entry['time'], $entry['expire'])) :
                           unset($cacheData[$key]);
                           $counter++;
                         endif;

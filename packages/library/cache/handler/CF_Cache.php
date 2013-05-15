@@ -4,8 +4,8 @@
      *  An open source application development framework for PHP 5.1.6 or newer
      *
      * @Package
-     * @Filename                             : cf_Cache.php
-     * @Class                                    : cf_Cache
+     * @Filename                            : CF_Cache.php
+     * @Class                               : CF_Cache
      * @Description                         : This library is used to load memory driver libraries based on users need
      * @Author	     	 : Appsntech Dev Team
      * @Copyright	: Copyright (c) 2013 - 2014,
@@ -59,10 +59,9 @@
              */
             private function get_path()
             {
-                   $this->driver__class = 'cf_'.$this->file_name.'_Driver';
+                   $this->driver__class = 'CF_'.$this->file_name.'_Driver';
                return (self::$directory != "" && !is_null($this->file_name))
                             ?  str_replace('handler',self::$directory.'\\', dirname(__FILE__)).'cf_'.$this->file_name.'_Driver'.EXT
                            : NULL;
             }
-
    }

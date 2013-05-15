@@ -36,7 +36,8 @@
                 }
 
             private function _is_enabled()
-            {       try{
+            {
+                try{
                             include_once APPPATH.'routerconfig'.EXT;
                        }  catch (Exception $excep) {
                             $excep->getMessage();
@@ -58,7 +59,7 @@
             */
          public function make_request($profiler = NULL)
            {
-                        $expression  = $querystring = array();
+                       $expression  = $querystring = array();
                        $querystring = explode('?',$_SERVER['REQUEST_URI'],2);
                        $calee = debug_backtrace();
                        if(!empty($querystring[1]))
@@ -69,7 +70,7 @@
                       $expression = array_filter(explode('/',($_SERVER['REQUEST_URI'])));
                       if($this->_is_enabled())
                                $router = Router::get_route();
-                      
+
                       $segment = explode('/', $router['url']);
 
                     $find_index = array_search($this->index_page,$expression);

@@ -80,7 +80,7 @@ class CF_ActiveRecords extends PDO
                                     else:
                                             ($selecttype === "*") ?
                                                     //trigger_error('You are not allowed to use * for selecting all columns. Please use all instead of *', E_USER_ERROR)
-                                                     GlobalHelper::display_errors(E_USER_ERROR, 'Database Error Occured', 'You are not allowed to use * for selecting columns. Please use "all" keyword instead of *.', __FILE__,$callee[0]['line'] ,TRUE)
+                                                   GlobalHelper::display_errors(E_USER_ERROR, 'Database Error Occured', 'You are not allowed to use * for selecting columns. Please use "all" keyword instead of *.', __FILE__,$callee[0]['line'] ,TRUE)
                                             :  $this->selectfields = $selecttype; // Need to split the column name and add quotes
                                    endif;
                         endif;

@@ -1,3 +1,4 @@
+
 <?php
 
         /*
@@ -10,7 +11,7 @@
          * @Autho                            : Appsntech Dev Team
          * @Copyright                     : Copyright (c) 2013 - 2014,
          * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
+         * @Link                                  : http://appsntech.com
          * @Since	                          : Version 1.0
          * @Filesource
          * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
@@ -19,40 +20,44 @@
 //RouteMapper::get('welcomeuser/(:all?)', 'category@view');
 //RouteMapper::route('category/any','industry@index');
 //RouteMapper::route('category/any','welcome@testing');
-
-    class RouteMapper
+     class Router
     {
-            private static $index_page = "index.php";
             public static $is_router_enabled = FALSE;
-            public static $url = NULL;
-            public static $route_to = NULL;
+            private static $router = array();
 
-
-
-            public static function set_route($url,$routeto)
+             public static function set_route($url,$routeto)
             {
                     if($url =="")
                             throw new Exception ("Empty url parameter passed on ".__METHOD__);
                     if($routeto =="")
                           throw new Exception ("Empty route_to parameter passed on ".__METHOD__);
-                    static::$url = $url;
-                    static::$route_to = $routeto;
+
+                      if(self::$is_router_enabled):
+                              self::$router = array(
+                                                                             'url' => $url,
+                                                                             'route_to' => $routeto
+                             );
+                      endif;
+
             }
 
-            public static function get_route()
+            public function get_route()
             {
-                    if(is_null(static::$url))
-                                //  throw new Exception ("Url has not been set in ".__METHOD__);
-                        if(is_null(static::$route_to))
-                                 // throw new Exception ("Route to has not been set in ".__METHOD__);
+                    if(is_null(self::$router['url']))
+                               throw new Exception ("Url has not been set in router config");
+                    if(is_null(self::$router['route_to']))
+                              throw new Exception ("Route path to has not been set in router config");
 
-                     return array(
-                                'url'=>  static::$url ,
-                                'route_to' =>static::$route_to
-                                 );
+                return (self::$is_router_enabled) ? self::$router : array();
             }
+    }
 
+     class RouteMapper
 
+    {
+            private static $index_page = "index.php";
+            //public static $is_router_enabled = FALSE;
+           // public static $url = NULL;
 
             public static function route($url,$routeto)
             {
@@ -72,18 +77,17 @@
                                 self::catch_request($expression,$find_index);
                  else:
                         if(static::_uri_exists($segment, $_SERVER['REQUEST_URI'])):
-                                 $call_route = array();
-                                $call_route = explode('@', $routeto);
-                                $exp = explode('/',($_SERVER['REQUEST_URI']));
+                               $call_route = array();
+                               $call_route = explode('@', $routeto);
+                               $exp = array_filter(explode('/',($_SERVER['REQUEST_URI'])));
 
+                               $index_count = array_search(self::$index_page,$exp);
+                               $index = ($index_count) ? '/'.self::$index_page : '/'.self::$index_page;
+                               $route_url = str_replace('/'.self::$index_page, '', $_SERVER['SCRIPT_NAME']).$index.'/'.$call_route[0].'/'.$call_route[1];
 
-                                $index_count = array_search(self::$index_page,$exp);
-                                $index = ($index_count) ? self::$index_page : '';
-                               $route_url =    $_SERVER['SCRIPT_NAME'].'/'.$index.'/'.$call_route[0].'/'.$call_route[1];
-
-                                $expression = explode('/', $route_url);
-                                $find_index = array_search(self::$index_page,$expression);
-                                self::catch_request($expression,$find_index);
+                               $expression = explode('/', $route_url);
+                               $find_index = array_search(self::$index_page,$expression);
+                               self::catch_request($expression,$find_index);
                         endif;
                  endif;
             }
@@ -91,8 +95,8 @@
             private static function catch_request($expression,$find_index)
             {
                         CF_AppRegistry::import('base', 'Dispatcher',CF_BASEPATH);
-                        if(class_exists('Dispatcher')):
-                                    Dispatcher::response_user_request($expression,$find_index,TRUE);
+                        if(class_exists('Dispatcher')): //var_dump(array_filter($expression));
+                                    Dispatcher::response_user_request(array_filter($expression),$find_index,TRUE);
                         endif;
             }
 
@@ -112,4 +116,4 @@
 
                 endswitch;
             }
-}
+    }

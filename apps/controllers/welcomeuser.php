@@ -10,14 +10,14 @@ class WelcomeuserAppsController extends CF_ApplicationController
            public function __construct()
            {
                 parent::__construct();
-               $this->app()->model('usermodel');
+               $this->app()->model('usersmodel');
                $enc = $this->request('Encrypt')->encrypt("sanjay@123");
                $this->request('Encrypt')->decrypt($enc);
           }
 
           public function action_index()
         {
-                 $data['userdetails']=  $this->app()->usermodel->getdetails(); //show($data['userdetails']);
+                 $data['userdetails']=  $this->app()->usersmodel->getdetails(); //show($data['userdetails']);
                 $insertarray = array(
                                             'Name' => 'Framework 6 ',
                                             'EntryDate' => date('Y-m-d H:m:s'),
@@ -51,7 +51,7 @@ class WelcomeuserAppsController extends CF_ApplicationController
                // show($this->request('Cache')->build("FileCache")->read_cache('user'));
 
 
-                $is_authenticated = $this->request('AuthManager')->validate($query ,'phpignite')->build_user_session($sess_details);
+                $is_authenticated = $this->request('AuthManager')->validate($query ,'cygnite')->build_user_session($sess_details);
 
                   try{
                          $this->request('FileUpload')->file = $_FILES;
@@ -71,7 +71,6 @@ class WelcomeuserAppsController extends CF_ApplicationController
                  else:
                          echo "Not a valid User";
                  endif;
-
             $data['values'] = "Sanjay";
             $this->app()->render("user_details_view",$data);
         }
@@ -79,7 +78,7 @@ class WelcomeuserAppsController extends CF_ApplicationController
         function action_test()
         {
 
-                $this->request('Session')->setsession('name', 'Hello World !!   Cygnus is the great Framework');
+                $this->request('Session')->setsession('name', 'Hello World !!   Cygnite is the great Framework');
                // $this->request('session')->unset_session();
               echo $this->request('session')->getsession('name');
 
@@ -115,7 +114,7 @@ class WelcomeuserAppsController extends CF_ApplicationController
         function action_testing()
         {
                //echo $this->request('Uri')->urisegment(6);
-               // echo "Routing call here ";
+                echo "Routing call here <br>";
                 $this->app()->render("welcome",$data);
         }
 }

@@ -24,7 +24,7 @@
     {
             private $index_page = "index.php";
             var $values =  NULL;
-            private static $router_enabled = FALSE;
+            private  $router_enabled = FALSE;
 
 
             function __construct()
@@ -41,8 +41,8 @@
                        }  catch (Exception $excep) {
                             $excep->getMessage();
                        }
-                     if(TRUE=== RouteMapper::$is_router_enabled):
-                            self ::$router_enabled = TRUE;
+                     if(TRUE=== Router::$is_router_enabled):
+                            $this->router_enabled = TRUE;
                             return TRUE;
                     endif;
 
@@ -66,18 +66,32 @@
 
                        //var_dump($expression);
                       //echo $find_index;
-                      $expression = explode('/',($_SERVER['REQUEST_URI']));
-                      //   $router = RouteMapper::get_route();
+                      $expression = array_filter(explode('/',($_SERVER['REQUEST_URI'])));
+                      if($this->_is_enabled())
+                               $router = Router::get_route();
+                      
                       $segment = explode('/', $router['url']);
-                      //$search_route = RouteMapper::_uri_exists($segment, $_SERVER['REQUEST_URI']);
-                      //$router['url'],$expression);
-                      //var_dump($segment);
 
-                     if(TRUE == $this->_is_enabled() ): //&& $search_route !==  TRUE
-                                RouteMapper::route(RouteMapper::$url, RouteMapper::$route_to);
-                    endif;
                     $find_index = array_search($this->index_page,$expression);
-                     Dispatcher::response_user_request($expression, $find_index);
+
+                          if($find_index != '' && TRUE == $this->_is_enabled()  && ($expression[3] == $segment[0] && $expression[4] == $segment[1])):
+                                // echo "here I am with routing and index page and match all uri <br>";
+                                 RouteMapper::route($router['url'],$router['route_to']);
+                          elseif($find_index != '' && TRUE == $this->_is_enabled()  && ($expression[3] != $segment[0] && $expression[4] != $segment[1])):
+                                 //echo "here I am with routing and index page but not match uri<br>";
+                                Dispatcher::response_user_request($expression, $find_index);
+                         elseif($find_index == '' && ($expression[2] == $segment[0] && $expression[3] == $segment[1]) ):
+                              //  echo "here m nw elseif";
+                                RouteMapper::route($router['url'], $router['route_to']);
+                        elseif($find_index == '' && TRUE == $this->_is_enabled() && ($expression[2] != $segment[0] && $expression[3] != $segment[1])):
+                            // echo "here I am with routing and without index page <br>";
+                             $find_indexcount = array_search(ROOT_DIR,$expression);
+                            Dispatcher::response_user_request($expression, $find_indexcount);
+                            //     RouteMapper::route($segment[0], $segment[1]);
+                       else: //echo "jhhjhj";
+                           Dispatcher::response_user_request($expression, $find_index);
+                        endif;
+
 
            }
 

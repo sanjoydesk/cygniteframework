@@ -1,4 +1,4 @@
-<?php 
+<?php
 /*
 *===============================================================================================
 *
@@ -9,7 +9,7 @@ class CategoryAppsController extends CF_ApplicationController
            public function __construct()
            {
                 parent::__construct();
-               $this->app()->model('DBmodel');
+               $this->app()->model('usersmodel');
                $enc = $this->request('Encrypt')->encrypt("sanjay@123");
                $this->request('Encrypt')->decrypt($enc);
           }
@@ -17,7 +17,7 @@ class CategoryAppsController extends CF_ApplicationController
           public function action_index()
         {
 
-                 $data['userdetails']=  $this->app()->DBmodel->getdetails(); //show($data['userdetails']);
+                 $data['userdetails']=  $this->app()->usersmodel->getdetails(); //show($data['userdetails']);
 
                    /*
                $this->app()->DBmodel->insert($insertarray);
@@ -54,7 +54,7 @@ class CategoryAppsController extends CF_ApplicationController
                  endif;
 
             $data['values'] = "Sanjay";
-            $this->app()->render("user_details_view",$data);
+       //     $this->app()->render("user_details_view",$data);
         }
 
 

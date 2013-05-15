@@ -12,8 +12,11 @@
 */
 
 //Set RouteMapper::$is_router_enabled = FALSE; by default.
-RouteMapper::$is_router_enabled = TRUE;
-RouteMapper::set_route('category/any','welcome@testing');
+/*RouteMapper::$is_router_enabled = TRUE;
+RouteMapper::set_route('category/any','welcome@testing'); */
+Router::$is_router_enabled = TRUE;
+Router::set_route('category/list','welcomeuser@testing');
+
 
 //RouteMapper::get('welcomeuser/(:all?)', 'category@view');
 //RouteMapper::get('industrial/(:all?)', 'category@list');

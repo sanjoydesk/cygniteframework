@@ -68,7 +68,7 @@
                         //$data =  $this->cygnite->query('SELECT Name FROM guestbook');$data->fetchAll();
                         //echo "<br>".$data[0]->Name."<br>";
                      //  var_dump($this->cygnite->get_error_info());
-                       $this->cygnite->debug_query();
+                      // $this->cygnite->debug_query();
                        $this->cygnite->flushresult();
                        if($this->cygnite->num_row_count() > 0)
                                 return $data;

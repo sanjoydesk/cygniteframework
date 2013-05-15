@@ -31,19 +31,33 @@
                 //// var_dump(array_key_exists($find_index+1,$expression)); echo $expression[$find_index+1];
                     $config =  CF_AppRegistry::load('Config')->get_config_items('config_items');
                     $default_controller_name = $config['GLOBAL_CONFIG']['default_controller'];
-                     if($find_index && (array_key_exists($find_index+1,$expression)) ===TRUE):
+
+                     if($find_index && (array_key_exists($find_index+1,$expression)) ===TRUE && $router == FALSE):
                                self::$controller = ucfirst($expression[$find_index+1]).ucfirst(str_replace('/', '',APPPATH)).'Controller';
                                self::$method = strtolower($expression[$find_index+2]);
                                self::$args = array_slice($expression,$find_index+3);
                                self::import_controller($expression[$find_index+1]);
                                self::call_requested_controller();
-                     elseif($find_index && (array_key_exists($find_index+1,$expression)) ===FALSE):
+                     elseif($find_index && (array_key_exists($find_index+1,$expression)) === FALSE):
                               self::$controller = ucfirst($default_controller_name).ucfirst(str_replace('/', '',APPPATH)).'Controller';
                               self::$method = strtolower(self::$default_method);
                               self::import_controller($default_controller_name);
                               self::call_requested_controller();
-                     elseif(empty($find_index) && is_null(self::get_self_instance())):
-                             //echo "If index file not available";
+                     elseif($find_index && (array_key_exists($find_index+1,$expression)) ===TRUE && $router == TRUE):
+                              self::$controller = ucfirst($expression[$find_index+1]).ucfirst(str_replace('/', '',APPPATH)).'Controller';
+                              self::$method = strtolower($expression[$find_index+2]);
+                              $exp = array_filter(explode('/',$_SERVER['REQUEST_URI']));
+
+                              if($exp[$find_index] == 'index.php'):
+                                           self::$args = array_slice($exp,$find_index+2);
+                              else:
+                                          $find_indexcount = array_search(ROOT_DIR,$expression);
+                                           self::$args = array_slice($exp,$find_indexcount+2);
+                              endif;
+                               self::import_controller($expression[$find_index+1]);
+                               self::call_requested_controller();
+                     elseif($find_index ="" && is_null(self::get_self_instance())):
+                              echo "If index file not available";
                              $find_index = array_search(CSDIR,$expression);
                              self::$controller = ucfirst($default_controller_name).ucfirst(str_replace('/', '',APPPATH)).'Controller';
                              self::$args = array_slice($expression,$find_index+2);
@@ -56,16 +70,19 @@
             private static function import_controller()
            {
                      $args = func_get_args();
-                     if(is_readable(str_replace("/",DS,APPPATH)."controllers".DS.strtolower($args[0]).EXT))
-                             require_once FPATH.'/'.APPPATH."controllers".DS.strtolower($args[0]).EXT;
-                     else
-                           exit("<span style='color:#FF0000;'>Error: 404 Page not Found.<br> Requested $args[0] Controller not found. Please check directory permission if controler available</span>");
+                     if(is_readable(str_replace("/",DS,APPPATH)."controllers".DS.strtolower($args[0]).EXT)):
+                          //echo str_replace('/', '',APPPATH).DS."controllers".DS.strtolower($args[0]).EXT;//
+                          require_once str_replace('/', '',APPPATH).OS_PATH_SEPERATOR."controllers".OS_PATH_SEPERATOR.strtolower($args[0]).EXT; //FPATH.'/'.
+                     else:
+                            exit("<span style='color:#ccc;'>Error: 404 Page not Found.<br> Requested $args[0] Controller not found. Please check directory permission if controler available</span>");
+                     endif;
            }
 
            private static function call_requested_controller()
            {
                     //var_dump(preg_replace('/[^a-zA-Z0-9]/', '', self::$controller));
                     self::setselfObject(self::$controller);
+
                     if(empty(self::$method)|| self::$method == ""):
                                call_user_func_array(array(self::get_self_instance(),"action_".self::$default_method), self::$args);
                     elseif(TRUE !== method_exists(self::get_self_instance(), "action_".self::$method)):

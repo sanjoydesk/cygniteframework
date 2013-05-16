@@ -2,7 +2,7 @@
 <div style="font-family:Lucida Grande,Verdana,Sans-serif;height:210px; font-size:12px;padding: 20px 20px 12px 20px;margin:40px; background:#fff; border:1px solid #D3640F;" align="center">
     <span style="color:brown;font-weight:bold;font-size:20;">
         <?php
-        echo "Version ".CF_VERSION." Beta<br>";
+        echo "Version ".CF_VERSION." Alpha<br>";
         echo "Welcome to Cygnite Framework";
         ?>
     </span> <br>

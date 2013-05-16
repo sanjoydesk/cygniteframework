@@ -5,7 +5,7 @@
 * ===============================================================================================
 */
 
-class WelcomeuserAppsController extends CF_ApplicationController
+class WelcomeuserAppsController extends CF_BaseController
 {
            public function __construct()
            {
@@ -51,7 +51,7 @@ class WelcomeuserAppsController extends CF_ApplicationController
                // show($this->request('Cache')->build("FileCache")->read_cache('user'));
 
 
-                $is_authenticated = $this->request('AuthManager')->validate($query ,'cygnite')->build_user_session($sess_details);
+                //$is_authenticated = $this->request('AuthManager')->validate($query ,'cygnite')->build_user_session($sess_details);
 
                   try{
                          $this->request('FileUpload')->file = $_FILES;
@@ -66,13 +66,13 @@ class WelcomeuserAppsController extends CF_ApplicationController
 
                  //var_dump($this->request('Session')->getsession('validated_login'));
                //var_dump($this->request('Authentication')->is_logged_in('validated_login'));
-                 if($is_authenticated === TRUE):
+                 /*if($is_authenticated === TRUE):
                         echo "User Authenticated Successfully";
                  else:
                          echo "Not a valid User";
-                 endif;
+                 endif; */
             $data['values'] = "Sanjay";
-            $this->app()->render("user_details_view",$data);
+            $this->app()->render("register",$data);
         }
 
         function action_test()
@@ -111,10 +111,13 @@ class WelcomeuserAppsController extends CF_ApplicationController
                echo $this->request('Cache')->build("FileCache")->read_cache('welcome_page');
         }
 
-        function action_testing()
-        {
+        function action_testing($param1,$param2,$param3)
+        {      var_dump($param1);
+                var_dump($param2);
+                var_dump($param3);
                //echo $this->request('Uri')->urisegment(6);
                 echo "Routing call here <br>";
                 $this->app()->render("welcome",$data);
+          //      $this->app()->render("welcome",TRUE)->with(array('user'=>'Sanjay'));
         }
 }

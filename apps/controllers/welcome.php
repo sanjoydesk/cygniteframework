@@ -4,7 +4,7 @@
     *
     * ===============================================================================================
     */
-    class WelcomeAppsController extends CF_ApplicationController
+    class WelcomeAppsController extends CF_BaseController
     {
         function __construct()
         {
@@ -19,7 +19,7 @@
            $data['userlist'] =  $this->app()->category->getuserlist();
 
             $data['values'] = "Sanjay";
-            $this->app()->render("user_details_view", $data);
+            $this->app()->render("register", $data);
         }
 
         public function action_userlist()

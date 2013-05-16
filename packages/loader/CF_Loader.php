@@ -1,5 +1,5 @@
 <?php
-/* 
+/*
          *===============================================================================================
          *  An open source application development framework for PHP 5.2 or newer
          *
@@ -18,7 +18,7 @@
 
 CF_AppRegistry::import('loader', 'AppLoader',CF_BASEPATH);
 
-        class CF_ApplicationController extends CF_AppLoader
+        class CF_BaseController extends CF_AppLoader
         {
 
                   public static $instance = NULL;

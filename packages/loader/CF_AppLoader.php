@@ -16,9 +16,6 @@
          * ===============================================================================================
          */
 
-CF_AppRegistry::import('loader', 'AppLibraryRegistry',CF_BASEPATH);
-
-require_once CF_BASEPATH.DS.'loader'.DS.'IRegistry'.EXT;
 
 CF_AppRegistry::import('database', 'Connect',CF_BASEPATH);
 CF_AppRegistry::import('database', 'ActiveRecords',CF_BASEPATH);
@@ -41,10 +38,13 @@ CF_AppRegistry::import('database', 'ActiveRecords',CF_BASEPATH);
 
 
                }
-                 function __destruct() {
+                 function __destruct()
+                 {
                       //  parent::flushcnXn();
                 }
         }
+CF_AppRegistry::import('loader', 'AppLibraryRegistry',CF_BASEPATH);
+require_once CF_BASEPATH.DS.'loader'.DS.'IRegistry'.EXT;
 
 class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
 {
@@ -93,7 +93,8 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
 
                                                 $this->_set_object($model_name, $modelobj);
                                 else:
-                                    throw new ErrorException("Unable to load Requested file ".$model_name.EXT);
+                                    $callee = debug_backtrace(); //var_dump($callee);
+                                    GlobalHelper::display_errors(E_USER_ERROR, 'Error Occurred ','Unable to load requested model  '.$model_name.EXT, $callee[0]['file'],$callee[0]['line'],TRUE );
                                 endif;
                      }
 
@@ -148,13 +149,13 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
                     */
                    protected  function render($view_name ="",$arrValues=array(), $ui_content =NULL)
                   {
-                        $this->directory = APPPATH.'views'.DS;
-                        if(is_readable($this->directory.$view_name.EXT)) :
+                        $this->directory = APPPATH.'views/';
+
+                        if(is_readable($this->directory.$view_name.'.view'.EXT)) :
                                     ob_start();
                                     if(is_array($arrValues))
                                         extract($arrValues);
-                                    require_once($this->directory.$view_name.EXT);
-
+                                    include_once($this->directory.$view_name.'.view'.EXT);
                                     $output=ob_get_contents();
                                     ob_get_clean();
 
@@ -164,7 +165,8 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
                                            echo $output;
                                      ob_end_flush();
                          else:
-                                throw new ErrorException("Unable to load Requested file ".$view_name.EXT);
+                              $callee = debug_backtrace(); //var_dump($callee);
+                             GlobalHelper::display_errors(E_USER_ERROR, 'Error rendering view page ','Unable to load requested file '.$view_name.'.view'.EXT, $callee[0]['file'],$callee[0]['line'],TRUE );
                          endif;
 
                      }
@@ -180,7 +182,8 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
 
                                  return $this->loaded;
                        else:
-                                  throw new ErrorException ("Invalid argument passed on ".__FUNCTION__);
+                              $callee = debug_backtrace();
+                             GlobalHelper::display_errors(E_USER_ERROR, 'Error Occurred',"Unable to load requested library ".$key, $callee[0]['file'],$callee[0]['line'],TRUE );
                        endif;
                     }
                  /*
@@ -189,11 +192,13 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
                 */
                   public   function helper($file_name,$prefix = FRAMEWORK_PREFIX)
                   {
-                        $this->directory = CF_BASEPATH.DS."helpers".DS;
-                                if(file_exists($this->directory.$prefix.$file_name.EXT) && is_readable($this->directory.$prefix.$file_name.EXT))
+                                $this->directory = CF_BASEPATH.DS."helpers".DS;
+                                if(file_exists($this->directory.$prefix.$file_name.EXT) && is_readable($this->directory.$prefix.$file_name.EXT)):
                                          require_once($this->directory.$prefix.$file_name.EXT);
-                                else
-                                    throw new ErrorException("Unable to load Requested file ".$file_name.EXT);
+                                else:
+                                    $callee = debug_backtrace();
+                                    GlobalHelper::display_errors(E_USER_ERROR, 'Error Occurred',"Unable to load requested helper ".$file_name, $callee[0]['file'],$callee[0]['line'],TRUE );
+                               endif;
                         unset($file_name);
                 }
 

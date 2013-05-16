@@ -23,12 +23,12 @@ class CF_AuthManager  implements IRegistry
     private $db = NULL;
     private $db_name = NULL;
     private $user_password =NULL;
-    private $app_object = NULL;
+    private $app = NULL;
     private $sess_key = NULL;
 
     function __construct()
     {
-             $this->app_object=  GlobalHelper::get_singleton();
+             $this->app=  GlobalHelper::get_singleton();
     }
 
     public static function initialize($dirRegistry = array()) {}
@@ -71,7 +71,7 @@ class CF_AuthManager  implements IRegistry
                 $user_credentials = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 if($stmt->rowCount() > 0):
-                           $user_credentials[0]['password']= $this->app_object->request('Encrypt')->decrypt($user_credentials[0]['password']);
+                           $user_credentials[0]['password']= $this->app->request('Encrypt')->decrypt($user_credentials[0]['password']);
 
                          if(($user_credentials[0]['password'] == $this->user_password)):
                                      $user_credentials['logged_in'] =  TRUE;
@@ -84,7 +84,7 @@ class CF_AuthManager  implements IRegistry
                                                foreach($user_credentials as $userkey => $uservalue):
                                                              unset($user_credentials[0]);
                                                endforeach;
-                                                $is_set_sess= $this->app_object->request('Session')->setsession($this->sess_key,$user_credentials);
+                                                $is_set_sess= $this->app->request('Session')->setsession($this->sess_key,$user_credentials);
                                      return ($is_set_sess == TRUE) ? TRUE : FALSE;
                         else:
                                 return FALSE;
@@ -102,9 +102,9 @@ class CF_AuthManager  implements IRegistry
      */
     public function is_logged_in($login_key)
     {
-            if($this->app_object->request('Session')):
+            if($this->app->request('Session')):
                     //If user has valid session, and such is logged in
-                    $sess_array = $this->app_object->request('Session')->getsession($login_key);
+                    $sess_array = $this->app->request('Session')->getsession($login_key);
                     if(!empty($sess_array['logged_in']))
                            return TRUE;
                     else
@@ -116,7 +116,7 @@ class CF_AuthManager  implements IRegistry
 
      function __destruct()
      {
-           unset($this->app_object);
+           unset($this->app);
            unset($this->db);
      }
 }

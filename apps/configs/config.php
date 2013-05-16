@@ -68,7 +68,7 @@ $CF_CONFIG = array(
                                   * @prototype enable profiling TRUE or FALSE
                                   */
                                   'GLOBAL_CONFIG' => array(
-                                                                                'base_path'           => 'http://'.$_SERVER['HTTP_HOST'].'/cy/',
+                                                                                'base_path'           => 'http://'.$_SERVER['HTTP_HOST'].'/appsntech-dev-team/',
                                                                                'default_controller'          => 'welcomeuser',
                                                                                 'cf_encryption_key'          => 'cygnite-sha1',
                                                                                 'enable_profiling'             => TRUE,

@@ -4,6 +4,9 @@ Cygnite Framework : The Rapid Development PHP Framework (http://www.appsntech.co
 Copyrights @2013, http://www.appsntech.com.
 Copyrights By: Sanjoy Dey
 
+You Cannot use contributors' names, logos or trademarks.
+Software is released without warranty and the software/license owner cannot be charged for damages.
+
 Permission is hereby granted, free of charge, to any person obtaining a
 copy of this software and associated documentation files (the "Software"),
 to deal in the Software without restriction, including without limitation

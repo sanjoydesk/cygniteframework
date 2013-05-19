@@ -49,8 +49,8 @@ Contribute -
 
 You are in right place. We welcome you to perticipate on our Cygnite development. 
 
-Contribute on cygnite framework development and grow with us. Join my our team learn, get help and help others, find, report
-bugs, send us your feedback, send your wishlist to keep adding new features, write and send us patches if you find any 
+Contribute on cygnite framework development and grow with us. Join my team, learn, get help and help others, find, report
+bugs, send us your feedback, send your wishlist to keep on adding new features, write and send us patches if you find any 
 on Cygnite Framework. 
 
 

@@ -17,48 +17,52 @@
          */
 
 
-CF_AppRegistry::import('database', 'Connect',CF_BASEPATH);
-CF_AppRegistry::import('database', 'ActiveRecords',CF_BASEPATH);
+   CF_AppRegistry::import('database', 'Connect',CF_BASEPATH);
+   CF_AppRegistry::import('database', 'ActiveRecords',CF_BASEPATH);
 
   class CF_ApplicationModel extends CF_DBConnect
+    {
+        public static $dbobj = NUll;
+       public  function __construct()
         {
-                public static $dbobj = NUll;
-               public  function __construct()
-                {
-                         parent::cnXN();
-                       // var_dump(parent::get_cnXn_obj('test'));
-                }
-
-                public static function get_db_instance()
-                {
-                    if(is_null(self::$dbobj)):
-                         parent::cnXN();
-                          return $this;
-                    endif;
-
-
-               }
-                 function __destruct()
-                 {
-                      //  parent::flushcnXn();
-                }
+                 parent::cnXN();
+               // var_dump(parent::get_cnXn_obj('test'));
         }
-CF_AppRegistry::import('loader', 'AppLibraryRegistry',CF_BASEPATH);
-require_once CF_BASEPATH.DS.'loader'.DS.'IRegistry'.EXT;
+
+        public static function get_db_instance()
+        {
+            if(is_null(self::$dbobj)):
+                 parent::cnXN();
+                  return $this;
+            endif;
+
+
+       }
+         function __destruct()
+         {
+              //  parent::flushcnXn();
+        }
+    }
+   CF_AppRegistry::import('loader', 'AppLibraryRegistry',CF_BASEPATH);
+   require_once CF_BASEPATH.DS.'loader'.DS.'IRegistry'.EXT;
 
 class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
 {
                       var $directory = NULL;
+                      var $view_path = NULL;
+                      var $values =array();
                       private $data = array();
                       protected $loaded = NULL;
                       public $model = NULL;
+                      private static $name = array();
 
                      public function __construct($registry = array())
                     {
-                            $excfres = 60*60*24*14;
+                            $expires = 60*60*24*14;
                             header("Pragma: public");
-                            header("Cache-Control: maxage=".$excfres);
-                            header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$excfres) . ' GMT');
+                            header("Cache-Control: maxage=".$expires);
+                            header('Expires: ' . gmdate('D, d M Y H:i:s', time()+$expires) . ' GMT');
+
                    }
 
                     //prevent clone.
@@ -107,11 +111,9 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
                      private function make_model($modelname)
                      {
                             if(!empty($modelname))
-                                     $standard_model_name = ucfirst($modelname).ucfirst(str_replace('/', '',APPPATH)).'Models';
-                            return $standard_model_name;
+                                     $std_model_name = ucfirst($modelname).ucfirst(str_replace('/', '',APPPATH)).'Models';
+                            return $std_model_name;
                      }
-
-
 
                     function print_gzipped_output()
                     {
@@ -127,14 +129,14 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
 
                             if( $encoding ):
                                     $contents = ob_get_clean();
-                                    $_temp1 = strlen($contents);
-                                    if ($_temp1 < 2048) :   // no need to waste resources in compressing very little data
+                                    $_temp = strlen($contents);
+                                    if ($_temp < 2048) :   // no need to waste resources in compressing very little data
                                                 print($contents);
                                     else:
                                                 header('Content-Encoding: '.$encoding);
                                                 print("\x1f\x8b\x08\x00\x00\x00\x00\x00");
                                                 $contents = gzcompress($contents, 9);
-                                                $contents = substr($contents, 0, $_temp1);
+                                                $contents = substr($contents, 0, $_temp);
                                                 print($contents);
                                     endif;
                             else:
@@ -147,30 +149,54 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
                     * @param string (view name)
                     *
                     */
-                   protected  function render($view_name ="",$arrValues=array(), $ui_content =NULL)
+
+                   protected function render($view ="",$arr_values=array(), $ui_content =NULL)
                   {
-                        $this->directory = APPPATH.'views/';
-
-                        if(is_readable($this->directory.$view_name.'.view'.EXT)) :
+                        $path= APPPATH.'views/';
+                        self::$name[strtolower($view)] = $view;
+                        if(is_readable($path.self::$name[$view].'.view'.EXT)) :
                                     ob_start();
-                                    if(is_array($arrValues))
-                                        extract($arrValues);
-                                    include_once($this->directory.$view_name.'.view'.EXT);
-                                    $output=ob_get_contents();
-                                    ob_get_clean();
-
-                                    if(isset($ui_content) && $ui_content === "ui_contents")
-                                            return $output;
-                                    else
-                                           echo $output;
-                                     ob_end_flush();
+                                    if(is_array($arr_values) && !empty($arr_values)):
+                                          $this->values =  $arr_values;// extract($arr_values);
+                                           $this->view_path = $path.self::$name[$view].'.view'.EXT;
+                                          $this->loadview();
+                                    else:
+                                        var_dump(self::$name[$view]);
+                                          echo $this->view_path = $path.self::$name[$view].'.view'.EXT;
+                                          return $this;
+                                    endif;
                          else:
-                              $callee = debug_backtrace(); //var_dump($callee);
+                              $callee = debug_backtrace();
                              GlobalHelper::display_errors(E_USER_ERROR, 'Error rendering view page ','Unable to load requested file '.$view_name.'.view'.EXT, $callee[0]['file'],$callee[0]['line'],TRUE );
                          endif;
-
                      }
-                    public function request($key)
+
+                     public function with($arr_values=array())
+                     {
+                            if(is_array($arr_values))
+                                      $this->values =  $arr_values;
+                            $this->loadview();
+                     }
+
+                     private function loadview()
+                     {
+                            include_once $this->view_path;
+                            $this->output_buffer();
+                     }
+
+                     private function output_buffer()
+                     {
+                                 $output=ob_get_contents();
+                                            ob_get_clean();
+
+                                if(isset($ui_content) && $ui_content === "ui_contents")
+                                        return $output;
+                                else
+                                       echo $output;
+                                 ob_end_flush();
+                     }
+
+                     public function request($key)
                     {
                           if(!is_null($key) || $key != ""):
                               try{
@@ -178,9 +204,7 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
                               }catch(Exception $ex){
                                     $ex->getMessage();
                               }
-                                 $this->loaded = CF_AppRegistry::load($key);
-
-                                 return $this->loaded;
+                                 return CF_AppRegistry::load($key);
                        else:
                               $callee = debug_backtrace();
                              GlobalHelper::display_errors(E_USER_ERROR, 'Error Occurred',"Unable to load requested library ".$key, $callee[0]['file'],$callee[0]['line'],TRUE );
@@ -194,7 +218,7 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
                   {
                                 $this->directory = CF_BASEPATH.DS."helpers".DS;
                                 if(file_exists($this->directory.$prefix.$file_name.EXT) && is_readable($this->directory.$prefix.$file_name.EXT)):
-                                         require_once($this->directory.$prefix.$file_name.EXT);
+                                         include_once($this->directory.$prefix.$file_name.EXT);
                                 else:
                                     $callee = debug_backtrace();
                                     GlobalHelper::display_errors(E_USER_ERROR, 'Error Occurred',"Unable to load requested helper ".$file_name, $callee[0]['file'],$callee[0]['line'],TRUE );
@@ -205,7 +229,7 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
                 public function __destruct()
                 {
                         ob_end_flush(); //ob_end_clean();
-                        ob_get_flush(); unset($this->loaded);
-                        unset($this->directory); unset($this);
+                        ob_get_flush();
+                        unset($this->directory); unset($this->values);unset($this->view_path);
                   }
 }

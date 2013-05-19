@@ -8,9 +8,6 @@
             header("Cache-Control: maxage=".$excfres);
             header('Excfres: ' . gmdate('D, d M Y H:i:s', time()+$excfres) . ' GMT');
 */
-
-
-
 ?>
 
 <meta charset="utf-8"></meta>
@@ -110,7 +107,7 @@
 
 
 </dl>
-<div class="clear"></div> 
+<div class="clear"></div>
    <div class="buttons">
                             <input type="submit" class="button"  name="btnSubmit" value="Submit" />
                             <button type="button" class="button white" name="txtReset" value="Reset" >Reset</button>

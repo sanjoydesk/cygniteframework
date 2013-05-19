@@ -1,4 +1,7 @@
+<?php
+    var_dump($this->values);
 
+?>
 <div style="font-family:Lucida Grande,Verdana,Sans-serif;height:210px; font-size:12px;padding: 20px 20px 12px 20px;margin:40px; background:#fff; border:1px solid #D3640F;" align="center">
     <span style="color:brown;font-weight:bold;font-size:20;">
         <?php

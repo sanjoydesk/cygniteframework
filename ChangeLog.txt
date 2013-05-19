@@ -4,3 +4,5 @@ Apploader has been changed. Removed un wanted code from the loader library.
 RouteMapper and Dispatcher base library has been added.
 HTMLForm tag library has added.
 File Upload library has been added.
+Routing with cantroller and action has been fixed.
+View name has been changed and maintain standard for view file name. Provided option to render view two different way.

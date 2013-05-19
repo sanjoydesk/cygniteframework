@@ -110,14 +110,26 @@ class WelcomeuserAppsController extends CF_BaseController
                $this->request('Cache')->build("FileCache")->write_cache('welcome_page', $this->app()->render("welcome",$data,'ui_contents'));
                echo $this->request('Cache')->build("FileCache")->read_cache('welcome_page');
         }
-
+        private $country = 'India';
         function action_testing($param1,$param2,$param3)
         {      var_dump($param1);
                 var_dump($param2);
                 var_dump($param3);
                //echo $this->request('Uri')->urisegment(6);
                 echo "Routing call here <br>";
-                $this->app()->render("welcome",$data);
-          //      $this->app()->render("welcome",TRUE)->with(array('user'=>'Sanjay'));
+
+               /*  $this->request('Cache')->build("FileCache")->write_cache('welcome_page', $this->app()->render("welcome",array('username'=>'sanjay','email'=>'sanjoy09@hotmail.com'),'ui_contents'));
+               echo $this->request('Cache')->build("FileCache")->read_cache('welcome_page');
+             $this->app()->render("welcome",array(
+                                                                                       'username'=>'sanjay',
+                                                                                      'email'=>'sanjoy09@hotmail.com',
+                                                                                      'country'=> $this->country
+                                                                                    )); */
+                $this->app()->render("welcome")->with(array(
+                                                                                       'username'=>'sanjay',
+                                                                                      'email'=>'sanjoy09@hotmail.com',
+                                                                                      'country'=> $this->country
+                                                                                    ));
+               //$this->app()->render("welcome",TRUE)->with(array('user'=>'Sanjay'));
         }
 }

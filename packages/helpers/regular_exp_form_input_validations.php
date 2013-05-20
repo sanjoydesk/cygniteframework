@@ -21,7 +21,7 @@ Form Validation using Regular expressions
 website : http://www.phpjabbers.com/php-validation-and-verification-php27.html
 */
 // Full Name must contain letters, dashes and spaces only and must start with upper case letter.
-
+/*
 if(preg_match("/^[A-Z][a-zA-Z -]+$/", $_POST["name"]) === 0)
 $errName = '<p class="errText">Name must be from letters, dashes, spaces and must not start with dash</p>';
 
@@ -63,5 +63,5 @@ $errUser = '<p class="errText">User must be bigger that 5 chars and contain only
 if(preg_match("/^.*(?=.{8,})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/", $_POST["pass"]) === 0)
 $errPass = '<p class="errText">Password must be at least 8 characters and must contain at least one lower case letter, one upper case letter and one digit</p>';
 }
-
+*/
 /*Form Validation Ends*/

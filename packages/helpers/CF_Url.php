@@ -39,9 +39,9 @@ class CF_Url
         * @param  int
         * @return string
         */
-        public static function request_Uri_segment($Uri="")
+        public static function request_uri_segment($Uri="")
         {
-                CF_AppRegistry::load('Uri')->Urisegment($Uri = '', $type = 'location', $http_response_code = 302);
+                CF_AppRegistry::load('Uri')->urisegment($Uri = '');
         }
 
 

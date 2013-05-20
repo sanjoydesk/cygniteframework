@@ -7,7 +7,7 @@
          * @Package                         :
          * @Filename                       : PhpIngite.php
          * @Description                   : This file is used to auto load all base libraries
-         * @Autho                            : Appsntech Dev Team
+         * @Author                            : Appsntech Dev Team
          * @Copyright                     : Copyright (c) 2013 - 2014,
          * @License                         : http://www.appsntech.com/license.txt
          * @Link	                          : http://appsntech.com

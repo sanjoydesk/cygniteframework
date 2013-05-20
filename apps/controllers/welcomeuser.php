@@ -4,10 +4,11 @@
 *
 * ===============================================================================================
 */
+      class WelcomeuserAppsController extends CF_BaseController
+      {
 
-class WelcomeuserAppsController extends CF_BaseController
-{
-           public function __construct()
+
+            public function __construct()
            {
                 parent::__construct();
                $this->app()->model('usersmodel');
@@ -115,7 +116,7 @@ class WelcomeuserAppsController extends CF_BaseController
         {      var_dump($param1);
                 var_dump($param2);
                 var_dump($param3);
-               //echo $this->request('Uri')->urisegment(6);
+               echo $this->request('Uri')->urisegment(2);
                 echo "Routing call here <br>";
 
                /*  $this->request('Cache')->build("FileCache")->write_cache('welcome_page', $this->app()->render("welcome",array('username'=>'sanjay','email'=>'sanjoy09@hotmail.com'),'ui_contents'));
@@ -126,7 +127,7 @@ class WelcomeuserAppsController extends CF_BaseController
                                                                                       'country'=> $this->country
                                                                                     )); */
                 $this->app()->render("welcome")->with(array(
-                                                                                       'username'=>'sanjay',
+                                                                                       'author'=>'sanjay',
                                                                                       'email'=>'sanjoy09@hotmail.com',
                                                                                       'country'=> $this->country
                                                                                     ));

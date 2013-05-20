@@ -82,15 +82,16 @@
                                  //echo "here I am with routing and index page but not match uri<br>";
                                 Dispatcher::response_user_request($expression, $find_index);
                          elseif($find_index == '' && ($expression[2] == $segment[0] && $expression[3] == $segment[1]) ):
-                              //  echo "here m nw elseif";
+                                //echo "here m nw elseif";
                                 RouteMapper::route($router['url'], $router['route_to']);
                         elseif($find_index == '' && TRUE == $this->_is_enabled() && ($expression[2] != $segment[0] && $expression[3] != $segment[1])):
                             // echo "here I am with routing and without index page <br>";
                              $find_indexcount = array_search(ROOT_DIR,$expression);
                             Dispatcher::response_user_request($expression, $find_indexcount);
-                            //     RouteMapper::route($segment[0], $segment[1]);
+                            //   RouteMapper::route($segment[0], $segment[1]);
                        else: //echo "jhhjhj";
-                           Dispatcher::response_user_request($expression, $find_index);
+                           RouteMapper::route($router['url'],$router['route_to']);
+                         //  Dispatcher::response_user_request($expression, $find_index);
                         endif;
 
 
@@ -127,10 +128,10 @@
 
                         switch($type):
                             case 'refresh' :
-                                                      header("Refresh:0;url=".$uri);
+                                                  header("Refresh:0;url=".$uri);
                                      break;
                             default:
-                                                            header("Location: ".$uri, TRUE, $http_response_code);
+                                                 header("Location: ".$uri, TRUE, $http_response_code);
                                     break;
                       endswitch;
                     exit;

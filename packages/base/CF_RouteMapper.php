@@ -20,13 +20,16 @@
 //RouteMapper::get('welcomeuser/(:all?)', 'category@view');
 //RouteMapper::route('category/any','industry@index');
 //RouteMapper::route('category/any','welcome@testing');
+
+//include_once APPPATH.'routerconfig'.EXT;
+
      class Router
     {
             public static $is_router_enabled = FALSE;
             private static $router = array();
 
              public static function set_route($url,$routeto)
-            {
+            { 
                     if($url =="")
                             throw new Exception ("Empty url parameter passed on ".__METHOD__);
                     if($routeto =="")
@@ -64,7 +67,7 @@
                  $segment = explode('/', $url);
 
                  if(in_array('any', $segment) && (static::_uri_exists($segment[0], $_SERVER['REQUEST_URI']) )):
-                       //echo "controll exists with any keyword ";
+                       echo "controll exists with any keyword ";
                                 $call_route = array();
                                 $call_route = explode('@', $routeto);
                                 $exp = explode('/',($_SERVER['REQUEST_URI']));

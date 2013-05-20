@@ -6,7 +6,7 @@
          * @Package                         :
          * @Filename                       : index.php
          * @Description                   :
-         * @Autho                            : Appsntech Dev Team
+         * @Author                            : Appsntech Dev Team
          * @Copyright                     : Copyright (c) 2013 - 2014,
          * @License                         : http://www.appsntech.com/license.txt
          * @Link	                          : http://appsntech.com
@@ -50,6 +50,7 @@
 
             //Name of the Root Directory
             define('ROOT_DIR', str_replace("/", "", rtrim(dirname($_SERVER['SCRIPT_NAME']), '\/')));
+
             define('APPPATH', $application_folder.'/');
 
             define('FPATH', $_SERVER['DOCUMENT_ROOT'].ROOT_DIR.'/');

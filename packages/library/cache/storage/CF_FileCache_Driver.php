@@ -38,22 +38,21 @@
 
                 function __construct()
                 {
-                       $globalconfig =  Config::get_config_items('config_items');
+                       Config::getconfig('global_config','cache_name');
                        $cache_config = array(
-                                                               'name' => $globalconfig['GLOBAL_CONFIG']['cache_name'],
-                                                               'path' => $globalconfig['GLOBAL_CONFIG']['cache_directory'],
-                                                               'extension' => $globalconfig['GLOBAL_CONFIG']['cache_extension']
+                                                               'name' => Config::getconfig('global_config','cache_name'),
+                                                               'path' => Config::getconfig('global_config','cache_directory'),
+                                                               'extension' => Config::getconfig('global_config','cache_extension')
                        );
                         $this->initialize($cache_config);
-                        if($globalconfig['GLOBAL_CONFIG']['cache_directory'] == "none"):
-                                throw new Exception('You must provide cache directory to  use cache mechanism',E_COMPILE_ERROR ,NULL);
+                        if( Config::getconfig('global_config','cache_directory') == "none"):
+                                throw new Exception('You must provide cache directory to  use cache mechanism ',E_COMPILE_ERROR ,NULL);
                         else:
-                                 $this->_cachepath = APPPATH.$globalconfig['GLOBAL_CONFIG']['cache_directory'].'/';
+                                 $this->_cachepath = APPPATH.Config::getconfig('global_config','cache_directory').'/';
                         endif;
-                        unset($globalconfig);
                 }
 
-                public function initialize($config=NULL)
+                public function initialize($config= array())
                 {
                        if (isset($config) ===TRUE) :
                               if (is_string($config)) :

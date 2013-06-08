@@ -29,7 +29,7 @@
               );
               $users=  $this->app()->usersmodel->getdetails();
 
-              show($users);
+              //show($users);
 
                 $postvalues =array();
                //$var =  $this->request('HTTPRequest')->is_submited('btnSubmit');
@@ -39,12 +39,12 @@
               endif;
 
              $this->app()->render('register');
-
         }
 
         public function action_index()
       {
                //$data['userdetails']=  $this->app()->usersmodel->getdetails(); //show($data['userdetails']);
+            $this->app()->helper('Assets');
               $insertarray = array(
                                           'Name' => 'Framework 6 ',
                                           'EntryDate' => date('Y-m-d H:m:s'),
@@ -141,8 +141,7 @@
               $encryt= $this->request('Encrypt')->encrypt("sanjoy");
               echo $this->request('Encrypt')->decrypt($encryt);
 
-
-             $this->request('Cache')->build("FileCache")->write_cache('welcome_page', $this->app()->render("welcome",'','ui_contents'));
+          //   $this->request('Cache')->build("FileCache")->write_cache('welcome_page', $this->app()->render("welcome",'','ui_contents'));
              echo $this->request('Cache')->build("FileCache")->read_cache('welcome_page');
       }
       private $country = 'India';
@@ -166,6 +165,7 @@
           //  echo $this->request('session')->getsession('name');
                $this->app()->model('usersmodel');
                 echo $this->request('Uri')->urisegment(2);
+
 
                $this->app()->render("register")->with(array(
                                                             'author' => 'Sanjoy',

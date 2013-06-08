@@ -39,12 +39,12 @@
             $this->pdo = $object;
         }
 
-        public function create()
+        public function create_table()
         {
 
         }
 
-        public function delete()
+        public function delete_table()
         {
 
         }

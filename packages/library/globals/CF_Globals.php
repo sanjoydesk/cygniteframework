@@ -3,11 +3,11 @@
  * Globals class a base class to handle all global variables.this class implements ArrayAccess
  * to use object as an array
  *
- * PHP Version 5.1.6 or newer
+ * PHP Version 5.2 or newer
  *
  * @category  PHP
  *
- * @author    Balamathankumar<balamathankumar@gmail.com>
+ * @author    Cygnite Dev Team
  *
  * @name         : Globals
  * @Copyright    : Copyright (c) 2013 - 2014,
@@ -22,8 +22,8 @@
  *
  *
  */
-echo "gggggggggggggggggggggggggg";
-class Globals implements ArrayAccess{
+class Globals implements ArrayAccess
+{
 
     /**
      * @var array $_Array will hold validated global variables
@@ -102,28 +102,27 @@ class Globals implements ArrayAccess{
 		unset($this->{$offset});
     }
 
-    public static function __xss_clean(&$item,&$key){
+    public static function __xss_clean(&$item,&$key)
+   {
 
 		 $item = htmlspecialchars($item,ENT_QUOTES);
-
 		 $item = preg_replace_callback('!&amp;#((?:[0-9]+)|(?:x(?:[0-9A-F]+)));?!i',array(__CLASS__,'decode'), $item); // PERL
-
 		 $item = preg_replace(
-							'!<([A-Z]\w*)
-							(?:\s* (?:\w+) \s* = \s* (?(?=["\']) (["\'])(?:.*?\2)+ | (?:[^\s>]*) ) )*
-							\s* (\s/)? >!ix',
-							'<\1\5>', strip_tags(html_entity_decode($item)));
+                                                                                                '!<([A-Z]\w*)
+                                                                                                (?:\s* (?:\w+) \s* = \s* (?(?=["\']) (["\'])(?:.*?\2)+ | (?:[^\s>]*) ) )*
+                                                                                                \s* (\s/)? >!ix',
+                                                                                                '<\1\5>', strip_tags(html_entity_decode($item)));
     }
 
-    public static function decode($matches){
+    public static function decode($matches)
+    {
 
 
 		if(!is_int($matches[1]{0})){
-
-				$val = '0'.$matches[1]+0;
+                                                                   $val = '0'.$matches[1]+0;
 		}else{
 
-			    $val = (int)$matches[1];
+		         $val = (int)$matches[1];
 		}
 
 		if($val>255)
@@ -147,13 +146,22 @@ class Globals implements ArrayAccess{
     		self::__xss_clean(&$GLOBALS[$this->_var][$key], &$key);
     }
 
-    public static function clean(&$item,&$key){
-
-
-		self::__xss_clean(&$item, &$key);
+    public static function clean(&$item,&$key)
+   {
+        self::__xss_clean(&$item, &$key);
     }
 
+        protected function clean_variables($value)
+        {
+                    if( empty($value) ) return $value;
+                    if( is_null($value) ) return $value;
+                    if( is_string($value) ):
+                            $spec = array('/[\']/', '/--/', '/\bdrop\b/i', '/\bdelete\b/i', '/\binsert\b/i', '/\bupdate\b/i');
+                            $value = preg_replace($spec, "", $value);
+                            return $value;
+                    endif;
+                return $value;
+        }
+
     public function __destruct(){}
-
-
 }

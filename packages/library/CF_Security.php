@@ -15,7 +15,7 @@
  *
  * @Package                         :  Packages
  * @Sub Packages               :  Library
- * @Filename                       : CF_Parser
+ * @Filename                       : CF_Security
  * @Description                   : Security package : GLOBAL variables will be accesed securly through Security package.
  *                                              This package provides necessary in built validation for users data.
  * @Author                          :   Cygnite Dev Team
@@ -25,23 +25,6 @@
  * @Filesource
  * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
  *
- *
- */
-
-/**
- *
- *  @category PHP
- *
- *  @package  Security
- *
- *  @author         balamathankumar<balamathankumar@gmail.com>
- *
- *  @Copyright   : Copyright (c) 2013 - 2014,
- *  @License       : http://www.appsntech.com/license.txt
- *  @Link	 : http://appsntech.com
- *  @Since	 : Version 1.0
- *  @Filesource
- *  @Warning   : Any changes in this library can cause abnormal behaviour of the framework
  *
  */
 

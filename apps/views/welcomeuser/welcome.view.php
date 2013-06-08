@@ -2,16 +2,11 @@
 <html lang="en">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
-</meta>
 <title>Welcome to Cygnite Framework</title>
-<!-- styles -->
-<link href="<?php echo GHelper::base_path(); ?>webroot/css/cygnite/style.css" rel="stylesheet">
+<?php echo Assets::addstyle('webroot/css/cygnite/style.css'); ?>
 <!--<link rel="shortcut icon" href="<?php //echo GHelper::base_path(); ?>webroot/img/cygnite/favicon.png" >-->
 </head>
-
 <body>
-
-
     <div class="container">
 <div class="header">
              <div style="color: #ECECEC; padding: 31px; ">
@@ -24,7 +19,7 @@
   <div class="container-body">
 
     <hr class="featurette-divider">
-    </hr>
+
     <div class="container">
                 <div class="block features">
                   <h2 class="title-divider"><span><span class="title-em">Core Features OF Cygnite Framework  <?php echo CF_VERSION; ?></span></span>
@@ -120,6 +115,6 @@
 
   <!-- ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="<?php echo GHelper::base_path(); ?>webroot/js/cygnite/jquery.js"></script>
+<?php echo Assets::addscript('webroot/js/cygnite/jquery.js'); ?>
 </body>
 </html>

@@ -111,7 +111,6 @@
                                                     'country' => $insertarray['country'],
                                                     'zip_code' => $insertarray['zipcode']
                             );
-                           // show($data);exit;
                             $this->cygnite->sql_generator('dbfetch',FALSE);
                             $this->cygnite->db->insert('registration',$data);
                         //    $this->cygnite->db->last_inserted_Id();

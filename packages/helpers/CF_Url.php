@@ -63,7 +63,12 @@ class CF_Url
         * @return string
         */
 
-        public static function url_encode()
+        public static function encode()
+        {
+
+        }
+
+        public static function decode()
         {
 
         }

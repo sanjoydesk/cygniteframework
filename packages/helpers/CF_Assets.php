@@ -87,20 +87,21 @@
           {
                  if(is_null($href))
                       throw new InvalidArgumentException("Cannot pass null argument to ".__METHOD__);
-                     $media = (is_null($media)) ? 'media="all"' : $media;
-                     $title = (!is_null($title)) ? "title='".$title."'"  : '';
-                return '<link rel="stylesheet" type="text/css"  "'.$media.'" "'.$title.'" href="'.GHelper::base_path().$href.'">'.PHP_EOL;
+
+                     $media = (is_null($media)) ? 'media=all' : $media;
+                     $title = (!is_null($title)) ? "title='$title'"  : '';
+                return '<link rel="stylesheet" type="text/css"  '.$media.' '.$title.' href="'.GHelper::base_path().$href.'" rel="stylesheet">'.PHP_EOL;
           }
 
             /**
             * Generate a link to a JavaScript file.
             *
             * <code>
-            *	     // Generate a link to a JavaScript file
-            *	        echo Assets::addscript('js/jquery.js');
+            *  // Generate a link to a JavaScript file
+            *    echo Assets::addscript('js/jquery.js');
             *
-            *	   // Generate a link to a JavaScript file and add some attributes
-            *	        echo Assets::addscript('js/jquery.js', array('required'));
+            * // Generate a link to a JavaScript file and add some attributes
+            *   echo Assets::addscript('js/jquery.js', array('required'));
             * </code>
             *
             * @param  string  $url
@@ -109,13 +110,20 @@
             */
             public static function addscript($url, $attributes = array())
             {
-                     return '<script src="'.GHelper::base_path().$url.'"'.static::addattributes($attributes).'></script>'.PHP_EOL;
+                     return '<script type="text/javascript" src="'.GHelper::base_path().$url.'"'.static::addattributes($attributes).'></script>'.PHP_EOL;
             }
 
 
-          public static function ajax()
-          {
 
+          public static function ajax($url,$data,$method,$callback,$calltype = '')
+          {
+                $ajax_script = '';
+                $ajax_script = '<script type="text/javascript">';
+                $ajax_script = '
+                                        $.ajax();
+                                        ';
+
+                $ajax_script = '</script>';
           }
 
         /**

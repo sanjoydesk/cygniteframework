@@ -96,7 +96,7 @@
             CF_AppRegistry::load_lib_class(array('CF_Uri','CF_BaseSecurity','CF_AppAutoLoader'));
 
             // get instance of the core files
-            CF_AppRegistry::import('loader', 'Loader',CF_SYSTEM);// Load the cf Controller
+            CF_AppRegistry::import('loader', 'Loader',CF_SYSTEM);// Load the Base Controller
             CF_AppRegistry::import('helpers', 'GHelper',CF_SYSTEM);
             CF_AppRegistry::import('loader', 'AppLibraryRegistry',CF_SYSTEM);
 

@@ -30,7 +30,7 @@
 class CF_HTTPRequest
 {
              /**
-           * The path to the cache file folder
+           *
            *
            * @var string
            */
@@ -65,7 +65,7 @@ class CF_HTTPRequest
                   $_GET[$variable] = $value;
                   if(is_array($variable)):
                        foreach($variable as $key=>$val):
-                                $_POST[$key] = $this->clean_variables($val);
+                                $_GET[$key] = $this->clean_variables($val);
                        endforeach;
                 endif;
             }
@@ -89,6 +89,7 @@ class CF_HTTPRequest
             {
                     return  filter_has_var(INPUT_POST, $input) ? TRUE : FALSE;
             }
+
             public function has_request($key, $default = NULL)
             {
                     if( isset($_POST[$key]) ):
@@ -134,18 +135,18 @@ class CF_HTTPRequest
              * @param string $name The cookie name.
              * @param mixed $value If given, the cookie variable will assume this value.
              *                     Otherwise, the function returns current cookie variable value.
-             * @param int $excfre  Optional excfration time, in minutes. Defaults to 24 hours (60 * 24 = 1440).
+             * @param int $expire  Optional excfration time, in minutes. Defaults to 24 hours (60 * 24 = 1440).
              * @return mixed O valor do cookie.
              */
-            public static function set_cookie( $name, $value = NULL, $excfre = 1440 )
+            public static function set_cookie( $name, $value = NULL, $expire = 1440 )
             {
                 // No given value, the user is requesting the cookie value.
                 if( is_null($value) ):
                     $this->_cookie = ( (isset($_COOKIE[$name]) ) ?   $_COOKIE[$name] :  NULL);
                     return $this->_cookie;
                 endif;
-                $excfre = time() + ($excfre * 60); // Excfre will passed in minutes, so multiply by 60 seconds.
-                setcookie($name, $value, $excfre);  // Define Cookie.
+                $expire = time() + ($expire * 60); // Excfre will passed in minutes, so multiply by 60 seconds.
+                setcookie($name, $value, $expire);  // Define Cookie.
             }
 
             /**

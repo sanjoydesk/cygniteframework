@@ -33,7 +33,6 @@
             protected $dns;
             protected $username;
             protected $password;
-            public $manapulate;
             public $db = NULL;
 
 
@@ -81,6 +80,8 @@
             public function sql_generator($manapulator,$flag = FALSE)
             {
                   //$this->manapulate = (bool)$flag;
+                    if($flag == FALSE) $this->db = NULL;
+
                     if($manapulator == 'dbfetch' && $flag === TRUE):
                                  include_once DATABASE_PREFIX.'Selections'.EXT;
                                 if(is_null($this->db) && class_exists('DB_Selections'))
@@ -97,7 +98,11 @@
                                         $this->db
                                     : trigger_error('Cannot intentiate Sql Manapulor',E_USER_WARNING);
                     endif;
+            }
 
+            function __destruct()
+            {
+                    unset($this->db);
             }
 
      }

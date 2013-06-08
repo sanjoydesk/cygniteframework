@@ -33,9 +33,7 @@
            private $debug = FALSE;
            private $ob_level;
             /*
-             *  Constructor function
-             * @param string - encryption key
-             *
+             *  Constructor function             *
              */
            public  function __construct()
            {
@@ -70,7 +68,6 @@
 
             private function _error($title,$line,$err_message,$err_file,$debug = "",$type = NULL)
             {
-                       
                         ob_start();
                         $arr =  array(
                                       'title' => $title,
@@ -79,35 +76,15 @@
                                       'type' =>$type,
                                       'debug'=>$debug,
                                       'file' =>$err_file
-                            
                         );
                         @extract($arr);
-                        
                         include str_replace('/','',APPPATH).DS.'errors'.DS.'error'.EXT;
-                                     
+
                         $output= ob_get_contents();
                         ob_get_clean();
-
                         echo $output;
                         ob_end_flush();
                         ob_get_flush();
-                       /*$html = ""; $html  .= "<html> <head><title>".$title."</title>
-                        <style type='text/css'>
-                                #contetainer { font-family:Lucida Grande,Verdana,Sans-serif; margin: 40px; font-size:12px;padding: 20px 20px 12px 20px; background:#fff; border:1px solid #D3640F; }
-                                h2 { color: #990000;  font-size: 15px;font-weight: normal;margin: 5px 5px 5px 13px;}
-                                p {   margin:6px; padding: 9px; }
-                        </style>
-                        </head><body>";
-                        $html .="<div id='contetainer'>";
-                       $html .=" <h2> ". (($type === 'fatal')  ?  'FATAL ERROR :  ' :  (($type === 'warning')  ?    'WARNING :  ' :   'NOTICE :  ' )).strtoupper($title)."</h2>";
-                        $html .=" <p >LINE NUMBER : ".$line."</p>";
-                        $html .=" <p> EXCEPTION MESSEGE :  ".$err_message."</p>";
-                        $html .=" <p> ".($debug === TRUE || $debug === 1) ? '' : $debug ." :</p>";
-                        $html .=" <p> FILENAME : ".$err_file."</p>";
-                        $html .="</div>";
-                        $html .="</body></html>";
-                        echo $html;
-                        */
                         ($debug === TRUE || $debug === 1) ? '' : $debug;
                         ($type === 'fatal') ?  exit : '';
             }
@@ -117,7 +94,7 @@
                     /** Check if environment is development and display errors **/
                     switch(APP_ENVIRONMENT):
                                 case 'development':
-                                            error_reporting(1);
+                                            error_reporting(-1);
                                         /*    error_reporting($err_config['level']);
                                           ini_set('display_errors',$err_config['display_errors']);
                                           ini_set('log_errors', $err_config['log_errors']);

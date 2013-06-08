@@ -1,21 +1,31 @@
 <?php
 /*
-         *===============================================================================================
-         *  An open source application development framework for PHP 5.2 or newer
-         *
-         * @Package                         :
-         * @Filename                       :
-         * @Description                   :
-         * @Autho                            : Appsntech Dev Team
-         * @Copyright                     : Copyright (c) 2013 - 2014,
-         * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
-         * @Since	                          : Version 1.0
-         * @Filesource
-         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-         * ===============================================================================================
-         */ 
-
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         :  Packages
+ * @Sub Packages               :  Library
+ * @Filename                       : CF_HTTPRequest
+ * @Description                   : This library used to handle all http requests
+ * @Author                          :  Cygnite Dev Team
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
 
 class CF_HTTPRequest
 {
@@ -75,7 +85,7 @@ class CF_HTTPRequest
                         return (isset($_POST[$key])) ? $this->clean_variables($_POST[$key]) : $default;
                 }
 
-            public function is_request_posted($input)
+            public function is_submited($input)
             {
                     return  filter_has_var(INPUT_POST, $input) ? TRUE : FALSE;
             }

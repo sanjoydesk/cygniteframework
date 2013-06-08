@@ -16,9 +16,3 @@
          * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
          * ===============================================================================================
          */
-
-interface IDBConnect
-{
-   public function connect($db_type,$host,$database,$user,$password,$port="");
-   public function get_cnXn_obj($key);
-}

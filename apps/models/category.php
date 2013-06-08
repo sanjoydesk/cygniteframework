@@ -20,10 +20,10 @@
                                     'email'=> 'sanjoy09@hotmail.com'
             );  */
           // $this->petro_dir->select('all');
-           $data =  $this->cygnite->fetch_all('userdetails'); //,'FETCH_BOTH'
-           $this->cygnite->flushresult();
+           $data =  $this->cygnite->db->fetch_all('userdetails'); //,'FETCH_BOTH'
+           $this->cygnite->db->flushresult();
           // $this->petro_dir->debug_query();
-           if($this->cygnite->num_row_count() > 0)
+           if($this->cygnite->db->num_row_count() > 0)
                     return $data;
         }
 }

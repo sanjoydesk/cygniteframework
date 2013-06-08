@@ -1,28 +1,39 @@
 <?php
-        /*
-         *===============================================================================================
-         *  An open source application development framework for PHP 5.2 or newer
-         *
-         * @Package                         :
-         * @Filename                       :
-         * @Description                   :
-         * @Autho                            : Appsntech Dev Team
-         * @Copyright                     : Copyright (c) 2013 - 2014,
-         * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
-         * @Since	                          : Version 1.0
-         * @Filesource
-         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-         * ===============================================================================================
-         */
+/*
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         :  Packages
+ * @Sub Packages               :   Helper
+ * @Filename                       :  GHelper
+ * @Description                   :  This helper is used to global functionalities of the framework.
+ * @Author                          :   Cygnite Dev Team
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
 
-        $CONFIG = CF_AppRegistry::load('Config')->get_config_items('config_items');
+        $CONFIG = Config::get_config_items('error_config');
 
-        if($CONFIG['ERROR_CONFIG']['log_errors'] == 'on' )
-                  CF_AppRegistry::import('base', 'Logger',CF_BASEPATH);// Load the cf Controller Class
+        if($ERROR_CONFIG['log_errors'] == 'on' )
+                  CF_AppRegistry::import('base', 'Logger',CF_SYSTEM);// Load the cf Controller Class
 
 
-    class GlobalHelper
+    class GHelper
     {
         /*
          *
@@ -82,7 +93,27 @@
 
           public static function  get_singleton()
         {
-                return CF_ApplicationController::app(CF_ENCRYPT_KEY);
+                return CF_BaseController::app(CF_ENCRYPT_KEY);
+        }
+
+        public function trace()
+        {
+            /*echo "<title>Unhandle Exception </title>
+                <div class='stacktrace' style=''>
+                <h2 style='height:30px; border-bottom:1px solid #CCC'> DEBUG MODE: TRACE REQUEST </h2>
+                <pre style='word-wrap: break-word;color:#242424;'>";
+                 print_r(debug_print_backtrace());
+            echo "</pre>
+                </div>";*/
+            ob_start();
+            include str_replace('/','',APPPATH).DS.'errors'.DS.'debugtrace'.EXT;
+
+            $output= ob_get_contents();
+            ob_get_clean();
+
+            echo $output;
+            ob_end_flush();
+            ob_get_flush();
         }
 
 }

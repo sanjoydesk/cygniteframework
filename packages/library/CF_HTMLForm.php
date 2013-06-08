@@ -1,23 +1,34 @@
-<?php  if ( ! defined('CF_BASEPATH')) exit('No direct script access allowed');
-       /*
-         *===============================================================================================
-         *  An open source application development framework for PHP 5.2 or newer
-         *
-         * @Package                         :
-         * @Filename                       :
-         * @Description                   :
-         * @Autho                            : Appsntech Dev Team
-         * @Copyright                     : Copyright (c) 2013 - 2014,
-         * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
-         * @Since	                          : Version 1.0
-         * @Filesource
-         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-         * ===============================================================================================
-         */
+<?php  if ( ! defined('CF_SYSTEM')) exit('No direct script access allowed');
+/*
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         :  Packages
+ * @Sub Packages               :  Library
+ * @Filename                       : CF_HTMLForm
+ * @Description                   : This library used to generate all html form tags 
+ * @Author                          :   Cygnite Dev Team
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
 
-/********************************************************
- * Example Usage 
+/*************************************************************************************************
+ * Example Usage
  *
  * $object = Form::createForm("form");
  * print $object->input("name",array("type"=>"text"))->class("textbox","required")->id("name");

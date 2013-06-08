@@ -47,18 +47,18 @@ $CF_CONFIG = array(
                                                     'dbprefix'  => '',
                                                     'dbtype'    => 'mysql',
                                                     'port'        => '',
-                                                    'pconnection' =>FALSE
+                                                    'pconnection' =>TRUE
                                     )
-                                 /*  ,'db2' => array(
+                                   ,'db2' => array(
                                                     'host_name' => 'localhost',
                                                     'username'  => 'root',
                                                     'password'  => '',
-                                                    'dbname'    => 'test',
+                                                    'dbname'    => 'hris',
                                                     'dbprefix'  => '',
                                                     'dbtype'    => 'mysql',
                                                     'port'        => '',
-                                                    'pconnection' =>FALSE
-                                    ) */
+                                                    'pconnection' =>TRUE
+                                    ) 
             ),
           /*
           * Set Global Variables as array
@@ -68,15 +68,16 @@ $CF_CONFIG = array(
           * @prototype enable profiling TRUE or FALSE
           */
           'GLOBAL_CONFIG' => array(
-                                                'base_path'                       => 'http://'.$_SERVER['HTTP_HOST'].'/appsntech-dev-team/',
+                                                'base_path'                   => 'http://'.$_SERVER['HTTP_HOST'].'/appsntech-dev-team/',
                                                 'default_controller'          => 'welcomeuser',
-                                                'cf_encryption_key'          => 'cygnite-sha1',
-                                                'enable_profiling'             => TRUE,
-                                                'enable_cache'                  => TRUE, //Enable cache bollean TRUE/FALSE
-                                                'cache_name'                    => 'cf_cache',
+                                                'cf_encryption_key'           => 'cygnite-sha1',
+                                                'enable_profiling'            => TRUE,
+                                                'enable_cache'                => TRUE, //Enable cache bollean TRUE/FALSE
+                                                'cache_name'                  => 'cf_cache',
                                                 'cache_extension'             => '.cache',
-                                                'cache_type'                      => 'filecache',																				 'cache_lifetime'              => '',// 120
+                                                'cache_type'                  => 'filecache',																				 'cache_lifetime'              => '',// 120
                                                 'cache_directory'              => 'temp/cache',//Default value is none
+                                                'encoding'                          => 'UTF-8' //Encoding technique for your application
 
           ),
           'ERROR_CONFIG'=> array(

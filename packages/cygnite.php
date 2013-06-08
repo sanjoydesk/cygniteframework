@@ -1,31 +1,38 @@
-<?php if ( ! defined('CF_BASEPATH')) exit('Direct script access not allowed');
+<?php if ( ! defined('CF_SYSTEM')) exit('Direct script access not allowed');
 
-        /*
-         *===============================================================================================
-         *  An open source application development framework for PHP 5.1.6 or newer
-         *
-         * @Package                         :
-         * @Filename                       : PhpIngite.php
-         * @Description                   : This file is used to auto load all base libraries
-         * @Autho                            : Appsntech Dev Team
-         * @Copyright                     : Copyright (c) 2013 - 2014,
-         * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
-         * @Since	                          : Version 1.0
-         * @Filesource
-         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-         * ===============================================================================================
-         *
-         */
-
-
+/*
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *    http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         : Cygnite Framework BootStrap file
+ * @Filename                       : cygnite.php
+ * @Description                   : Bootstrap file to auto load core libraries initially.
+ * @Author                           : Sanjoy Dey
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                      :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
 
             /*
             * ------------------------------------------------------
             *  Define the Cygnite  Version
             * ------------------------------------------------------
             */
-            define('CF_VERSION', '1.0');
+            define('CF_VERSION', ' <span class="version">(alpha 1.0.2)</span>');
 
             /*----------------------------------------------------
              * Define Framework Extension
@@ -56,25 +63,20 @@
 
             /*
             * ------------------------------------------------------
-            *  Load the global Page
+            *  Load the Global Registry Page
             * ------------------------------------------------------
             */
-            require CF_BASEPATH.DS.'base'.DS.FRAMEWORK_PREFIX.'AppRegistry'.EXT;
-
-            $common_directory = CF_BASEPATH .OS_PATH_SEPERATOR."base";
-            $loader_directory =    CF_BASEPATH.OS_PATH_SEPERATOR."loader";
-            $library_directory =   CF_BASEPATH .OS_PATH_SEPERATOR."library";
-            $helpers_directory = CF_BASEPATH .OS_PATH_SEPERATOR."helpers";
+            require dirname(__FILE__).DS.'base'.DS.FRAMEWORK_PREFIX.'AppRegistry'.EXT;
            // is_dir($directoryPath) or mkdir($directoryPath, 0777);
 
             // Register all framework core directories to include core files
-            CF_AppRegistry::register_dir(array($common_directory,$loader_directory,$library_directory,$helpers_directory));
+            CF_AppRegistry::register_dir(array(dirname(__FILE__).DS."base",dirname(__FILE__).DS."loader",
+                                                                            dirname(__FILE__).DS."library",dirname(__FILE__).DS."helpers"));
            // Auto Load all framework core classes
-            CF_AppRegistry::load_lib_class(array('CF_Config','CF_Profiler','CF_ErrorHandler'));
+            CF_AppRegistry::load_lib_class(array('CF_Profiler','CF_ErrorHandler'));
+            CF_AppRegistry::import('helpers', 'Config',CF_SYSTEM);
 
-             CF_AppRegistry::load('Config')->init_config();
-
-            $CF_CONFIG = CF_AppRegistry::load('Config')->get_config_items('config_items');
+            $CF_CONFIG = Config::get_config_items('config_items');
 
 
            /* Set Environment for Application
@@ -93,11 +95,10 @@
 
             CF_AppRegistry::load_lib_class(array('CF_Uri','CF_BaseSecurity','CF_AppAutoLoader'));
 
-
             // get instance of the core files
-            CF_AppRegistry::import('loader', 'Loader',CF_BASEPATH);// Load the cf Controller
-            CF_AppRegistry::import('helpers', 'GlobalHelper',CF_BASEPATH);
-           // CF_AppRegistry::import('loader', 'AppLibraryRegistry',CF_BASEPATH);
+            CF_AppRegistry::import('loader', 'Loader',CF_SYSTEM);// Load the cf Controller
+            CF_AppRegistry::import('helpers', 'GHelper',CF_SYSTEM);
+            CF_AppRegistry::import('loader', 'AppLibraryRegistry',CF_SYSTEM);
 
             $AUTOLOAD = CF_AppRegistry::load('AppAutoLoader')->get_autoload_items('autoload_items');
 
@@ -115,9 +116,9 @@
 
             /*
             * ------------------------------------------------------
-            *  Define the Phcfgnite Encryption Key ID
+            *  Define the Cygnite Encryption Key ID
             * ------------------------------------------------------
             */
             if(!empty($secret_key) && in_array('encrypt',$AUTOLOAD['autoload']['helpers']) || $securesession === TRUE)
                       define('CF_ENCRYPT_KEY',$secret_key);
-            require dirname(__FILE__) .OS_PATH_SEPERATOR.'boot'.EXT;
+            require dirname(__FILE__).DS.'boot'.EXT;

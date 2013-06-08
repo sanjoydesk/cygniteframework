@@ -1,21 +1,31 @@
 <?php
-
-       /*
-         *===============================================================================================
-         *  An open source application development framework for PHP 5.2 or newer
-         *
-         * @Package                         :
-         * @Filename                       :
-         * @Description                   :
-         * @Autho                            : Appsntech Dev Team
-         * @Copyright                     : Copyright (c) 2013 - 2014,
-         * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
-         * @Since	                          : Version 1.0
-         * @Filesource
-         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-         * ===============================================================================================
-         */
+/*
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         :  Packages
+ * @Sub Packages               :  Base
+ * @Filename                       :  CF_Dispatcher
+ * @Description                   : This class is used to handle user request
+ * @Author                           : Sanjoy Dey
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
 
     class Dispatcher
     {
@@ -29,10 +39,10 @@
             public static function response_user_request($expression,$find_index,$router = FALSE)
             {
                 //// var_dump(array_key_exists($find_index+1,$expression)); echo $expression[$find_index+1];
-                    $config =  CF_AppRegistry::load('Config')->get_config_items('config_items');
-                    $default_controller_name = $config['GLOBAL_CONFIG']['default_controller'];
+                    $config =  Config::getconfig('global_config');
+                    $default_controller_name = $config['default_controller'];
 
-                     if($find_index && (array_key_exists($find_index+1,$expression)) ===TRUE && $router == FALSE):
+                    if($find_index && (array_key_exists($find_index+1,$expression)) ===TRUE && $router == FALSE):
                                self::$controller = ucfirst($expression[$find_index+1]).ucfirst(str_replace('/', '',APPPATH)).'Controller';
                                self::$method = strtolower($expression[$find_index+2]);
                                self::$args = array_slice($expression,$find_index+3);
@@ -56,8 +66,15 @@
                               endif;
                                self::import_controller($expression[$find_index+1]);
                                self::call_requested_controller();
+                     elseif($find_index ==FALSE && (array_key_exists($find_index+2,$expression)) != FALSE):
+                              self::$controller = ucfirst($expression[$find_index+2]).ucfirst(str_replace('/', '',APPPATH)).'Controller';
+                               self::$method = strtolower($expression[$find_index+3]);
+                              self::$args = array_slice($expression,$find_index+3);
+
+                              self::import_controller($expression[$find_index+2]);
+                              self::call_requested_controller();
                      elseif($find_index ="" && is_null(self::get_self_instance())):
-                              echo "If index file not available";
+                             // echo "If index file not available";
                              $find_index = array_search(CSDIR,$expression);
                              self::$controller = ucfirst($default_controller_name).ucfirst(str_replace('/', '',APPPATH)).'Controller';
                              self::$args = array_slice($expression,$find_index+2);
@@ -71,8 +88,7 @@
            {
                      $args = func_get_args();
                      if(is_readable(str_replace("/",DS,APPPATH)."controllers".DS.strtolower($args[0]).EXT)):
-                          //echo str_replace('/', '',APPPATH).DS."controllers".DS.strtolower($args[0]).EXT;//
-                          require_once str_replace('/', '',APPPATH).OS_PATH_SEPERATOR."controllers".OS_PATH_SEPERATOR.strtolower($args[0]).EXT; //FPATH.'/'.
+                          include_once str_replace('/', '',APPPATH).OS_PATH_SEPERATOR."controllers".OS_PATH_SEPERATOR.strtolower($args[0]).EXT; //FPATH.'/'.
                      else:
                             exit("<span style='color:#ccc;'>Error: 404 Page not Found.<br> Requested $args[0] Controller not found. Please check directory permission if controler available</span>");
                      endif;
@@ -83,16 +99,21 @@
                     //var_dump(preg_replace('/[^a-zA-Z0-9]/', '', self::$controller));
                     self::setselfObject(self::$controller);
 
+                    $viewdir = strtolower(str_replace('AppsController','',self::$controller));
+                    $path= APPPATH.'views'.DS.$viewdir.DS;
+
                     if(empty(self::$method)|| self::$method == ""):
-                               call_user_func_array(array(self::get_self_instance(),"action_".self::$default_method), self::$args);
+                        self::set_view_dir($path);
+                        call_user_func_array(array(self::get_self_instance(),"action_".self::$default_method), self::$args);
                     elseif(TRUE !== method_exists(self::get_self_instance(), "action_".self::$method)):
-                             exit("<span style='color:#FF0000;'>Error: 500  : Undefined method action_".self::$method ." in ".self::$controller."</span>");
+                        exit("<span style='color:#FF0000;'>Error: 500  : Undefined method action_".self::$method ." in ".self::$controller."</span>");
                     else:
-                                try{
-                                            call_user_func_array(array(self::get_self_instance(),"action_".self::$method), self::$args);
-                                }catch(Exception $ex) {
-                                            throw new Exception("Cannot call the controller ");
-                                }
+                        try{
+                            self::set_view_dir($path);
+                            call_user_func_array(array(self::get_self_instance(),"action_".self::$method), self::$args);
+                        }catch(Exception $ex) {
+                                    throw new Exception("Cannot call the controller ");
+                        }
                     endif;
            }
 
@@ -123,5 +144,19 @@
                            // var_dump($uriarray);
                             $uriarray[$indexCount+$uri];
                            return @$uriarray[$indexCount+$uri];
+                }
+
+                private function set_view_dir($path)
+                {
+                    if (is_dir($path) === FALSE)
+                            mkdir($path,0777);
+
+                    return chmod($path,0777);
+                }
+
+                function __destruct() {
+                    $CF_CONFIG = Config::get_config_items('global_config');
+                        if($CF_CONFIG['enable_profiling']==TRUE)
+                           CF_AppRegistry::load('Profiler')->end_profiling();
                 }
     }

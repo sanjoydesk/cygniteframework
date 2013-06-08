@@ -8,57 +8,21 @@
             header("Cache-Control: maxage=".$excfres);
             header('Excfres: ' . gmdate('D, d M Y H:i:s', time()+$excfres) . ' GMT');
 */
+ //$data = $this->usersmodel->query();
+show($this->values);
 ?>
 
 <meta charset="utf-8"></meta>
-<link rel="stylesheet" type="text/css" href="<?php echo GlobalHelper::base_path(); ?>webroot/css/style.css">
-<link rel="stylesheet" type="text/css" href="<?php echo GlobalHelper::base_path(); ?>webroot/css/mystyle.css" />
 
-
-
-
-<form name="new_innovation" action="<?php echo GlobalHelper::site_url_path('welcome/index'); ?>" enctype="multipart/form-data" method="post" id="new_innovation" class="uniform">
+<form name="new_innovation" action="<?php echo GHelper::site_url_path('welcomeuser/dbtest'); ?>" enctype="multipart/form-data" method="post" id="new_innovation" class="uniform">
 <input type="hidden" value="add" name="action" />
 <input type="hidden" value="" name="id" />
 <input type="hidden" value="52" name="videoOption" />
 <dl class="inline">
-		 <input type="hidden" value="" name="source"  />
-	 <input type="hidden" value="" name="instance" />
-    <dt><label for="source_type"> Type<span class="req_field">*</span></label></dt>
-    <dd><select name="source_type" id="sourceType" class="required">
-        	<option value="">-Select-</option>
-                            <option value="34"   >Source Type</option>
-                                <option value="35"   >Websearch</option>
-                                <option value="36"   >Patent Search</option>
-                                <option value="37"   >RSS Feed and Google Alerts</option>
-                                <option value="39"   >Incubators</option>
-                                <option value="40"   >Investors</option>
-                                <option value="41"   >Investor Platforms</option>
-                                <option value="42"   >Media</option>
-                                <option value="43"   >Government/Research Institution</option>
-                                <option value="44"   >Educational Institution</option>
-                                <option value="45"   >Business Plan Competition</option>
-                        </select>
-      </dd>
-
-    <dt><label for="source">Se<span class="req_field">*</span></label></dt>
-    <dd>
-
-        <select name="source"  id="sourceList">
-        	<option value="">-Select-</option>
-        </select>
-    </dd>
-    <dt><label for="instance">in</label></dt>
-    <dd>
-
-        <select name="instance"  id="instanceList">
-        	<option value="">-Select-</option>
-        </select>
-    </dd>
 
     <dt><label for="name_of_entrepreneur">Name<span class="req_field">*</span></label></dt>
     <dd>
-        <input type="text" size="40" name="name_of_entrepreneur" value="" class="input-text required"/>
+        <input type="text" size="40" name="name_of_author" value="" class="input-text required"/>
     </dd>
     <dt><label for="phone_no">Phone Number<span class="req_field">*</span></label></dt>
     <dd>
@@ -96,9 +60,9 @@
     <dd>
         <input type="text" size="40" name="country" value="" class="input-text required" />
     </dd>
-    <dt><label for="cfncode"> cfn Code<span class="req_field">*</span></label></dt>
+    <dt><label for="cfncode"> Zip Code<span class="req_field">*</span></label></dt>
     <dd>
-       <input type="text" size="40" name="cfncode" value="" class="input-text required number" />
+       <input type="text" size="40" name="zipcode" value="" class="input-text required number" />
     </dd>
     <dt><label for="f">Supporting document </label></dt>
     <dd>
@@ -115,4 +79,4 @@
 </form>
 
 
-<script type="text/javascript" src="<?php echo GlobalHelper::base_path(); ?>webroot/js/jquery.js"></script>
+<script type="text/javascript" src="<?php echo GHelper::base_path(); ?>webroot/js/jquery.js"></script>

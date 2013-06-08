@@ -8,7 +8,7 @@
     /**
      * Description of CF_FileCache
      *This library is influnced by simple cache class
-     * 
+     *
      */
 
 
@@ -38,7 +38,7 @@
 
                 function __construct()
                 {
-                       $globalconfig =  CF_AppRegistry::load('Config')->get_config_items('config_items');
+                       $globalconfig =  Config::get_config_items('config_items');
                        $cache_config = array(
                                                                'name' => $globalconfig['GLOBAL_CONFIG']['cache_name'],
                                                                'path' => $globalconfig['GLOBAL_CONFIG']['cache_directory'],
@@ -50,6 +50,7 @@
                         else:
                                  $this->_cachepath = APPPATH.$globalconfig['GLOBAL_CONFIG']['cache_directory'].'/';
                         endif;
+                        unset($globalconfig);
                 }
 
                 public function initialize($config=NULL)
@@ -85,7 +86,7 @@
                 * @param integer [optional]
                 * @return object
                 */
-                public function write_cache($key, $value, $excfration = 0)
+                public function write_cache($key, $value, $expiration = 0)
                 {
                          // $this->get_timeout(); Do delete based on the session time out
                           $data = array(
@@ -101,7 +102,7 @@
                                     endif;
                             $cacheData = json_encode($dataArray);
                             if($this->get_cache_directory() == TRUE):
-                                     file_put_contents($this->get_cache_directory(), $cacheData);
+                                     @file_put_contents($this->get_cache_directory(), $cacheData);
                             endif;
                         return $this;
 
@@ -144,10 +145,10 @@
               function has_cache_dir()
               {
                     if (!is_dir($this->get_path()) && !mkdir($this->get_path(), 0775, TRUE)):
-                               GlobalHelper::display_errors(E_USER_NOTICE, 'Cache Path Error ','Unable to create cache directory ' . $this->get_path(), __FILE__, __LINE__);
+                               GHelper::display_errors(E_USER_NOTICE, 'Cache Path Error ','Unable to create cache directory ' . $this->get_path(), __FILE__, __LINE__);
                     elseif (!is_readable($this->get_path()) || !is_writable($this->get_path())):
                             if (!chmod($this->get_path(), 0775))
-                               GlobalHelper::display_errors(E_USER_NOTICE, 'Cache Path Error ',$this->get_path() . ' directory must be writeable', __FILE__, __LINE__);
+                               GHelper::display_errors(E_USER_NOTICE, 'Cache Path Error ',$this->get_path() . ' directory must be writeable', __FILE__, __LINE__);
                     endif;
                     return true;
               }
@@ -195,12 +196,12 @@
                      return $this->_extension;
               }
 
-              private function _is_expired($timestamp, $excfration)
+              private function _is_expired($timestamp, $expiration)
              {
                     $result = false;
-                    if ($excfration !== 0):
+                    if ($expiration !== 0):
                       $timeDiff = time() - $timestamp;
-                      ($timeDiff > $excfration) ? $result = TRUE : $result = FALSE;
+                      ($timeDiff > $expiration) ? $result = TRUE : $result = FALSE;
                     endif;
                     return $result;
               }
@@ -219,7 +220,7 @@
 
                   if ($counter > 0) :
                         $cacheData = json_encode($cacheData);
-                        file_put_contents($this->get_cache_directory(), $cacheData);
+                        @file_put_contents($this->get_cache_directory(), $cacheData);
                   endif;
                   return $counter;
                 endif;

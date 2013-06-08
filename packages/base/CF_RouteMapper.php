@@ -1,26 +1,40 @@
-
 <?php
+/*
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         :  Packages
+ * @Sub Packages               :  Base
+ * @Filename                       :  CF_RouteMapper
+ * @Description                   : This file is used to map all routing of the cygnite framework
+ * @Author                           : Sanjoy Dey
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
 
-        /*
-         *===============================================================================================
-         *  An open source application development framework for PHP 5.2 or newer
-         *
-         * @Package                         :
-         * @Filename                       :
-         * @Description                   :
-         * @Autho                            : Appsntech Dev Team
-         * @Copyright                     : Copyright (c) 2013 - 2014,
-         * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
-         * @Since	                          : Version 1.0
-         * @Filesource
-         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-         * ===============================================================================================
-         */
+
 //RouteMapper::get('welcomeuser/(:all?)', 'category@view');
 //RouteMapper::route('category/any','industry@index');
 //RouteMapper::route('category/any','welcome@testing');
-     class Router
+
+//include_once APPPATH.'routerconfig'.EXT;
+/*
+ class Router
     {
             public static $is_router_enabled = FALSE;
             private static $router = array();
@@ -31,14 +45,13 @@
                             throw new Exception ("Empty url parameter passed on ".__METHOD__);
                     if($routeto =="")
                           throw new Exception ("Empty route_to parameter passed on ".__METHOD__);
-
+                   
                       if(self::$is_router_enabled):
                               self::$router = array(
                                                                              'url' => $url,
                                                                              'route_to' => $routeto
                              );
                       endif;
-
             }
 
             public function get_route()
@@ -52,8 +65,8 @@
             }
     }
 
-     class RouteMapper
-
+*/
+    class RouteMapper
     {
             private static $index_page = "index.php";
             //public static $is_router_enabled = FALSE;
@@ -64,7 +77,7 @@
                  $segment = explode('/', $url);
 
                  if(in_array('any', $segment) && (static::_uri_exists($segment[0], $_SERVER['REQUEST_URI']) )):
-                       //echo "controll exists with any keyword ";
+                   //    echo "controll exists with any keyword ";
                                 $call_route = array();
                                 $call_route = explode('@', $routeto);
                                 $exp = explode('/',($_SERVER['REQUEST_URI']));
@@ -94,7 +107,7 @@
 
             private static function catch_request($expression,$find_index)
             {
-                        CF_AppRegistry::import('base', 'Dispatcher',CF_BASEPATH);
+                        CF_AppRegistry::import('base', 'Dispatcher',CF_SYSTEM);
                         if(class_exists('Dispatcher')): //var_dump(array_filter($expression));
                                     Dispatcher::response_user_request(array_filter($expression),$find_index,TRUE);
                         endif;

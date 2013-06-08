@@ -1,21 +1,31 @@
-<?php  if ( ! defined('CF_BASEPATH')) exit('No direct script access allowed');
-
+<?php  if ( ! defined('CF_SYSTEM')) exit('No direct script access allowed');
 /*
-         *===============================================================================================
-         *  An open source application development framework for PHP 5.2 or newer
-         *
-         * @Package                         :
-         * @Filename                       :
-         * @Description                   :
-         * @Autho                            : Appsntech Dev Team
-         * @Copyright                     : Copyright (c) 2013 - 2014,
-         * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
-         * @Since	                          : Version 1.0
-         * @Filesource
-         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-         * ===============================================================================================
-         */ 
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         :  Packages
+ * @Sub Packages               :  Library
+ * @Filename                       : CF_ErrorHandler
+ * @Description                   : This library used to handle all errors or exceptions of Cygnite Framework.
+ * @Author                           :  Cygnite Dev Team
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
 
     class CF_ErrorHandler
     {
@@ -30,10 +40,7 @@
            public  function __construct()
            {
                     $this->ob_level = ob_get_level();
-
-                   //Use our custom handler
-                   set_error_handler(array($this, 'handle_errors'));
-
+                   set_error_handler(array($this, 'handle_errors'));//Use our custom handler
             }
 
 
@@ -45,7 +52,7 @@
                                 case E_USER_ERROR :
                                             switch ($this->debug):
                                                         case FALSE:
-                                                                    echo 'Fatal Error has occured!';
+                                                                     $this->_error($err_header,$line,$err_message,$err_file,$this->debug,'');
                                                                   //  exit;
                                                         case TRUE:
                                                                     $this->_error($err_header,$line,$err_message,$err_file,$this->debug,'fatal');
@@ -61,10 +68,30 @@
 
             }
 
-            private function _error($err_header,$line,$err_message,$err_file,$debug = "",$type = NULL)
+            private function _error($title,$line,$err_message,$err_file,$debug = "",$type = NULL)
             {
-                        $html = "";
-                        $html  .= "<html> <head><title>".$err_header."</title>
+                       
+                        ob_start();
+                        $arr =  array(
+                                      'title' => $title,
+                                      'line' =>$line,
+                                      'message'=>$err_message,
+                                      'type' =>$type,
+                                      'debug'=>$debug,
+                                      'file' =>$err_file
+                            
+                        );
+                        @extract($arr);
+                        
+                        include str_replace('/','',APPPATH).DS.'errors'.DS.'error'.EXT;
+                                     
+                        $output= ob_get_contents();
+                        ob_get_clean();
+
+                        echo $output;
+                        ob_end_flush();
+                        ob_get_flush();
+                       /*$html = ""; $html  .= "<html> <head><title>".$title."</title>
                         <style type='text/css'>
                                 #contetainer { font-family:Lucida Grande,Verdana,Sans-serif; margin: 40px; font-size:12px;padding: 20px 20px 12px 20px; background:#fff; border:1px solid #D3640F; }
                                 h2 { color: #990000;  font-size: 15px;font-weight: normal;margin: 5px 5px 5px 13px;}
@@ -72,14 +99,16 @@
                         </style>
                         </head><body>";
                         $html .="<div id='contetainer'>";
-                       $html .=" <h2> ". (($type === 'fatal')  ?  'Fatal Error :  ' :  (($type === 'warning')  ?    'Warning :  ' :   'Notice :  ' )).$err_header."</h2>";
-                        $html .=" <p >Line Number : ".$line."</p>";
-                        $html .=" <p> ".$err_message."</p>";
+                       $html .=" <h2> ". (($type === 'fatal')  ?  'FATAL ERROR :  ' :  (($type === 'warning')  ?    'WARNING :  ' :   'NOTICE :  ' )).strtoupper($title)."</h2>";
+                        $html .=" <p >LINE NUMBER : ".$line."</p>";
+                        $html .=" <p> EXCEPTION MESSEGE :  ".$err_message."</p>";
                         $html .=" <p> ".($debug === TRUE || $debug === 1) ? '' : $debug ." :</p>";
-                        $html .=" <p> Filename : ".$err_file."</p>";
+                        $html .=" <p> FILENAME : ".$err_file."</p>";
                         $html .="</div>";
                         $html .="</body></html>";
                         echo $html;
+                        */
+                        ($debug === TRUE || $debug === 1) ? '' : $debug;
                         ($type === 'fatal') ?  exit : '';
             }
 
@@ -123,9 +152,5 @@
                               trigger_my_error('abc() expects parameter 1 to be a string', E_USER_ERROR);
             }
 
-            function __destruct()
-            {
-
-            }
-
+            function __destruct() {  }
     }

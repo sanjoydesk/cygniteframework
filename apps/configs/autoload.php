@@ -15,7 +15,7 @@
          * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
          * ===============================================================================================
          */
- 
+
 /*
 *---------------------------------------------------------------------------------
 * AUTO-LOADER
@@ -29,7 +29,7 @@
 
 $CF_CONFIG['autoload'] = array(
                                                         'helpers' => array('encrypt'), /* Autoload Helper Files */
-                                                        'libraries' => array('authentication'), /* Autoload Library Files*/
+                                                        'libraries' => array('authx'), /* Autoload Library Files*/
                                                         'plugins' => array(), /* Autoload Library Files*/
                                                         'model'    => array()   /* Autoload Model Files*/
 );

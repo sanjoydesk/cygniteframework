@@ -1,24 +1,36 @@
 <?php
-       /*
-         *===============================================================================================
-         *  An open source application development framework for PHP 5.2 or newer
-         *
-         * @Package                         :
-         * @Filename                       :
-         * @Description                   :
-         * @Autho                            : Appsntech Dev Team
-         * @Copyright                     : Copyright (c) 2013 - 2014,
-         * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
-         * @Since	                          : Version 1.0
-         * @Filesource
-         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-         * ===============================================================================================
-         */
+/*
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         :  Packages
+ * @Sub Packages               :  Base
+ * @Filename                       :  CF_Uri
+ * @Description                   : This is the base entry point for user request and dispatch to requested controllers.
+ * @Author                           : Sanjoy Dey
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
+
 //namespace common\cf_Uri;
  //AppLogger::write_error_log(' URI Initialized',__FILE__);
-    CF_AppRegistry::import('base', 'Dispatcher',CF_BASEPATH);
-    CF_AppRegistry::import('base', 'RouteMapper',CF_BASEPATH);
+    CF_AppRegistry::import('base', 'Dispatcher',CF_SYSTEM);
+    CF_AppRegistry::import('base', 'RouteMapper',CF_SYSTEM);
 
     class CF_Uri
     {
@@ -26,25 +38,19 @@
             var $values =  NULL;
             private  $router_enabled = FALSE;
 
-
-            function __construct()
-            {       try {
-                         //   AppLogger::write_error_log(__CLASS__.' Initialized',__FILE__);
-                    } catch(Exception $ex){
-                            $ex->getMessage();
-                    }
-                }
-
             private function _is_enabled()
             {
                 try{
-                            include_once APPPATH.'routerconfig'.EXT;
+                       include_once APPPATH.'routerconfig'.EXT;
+                       if(class_exists('Route'))
+                          $route = Route::get_route();
+
                        }  catch (Exception $excep) {
                             $excep->getMessage();
                        }
-                     if(TRUE=== Router::$is_router_enabled):
+                     if(TRUE=== $route['is_router_enabled']):
                             $this->router_enabled = TRUE;
-                            return TRUE;
+                            return $route;
                     endif;
 
                     return FALSE;
@@ -63,34 +69,42 @@
                        $querystring = explode('?',$_SERVER['REQUEST_URI'],2);
                        $calee = debug_backtrace();
                        if(!empty($querystring[1]))
-                                  GlobalHelper::display_errors(E_USER_WARNING, 'Bad Url Format ', 'You are not allowed to pass query string in url.', __FILE__,$callee[0]['line'] ,TRUE);
+                                  GHelper::display_errors(E_USER_WARNING, 'Bad Url Format ', 'You are not allowed to pass query string in url.', __FILE__,$callee[0]['line'] ,TRUE);
 
-                       //var_dump($expression);
-                      //echo $find_index;
                       $expression = array_filter(explode('/',($_SERVER['REQUEST_URI'])));
-                      if($this->_is_enabled())
-                               $router = Router::get_route();
+
+                      if($routeconfig = $this->_is_enabled()):
+                           $router = $routeconfig;
+                            if($routeconfig['url'] =="")
+                                  throw new Exception ("Invalid url parameter on Route::set_route()");
+                            if($routeconfig['routeto'] =="")
+                                  throw new Exception ("Invalid routeto parameter on Route::set_route()");
+                       endif;
 
                       $segment = explode('/', $router['url']);
 
                     $find_index = array_search($this->index_page,$expression);
 
+                //    echo $find_index;exit;
                           if($find_index != '' && TRUE == $this->_is_enabled()  && ($expression[3] == $segment[0] && $expression[4] == $segment[1])):
-                                // echo "here I am with routing and index page and match all uri <br>";
-                                 RouteMapper::route($router['url'],$router['route_to']);
+                                //echo "here I am with routing and index page and match all uri <br>";
+                                 RouteMapper::route($router['url'],$router['routeto']);
                           elseif($find_index != '' && TRUE == $this->_is_enabled()  && ($expression[3] != $segment[0] && $expression[4] != $segment[1])):
                                  //echo "here I am with routing and index page but not match uri<br>";
                                 Dispatcher::response_user_request($expression, $find_index);
                          elseif($find_index == '' && ($expression[2] == $segment[0] && $expression[3] == $segment[1]) ):
-                              //  echo "here m nw elseif";
-                                RouteMapper::route($router['url'], $router['route_to']);
+                                //echo "here m nw elseif";
+                                RouteMapper::route($router['url'], $router['routeto']);
                         elseif($find_index == '' && TRUE == $this->_is_enabled() && ($expression[2] != $segment[0] && $expression[3] != $segment[1])):
                             // echo "here I am with routing and without index page <br>";
-                             $find_indexcount = array_search(ROOT_DIR,$expression);
+                             $find_indexcount = array_search(ROOT,$expression);
                             Dispatcher::response_user_request($expression, $find_indexcount);
-                            //     RouteMapper::route($segment[0], $segment[1]);
+                            //   RouteMapper::route($segment[0], $segment[1]);
+                        elseif($find_index == '' && ($expression[2] == $segment[0] && $expression[3] != $segment[1]) ):
+                                 Dispatcher::response_user_request($expression, $find_index);
                        else: //echo "jhhjhj";
-                           Dispatcher::response_user_request($expression, $find_index);
+                           RouteMapper::route($router['url'],$router['routeto']);
+                         //  Dispatcher::response_user_request($expression, $find_index);
                         endif;
 
 
@@ -127,10 +141,10 @@
 
                         switch($type):
                             case 'refresh' :
-                                                      header("Refresh:0;url=".$uri);
+                                                  header("Refresh:0;url=".$uri);
                                      break;
                             default:
-                                                            header("Location: ".$uri, TRUE, $http_response_code);
+                                                 header("Location: ".$uri, TRUE, $http_response_code);
                                     break;
                       endswitch;
                     exit;
@@ -159,9 +173,6 @@
                  */
                 function __destruct()
                 {
-                        $CF_CONFIG = CF_AppRegistry::load('Config')->get_config_items('config_items');
-                        if($CF_CONFIG['GLOBAL_CONFIG']['enable_profiling']==TRUE)
-                           CF_AppRegistry::load('Profiler')->end_profiling();
                        unset($this->index_page);
                 }
     }

@@ -1,26 +1,35 @@
 <?php
-       /*
-         *===============================================================================================
-         *  An open source application development framework for PHP 5.2 or newer
-         *
-         * @Package                         :
-         * @Filename                       :
-         * @Description                   :
-         * @Autho                            : Appsntech Dev Team
-         * @Copyright                     : Copyright (c) 2013 - 2014,
-         * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
-         * @Since	                          : Version 1.0
-         * @Filesource
-         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-         * ===============================================================================================
-         */
+/*
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         :  Packages
+ * @Sub Packages               :  Base
+ * @Filename                       :  CF_BaseSession
+ * @Description                   : This class is used to handle session mechanisam of the cygnite framework
+ * @Author                           : Sanjoy Dey
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
 
- 
-//CF_AppRegistry::import('library', 'Encrypt',CF_BASEPATH);
-class cf_Session
+class CF_BaseSession
 {
-    const SESSION_PREFIX = 'Php-Ignite';
+    const SESSION_PREFIX = 'Cygnite';
     var $time_reference = 'time',$now,$config = array();
     public $_autostart= TRUE;
     private  $_initialized=FALSE,$_is_started = FALSE,$encrypt = NULL,$httponly = TRUE;
@@ -35,8 +44,11 @@ class cf_Session
                     */
                     public function __construct($secret = '')
                     {
-                                 CF_AppRegistry::load_lib_class('cf_Encrypt',CF_ENCRYPT_KEY);
-                                 $this->config =  CF_AppRegistry::load('Config')->get_config_items('config_items');
+                                 CF_AppRegistry::load_lib_class('CF_Encrypt',CF_ENCRYPT_KEY);
+                                 $config =  Config::get_config_items('config_items');
+                                 $this->config = $config['SESSION_CONFIG'];
+                                 unset($config);
+
                                 // show($this->config['SESSION_CONFIG']['cf_session_use_db']);
                                 $this->initialize(CF_ENCRYPT_KEY);
                     }
@@ -76,7 +88,7 @@ class cf_Session
                                   endif;
 
                                     $this->set_session_save_path(WEB_ROOT.OS_PATH_SEPERATOR.$path.'temp'.OS_PATH_SEPERATOR.'sessions'.OS_PATH_SEPERATOR);
-                                    $this->set_session_name($this->config['SESSION_CONFIG']['cf_session_name']);
+                                    $this->set_session_name($this->config['cf_session_name']);
                                    // $this->set_cookie_parameters($session_array);
 
                                     @session_start();
@@ -298,7 +310,7 @@ class cf_Session
                                                           $_SESSION[$key]= CF_AppRegistry::load('Encrypt')->encrypt($value);
                                                           return TRUE;
                                                     else:
-                                                         GlobalHelper::display_errors(E_USER_ERROR, 'Session Key', 'Empty key passed to '.__FUNCTION__.'()', $callee[0]['file'],$callee[0]['line'] , TRUE);
+                                                         GHelper::display_errors(E_USER_ERROR, 'Session Key', 'Empty key passed to '.__FUNCTION__.'()', $callee[0]['file'],$callee[0]['line'] , TRUE);
                                                     endif;
                                             break;
                                    endswitch;
@@ -380,7 +392,8 @@ class cf_Session
                             return $time;
                     }
 
-                    function __destruct() {
+                    function __destruct()
+                    {
                         session_write_close();
                     }
 }

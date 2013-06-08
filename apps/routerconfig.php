@@ -14,10 +14,32 @@
 //Set RouteMapper::$is_router_enabled = FALSE; by default.
 /*RouteMapper::$is_router_enabled = TRUE;
 RouteMapper::set_route('category/any','welcome@testing'); */
-Router::$is_router_enabled = TRUE;
-Router::set_route('category/list','welcomeuser@testing');
+//Router::$is_router_enabled = TRUE;
+//Router::set_route('category/any','welcomeuser@testing');
 
+abstract class Route
+{
+    public static $path,$routeto;
+    public static $routing = array();
+
+    public static function set_route()
+    {
+       return static::$routing = array(
+                              'is_router_enabled' => TRUE,
+                              'url'=>'category/list',
+                              'routeto' => 'welcomeuser@testing'
+                              );
+    }
+
+    public static function get_route()
+    {
+        if(!is_null(static::set_route()))
+            return static::set_route();
+
+        return FALSE;
+    }
+
+}
 
 //RouteMapper::get('welcomeuser/(:all?)', 'category@view');
 //RouteMapper::get('industrial/(:all?)', 'category@list');
-

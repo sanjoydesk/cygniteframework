@@ -1,4 +1,4 @@
-<?php if (!defined('CF_BASEPATH')) exit('No direct script access allowed');
+<?php if (!defined('CF_SYSTEM')) exit('No direct script access allowed');
     /*
     * ===============================================================================================
     *
@@ -15,11 +15,12 @@
 
         public function action_index()
         {
-            $data['userdetails'] = $this->app()->usersmodel->getdetails();
-           $data['userlist'] =  $this->app()->category->getuserlist();
+            $userdetails = $this->app()->usersmodel->getdetails();
+          // $userlist =  $this->app()->category->getuserlist();
 
             $data['values'] = "Sanjay";
-            $this->app()->render("register", $data);
+            $this->app()->render("register")->with(array('userdetails' => $userdetails,
+                                                                                             'userlist' => $userlist));
         }
 
         public function action_userlist()

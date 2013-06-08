@@ -1,20 +1,32 @@
-<?php if ( ! defined('CF_BASEPATH')) exit('Direct script access not allowed');
-       /*
-         *===============================================================================================
-         *  An open source application development framework for PHP 5.2 or newer
-         *
-         * @Package                         :
-         * @Filename                       :
-         * @Description                   :
-         * @Autho                            : Appsntech Dev Team
-         * @Copyright                     : Copyright (c) 2013 - 2014,
-         * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
-         * @Since	                          : Version 1.0
-         * @Filesource
-         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-         * ===============================================================================================
-         */ 
+<?php if ( ! defined('CF_SYSTEM')) exit('Direct script access not allowed');
+/*
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         :  Packages
+ * @Sub Packages               :  Base
+ * @Filename                       :  CF_AppRegistry
+ * @Description                   : This is registry auto loader for CF
+ * @Author                           : Sanjoy Dey
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
+
 
     abstract class CF_AppRegistry
     {
@@ -22,6 +34,7 @@
                 var $name;
                 public static $instance = NULL;
                 private static $value = array();
+                private static $_directorypath = array();
               //  private static $_core_dirs = array( 'core/common', 'core/loader', 'core/library', 'core/helpers');
              //  private static $_core_classes = array('cf_Profiler','cf_ErrorHandler','cf_Uri','cf_Security','CF_CONFIG');
 
@@ -53,32 +66,35 @@
                                 case is_array($class_names):
                                                         foreach($class_names as $key=>$class_name): //var_dump(self::$classNames[$class_name]);
                                                                   if (isset(self::$classNames[$class_name])):
-                                                                        require_once(self::$classNames[$class_name]);
-                                                                         $classname = strtolower(str_replace('CF_', '', $class_name));
+                                                                        include_once(self::$classNames[$class_name]);
                                                                             self::lib_array_Iterator($class_name,$encryptionkey);
                                                                 endif;
                                                         endforeach;
 
                                     break;
                                 case is_string($class_names):
-                                                         if (isset(self::$classNames[$class_names])):
-                                                               //show(self::$classNames[$class_names]);
-                                                                if(is_readable(self::$classNames[$class_names]))
-                                                                      require_once self::$classNames[$class_names];
-                                                                else
-                                                                          throw new Exception("Class $class_names cannot load ");
+                                            if (isset(self::$classNames[$class_names])):
+                                                //show(self::$classNames);
+                                                //echo $class_names;
+                                                 if(is_readable(self::$classNames[$class_names]))
+                                                      include_once self::$classNames[$class_names];
+                                                 else
+                                                      throw new Exception("Class $class_names cannot load ");
 
-                                                                $classname = strtolower(str_replace('CF_', '', $class_names));
-
-                                                                 if(class_exists($class_names)):
-                                                                        $classname =  new $class_names('ens');
-                                                                        // self::$instance = self::$classNames[$className];
-                                                                        $obname  = strtolower(str_replace('CF_', '', $class_names));
-                                                                        self::store($obname,$classname);
-                                                                 else:
-                                                                         throw new Exception("Class $class_names cann't initiated ");
-                                                                 endif;
-                                                        endif;
+                                                  if(class_exists($class_names)):
+                                                         $classname =  new $class_names('ens');
+                                                         // self::$instance = self::$classNames[$className];
+                                                         $obname  = strtolower(str_replace('CF_', '', $class_names));
+                                                         self::store($obname,$classname);
+                                                  else:
+                                                          throw new Exception("Class $class_names cann't initiated ");
+                                                  endif;
+                                           else: 
+                                               GHelper::trace();
+                                               $callee = debug_backtrace();
+                                               GHelper::display_errors(E_USER_ERROR, 'Unhandled Exception',"Requested CF_".trim($key)." library doesn't exists ", $callee[1]['file'],$callee[1]['line'],TRUE);
+                                           endif;
+                                
                                     break;
                     endswitch;
                  }
@@ -100,6 +116,11 @@
                  {
                         $obname = NULL;
                         $obname =  strtolower($key);
+                        if(!array_key_exists($obname,self::$value)):
+                             $callee = debug_backtrace();
+                             GHelper::display_errors(E_USER_ERROR, 'Unhandled Exception',"Requested CF_$key library doesn't exists ", $callee[1]['file'],$callee[1]['line'],TRUE);
+                        endif;
+                        
                         return self::$value[$obname];
                  }
 
@@ -112,59 +133,56 @@
                       if(is_null($path) || $path == "")
                                 throw new Exception("Empty path passed on ".__METHOD__);
 
-                     switch($path):
-                               case CF_BASEPATH:
-                                                  $prefix = NULL;
-                                                //  $path = FPATH.CF_BASEPATH;
-                                                  $path = CF_BASEPATH;
-                                                  $prefix = ($dir_name  === 'database') ? DATABASE_PREFIX : FRAMEWORK_PREFIX ;
-                                                   $_directorypath  =    $path.DS.$dir_name.DS.$prefix.$filename.EXT;
+                                 switch($path):
+                                              case CF_SYSTEM:
+                                                                            $prefix = NULL;
+                                                                            $path = getcwd().DS.CF_SYSTEM;
+                                                                            $prefix = ($dir_name  === 'database') ? DATABASE_PREFIX : FRAMEWORK_PREFIX ;
+                                                                            $_directorypath  =    $path.DS.$dir_name.DS.$prefix.$filename.EXT;
 
-                                                    if(file_exists($_directorypath)):
-                                                            require_once $_directorypath;
-
-                                                    else:
-                                                           exit("Wrong parameters passed into".__METHOD__);
-                                                    endif;
-                                                  /*  if(is_readable($_directorypath) && file_exists($_directorypath))
-                                                            require_once $_directorypath;
-                                                    else
-                                                            throw new Exception("Wrong parameters passed into".__METHOD__); */
-                                   break;
-                               case APPPATH:
-                                                                $CF_CONFIG = array();
-                                                              //echo   $path = FPATH.str_replace('/', '', APPPATH);
-                                                                $path =  str_replace('/', '', APPPATH);
-                                                                if($sub_dir != NULL):
-                                                                               if(is_array($filename)):
-                                                                                        foreach($filename as $key =>$value)
-                                                                                             $_directorypath  =    $path.DS.$sub_dir.DS.$dir_name.DS.$value.EXT;
-                                                                                else:
-                                                                                                  $_directorypath  =    $path.DS.$sub_dir.DS.$dir_name.DS.$filename.EXT;
-                                                                                endif;
-                                                                else:
-                                                                                if(is_array($filename)):
-                                                                                        foreach($filename as $key =>$value):
-                                                                                                   $_directorypath  =    $path.DS.$dir_name.DS.$value.EXT;
-                                                                                        endforeach;
-                                                                                else:
-                                                                                                 $_directorypath  =    $path.DS.$dir_name.DS.$filename.EXT;
-                                                                                endif;
-                                                                endif;
-
-                                                                if(is_readable($_directorypath) && file_exists($_directorypath)):
-                                                                        try{
-                                                                             require_once $_directorypath;
-                                                                        }catch(Exception $ex){
-                                                                                echo "Unable to load file ".__METHOD__;
-                                                                                $ex->getMessage();
-                                                                        }
-                                                                        self::store_config(strtolower($filename).'_items', $CF_CONFIG);
-                                                                endif;
-                                   break;
-                     endswitch;
+                                                                            if(is_readable($_directorypath) && file_exists($_directorypath))
+                                                                                      include_once $_directorypath;
+                                                                            else
+                                                                                     echo "File Doesn't exist in following path $_directorypath ".__METHOD__;
+                                                          break;
+                                              case APPPATH:
+                                                                            $path =  getcwd().DS.str_replace('/', '', APPPATH);
+                                                                            if($sub_dir != NULL)
+                                                                                    self::locate_apppath($path,$dir_name,$subdir,$filename);
+                                                                            else
+                                                                                    self::locate_apppath($path,$dir_name,$subdir = NULL,$filename);
+                                               break;
+                                 endswitch;
                      return TRUE;
                  }
+
+                 private static function locate_apppath($path,$dir_name,$subdir,$filename)
+                 {
+                       $subdir =  (!is_null($subdir)) ? $subdir.DS : '';
+
+                         if(is_array($filename)):
+                                    foreach($filename as $key =>$value):
+                                         $_directorypath[$value]  =    $path.DS.$subdir.$dir_name.DS.$value.EXT;
+                                         self::include_file($_directorypath[$value],$value);
+                                  endforeach;
+                        else:
+                                  $_directorypath[$filename]  =    $path.DS.$subdir.$dir_name.DS.$filename.EXT;
+                                  self::include_file($_directorypath[$filename],$filename);
+                        endif;
+                 }
+
+                 private static function include_file($_directorypath,$filename)
+                 {
+                        $CF_CONFIG = array();
+                            try{
+                                    if(is_readable($_directorypath) && file_exists($_directorypath)):
+                                                 include_once $_directorypath;
+                                            self::store(strtolower($filename).'_items', $CF_CONFIG);
+                                    endif;
+                            }catch(Exception $ex){
+                                            echo "Unable to load file $_directorypath ".__METHOD__, $ex->getMessage();
+                           }
+                }
 
                  private static function store_config($name, $values = array())
                  {
@@ -203,32 +221,33 @@
                             endforeach;
                 }
 
-                function scan_dir($base_dir) {
+                function scan_dir($base_dir)
+                {
                           $directories = array();
-                          foreach(scandir($base_dir) as $file) {
-                                if($file == '.' || $file == '..') continue;
-                                $dir = $base_dir.DIRECTORY_SEPARATOR.$file;
-                                if(is_dir($dir)) {
-                                    $directories []= $dir;
-                                    $directories = array_merge($directories, expandDirectories($dir));
-                                }
-                          }
+                              foreach(scandir($base_dir) as $file):
+                                     if($file == '.' || $file == '..') continue;
+                                            $dir = $base_dir.DIRECTORY_SEPARATOR.$file;
+                                            if(is_dir($dir)) :
+                                                $directories []= $dir;
+                                                $directories = array_merge($directories, expandDirectories($dir));
+                                            endif;
+                                endforeach;
                           return $directories;
-                    }
+               }
 
-                  /**
-                    * @warning  You can´t change this!
-                    *
-                    */
-                   public static function copyright()
-                  {
+              /**
+                * @warning  You can´t change this!
+                *
+                */
+               public static function copyright()
+              {
 
-                         $copyright =    " <div style='padding: 20px 20px 12px;'>
-                                              <span style='color:brown;font-weight:bold;margin:2px; padding: 3px; '>  Author:  </span> AppsnTech Dev Team - <a  href='http://appsntech.com' >http://appsntech.com </a> - <br>
-                                              <p style='color:brown;font-weight:bold;margin:2px; padding: 3px; '>   Create Date:  08-05-2012  </p>
-                                              <p style='color:brown;font-weight:bold;margin:2px; padding: 3px; '>   Version   :    ".CF_VERSION." </p>
-                                              <p style='margin:2px; padding: 3px; color:brown;font-weight:bold;'>   License:   </p>
-                                                </div>";
-                              return $copyright;
-                    }
+                     $copyright =    " <div style='padding: 20px 20px 12px;'>
+                                          <span style='color:brown;font-weight:bold;margin:2px; padding: 3px; '>  Author:  </span> Cygnite Dev Team - <a  href='http://appsntech.com' >http://appsntech.com </a> - <br>
+                                          <p style='color:brown;font-weight:bold;margin:2px; padding: 3px; '>   Create Date:  08-05-2012  </p>
+                                          <p style='color:brown;font-weight:bold;margin:2px; padding: 3px; '>   Version   :    ".CF_VERSION." </p>
+                                          <p style='margin:2px; padding: 3px; color:brown;font-weight:bold;'>   License:   </p>
+                                            </div>";
+                          return $copyright;
+                }
 }

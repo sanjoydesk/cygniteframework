@@ -1,4 +1,4 @@
-<?php if ( ! defined('CF_BASEPATH')) exit('Direct script access not allowed');
+<?php if ( ! defined('CF_SYSTEM')) exit('Direct script access not allowed');
     /*
      *===============================================================================================
      *  An open source application development framework for PHP 5.1.6 or newer

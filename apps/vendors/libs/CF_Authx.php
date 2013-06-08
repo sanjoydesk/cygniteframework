@@ -1,4 +1,4 @@
-<?php if ( ! defined('CF_BASEPATH')) exit('Direct script access not allowed');
+<?php if ( ! defined('CF_SYSTEM')) exit('Direct script access not allowed');
        /*
          *===============================================================================================
          *  An open source application development framework for PHP 5.2 or newer
@@ -17,10 +17,10 @@
          */
 
 
-class CF_AuthManager  implements IRegistry
+class CF_Authx  implements IRegistry
 {
     var $query = NULL;
-    private $db = NULL;
+    private $db, $auth = NULL;
     private $db_name = NULL;
     private $user_password =NULL;
     private $app = NULL;
@@ -28,7 +28,8 @@ class CF_AuthManager  implements IRegistry
 
     function __construct()
     {
-             $this->app=  GlobalHelper::get_singleton();
+             $this->app=  GHelper::get_singleton();
+             //CF_AppRegistry::load_lib_class('Encrypt','BaseSession');
     }
 
     public static function initialize($dirRegistry = array()) {}
@@ -60,13 +61,15 @@ class CF_AuthManager  implements IRegistry
       */
      public function build_user_session($sess_details = array())
      {
-                $this->db =  CF_ApplicationModel::get_cnXn_obj($this->db_name);
+                $this->auth =  CF_ApplicationModel::get_db_instance($this->db_name);
                 $user_credentials = array();
-                $select_query = (!is_null($this->query)) ? $this->query : "";
 
-                if(is_null($select_query))
+                $select_query = (!is_null($this->query)) ? $this->query : "";
+                if(is_null($select_query) || trim($select_query) == ' ')
                        throw new Exception('Empty query passed ');
-                $stmt = $this->db->query($select_query);   //build user query
+
+               $this->auth->sql_generator(FALSE);
+                $stmt = $this->auth->db->query($select_query);   //build user query
                 $stmt->execute();
                 $user_credentials = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -84,7 +87,7 @@ class CF_AuthManager  implements IRegistry
                                                foreach($user_credentials as $userkey => $uservalue):
                                                              unset($user_credentials[0]);
                                                endforeach;
-                                                $is_set_sess= $this->app->request('Session')->setsession($this->sess_key,$user_credentials);
+                                                $is_set_sess= $this->app->request('BaseSession')->setsession($this->sess_key,$user_credentials);
                                      return ($is_set_sess == TRUE) ? TRUE : FALSE;
                         else:
                                 return FALSE;
@@ -104,7 +107,7 @@ class CF_AuthManager  implements IRegistry
     {
             if($this->app->request('Session')):
                     //If user has valid session, and such is logged in
-                    $sess_array = $this->app->request('Session')->getsession($login_key);
+                    $sess_array = $this->app->request('BaseSession')->getsession($login_key);
                     if(!empty($sess_array['logged_in']))
                            return TRUE;
                     else

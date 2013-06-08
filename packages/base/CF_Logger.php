@@ -1,21 +1,31 @@
 <?php
-
-       /*
-         *===============================================================================================
-         *  An open source application development framework for PHP 5.2 or newer
-         *
-         * @Package                         :
-         * @Filename                       :
-         * @Description                   :
-         * @Autho                            : Appsntech Dev Team
-         * @Copyright                     : Copyright (c) 2013 - 2014,
-         * @License                         : http://www.appsntech.com/license.txt
-         * @Link	                          : http://appsntech.com
-         * @Since	                          : Version 1.0
-         * @Filesource
-         * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-         * ===============================================================================================
-         */
+/*
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         :  Packages
+ * @Sub Packages               :  Base
+ * @Filename                       :  CF_Logger
+ * @Description                   : This class is used to handle error logs of the cygnite framework
+ * @Author                           : Sanjoy Dey
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
 
 //AppLogger::write_error_log('Logger Initialized By Sanjay',__FILE__);
 
@@ -35,7 +45,7 @@ class AppLogger
       private static function get_log_config()
       {
                 if(empty(self::$config))
-                     self::$config =  CF_AppRegistry::load('Config')->get_config_items('config_items');
+                     self::$config =  Config::get_config_items('config_items');
 
                 if(self::$config['ERROR_CONFIG']['log_path'] !="" || self::$config['ERROR_CONFIG']['log_path'] !==NULL)
                         self::$log_path  = APPPATH.self::$config['ERROR_CONFIG']['log_path'].'/';

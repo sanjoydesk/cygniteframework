@@ -27,27 +27,29 @@
  *
  */
 
-             /*----------------------------------------------------
-             * initializeSession
-             * ----------------------------------------------------
-             */
+    /*----------------------------------------------------------------
+    * Autoload Session library based on user configurations
+    * ----------------------------------------------------------------
+    */
+    if(SECURE_SESSION === TRUE)
+           CF_AppRegistry::load_lib_class('CF_Session');
+   /*------------------------------------------------------------------------------------
+    * Throw Exception is default controller has not been set in configuration
+    * ------------------------------------------------------------------------------------
+    */
+    if(empty($gconfig["default_controller"]) || $gconfig["default_controller"] == "")
+            throw new ErrorException("Default controller not found ! Please set the default controller in configs/config".EXT);
 
-            if(SECURE_SESSION === TRUE)
-                       CF_AppRegistry::load_lib_class('CF_Session');
+    /*-----------------------------------------------------------------------------------------------
+     * Check register globals and remove them. Secure application by build in libraries
+     * -----------------------------------------------------------------------------------------------
+     */
+    CF_AppRegistry::load('BaseSecurity')->unset_globals();
+    CF_AppRegistry::load('BaseSecurity')->unset_magicquotes();
 
-            //$site_url = CF_AppRegistry::load('Uri')->site_url($base_url);
-            $url_string = CF_AppRegistry::load('Uri')->urisegment('1');
-
-             if(empty($url_string))
-                     CF_AppRegistry::load('Uri')->redirect($default_controller);
-
-            if(empty($default_controller) || $default_controller == "")
-                    throw new ErrorException("Default controller not found ! Please set the default controller in configs/config".EXT);
-
-
-         /* Check register globals and remove them */
-         CF_AppRegistry::load('BaseSecurity')->unset_globals();
-         CF_AppRegistry::load('BaseSecurity')->unset_magicquotes();
-
-         /* Rewrite url structure  urlstucture($default_controller);*/
-        CF_AppRegistry::load('Uri')->make_request();
+    /*-------------------------------------------------------
+     * Booting completed. Lets handle user request!!
+     * Lets Go !!
+     * -------------------------------------------------------
+     */
+    CF_AppRegistry::load('RequestHandler')->handle();

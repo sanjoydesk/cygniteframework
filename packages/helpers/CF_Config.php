@@ -26,8 +26,15 @@
  *
  *
  */
-    CF_AppRegistry::import('configs', 'config',APPPATH);
-    Config::store_config_items('config_items',CF_AppRegistry::load('config_items'));
+
+    $CF_CONFIG = array();
+    include_once str_replace('/','',APPPATH).DS.'configs'.DS.'config'.EXT;
+    include_once CF_SYSTEM.DS.'helpers'.DS.FRAMEWORK_PREFIX.'Url'.EXT;
+    Config::store_config_items('config_items',$CF_CONFIG);
+
+    $globalconfig = Config::getconfig('global_config');
+        //Get the configuration variables
+    Url::set_basepath(Config::getconfig('global_config','base_path'));
 
     class Config
     {

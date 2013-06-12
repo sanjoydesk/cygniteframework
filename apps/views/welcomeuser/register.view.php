@@ -10,11 +10,12 @@
 */
  //$data = $this->usersmodel->query();
 show($this->values);
+
 ?>
 
 <meta charset="utf-8"></meta>
 
-<form name="new_innovation" action="<?php echo GHelper::site_url_path('welcomeuser/dbtest'); ?>" enctype="multipart/form-data" method="post" id="new_innovation" class="uniform">
+<form name="new_innovation" action="<?php echo Url::sitepath('welcomeuser/dbtest'); ?>" enctype="multipart/form-data" method="post" id="new_innovation" class="uniform">
 <input type="hidden" value="add" name="action" />
 <input type="hidden" value="" name="id" />
 <input type="hidden" value="52" name="videoOption" />
@@ -79,4 +80,4 @@ show($this->values);
 </form>
 
 
-<script type="text/javascript" src="<?php echo GHelper::base_path(); ?>webroot/js/jquery.js"></script>
+<script type="text/javascript" src="<?php echo Url::basepath(); ?>webroot/js/jquery.js"></script>

@@ -9,8 +9,8 @@
         public function __construct()
         {
               parent::__construct();
-             $enc = $this->request('Encrypt')->encrypt("sanjay@123");
-             $this->request('Encrypt')->decrypt($enc);
+            // $enc = $this->request('Encrypt')->encrypt("sanjay@123");
+          //   $this->request('Encrypt')->decrypt($enc);
         }
 
         public function __call($name, $arguments)
@@ -22,15 +22,7 @@
         public function action_dbtest()
         {
               $this->app()->model('usersmodel');
-               $insertarray = array(
-                                          'Name' => 'Cygnite Framrework ',
-                                          'EntryDate' => date('Y-m-d H:m:s'),
-                                          'Comment' => 'Framework For Webartists'
-              );
               $users=  $this->app()->usersmodel->getdetails();
-
-              //show($users);
-
                 $postvalues =array();
                //$var =  $this->request('HTTPRequest')->is_submited('btnSubmit');
               if(TRUE===$this->request('HTTPRequest')->is_submited('btnSubmit')):
@@ -38,7 +30,7 @@
                       $this->app()->usersmodel->insert($postvalues);
               endif;
 
-             $this->app()->render('register');
+             $this->app()->render('register')->with(array());
         }
 
         public function action_index()
@@ -113,9 +105,9 @@
       function action_test()
       {
 
-              $this->request('BaseSession')->setsession('name', 'Hello World !!   Cygnite is the great Framework');
+            //  $this->request('BaseSession')->setsession('name', 'Hello World !!   Cygnite is the great Framework');
              // $this->request('session')->unset_session();
-            echo $this->request('BaseSession')->getsession('name');
+         //   echo $this->request('BaseSession')->getsession('name');
 
               $this->app()->helper('FormValidator');
               $required_fields = array(
@@ -138,14 +130,14 @@
              endif;
 
              $data['email']= FormValidator::is_valid_email("email","Email Address","required","checkvalid");
-              $encryt= $this->request('Encrypt')->encrypt("sanjoy");
-              echo $this->request('Encrypt')->decrypt($encryt);
+           //   $encryt= $this->request('Encrypt')->encrypt("sanjoy");
+            //  echo $this->request('Encrypt')->decrypt($encryt);
 
           //   $this->request('Cache')->build("FileCache")->write_cache('welcome_page', $this->app()->render("welcome",'','ui_contents'));
              echo $this->request('Cache')->build("FileCache")->read_cache('welcome_page');
       }
       private $country = 'India';
-      function action_testing($param1,$param2,$param3)
+      function action_testing()
       {      //var_dump($param1);
               //var_dump($param2);
               //var_dump($param3);
@@ -164,7 +156,7 @@
              // $this->request('session')->unset_session();
           //  echo $this->request('session')->getsession('name');
                $this->app()->model('usersmodel');
-                echo $this->request('Uri')->urisegment(2);
+             //   echo Url::segment(3);
 
 
                $this->app()->render("register")->with(array(

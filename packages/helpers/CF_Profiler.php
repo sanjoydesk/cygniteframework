@@ -2,7 +2,7 @@
 /*
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2x or newer
+ *  An open source application development framework for PHP 5.2.5 or newer.
  *
  *   License
  *
@@ -28,9 +28,8 @@
  */
 
 
-class CF_Profiler
+class Profiler
 {
-        public static $html;
         /**
         * Profiler starting point
         *
@@ -38,10 +37,10 @@ class CF_Profiler
         * @param	string
         */
 
-       public  function start_profiling()
+       public static function start()
        {
                      if(!defined('MEMORY_START_POINT') && !defined('START_TIME')):
-                                 define('MEMORY_START_POINT', $this->memoryspace());
+                                 define('MEMORY_START_POINT', self::memoryspace());
                                  define('START_TIME', microtime(true));
                      endif;
         }
@@ -53,27 +52,32 @@ class CF_Profiler
         * @param	string
         */
 
-       public function end_profiling()
+       public static function end()
         {
-                    $html .= "<span class='benchmark'>Total elapsed time : ".round(microtime(true) - START_TIME, 3). ' seconds';
-                    $html .= " &nbsp; &nbsp; &nbsp;Total memory :".$this->memory_space_usage()."</span>";
+                    //echo memory_get_peak_usage(true);
+                    $html .= "<div id='benchmark'><div class='benchmark'>Total elapsed time : ".round(microtime(true) - START_TIME, 3). ' ms';
+                    $html .= " &nbsp;&nbsp; &nbsp;Total memory :".self::memory_space_usage()."</div></div>";
                     echo $html;
         }
-
-        private function memoryspace()
+       /**
+        * This Function is to get the memory usage by the script
+        *
+        * @access private
+        * @return get memory usage
+        */
+        private static function memoryspace()
         {
             return memory_get_usage();
         }
 
         /**
-        *  Profiler end point
+        *  This funtion is to calculate the total memory usage by the running script
         *
         * @access	public
         * @param	string
         */
-
-       public function memory_space_usage()
-       {          //round(memory_get_usage()/1024/1024, 2).'MB';
-                    return round((( $this->memoryspace()- MEMORY_START_POINT) / 1024), 2). '  KB<br />';
-        }
+           public static function memory_space_usage()
+           {          //round(memory_get_usage()/1024/1024, 2).'MB';
+                        return round((( self::memoryspace()- MEMORY_START_POINT) / 1024), 2). '  KB<br />';
+            }
 }

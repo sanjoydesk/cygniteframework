@@ -90,7 +90,7 @@
 
                      $media = (is_null($media)) ? 'media=all' : $media;
                      $title = (!is_null($title)) ? "title='$title'"  : '';
-                return '<link rel="stylesheet" type="text/css"  '.$media.' '.$title.' href="'.GHelper::base_path().$href.'" rel="stylesheet">'.PHP_EOL;
+                return '<link rel="stylesheet" type="text/css"  '.$media.' '.$title.' href="'.Url::basepath().$href.'" rel="stylesheet">'.PHP_EOL;
           }
 
             /**
@@ -110,7 +110,7 @@
             */
             public static function addscript($url, $attributes = array())
             {
-                     return '<script type="text/javascript" src="'.GHelper::base_path().$url.'"'.static::addattributes($attributes).'></script>'.PHP_EOL;
+                     return '<script type="text/javascript" src="'.Url::basepath().$url.'"'.self::addattributes($attributes).'></script>'.PHP_EOL;
             }
 
 
@@ -136,7 +136,7 @@
           public static function addlink($url,$name = NULL,$attributes = array())
           {
                    $name =  (is_null($name)) ? $url :  $name;
-                  return '<a href="'.GHelper::base_path().$url.'" '.static::addattributes($attributes).'>'.HTML::entities($name).'</a>'.PHP_EOL;
+                  return '<a href="'.Url::basepath().$url.'" '.self::addattributes($attributes).'>'.HTML::entities($name).'</a>'.PHP_EOL;
           }
 
         /**

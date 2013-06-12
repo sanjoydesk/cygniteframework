@@ -32,40 +32,6 @@
 //RouteMapper::route('category/any','industry@index');
 //RouteMapper::route('category/any','welcome@testing');
 
-//include_once APPPATH.'routerconfig'.EXT;
-/*
- class Router
-    {
-            public static $is_router_enabled = FALSE;
-            private static $router = array();
-
-             public static function set_route($url,$routeto)
-            {
-                    if($url =="")
-                            throw new Exception ("Empty url parameter passed on ".__METHOD__);
-                    if($routeto =="")
-                          throw new Exception ("Empty route_to parameter passed on ".__METHOD__);
-                   
-                      if(self::$is_router_enabled):
-                              self::$router = array(
-                                                                             'url' => $url,
-                                                                             'route_to' => $routeto
-                             );
-                      endif;
-            }
-
-            public function get_route()
-            {
-                    if(is_null(self::$router['url']))
-                               throw new Exception ("Url has not been set in router config");
-                    if(is_null(self::$router['route_to']))
-                              throw new Exception ("Route path to has not been set in router config");
-
-                return (self::$is_router_enabled) ? self::$router : array();
-            }
-    }
-
-*/
     class RouteMapper
     {
             private static $index_page = "index.php";
@@ -76,7 +42,7 @@
             {
                  $segment = explode('/', $url);
 
-                 if(in_array('any', $segment) && (static::_uri_exists($segment[0], $_SERVER['REQUEST_URI']) )):
+                 if(in_array('any', $segment) == TRUE && self::_uri_exists($segment[0], $_SERVER['REQUEST_URI']) == TRUE):
                    //    echo "controll exists with any keyword ";
                                 $call_route = array();
                                 $call_route = explode('@', $routeto);
@@ -89,7 +55,7 @@
                                 $find_index = array_search(self::$index_page,$expression);
                                 self::catch_request($expression,$find_index);
                  else:
-                        if(static::_uri_exists($segment, $_SERVER['REQUEST_URI'])):
+                        if(self::_uri_exists($segment, $_SERVER['REQUEST_URI'])):
                                $call_route = array();
                                $call_route = explode('@', $routeto);
                                $exp = array_filter(explode('/',($_SERVER['REQUEST_URI'])));
@@ -117,7 +83,7 @@
             {
                 switch ($var):
                     case is_array($var):
-                                    if(static::_uri_exists($var[0], $_SERVER['REQUEST_URI']) && static::_uri_exists($var[1], $_SERVER['REQUEST_URI']) ):
+                                    if(self::_uri_exists($var[0], $_SERVER['REQUEST_URI']) && self::_uri_exists($var[1], $_SERVER['REQUEST_URI']) ):
                                                 return TRUE;
                                     endif;
                         break;

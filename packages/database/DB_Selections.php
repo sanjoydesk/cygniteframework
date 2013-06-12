@@ -256,7 +256,7 @@
                                 $this->_dbstatement = $this->pdo->prepare($this->sqlqry);
                                 DB_SQLUtilities::setdbstmt($this->_dbstatement,$this->pdo);
                                 $this->_dbstatement->bindValue(':where',$this->from_where);
-                                CF_AppRegistry::load('Profiler')->start_profiling();
+                             //   Profiler::start();
                                 $this->_dbstatement->execute();
 
 
@@ -290,8 +290,8 @@
                                                     $datas = $this->_dbstatement->fetchAll(PDO::FETCH_ASSOC);
                        endswitch;
                     //echo round(memory_get_usage() / (1024*1024),3) .' MB<br />';
-
-                      CF_AppRegistry::load('Profiler')->end_profiling();
+                   
+                      //Profiler::end();
                         if($this->_dbstatement->rowCount() > 0):
                             return $datas;
                         else:
@@ -337,7 +337,7 @@
                  * @return query object
                  */
                 public function prepare_query($sql)
-                {  
+                {
                         return $this->pdo->query($sql);
                 }
 

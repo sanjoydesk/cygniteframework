@@ -26,6 +26,9 @@
  *
  *
  */
+       $logconfig = Config::getconfig('error_config','log_errors');
+              if($logconfig == 'on' )
+                  CF_AppRegistry::import('base', 'Logger',CF_SYSTEM);// Load the Logger Library
 
     class CF_ErrorHandler
     {
@@ -98,13 +101,13 @@
                                         /*    error_reporting($err_config['level']);
                                           ini_set('display_errors',$err_config['display_errors']);
                                           ini_set('log_errors', $err_config['log_errors']);
-                                         ini_set('error_log', ROOT_DIR.DS.str_replace("/", "", APPPATH).DS.'tmp'.DS.'logs'.DS.'error.log'); */
+                                         ini_set('error_log', ROOTDIR.DS.str_replace("/", "", APPPATH).DS.'tmp'.DS.'logs'.DS.'error.log'); */
                                 break;
                                 case 'production':
                                             error_reporting($err_config['level']);
                                             ini_set('display_errors',$err_config['display_errors']);
                                             ini_set('log_errors', $err_config['log_errors']);
-                                            ini_set('error_log', ROOT_DIR.DS.str_replace("/", "", APPPATH).DS.'tmp'.DS.'logs'.DS.'error.log');
+                                            ini_set('error_log', ROOTDIR.DS.str_replace("/", "", APPPATH).DS.'tmp'.DS.'logs'.DS.'error.log');
                                 break;
                     endswitch;
 

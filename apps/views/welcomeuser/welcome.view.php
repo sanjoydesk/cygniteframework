@@ -11,6 +11,7 @@
 <div class="header">
              <div style="color: #ECECEC; padding: 31px; ">
                  <div align="center" style="font-size: 28px; ">  Welcome To Cygnite Framework </div>
+                 <div align="center" style=" margin-top: 3px;"><span style="font-size: 16px;">Framework For Web Artists</span></div>
                  <div align="center" style=" margin-top: 16px;"><span style="font-size: 16px;">"Discover Cygnite to make your life simpler"</span> </div>
              </div>
     </div>
@@ -99,7 +100,7 @@
                     <div class="footer-inner" align="center">
                                   <div class="footerrow tweets" >
                                     <p style="font-size: 16px;">If you are exploring Cygnite Framework for the first time,
-                                        you should read the <br><a href="<?php echo GHelper::base_path(); ?>docs/">Quick guide</a> </p>
+                                        you should read the <br><a href="<?php echo Url::basepath(); ?>docs/">Quick guide</a> </p>
 
                                     <p style="font-size: 18px;">Hope you will enjoy simplicity of Cygnite Framework</p>
                                   </div>

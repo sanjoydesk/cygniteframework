@@ -26,32 +26,23 @@
  *
  *
  */
-
-    class CF_AppAutoLoader
+    CF_AppRegistry::import('configs', 'autoload',APPPATH);
+    show($CF_CONFIG);
+    AutoLoader::set_autoload_items('autoload_items',$CF_CONFIG['autoload']);
+    $autoloaded = AutoLoader::get_autoload_items('autoload_items');
+    CF_AppLibraryRegistry::initialize($autoloaded['autoload']);
+    class AutoLoader
     {
-            var $value = array();
-            /*
-             *  Constructor function
-             * @param string - encryption key
-             *
-             */
-            function __construct(){
-                    CF_AppRegistry::import('configs', 'autoload',APPPATH);
-                   $this->store_autoload_items('autoload_items',CF_AppRegistry::load('autoload_items'));
-           }
+            public static $value = array();
 
-            public function get_autoload_items($key)
+            public static function get_autoload_items($key)
             {
                  $key =  strtolower($key);
-                  return $this->value[$key];
+                  return self::$value[$key];
             }
 
-            private  function store_autoload_items($name, $values = array())
-            {   //var_dump($values);
-                  $this->value[$name]  = $values;
-            }
-
-            function __destruct() {
-                unset($this->value);
+            public static function set_autoload_items($name, $values = array())
+            {
+                self::$value[$name]  = $values;
             }
     }

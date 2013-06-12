@@ -39,11 +39,18 @@
              */
             function __construct($encrypt_key="")
             {
+                  $callee = debug_backtrace();
                     if(!empty($encrypt_key)) :
                                 $this->set($encrypt_key);
+                                if(!function_exists('mcrypt_create_iv')):
+                                        GHelper::display_errors(E_USER_WARNING, 'Unhandled Exception',"Mcrypt extention library not loaded", $callee[1]['file'],$callee[1]['line'],TRUE);
+                                else:
                                 $this->iv = mcrypt_create_iv(32);
+                                endif;
                     else:
-                                 trigger_error("Please check for encription key inside config file and autoload helper encrypt key is set or not ", E_USER_ERROR);
+                              GHelper::display_errors(E_USER_WARNING, 'Unhandled Exception',
+                                      "Please check for encription key inside config file and autoload helper encrypt key is set or not ",
+                                      $callee[1]['file'],$callee[1]['line'],TRUE);
                     endif;
             }
 
@@ -66,7 +73,12 @@
              */
             function encrypt($input)
             {
-                   $this->value = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->securekey, $input, MCRYPT_MODE_ECB, $this->iv));
+                    if(!function_exists('mcrypt_create_iv')):
+                            $callee = debug_backtrace();
+                            GHelper::display_errors(E_USER_WARNING, 'Unhandled Exception',"Mcrypt extention library not loaded", $callee[1]['file'],$callee[1]['line'],TRUE);
+                   else:
+                          $this->value = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->securekey, $input, MCRYPT_MODE_ECB, $this->iv));
+                    endif;
                      return $this->value;
             }
 
@@ -78,7 +90,7 @@
              */
             function decrypt($input)
             {
-                    $this->value = trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $this->securekey, base64_decode($input), MCRYPT_MODE_ECB, $this->iv));
+                //    $this->value = trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $this->securekey, base64_decode($input), MCRYPT_MODE_ECB, $this->iv));
                     return $this->value;
             }
 

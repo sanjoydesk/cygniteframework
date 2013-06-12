@@ -89,12 +89,12 @@
                                                   else:
                                                           throw new Exception("Class $class_names cann't initiated ");
                                                   endif;
-                                           else: 
+                                           else:
                                                GHelper::trace();
                                                $callee = debug_backtrace();
                                                GHelper::display_errors(E_USER_ERROR, 'Unhandled Exception',"Requested CF_".trim($key)." library doesn't exists ", $callee[1]['file'],$callee[1]['line'],TRUE);
                                            endif;
-                                
+
                                     break;
                     endswitch;
                  }
@@ -120,7 +120,7 @@
                              $callee = debug_backtrace();
                              GHelper::display_errors(E_USER_ERROR, 'Unhandled Exception',"Requested CF_$key library doesn't exists ", $callee[1]['file'],$callee[1]['line'],TRUE);
                         endif;
-                        
+
                         return self::$value[$obname];
                  }
 
@@ -138,7 +138,7 @@
                                                                             $prefix = NULL;
                                                                             $path = getcwd().DS.CF_SYSTEM;
                                                                             $prefix = ($dir_name  === 'database') ? DATABASE_PREFIX : FRAMEWORK_PREFIX ;
-                                                                            $_directorypath  =    $path.DS.$dir_name.DS.$prefix.$filename.EXT;
+                                                                            $_directorypath  =    $path.DS.$dir_name.DS.$prefix.$filename.EXT; 
 
                                                                             if(is_readable($_directorypath) && file_exists($_directorypath))
                                                                                       include_once $_directorypath;
@@ -183,11 +183,6 @@
                                             echo "Unable to load file $_directorypath ".__METHOD__, $ex->getMessage();
                            }
                 }
-
-                 private static function store_config($name, $values = array())
-                 {
-                     self::$value[$name]  = $values;
-                 }
 
                  private static function store($name,$values)
                  {

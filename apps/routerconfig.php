@@ -24,7 +24,7 @@ abstract class Route
 
     public static function set_route()
     {
-       return static::$routing = array(
+       return self::$routing = array(
                               'is_router_enabled' => TRUE,
                               'url'=>'category/list',
                               'routeto' => 'welcomeuser@testing'
@@ -33,8 +33,8 @@ abstract class Route
 
     public static function get_route()
     {
-        if(!is_null(static::set_route()))
-            return static::set_route();
+        if(!is_null(self::set_route()))
+            return self::set_route();
 
         return FALSE;
     }

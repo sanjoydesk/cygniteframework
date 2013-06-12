@@ -12,9 +12,9 @@ Version 1.0.1
 ===========
 Routing with cantroller and action has been fixed.
 View name has been changed and maintain standard for view file name. Provided option to render view two different way. For example-
-$this->app()->render('register',$data);
+$this->render('register');
 OR
-$this->app()->render('register')->with(array('author' => 'sanjoy'));
+$this->render('register')->with(array('author' => 'sanjoy'));
 
 Version 1.0.2
 ===========
@@ -23,4 +23,5 @@ New feature has been added on version 1.0.2. Single as well as multiple models c
  $this->app()->model(array('usermodel','categorymodel'));
 DB core structures has been  redesigned and sub divided to make efficient structure.
 Group By has been added with existing features.
+Separated View Core library as CFView and Template functionality has been added to core.
 

@@ -66,6 +66,7 @@
                                                                           ->order_by('id','DESC')
                                                                           ->limit(3)->select('name,comment')
                                                                           ->fetch_all('guestbook'); //,'FETCH_BOTH'
+
                      /*     $this->cygnite->db->order_by('id','DESC');
                          $this->cygnite->db->limit(3);
                         $this->cygnite->db->where($where);
@@ -78,14 +79,16 @@
                      //  var_dump($this->cygnite->db->get_error_info());
                       //$this->cygnite->db->debug_query();
                        $this->cygnite->db->flushresult();
-                       if($this->cygnite->db->num_row_count() > 0)
-                                return $data;
+
+                       if($this->cygnite->db->num_row_count() > 0):
+                              return $data;
+                       endif;
                     }
 
                     public function getusers()
-                    {
-                          $data =  $this->hris->query("SELECT * FROM hs_hr_employee")->fetchAll(PDO::FETCH_ASSOC);
-                          //var_dump($data);
+                    {                        echo 'sssssssssssssss';
+                          $data =  $this->hris->prepare_query("SELECT * FROM hs_hr_employee")->fetchAll(PDO::FETCH_ASSOC);
+                          var_dump($data);
                           return $data;
                     }
 

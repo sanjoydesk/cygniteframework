@@ -26,13 +26,6 @@
  *
  *
  */
-
-        $CONFIG = Config::get_config_items('error_config');
-
-        if($ERROR_CONFIG['log_errors'] == 'on' )
-                  CF_AppRegistry::import('base', 'Logger',CF_SYSTEM);// Load the cf Controller Class
-
-
     class GHelper
     {
         /*
@@ -47,7 +40,7 @@
              return $values;
         }
 
-        public static function  base_path()
+      /*   public static function  base_path()
         {
                 return CF_AppRegistry::load('Uri')->base_url();
         }
@@ -55,7 +48,7 @@
          public static function  site_url_path($url)
         {
                 return CF_AppRegistry::load('Uri')->site_url($url);
-        }
+        } */
 
          public static function  copyright()
         {

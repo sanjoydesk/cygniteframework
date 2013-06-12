@@ -27,98 +27,102 @@
  *
  */
 
-            /*
-            * ------------------------------------------------------
-            *  Define the Cygnite  Version
-            * ------------------------------------------------------
-            */
-            define('CF_VERSION', ' <span class="version">(alpha 1.0.2)</span>');
+    /*
+    * ------------------------------------------------------
+    *  Define the Cygnite  Version
+    * ------------------------------------------------------
+    */
+    define('CF_VERSION', ' <span class="version">(alpha 1.0.2)</span>');
 
-            /*----------------------------------------------------
-             * Define Framework Extension
-             * ----------------------------------------------------
-             */
-            define('FRAMEWORK_PREFIX','CF_');
-
-
-            /*----------------------------------------------------
-             * Define Database Driver Extension
-             * ----------------------------------------------------
-             */
-            define('DATABASE_PREFIX','DB_');
-
-            /*---------------------------------------------------
-             * Define Web root path
-             * ---------------------------------------------------
-             */
-            define('WEB_ROOT',  dirname(__DIR__));
+    /*----------------------------------------------------
+     * Define Framework Extension
+     * ----------------------------------------------------
+     */
+    define('FRAMEWORK_PREFIX','CF_');
 
 
-            $seperator = (strstr(strtoupper(substr(PHP_OS, 0, 3)), "WIN")) ?  "\\"  :  "/";
-            /*---------------------------------------------------
-             * Define Path seperator of Operating System
-             * ---------------------------------------------------
-             */
-            define('OS_PATH_SEPERATOR',$seperator);
+    /*----------------------------------------------------
+     * Define Database Driver Extension
+     * ----------------------------------------------------
+     */
+    define('DATABASE_PREFIX','DB_');
 
-            /*
-            * ------------------------------------------------------
-            *  Load the Global Registry Page
-            * ------------------------------------------------------
-            */
-            require dirname(__FILE__).DS.'base'.DS.FRAMEWORK_PREFIX.'AppRegistry'.EXT;
-           // is_dir($directoryPath) or mkdir($directoryPath, 0777);
-
-            // Register all framework core directories to include core files
-            CF_AppRegistry::register_dir(array(dirname(__FILE__).DS."base",dirname(__FILE__).DS."loader",
-                                                                            dirname(__FILE__).DS."library",dirname(__FILE__).DS."helpers"));
-           // Auto Load all framework core classes
-            CF_AppRegistry::load_lib_class(array('CF_Profiler','CF_ErrorHandler'));
-            CF_AppRegistry::import('helpers', 'Config',CF_SYSTEM);
-
-            $CF_CONFIG = Config::get_config_items('config_items');
+    /*---------------------------------------------------
+     * Define Web root path
+     * ---------------------------------------------------
+     */
+    define('WEB_ROOT',  dirname(__DIR__));
 
 
-           /* Set Environment for Application
-            *
-            * Example :
-            *  define('DEVELOPMENT_ENVIRONMENT', 'development');
-            * define('DEVELOPMENT_ENVIRONMENT', 'production');
-            */
-            define('APP_ENVIRONMENT', $CF_CONFIG['ERROR_CONFIG']['environment']);
-            CF_AppRegistry::load('ErrorHandler')->set_environment($CF_CONFIG['ERROR_CONFIG']);
+    $seperator = (strstr(strtoupper(substr(PHP_OS, 0, 3)), "WIN")) ?  "\\"  :  "/";
+    /*---------------------------------------------------
+     * Define Path seperator of Operating System
+     * ---------------------------------------------------
+     */
+    define('OS_PATH_SEPERATOR',$seperator);
+/**
+    * -------------------------------------------------------------------------------------------------------
+    *  Check minimum version requirement of cygnite and trigger exception is not satisfied
+    * -------------------------------------------------------------------------------------------------------
+    */
+    if(phpversion() < '5.2.5')
+           trigger_error('Cygnite supports PHP version  5.2.5 or newer',E_USER_ERROR);
 
+    include_once 'helpers'.DS.FRAMEWORK_PREFIX.'GHelper'.EXT;
+    include_once 'helpers'.DS.FRAMEWORK_PREFIX.'Config'.EXT;
+    include_once 'helpers'.DS.FRAMEWORK_PREFIX.'Profiler'.EXT;
+   /**
+    * --------------------------------------------------------------------------------
+    *  Turn on benchmarking application is profiling is on in configuration
+    * --------------------------------------------------------------------------------
+    */
+    $gconfig = Config::getconfig('global_config');
+      if($gconfig['enable_profiling']==TRUE)
+             Profiler::start();
+  /**
+    * ------------------------------------------------------
+    *  Load the Global Registry Page
+    * ------------------------------------------------------
+    */
+    require dirname(__FILE__).DS.'base'.DS.FRAMEWORK_PREFIX.'AppRegistry'.EXT;
+   // is_dir($directoryPath) or mkdir($directoryPath, 0777);
 
+    // Register all framework core directories to include core files
+    CF_AppRegistry::register_dir(array(dirname(__FILE__).DS."base",dirname(__FILE__).DS."loader",
+                                                                    dirname(__FILE__).DS."library",dirname(__FILE__).DS."helpers"));
 
-            if($CF_CONFIG['GLOBAL_CONFIG']['enable_profiling']==TRUE)
-                     CF_AppRegistry::load('Profiler')->start_profiling();
+    CF_AppRegistry::load_lib_class('CF_ErrorHandler');
+    /* Set Environment for Application
+    * Example :
+    *  define('DEVELOPMENT_ENVIRONMENT', 'development');
+    * define('DEVELOPMENT_ENVIRONMENT', 'production');
+    */
+    define('APP_ENVIRONMENT', Config::getconfig('error_config','environment'));
+    CF_AppRegistry::load('ErrorHandler')->set_environment(Config::getconfig('error_config'));
 
-            CF_AppRegistry::load_lib_class(array('CF_Uri','CF_BaseSecurity','CF_AppAutoLoader'));
+   /*----------------------------------------------------------------
+    * Auto load core libraries classes of Cygnite Framework
+    * ----------------------------------------------------------------
+    */
+    CF_AppRegistry::load_lib_class(array('CF_RequestHandler','CF_BaseSecurity','CF_AppAutoLoader'));
 
-            // get instance of the core files
-            CF_AppRegistry::import('loader', 'Loader',CF_SYSTEM);// Load the Base Controller
-            CF_AppRegistry::import('helpers', 'GHelper',CF_SYSTEM);
-            CF_AppRegistry::import('loader', 'AppLibraryRegistry',CF_SYSTEM);
+   /*----------------------------------------------------------------
+    * Import initial core classes of Cygnite Framework
+    * ----------------------------------------------------------------
+    */
+    CF_AppRegistry::import('loader', 'Loader',CF_SYSTEM);// Load the Base Controller
+    CF_AppRegistry::import('loader', 'AppLibraryRegistry',CF_SYSTEM);
+    CF_AppRegistry::import('helpers', 'AutoLoader',CF_SYSTEM);
+   /*----------------------------------------------------------------
+    * Get Session config and set it here
+    * ----------------------------------------------------------------
+    */
+    define('SECURE_SESSION', Config::getconfig('session_config','cf_session'));
 
-            $AUTOLOAD = CF_AppRegistry::load('AppAutoLoader')->get_autoload_items('autoload_items');
-
-            CF_AppLibraryRegistry::initialize($AUTOLOAD['autoload']);
-            //   show($CF_CONFIG);
-
-            //Get the configuration variables
-            $default_controller = $CF_CONFIG['GLOBAL_CONFIG']["default_controller"];
-            $base_url = $CF_CONFIG['GLOBAL_CONFIG']["base_path"];
-            $secret_key = $CF_CONFIG['GLOBAL_CONFIG']['cf_encryption_key'];
-
-            define('SECURE_SESSION', $CF_CONFIG['SESSION_CONFIG']['cf_session']);
-
-            CF_AppRegistry::load('Uri')->set_base_url($base_url);
-
-            /*
-            * ------------------------------------------------------
-            *  Define the Cygnite Encryption Key ID
-            * ------------------------------------------------------
-            */
-            if(!empty($secret_key) && in_array('encrypt',$AUTOLOAD['autoload']['helpers']) || $securesession === TRUE)
-                      define('CF_ENCRYPT_KEY',$secret_key);
-            require dirname(__FILE__).DS.'boot'.EXT;
+   /* ----------------------------------------------------------------------
+    *  Set Cygnite user defined encryption key and start booting
+    * ----------------------------------------------------------------------
+    */
+    if(!is_null(Config::getconfig('global_config','cf_encryption_key')) && in_array('encrypt',$AUTOLOAD['autoload']['helpers']) || SECURE_SESSION === TRUE)
+              define('CF_ENCRYPT_KEY',Config::getconfig('global_config','cf_encryption_key'));
+    require dirname(__FILE__).DS.'boot'.EXT;

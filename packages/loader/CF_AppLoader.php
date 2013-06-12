@@ -184,38 +184,28 @@ class CF_AppLoader extends CF_AppLibraryRegistry implements IRegistry
                     *
                     */
 
-                   protected function render($view,$arr_values=array(), $ui_content =NULL)
+                   protected function render($view,$ui_content =NULL)
                   {
-                        $trace = debug_backtrace();
-                        $controller = strtolower(str_replace('AppsController','',$trace[1]['class']));
+                            $trace = debug_backtrace();
+                            $controller = strtolower(str_replace('AppsController','',$trace[1]['class']));
+                            $path= str_replace('/', '', APPPATH).DS.'views'.DS.$controller.DS;
 
-                        $path= str_replace('/', '', APPPATH).DS.'views'.DS.$controller.DS;
+                            if(!file_exists($path.$view.'.view'.EXT) || !is_readable($path.$view.'.view'.EXT)):
+                                 GHelper::trace();
+                                GHelper::display_errors(E_USER_ERROR, 'Error rendering view page ',"Can not find view page on ".$path.$view.'.view'.EXT, $trace[0]['file'],$trace[0]['line'],TRUE );
+                            endif;
 
-                        if(!file_exists($path.$view.'.view'.EXT))
-                            GHelper::display_errors(E_USER_ERROR, 'Error rendering view page ',"Can not find view page on ".$path.$view.'.view'.EXT, $trace[0]['file'],$trace[0]['line'],TRUE );
-
-
-                        if(!is_null($ui_content) and $ui_content == 'ui_contents'):
-                                self::$uicontent =$ui_content;
-                        endif;
-
-                        self::$name[strtolower($view)] = $view;
-                        if(is_readable($path.self::$name[$view].'.view'.EXT)) :
-                                    ob_start();
-                                    if(is_array($arr_values) && !empty($arr_values) || ($ui_content == 'ui_contents')):
-                                          $this->values =  $arr_values;// extract($arr_values);
-                                           $this->view_path = $path.self::$name[$view].'.view'.EXT;
-                                          $this->loadview();
-                                          if(!is_null(self::$uicontent) && self::$uicontent != 'ui_contents'):
-                                                  return self::$uicontent;
-                                              endif;
-                                    else:
-                                           $this->view_path = $path.self::$name[$view].'.view'.EXT;
-                                          return $this;
-                                    endif;
-                         else:
-                             GHelper::display_errors(E_USER_ERROR, 'Error rendering view page ','Unable to load requested file '.$view.'.view'.EXT, $trace[0]['file'],$trace[0]['line'],TRUE );
-                         endif;
+                            self::$name[strtolower($view)] = $view;
+                            if(is_readable($path.self::$name[$view].'.view'.EXT)) :
+                                        ob_start();
+                                            if(!is_null($ui_content) && $ui_content == 'ui_contents'):
+                                                      self::$uicontent =$ui_content;
+                                                      $this->loadview();
+                                                      return self::$uicontent;
+                                            endif;
+                                         $this->view_path = $path.self::$name[$view].'.view'.EXT;
+                                         return $this;
+                            endif;
                      }
 
                      public function with($arr_values)

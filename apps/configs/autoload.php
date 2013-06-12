@@ -28,7 +28,7 @@
 */
 
 $CF_CONFIG['autoload'] = array(
-                                                        'helpers' => array('encrypt'), /* Autoload Helper Files */
+                                                        'helpers' => array(''), /* Autoload Helper Files */
                                                         'libraries' => array('authx'), /* Autoload Library Files*/
                                                         'plugins' => array(), /* Autoload Library Files*/
                                                         'model'    => array()   /* Autoload Model Files*/

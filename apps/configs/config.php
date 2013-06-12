@@ -1,4 +1,4 @@
-<?php
+<?php  if ( ! defined('CF_SYSTEM')) exit('Direct script access not allowed');
 /*
 *===============================================================================================
 *  An open source application development framework for PHP 5.2 or newer
@@ -49,7 +49,7 @@ $CF_CONFIG = array(
                                                     'port'        => '',
                                                     'pconnection' =>TRUE
                                     )
-                                   ,'db2' => array(
+                                 /*  ,'db2' => array(
                                                     'host_name' => 'localhost',
                                                     'username'  => 'root',
                                                     'password'  => '',
@@ -58,7 +58,7 @@ $CF_CONFIG = array(
                                                     'dbtype'    => 'mysql',
                                                     'port'        => '',
                                                     'pconnection' =>TRUE
-                                    ) 
+                                    )  */
             ),
           /*
           * Set Global Variables as array

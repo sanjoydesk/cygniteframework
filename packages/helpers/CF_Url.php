@@ -2,7 +2,7 @@
 /*
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2x or newer
+ *  An open source application development framework for PHP 5.2.5 or newer
  *
  *   License
  *
@@ -26,9 +26,10 @@
  *
  *
  */
-
-class CF_Url
+class Url
 {
+
+     private static $url;
        /**
         * Header Redirect
         *
@@ -39,35 +40,98 @@ class CF_Url
         */
       public static function redirect_to($Uri = '', $type = 'location', $http_response_code = 302)
       {
-            CF_AppRegistry::load('Uri')->redirect($Uri = '', $type = 'location', $http_response_code = 302);
-      }
+            //CF_AppRegistry::load('Uri')->redirect($Uri = '', $type = 'location', $http_response_code = 302);
+                     if ( ! preg_match('#^https?://#i', $uri))
+                          $uri = self::site_url($uri);
 
-       /*
+                    switch($type):
+                        case 'refresh' :
+                                              header("Refresh:0;url=".$uri);
+                                 break;
+                        default:
+                                             header("Location: ".$uri, TRUE, $http_response_code);
+                                break;
+                    endswitch;
+                    exit;
+      }
+        /**
+        * This Function is to get the previous visited url based on current url
+        *
+        * @access public
+        * @return string
+        */
+        public function referer()
+        {
+
+        }
+
+       /**
         * This Function is to get Uri Segment of the url
         *
         * @access public
         * @param  int
         * @return string
         */
-        public static function request_uri_segment($Uri="")
+        public static function segment($uri=1)
         {
-                CF_AppRegistry::load('Uri')->urisegment($Uri = '');
+                return Dispatcher::get_url_segment($uri);
         }
 
+            /**
+            * This Function is to get the set_basepath
+            *
+            * @access public
+             *@param $url string
+            * @return void
+            */
+           public static function set_basepath($url)
+           {
+                    if(is_null($url))
+                           throw new InvalidArgumentException("Cannot pass null argument to ".__METHOD__);
 
-        /*
+                      self::$url  = $url;
+            }
+           /**
+            * This Function is to get the basepath
+            *
+            * @access public
+            * @return string
+            */
+           public static function basepath()
+           {
+                 return  self::$url;
+           }
+           //@todo - Check index.php if available or not
+           public static function sitepath($uri)
+           {
+                if($url !=""):
+                     GHelper::trace();
+                   $callee = debug_backtrace();
+                   GHelper::display_errors(E_USER_ERROR, 'Unhandled Exception',"Cannot pass null argument to ".__METHOD__, $callee[1]['file'],$callee[1]['line'],TRUE);
+                endif;
+
+                return  self::$url.'index.php'.URIS.$uri;
+           }
+
+
+        /**
         * This Function is to encode the url
         *
         * @access public
-        * @param  int
+        * @param  string
         * @return string
         */
-
         public static function encode()
         {
 
         }
-
+         /**
+        * This Function is to decode the url
+        *
+        * @access public
+        * @param  string
+        * @return string
+        */
         public static function decode()
         {
 

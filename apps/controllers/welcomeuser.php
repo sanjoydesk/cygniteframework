@@ -9,33 +9,28 @@
         public function __construct()
         {
               parent::__construct();
-            // $enc = $this->request('Encrypt')->encrypt("sanjay@123");
-          //   $this->request('Encrypt')->decrypt($enc);
+            // $enc = $this->app()->request('Encrypt')->encrypt("sanjay@123");
+          //   $this->app()->request('Encrypt')->decrypt($enc);
         }
 
-        public function __call($name, $arguments)
-        {
-            echo "Error occurs";
-            var_dump($name);
-        }
 
         public function action_dbtest()
         {
-              $this->app()->model('usersmodel');
-              $users=  $this->app()->usersmodel->getdetails();
+              $this->app()->model('users');
+              $users=  $this->app()->users->getdetails();
                 $postvalues =array();
-               //$var =  $this->request('HTTPRequest')->is_submited('btnSubmit');
-              if(TRUE===$this->request('HTTPRequest')->is_submited('btnSubmit')):
-                      $postvalues = $this->request('HTTPRequest')->post_values();
-                      $this->app()->usersmodel->insert($postvalues);
+               //$var =  $this->app()->request('HTTPRequest')->is_submited('btnSubmit');
+              if(TRUE===$this->app()->request('HTTPRequest')->is_submited('btnSubmit')):
+                      $postvalues = $this->app()->request('HTTPRequest')->post_values();
+                      $this->app()->users->insert($postvalues);
               endif;
 
-             $this->app()->render('register')->with(array());
+             $this->render('register')->with(array());
         }
 
         public function action_index()
       {
-               //$data['userdetails']=  $this->app()->usersmodel->getdetails(); //show($data['userdetails']);
+               //$data['userdetails']=  $this->app()->users->getdetails(); //show($data['userdetails']);
             $this->app()->helper('Assets');
               $insertarray = array(
                                           'Name' => 'Framework 6 ',
@@ -73,11 +68,11 @@
             //  $is_authenticated = $this->request('Authx')->validate($query ,'cygnite')->build_user_session($sess_details);
 
                 try{
-                       $this->request('FileUpload')->file = $_FILES;
+                       $this->app()->request('FileUpload')->file = $_FILES;
                           //$this->app_library('File_Upload')->ext = array("jpeg");
 
               if(isset($_FILES['supporting_documents']))
-                          $this->request('FileUpload')->upload(array("upload_path"=>"/webroot/uploads","file_name"=>"supporting_documents","multi_upload"=>true));
+                          $this->app()->request('FileUpload')->upload(array("upload_path"=>"/webroot/uploads","file_name"=>"supporting_documents","multi_upload"=>true));
               }catch (Exception $e){
                   echo $e->getMessage();
               }
@@ -88,7 +83,7 @@
                else:
                        echo "Not a valid User";
                endif; */
-           $this->app()->render("welcome")->with(array(
+           $this->render("welcome")->with(array(
                                                                                      'author'=>'sanjoy',
                                                                                     'email'=>'sanjoy09@hotmail.com',
                                                                                     'country'=> $this->country
@@ -98,16 +93,18 @@
 
       public function action_userlist()
       {
-              $users = $this->app()->usersmodel->getusers();
-              $this->app()->render('userlist')->with(array('users' => $users));
+              $this->app()->model('users');
+             // $users = $this->app()->users->getdetails();
+              $users = $this->app()->users->getusers();
+              $this->render('userlist')->with(array('users' => $users));
       }
 
       function action_test()
       {
 
-            //  $this->request('BaseSession')->setsession('name', 'Hello World !!   Cygnite is the great Framework');
-             // $this->request('session')->unset_session();
-         //   echo $this->request('BaseSession')->getsession('name');
+            //  $this->app()->request('BaseSession')->setsession('name', 'Hello World !!   Cygnite is the great Framework');
+             // $this->app()->request('session')->unset_session();
+         //   echo $this->app()->request('BaseSession')->getsession('name');
 
               $this->app()->helper('FormValidator');
               $required_fields = array(
@@ -117,9 +114,10 @@
                                               );
             $data['errors']  = FormValidator::validate_require_fields($required_fields,'required','txtSubmit');
             $postvalues =array();
-            $var =  $this->request('HTTPRequest')->is_submited('btnSubmit');
+
+            $var =  Cygnite::loader()->request('HTTPRequest')->is_submited('btnSubmit');
               if($var === TRUE):
-                      $postvalues = $this->request('HTTPRequest')->post_values();
+                      $postvalues = Cygnite::loader()->request('HTTPRequest')->post_values();
                      //var_dump($postvalues);
               endif;
 
@@ -130,13 +128,15 @@
              endif;
 
              $data['email']= FormValidator::is_valid_email("email","Email Address","required","checkvalid");
-           //   $encryt= $this->request('Encrypt')->encrypt("sanjoy");
-            //  echo $this->request('Encrypt')->decrypt($encryt);
+           //   $encryt= $this->app()->request('Encrypt')->encrypt("sanjoy");
+            //  echo $this->app()->request('Encrypt')->decrypt($encryt);
+             $this->app()->helper('Assets');
 
-          //   $this->request('Cache')->build("FileCache")->write_cache('welcome_page', $this->app()->render("welcome",'','ui_contents'));
-             echo $this->request('Cache')->build("FileCache")->read_cache('welcome_page');
+            // Cygnite::request('Cache')->build("FileCache")->write_cache('welcome_page', $this->render("welcome",TRUE));
+            echo Cygnite::request('Cache')->build("FileCache")->read_cache('welcome_page');
       }
       private $country = 'India';
+
       function action_testing()
       {      //var_dump($param1);
               //var_dump($param2);
@@ -155,14 +155,43 @@
              //$this->request('Session')->setsession('name', 'Hello World !!   Cygnite is the great Framework');
              // $this->request('session')->unset_session();
           //  echo $this->request('session')->getsession('name');
-               $this->app()->model('usersmodel');
+             //  $this->app()->model('users');
              //   echo Url::segment(3);
+             // $users = $this->app()->users->getdetails();
+//show($users);
+               $this->app()->helper('Assets');
+/*
+               $this->app()->request('Mailer')->Host = "smtp1.example.com;smtp2.example.com";  // specify main and backup server
+               $this->app()->request('Mailer')->SMTPAuth = true;     // turn on SMTP authentication
+               $this->app()->request('Mailer')->Username = "sanjoyinfotech@gmail.com";  // SMTP username
+               $this->app()->request('Mailer')->Password = ""; // SMTP password
+               $this->app()->request('Mailer')->From = 'dey.sanjoy0@gmail.com';
+               $this->app()->request('Mailer')->AddAddress('sanjoy09@hotmail.com');
+               $this->app()->request('Mailer')->AddCC('dey.sanjoy0@gmail.com');
+               $this->app()->request('Mailer')->AddCC('dey.sanjoy0@gmail.com');
+               $this->app()->request('Mailer')->IsHTML(TRUE);
+               $this->app()->request('Mailer')->Subject = 'CF Mailer Testing';
+               $this->app()->request('Mailer')->Body = 'Hi ! This is CF Mailer Test goes here';
+               if($this->app()->request('Mailer')->Send() == TRUE){
+                   echo 'Mail Sent';exit;
+               }else{
+                   echo $this->app()->request('Mailer')->ErrorInfo;exit;
+               } */
+            //   show(get_declared_classes());
 
+               $this->createsections(array('header'=>'header.view','content'=>'register.view','footer'=>'footer.view'));
+               $this->setlayout('admin',array(
+                                                'title'=> "Welcome Sanjoy",
+                                                'header_title'=> "Header Page",
+                                                'content_title'=> "Content Page",
+                                                'footer_title'=> "Footer Page"
+                                                ));
 
-               $this->app()->render("register")->with(array(
+              /* $this->render("register")->with(array(
                                                             'author' => 'Sanjoy',
-                                                            'Country'=>$this->country
-                                                           ));
-             //$this->app()->render("welcome",TRUE)->with(array('user'=>'Sanjay'));
+                                                            'Country'=>$this->country,
+                                                            'users' =>$users
+                                                           )); */
+             //$this->render("welcome",TRUE);
       }
     }

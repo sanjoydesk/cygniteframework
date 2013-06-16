@@ -57,8 +57,10 @@
      $dir =explode(DS,dirname(__FILE__));
      define('ROOTDIR', rtrim(end($dir)));
 
+     define('CYGNITE_BASE', dirname(__FILE__));
+
   /* -------------------------------------------------------------------
     *  Lets start to include default core files
     * -------------------------------------------------------------------
     */
-    require_once CF_SYSTEM.DS.'cygnite'.EXT;
+    require_once CF_SYSTEM.DS.'cygnite'.DS.'Cygnite'.EXT;

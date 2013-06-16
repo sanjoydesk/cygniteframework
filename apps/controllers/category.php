@@ -9,15 +9,15 @@ class CategoryAppsController extends CF_BaseController
            public function __construct()
            {
                 parent::__construct();
-               $this->app()->model('usersmodel');
-               $enc = $this->request('Encrypt')->encrypt("sanjay@123");
-               $this->request('Encrypt')->decrypt($enc);
+               $this->app()->model('users');
+               $enc = Cygnite::loader()->request('Encrypt')->encrypt("sanjay@123");
+               Cygnite::loader()->request('Encrypt')->decrypt($enc);
           }
 
           public function action_index()
         {
 
-              $userdetails=  $this->app()->usersmodel->getusers(); //show($data['userdetails']);
+              $userdetails=  $this->app()->users->getusers(); //show($data['userdetails']);
 
                    /*
                $this->app()->DBmodel->insert($insertarray);

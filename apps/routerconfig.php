@@ -1,4 +1,32 @@
-<?php
+<?php if ( ! defined('CF_SYSTEM')) exit('No direct script access allowed');
+/**
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                          :  Apps
+ * @Sub Packages                 :
+ * @Filename                        :  router_config
+ * @Description                    : This file is used to set all routing configurations
+ * @Author                           : Cygnite dev team
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                   :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *@todo                           :  Multiple routiing configurations have to implemented and have to simplify
+ *                                           core code for routing feature, have to add more filter validation.
+ *
+ */
 
 /*
 *---------------------------------------------------------------------------------
@@ -10,13 +38,6 @@
 * Created Date   : 05-07-2012
 * Modified Date  : 06-07-2012
 */
-
-//Set RouteMapper::$is_router_enabled = FALSE; by default.
-/*RouteMapper::$is_router_enabled = TRUE;
-RouteMapper::set_route('category/any','welcome@testing'); */
-//Router::$is_router_enabled = TRUE;
-//Router::set_route('category/any','welcomeuser@testing');
-
 abstract class Route
 {
     public static $path,$routeto;
@@ -40,6 +61,3 @@ abstract class Route
     }
 
 }
-
-//RouteMapper::get('welcomeuser/(:all?)', 'category@view');
-//RouteMapper::get('industrial/(:all?)', 'category@list');

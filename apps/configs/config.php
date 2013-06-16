@@ -1,112 +1,169 @@
 <?php  if ( ! defined('CF_SYSTEM')) exit('Direct script access not allowed');
-/*
-*===============================================================================================
-*  An open source application development framework for PHP 5.2 or newer
-*
-* @Package                         :
-* @Filename                       :
-* @Description                   :
-* @Autho                            : Appsntech Dev Team
-* @Copyright                     : Copyright (c) 2013 - 2014,
-* @License                         : http://www.appsntech.com/license.txt
-* @Link	                 : http://appsntech.com
-* @Since	                 : Version 1.0
-* @Filesource                    :
-* @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
-* ===============================================================================================
-* If you don't protect this directory from direct web access, anybody will be able to see your cpmfiguaration and password.
-*
-* Global Configuration Settings
-* config.php
-* Set all configuration variables
-*
-* @access	           :           public
-* @param                    :          $CF_CONFIG array
-* @Author                   :           Sanjoy Dey
-*/
-$CF_CONFIG = array();
+/**
+ *  Cygnite Framework
+ *  Global Configuration Settings
+ *
+ *  An open source application development framework for PHP 5.3x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ *@package                         :  Apps
+ *@subpackages                :  Configurations
+ *@filename                        :  appconfig
+ *@description                    : You can set your all your global configurations here.
+ *@author                           : Sanjoy Dey
+ *@copyright                      :  Copyright (c) 2013 - 2014,
+ *@link	                  :  http://www.appsntech.com
+ *@since	                 :  Version 1.0
+ *@filesource
+ *@warning                      :  If you don't protect this directory from direct web access, anybody will be able to see your configuaration and settings.
+ *
+ *
+ */
 
-$CF_CONFIG = array(
-          /*
-          * Set Database Configuration
-          * To connect Multiple database connection use db2,db3.... etc
-          * @prototype set database host_name
-          * @prototype set database username
-          * @prototype set database password
-          * @prototype set database name
-          * @prototype set database prefix
-          * @prototype set database type
-          * @prototype set database persistance connection TRUE or FALSE
-          */
-            'DB_CONFIG' => array(
-                                    'db' =>array(
-                                                    'host_name' => 'localhost',
-                                                    'username'  => 'root',
-                                                    'password'  => '',
-                                                    'dbname'    => 'cygnite',
-                                                    'dbprefix'  => '',
-                                                    'dbtype'    => 'mysql',
-                                                    'port'        => '',
-                                                    'pconnection' =>TRUE
-                                    )
-                                 /*  ,'db2' => array(
-                                                    'host_name' => 'localhost',
-                                                    'username'  => 'root',
-                                                    'password'  => '',
-                                                    'dbname'    => 'hris',
-                                                    'dbprefix'  => '',
-                                                    'dbtype'    => 'mysql',
-                                                    'port'        => '',
-                                                    'pconnection' =>TRUE
-                                    )  */
-            ),
-          /*
-          * Set Global Variables as array
-          * @prototype set base_path
-          * @prototype set default_controller
-          * @prototype set encryption key for encryption library
-          * @prototype enable profiling TRUE or FALSE
-          */
-          'GLOBAL_CONFIG' => array(
-                                                'base_path'                   => 'http://'.$_SERVER['HTTP_HOST'].'/appsntech-dev-team/',
-                                                'default_controller'          => 'welcomeuser',
-                                                'cf_encryption_key'           => 'cygnite-sha1',
-                                                'enable_profiling'            => TRUE,
-                                                'enable_cache'                => TRUE, //Enable cache bollean TRUE/FALSE
-                                                'cache_name'                  => 'cf_cache',
-                                                'cache_extension'             => '.cache',
-                                                'cache_type'                  => 'filecache',																				 'cache_lifetime'              => '',// 120
-                                                'cache_directory'              => 'temp/cache',//Default value is none
-                                                'encoding'                          => 'UTF-8' //Encoding technique for your application
+return array (
+                       /*
+                        *--------------------------------------------------------------------------
+                        * Your Application Base URL
+                        *--------------------------------------------------------------------------
+                        * The base URL used to import your application assets in your webpage.
+                        * Based on base url we will perform page redirect and other internal
+                        * functionalities.
+                        */
+                        'base_path'                   => 'http://'.$_SERVER['HTTP_HOST'].'/cygnitenew/',
 
-          ),
-          'ERROR_CONFIG'=> array(
-                                                'environment'               =>  'development', //default error config for production is off
-                                                'level'                             => 'E_ALL & ~E_DEPRECATED',//E_ALL ^ E_DEPRECATED
-                                                'display_errors'            => 'off',
-                                                'log_errors'                   => 'on', // Will be available on beta version
-                                                //You can set value  1- Display error, 2 - Generate and write into log file
-                                                'log_trace_type'         => 2, // Will be available on beta version.
-                                                'log_file_name'          => 'application_logs' ,
-                                                'log_path'                    => 'temp/logs'
+                      /*
+                        *--------------------------------------------------------------------------
+                        * Your Application Default Controller
+                        *--------------------------------------------------------------------------
+                        * Set your application default controller here. Default controller
+                        * will be called when you try to access cygnite application.
+                        */
+                         'default_controller'          => 'welcomeuser',
 
-          ),
-           /*
-          * Set Session Variables as array
-          * @prototype set
-          * @prototype set
-          * @prototype set
-          * @prototype
-          */
-          'SESSION_CONFIG' => array(
-                                                'cf_session'                             => FALSE , //Set TRUE or FALSE to start session default is FALSE
-                                                'cf_session_name'                 => 'cf_secure_session',
-                                                'cf_session_save_path'         => 'default', // Framework default Session path is apps/temp/sessions/
-                                                'cf_session_cookie_name'   => '',//Need to update code for next version
-                                                'cf_session_timeout'            => 1440,//Need to update code for next version
-                                                'cf_session_auto_start'        => '', //Need to update code for next version
-                                                'cf_session_use_db'              => FALSE, // Need to update code for next version
-                                                'cf_session_db_name'          => '', // Need to update code for next version
-                                                'cf_session_table_name'     => 'cf_session', // Need to update code for next version
-          )
-);/* End of the config.php*/
+                        /*
+                        *--------------------------------------------------------------------------
+                        * Your Application Default Method
+                        *--------------------------------------------------------------------------
+                        * You can set your application default method here. By default we
+                        * we will call index method of your controller. You can able to change
+                        * it here which feature will be available on next version of Cygnite framework.
+                        *
+                        */
+                         'default_method'          => 'index',
+
+                         /*
+                        *--------------------------------------------------------------------------
+                        * Your Application Character Encoding
+                        *--------------------------------------------------------------------------
+                        * Here you can set your application default character encoding . This encoding
+                        * will be used by the Str, Text, Form, and any other classes that need
+                        *  to know what type of encoding to use for your generous application.
+                        *
+                        */
+                         'encoding'                          => 'UTF-8',
+
+                       /*
+                        *--------------------------------------------------------------------------
+                        * Your Application Language
+                        *--------------------------------------------------------------------------
+                        * You can set your application default language here. Language library will
+                        * will take care rest.
+                        */
+                        'language' => 'en',
+
+                          /*
+                        *--------------------------------------------------------------------------
+                        * Application Timezone
+                        *--------------------------------------------------------------------------
+                        * You can set your application timezone here.This timezone will
+                        * be used when cygnite need date time or any internal features.
+                        *
+                        */
+                        'timezone' => 'UTC',
+
+                       /*
+                        *--------------------------------------------------------------------------
+                        *  Application Encryption key
+                        *--------------------------------------------------------------------------
+                        * Set your encryption key here. You must set your encryption key here in order to
+                        * use cygnite secure encryption and session library. We used php mcrypt extension
+                        * library for encryption library. So please check whether you have else please activate
+                        * to work with secure encryption and session library.
+                        */
+                        'cf_encryption_key'           => 'cygnite-shaXatBNHQ4z59c4mrez',
+
+                       /*
+                        *--------------------------------------------------------------------------
+                        * Benchmark Your Application
+                        *--------------------------------------------------------------------------
+                        * Enable profiling as True if you wish to benchmark your aplication. You can
+                        * make it FALSE to deactivate profiling. Cygnite will take care rest.
+                        */
+                        'enable_profiling'            => TRUE,
+
+                        /*
+                        *--------------------------------------------------------------------------
+                        * ************Your Application Cache Config*************
+                        *--------------------------------------------------------------------------
+                        * You can enable cache here (example: TRUE/FALSE). Cygnite have
+                        * three type of cache driver FileCache, Memcache, APC to boost your
+                        * application performace. Follow user guide for usages.
+                        */
+                        'enable_cache'                => TRUE,
+
+                       /*
+                        *---------------------------------------------------------------------------
+                        * Cache Name
+                        *---------------------------------------------------------------------------
+                        * Set your cache name here to generate cache file name if you are
+                        * using cygnite file caching technique.
+                        */
+                        'cache_name'                  => 'cf_cache',
+
+                         /*
+                        *---------------------------------------------------------------------------
+                        * Cache Extension
+                        *---------------------------------------------------------------------------
+                        * Set your cache extension here. Cygnite will take care of rest. Cache will
+                        * store with same extension which you will provide here.
+                        *
+                        */
+                        'cache_extension'             => '.cache',
+
+                       /*
+                        *---------------------------------------------------------------------------
+                        * Cache Type
+                        *---------------------------------------------------------------------------
+                        * Set your cache type here. Cygnite will take care of rest.
+                        *
+                        */
+                        'cache_type'                  => 'filecache',
+
+                      /*
+                        *---------------------------------------------------------------------------
+                        * Cache Storage Location
+                        *---------------------------------------------------------------------------
+                        * Set your cache file storage location here. By default we are using
+                        * temp/cache.
+                        *
+                        */
+                        'cache_directory'              => 'temp/cache', //Default value is none
+
+                        'environment'               =>  'development', //Errors are turned on in development environtment
+                        'level'                             => 'E_ALL & ~E_DEPRECATED',//E_ALL ^ E_DEPRECATED
+                        'display_errors'            => 'off',
+                        'log_errors'                   => 'on', // Will be available on beta version
+                        //You can set value  1- Display error, 2 - Generate and write into log file
+                        'log_trace_type'         => 2, // Will be available on beta version.
+                        'log_file_name'          => 'application_logs' ,
+                        'log_path'                    => 'temp/logs'
+
+);

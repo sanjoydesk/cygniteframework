@@ -26,7 +26,8 @@
  *
  *
  */
-   Cygnite::import(CF_SYSTEM,'database', 'Connect');
+   
+   //include 'packages/cygnite/database/CF_DBConnector.php';
    Cygnite::import(CF_SYSTEM,'loader', 'AppRegistry');
    include_once CF_SYSTEM.DS.'cygnite'.DS.'sparker'.DS.'CFModel'.EXT;
 

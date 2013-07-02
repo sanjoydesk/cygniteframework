@@ -45,16 +45,16 @@
   * @prototype set database persistance connection TRUE or FALSE
   */
 return array(
-                           'db' =>array(
-                                                    'hostname' => 'localhost',
-                                                    'username'  => 'root',
-                                                    'password'  => '',
-                                                    'dbname'    => 'cygnite',
-                                                    'dbprefix'  => '',
-                                                    'dbtype'    => 'mysql',
-                                                    'port'        => '',
-                                                    'pconnection' =>TRUE
-                    )
+                'db' =>array(
+                                         'hostname' => 'localhost',
+                                         'username'  => 'root',
+                                         'password'  => '',
+                                         'dbname'    => 'cygnite',
+                                         'dbprefix'  => '',
+                                         'dbtype'    => 'mysql',
+                                         'port'        => '',
+                                         'pconnection' =>TRUE
+                )
                   ,'db2' => array(
                                     'host_name' => 'localhost',
                                     'username'  => 'root',

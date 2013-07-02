@@ -15,6 +15,7 @@
          * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
          * ===============================================================================================
          */
+     include_once CF_SYSTEM.'/cygnite/database/DB_Connect.php';
 
      class CF_BaseModel extends CF_DBConnect
     {

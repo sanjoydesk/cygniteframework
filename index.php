@@ -58,6 +58,7 @@
      define('ROOTDIR', rtrim(end($dir)));
 
      define('CYGNITE_BASE', dirname(__FILE__));
+     
 
   /* -------------------------------------------------------------------
     *  Lets start to include default core files

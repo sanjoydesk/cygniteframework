@@ -13,16 +13,16 @@
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- * @Package                         :  Packages
- * @Sub Packages               :  Library
- * @Filename                       : CF_HTMLForm
- * @Description                   : This library used to generate all html form tags 
- * @Author                          :   Cygnite Dev Team
+ * @Package                       :  Packages
+ * @Sub Packages                  :  Library
+ * @Filename                      :  CF_HTMLForm
+ * @Description                   :  This library used to generate all html form tags 
+ * @Author                        :  Cygnite Dev Team
  * @Copyright                     :  Copyright (c) 2013 - 2014,
  * @Link	                  :  http://www.appsntech.com
  * @Since	                  :  Version 1.0
  * @Filesource
- * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ * @Warning                       :  Any changes in this library can cause abnormal behaviour of the framework
  *
  *
  */
@@ -30,7 +30,7 @@
 /*************************************************************************************************
  * Example Usage
  *
- * $object = Form::createForm("form");
+ * $object = CF_HTMLForm::createForm("form");
  * print $object->input("name",array("type"=>"text"))->class("textbox","required")->id("name");
  * print $object->input("age")->type("password")->value("true")->id("age");
  * print $object->textarea("age1")->value("true")->id("age");
@@ -42,119 +42,155 @@
     class CF_HTMLForm
     {
 
-            private static $object_holder = array();
+        private static $object_holder = array();
 
-            private $form_string;
+        private $form_string;
 
-            private $form_name;
+        private $form_name;
 
-            private $elements = array();
+        public static $formname,$form_open;
 
-            private function __construct(){}
+        private $elements = array();
 
-            public static function createForm($form_name,$attributes = array())
-            {
-                if(!isset(self::$object_holder[$form_name])):
-                        self::$object_holder[$form_name] = new CF_HTMLForm();
-                        self::$object_holder[$form_name]->form_name = $form_name;
+        private function __construct(){}
+
+
+
+        public static function initialize($form_name,$attributes = array())
+        {
+            self::$formname = $form_name;
+            if(!isset(self::$object_holder[$form_name])):
+                    self::$object_holder[$form_name] = new CF_HTMLForm();
+            endif;
+                    return self::$object_holder[$form_name];
+        }
+
+        public static function open()
+        {   
+            $args = func_get_args();
+
+            $element_str ="";
+             if(is_null(self::$form_open)): 
+                    foreach($args[0] as $key=>$value):
+                         $element_str .= "{$key} = '{$value}' ";
+                    endforeach;
+             endif;
+
+            return "<form name='".self::$formname."' $element_str>".PHP_EOL;                 
+        }
+
+        public static function close()
+        {
+             if(!is_null(self::$form_open))
+                return "</form>";
+        }        
+
+        public function __call($function_name,$arguments = array())
+        { 
+                $function_name = ucfirst($function_name);
+
+                if(isset($this->elements[$arguments[0]]))
+                   return $this->elements[$arguments[0]];
+
+                if(class_exists($function_name)):
+                        $this->elements[$arguments[0]] = new $function_name;
+                        $this->elements[$arguments[0]]->element_name = $arguments[0];
+                        if(isset($arguments[1]))
+                        $this->elements[$arguments[0]]->attributes = $arguments[1];
                 endif;
-                        return self::$object_holder[$form_name];
-            }
+                return $this->elements[$arguments[0]];
+        }
 
-            public function __call($function_name,$arguments = array())
-            {
-                    $function_name = ucfirst($function_name);
-
-                    if(isset($this->elements[$arguments[0]]))
-                       return $this->elements[$arguments[0]];
-
-                    if(class_exists($function_name)):
-                            $this->elements[$arguments[0]] = new $function_name;
-                            $this->elements[$arguments[0]]->element_name = $arguments[0];
-                            if(isset($arguments[1]))
-                            $this->elements[$arguments[0]]->attributes = $arguments[1];
-                    endif;
-                    return $this->elements[$arguments[0]];
-            }
-
-            public function __toString()
-            {
-                    $this->form_string = "<form name='".$this->form_name."'>".PHP_EOL;
-                    $this->form_string .= "</form>";
-                    return $this->form_string;
-            }
-
-            public function __destruct(){}
-
+        public function __destruct()
+        {
+             unset($this);            
+        }
    }
 
-     class Form_elements
+    class CF_Form_Elements
     {
-            public $attributes = array();
-            public $element_name;
-            public $element_value;
+        public $attributes = array();
+        public $element_name;
+        public $element_value;
 
 
-            public function __construct(){}
+        public function __construct(){}
 
 
-            public function __call($attributes,$arguments)
-            {
-            $this->attributes[$attributes] = implode(" ",$arguments);
-            return $this;
-            }
+        public function __call($attributes,$arguments)
+        {
+        $this->attributes[$attributes] = implode(" ",$arguments);
+        return $this;
+        }
 
-            protected function attributes()
-            {
-                $element_str = "";
-                    foreach ($this->attributes as $key=>$value):
-                         $element_str .= "{$key} = '{$value}' ";
-                  endforeach;
-            return $element_str;
-            }
-            public function __toString()
-            {
-                 return "<".$this->element." name='".$this->element_name."' ".$this->attributes()." />";
-            }
+        protected function attributes()
+        {
+            $element_str = "";
+                foreach ($this->attributes as $key=>$value):
+                     $element_str .= "{$key} = '{$value}' ";
+              endforeach;
+        return $element_str;
+        }
+        public function __toString()
+        {
+             return "<".$this->element." name='".$this->element_name."' ".$this->attributes()." />";
+        }
 
-            public function __destruct(){}
+        public function __destruct()
+        {
+            unset($this);           
+        }
 
      }
 
-    class Input extends Form_elements
+    class Input extends CF_Form_Elements
     {
-            protected $element = "input";
+        protected $element = "input";
     }
 
-    class Select extends Form_elements
+    class Select extends CF_Form_Elements
     {
-            protected $element = "select";
-            public $element_name;
-            public $element_options = array();
+        protected $element = "select";
+        public $element_name;
+        public $element_options = array();
 
-            public function options($element_options = array())
-            {
-                    $this->element_options = $element_options;
-                    return $this;
-            }
-            public function __toString()
-            {
-                     foreach ($this->element_options as $key=>$value):
-                            $this->element_value .= "<option value='{$key}'>{$value}</option>";
-                     endforeach;
+        public function options($element_options = array())
+        {
+                $this->element_options = $element_options;
+                return $this;
+        }
+        public function __toString()
+        {
+                 foreach ($this->element_options as $key=>$value):
+                        $this->element_value .= "<option value='{$key}'>{$value}</option>";
+                 endforeach;
+            return "<".$this->element." name='".$this->element_name."' ".$this->attributes().">{$this->element_value}</".$this->element.">";
+        }
+    }
+
+    class Textarea extends CF_Form_Elements
+    {
+        protected $element = "textarea";
+        public function __toString()
+        {
+                if(isset($this->attributes['value'])):
+                        $this->element_value = $this->attributes['value'];
+                        unset($this->attributes['value']);
+                endif;
                 return "<".$this->element." name='".$this->element_name."' ".$this->attributes().">{$this->element_value}</".$this->element.">";
-            }
+        }
     }
-
-    class Textarea extends Form_elements
+    
+    class Label extends CF_Form_Elements
     {
-                protected $element = "textarea";
-                public function __toString()
-                {
-                        if(isset($this->attributes['value'])):
-                                $this->element_value = $this->attributes['value'];
-                                unset($this->attributes['value']);
-                        endif;
-                        return "<".$this->element." name='".$this->element_name."' ".$this->attributes().">{$this->element_value}</".$this->element.">";
-                }
+        protected $element = "label";
+        public function __toString()
+        {             
+            if(isset($this->attributes['value'])):
+                     $this->element_value = $this->attributes['value'];
+                    unset($this->attributes['value']);
+            endif;
+            return "<".$this->element." for={$this->element_value} ".$this->attributes().">{$this->element_value}</".$this->element."> &nbsp";
+        }
     }
+    

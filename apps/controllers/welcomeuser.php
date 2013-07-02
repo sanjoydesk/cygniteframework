@@ -1,16 +1,9 @@
 <?php
-/*
-*===============================================================================================
-*
-* ===============================================================================================
-*/
     class WelcomeuserAppsController extends CF_BaseController
     {
         public function __construct()
         {
               parent::__construct();
-            // $enc = $this->app()->request('Encrypt')->encrypt("sanjay@123");
-          //   $this->app()->request('Encrypt')->decrypt($enc);
         }
 
 
@@ -19,7 +12,6 @@
               $this->app()->model('users');
               $users=  $this->app()->users->getdetails();
                 $postvalues =array();
-               //$var =  $this->app()->request('HTTPRequest')->is_submited('btnSubmit');
               if(TRUE===$this->app()->request('HTTPRequest')->is_submited('btnSubmit')):
                       $postvalues = $this->app()->request('HTTPRequest')->post_values();
                       $this->app()->users->insert($postvalues);
@@ -133,7 +125,7 @@
              $this->app()->helper('Assets');
 
             // Cygnite::request('Cache')->build("FileCache")->write_cache('welcome_page', $this->render("welcome",TRUE));
-            echo Cygnite::request('Cache')->build("FileCache")->read_cache('welcome_page');
+            echo Cygnite::loader()->request('Cache')->build("FileCache")->read_cache('welcome_page');
       }
       private $country = 'India';
 

@@ -37,7 +37,7 @@ return array (
                         * Based on base url we will perform page redirect and other internal
                         * functionalities.
                         */
-                        'base_path'                   => 'http://'.$_SERVER['HTTP_HOST'].'/cygnitenew/',
+                        'base_path'                   => 'http://'.$_SERVER['HTTP_HOST'].'/oxi/',
 
                       /*
                         *--------------------------------------------------------------------------
@@ -107,7 +107,7 @@ return array (
                         * Enable profiling as True if you wish to benchmark your aplication. You can
                         * make it FALSE to deactivate profiling. Cygnite will take care rest.
                         */
-                        'enable_profiling'            => TRUE,
+                        'enable_profiling'            => FALSE,
 
                         /*
                         *--------------------------------------------------------------------------

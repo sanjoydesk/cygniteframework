@@ -34,7 +34,7 @@
     class DB_Selections
     {
 
-                private $selectfields = NULL,$from_where =NULL,$field_where = NULL,
+               private $selectfields = NULL,$from_where =NULL,$field_where = NULL,
                               $field_where_in =NULL,$from_where_in =NULL,$limit_value =NULL,
                               $offset_value =NULL,$field_name=NULL,$order_type = NULL;
                 /** Variable $sql, query string to execute. */
@@ -62,7 +62,7 @@
                             trigger_error('Cloning <em>DB Selections</em> is prohibited.', E_USER_ERROR);
                 }
 
-                   /**
+               /**
                 * Find Function to selecting Table columns
                 *
                 * Generates the SELECT portion of the query
@@ -88,7 +88,7 @@
                     return $this;
                 }
 
-               /* Where
+           /* Where
             *
             * Generates the WHERE portion of the query. Separates
             * multiple calls with AND
@@ -174,7 +174,7 @@
                }
 
 
-                  /*
+              /*
                * limit function to limit the database query
                * @access   public
                * @param    int
@@ -348,43 +348,43 @@
                  *
                  */
                 public function flushresult()
-                    {
-                            if($this->is_closed() == FALSE):
-                                   $this->close();
-                                   $this->_closed=FALSE;
-                                   unset($this->selectfields);unset($this->from_where);unset($this->field_where);
-                                    unset($this->field_where_in);unset($this->limit_value);unset($this->field_name);
-                                    unset($this->offset_value);unset($this->order_type);
-                            endif;
-                    }
+                {
+                        if($this->is_closed() == FALSE):
+                               $this->close();
+                               $this->_closed=FALSE;
+                               unset($this->selectfields);unset($this->from_where);unset($this->field_where);
+                                unset($this->field_where_in);unset($this->limit_value);unset($this->field_name);
+                                unset($this->offset_value);unset($this->order_type);
+                        endif;
+                }
 
-                    public function debug_query()
-                    {
-                         return DB_SQLUtilities::debugqry($this->debugqry,$this->_dbstatement);
-                    }
+                public function debug_query()
+                {
+                     return DB_SQLUtilities::debugqry($this->debugqry,$this->_dbstatement);
+                }
 
-                    public function dblogerror() { }
+                public function dblogerror() { }
 
+
+            /**
+                 * Closes the reader.
+                 * This frees up the resources allocated for executing this SQL statement.
+                 * Read attemps after this method call are unpredictable.
+                 */
+                private function close()
+                {
+                        $this->_dbstatement->closeCursor();
+                        $this->_closed=TRUE;
+                }
 
                 /**
-                     * Closes the reader.
-                     * This frees up the resources allocated for executing this SQL statement.
-                     * Read attemps after this method call are unpredictable.
-                     */
-                    private function close()
-                    {
-                            $this->_dbstatement->closeCursor();
-                            $this->_closed=TRUE;
-                    }
-
-                    /**
-                     * whether the reader is closed or not.
-                     * @return boolean whether the reader is closed or not.
-                     */
-                    public function is_closed()
-                    {
-                            return $this->_closed;
-                    }
+                 * whether the reader is closed or not.
+                 * @return boolean whether the reader is closed or not.
+                 */
+                public function is_closed()
+                {
+                        return $this->_closed;
+                }
 
             function __destruct()
             {

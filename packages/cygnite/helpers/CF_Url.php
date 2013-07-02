@@ -109,7 +109,7 @@ class Url
                    GHelper::display_errors(E_USER_ERROR, 'Unhandled Exception',"Cannot pass null argument to ".__METHOD__, $callee[1]['file'],$callee[1]['line'],TRUE);
                 endif;
 
-                return  self::$url.'index.php'.URIS.$uri;
+                return  self::$url.'index.php/'.$uri;
            }
 
 

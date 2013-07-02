@@ -1,0 +1,12 @@
+<?php
+
+echo dirname(__FILE__);
+
+$command = "libreoffice --headles -convert-to pdf:writer_pdf_Export -outdir /home8/colanpor/public_html/umrc/converter medleft.docx 2>&1";
+        exec($command." 2>&1", $output);
+        echo "<pre>";
+        var_dump($output);
+        echo "</pre>";
+
+
+?>

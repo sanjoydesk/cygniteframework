@@ -15,10 +15,34 @@
          * @Warning                      : Any changes in this library can cause abnormal behaviour of the framework
          * ===============================================================================================
          */
+     include_once CF_SYSTEM.'/cygnite/database/DBConnect.php';
 
-interface IRegistry
-{
-       public static function initialize($dirRegistry = array());
+     class CF_BaseModel extends CF_DBConnect
+    {
+        public static $appsmodel,$dbobj;
+       public  function __construct()
+        {
+                 parent::cnXN();
+               // var_dump(parent::get_cnXn_obj('test'));
+        }
 
-       public  function apps_load($key);
-}
+        public static function get_instance()
+        {
+                if(is_null(self::$appsmodel)):
+                       return new self();
+                endif;
+        }
+
+        public static function get_db_instance($key)
+        {
+            if(is_null(self::$dbobj)):
+                  return self::get_instance()->get_cnXn_obj($key);
+            endif;
+                return FALSE;
+
+       }
+         function __destruct()
+         {
+              //  parent::flushcnXn();
+        }
+    }

@@ -1,0 +1,32 @@
+<title>FFMPEG-TEST</title>
+<?php
+function commandExists($command) {
+    $command = escapeshellarg($command);
+    $exists = exec("man ".$command,$out);
+    return sizeof($out);
+}
+
+if (commandExists("ffmpeg")>0) {
+    echo 'FFMPEG Yes';
+} else {
+    echo 'FFMPEG No';
+}
+
+   $target_path = "/var/www/converter/uploads";
+   $sourc = '/var/www/converter/uploads/word.docx';	
+
+
+ //shell_exec("libreoffice --headless -convert-to pdf /var/www/converter/word.docx -outdir /var/www/converter/"); 
+ system("export HOME=/tmp 
+  libreoffice --headless --invisible --norestore --convert-to pdf --outdir $target_path $sourc"); 
+
+/*
+ system('
+  export HOME=/tmp 
+  libreoffice --headless --invisible --norestore --convert-to pdf --outdir /var/www/converter/ /var/www/converter/word_test_1.docx'); 
+
+*/
+
+?>
+
+

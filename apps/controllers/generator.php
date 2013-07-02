@@ -1,5 +1,5 @@
 <?php
-class PdfAppsController extends CF_BaseController
+class GeneratorAppsController extends CF_BaseController
 {
    public function __construct()
    {

@@ -1,6 +1,6 @@
-Appsntech Dev Team
-==================
-APPSNTECH dev team brought you Cygnite Framework for php web artist. Cygnite Framework (Alpha 1.0) is not full fledged 
+Cygnite Framework Dev Team
+==========================
+Cygnite Framework for php web artist brought you by appsntech.com. Cygnite Framework (Alpha 1.0) is not full fledged 
 it's just an small footprint to give you creative experience of developing web application. 
 
 We are just at the begenning though we have long way to move. We are still growing and soon we will brought you dynamic 
@@ -67,6 +67,13 @@ iv. Fork Cygnite Repository on GitHub.
 
 History -
 =======
+
+Hi I am Sanjoy Dey. I love to create web applications. After using few of the MVC framework I thought of creating 
+my own framework which is very user friendly and not much complicated for developers to implement and learn. 
+
+Cygnite is in development stage and contributing in cygnite development would be much appreciated.
+
+You can find my blog - <a href="http://www.appsntech.com">http://www.appsntech.com</a> 
 
 
 

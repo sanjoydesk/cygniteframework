@@ -8,14 +8,14 @@ application based on your needs.
 
 
 Cygnite Framework (Alpha Version 1.0)
-====================================
+==============================
 
 Cygnigte Framework is rapid web application development framework for PHP. Our primary goal is to provide developers - mutiple libraries
 at one place with better way to develop dynamic applications. Discover Cygnite to make your work smarter,simpler and faster.
 
 
 Core features of Cygnite Framework -
-==================================
+=============================
 
 i.   Inbuilt multiple libraries to make your work simpler.
 
@@ -49,8 +49,8 @@ Contribute -
 
 You are in right place. We welcome you to perticipate on our Cygnite development. 
 
-Contribute on cygnite framework development and grow with us. Join my team, learn, get help and help others, find, report
-bugs, send us your feedback, send your wishlist to keep on adding new features, write and send us patches if you find any 
+Contribute on cygnite framework development and grow with us. Join my our team learn, get help and help others, find, report
+bugs, send us your feedback, send your wishlist to keep adding new features, write and send us patches if you find any 
 on Cygnite Framework. 
 
 
@@ -63,8 +63,6 @@ ii. Clearly describe the issue you find to fix shortly.
 iii.Create a branch where you would like to place your changes and send the patches to us.
 
 iv. Fork Cygnite Repository on GitHub.
-
-v. Please follow the coding standard as followed or request for coding standard to follow. 
 
 
 History -

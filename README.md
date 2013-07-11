@@ -68,12 +68,16 @@ iv. Fork Cygnite Repository on GitHub.
 History -
 =======
 
-Hi I am Sanjoy Dey. I love to create web applications. After using few of the MVC framework I thought of creating 
-my own framework which is very user friendly and not much complicated for developers to implement and learn. 
+Hi I am Sanjoy Dey. I love to create web applications.  After enjoying couple of MVC frameworks and nearly 1 years of
+gained knowledge I started creating cygnite framework by DEC 2012. I thought of creating Cygnite Framework which will 
+give you creative experiance with expressive performance with user friendly architechture to reduce your development
+time and implementations.  
 
-Cygnite is in development stage and contributing in cygnite development would be much appreciated.
+Cygnite is now development stage (Alpha 1.0) and contributing in cygnite development would be much appreciated.
 
-You can find my blog - <a href="http://www.appsntech.com">http://www.appsntech.com</a> 
+
+
+You can also find me on - <a href="http://www.appsntech.com">http://www.appsntech.com</a> 
 
 
 

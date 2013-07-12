@@ -8,18 +8,19 @@ application based on your needs.
 
 
 Cygnite Framework (Alpha Version 1.0)
-==============================
+====================================
 
 Cygnigte Framework is rapid web application development framework for PHP. Our primary goal is to provide developers - mutiple libraries
 at one place with better way to develop dynamic applications. Discover Cygnite to make your work smarter,simpler and faster.
 
 
 Core features of Cygnite Framework -
-=============================
+==================================
 
 i.   Inbuilt multiple libraries to make your work simpler.
 
-ii.  Better performance with inbuilt caching libraries.
+ii.  Cygnite Framework follows lazy loading concept which gives you better performance and also provides inbuilt 
+     caching libraries.
 
 iii. Zero configuration.
 
@@ -35,11 +36,15 @@ viii.Secure your application with its inbuilt library.
 
 ix.  Cygnite Framework gives you flexibility for both beginners as well as advance php programmers to develop dynamic applications.
 
-x.   Not end here, we still adding new features daily to fulfill all your needs. 
+x.   Connect and use Multiple Database on the go.
+
+xi.  Cygnite follows active records style. 
+
+xi.   Not end here, we still adding new features daily to fulfill all your needs. 
 
 
 Contribute -
-========
+==========
 
 -> Are you experienced in PHP or in object oriented programing concept ? 
 

@@ -69,7 +69,7 @@ History -
 =======
 
 Hi I am Sanjoy Dey. I love to create web applications.  After enjoying couple of MVC frameworks and nearly 1 years of
-gained knowledge I started creating cygnite framework by DEC 2012. I started creating Cygnite Framework which will 
+gained knowledge I started creating cygnite framework by DEC 2012. Cygnite Framework which will 
 give you creative experiance with expressive performance with user friendly architechture to reduce your development
 time and implementations.  
 

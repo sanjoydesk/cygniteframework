@@ -2,9 +2,9 @@
    $obj = new ApcCache();
 if ($obj->is_enable){ // if APC enabled
     if($obj->store('user',array('name'=>'Sanjoy','designation'=> 'Software Engineer'))){
-       echo "<pre>";
-       var_dump($obj->get_data('user'));
-       echo "</pre>";
+     //  echo "<pre>";
+      // var_dump($obj->get_data('user'));
+    //   echo "</pre>";
     } else{
         throw new Exception("Details not available in apc cache.");
     }

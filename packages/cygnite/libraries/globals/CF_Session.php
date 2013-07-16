@@ -2,13 +2,13 @@
 /**
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2x or newer
+ *  An open source application development framework for PHP 5.2.5 or newer
  *
  *   License
  *
  *   This source file is subject to the MIT license that is bundled
  *   with this package in the file LICENSE.txt.
- *   http://www.appsntech.com/license.txt
+ *   http://www.cygniteframework.com/license.txt
  *   If you did not receive a copy of the license and are unable to
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
@@ -19,7 +19,7 @@
  * @Description                   : This class is used to handle session mechanisam of the cygnite framework
  * @Author                           : Sanjoy Dey
  * @Copyright                     :  Copyright (c) 2013 - 2014,
- * @Link	                  :  http://www.appsntech.com
+ * @Link	                  :  http://www.cygniteframework.com
  * @Since	                  :  Version 1.0
  * @Filesource
  * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
@@ -27,19 +27,24 @@
  *
  */
 
-class Session extends Globals implements SecureData
+class CF_Session extends CF_Globals implements ISecureData
 {
         public $_var = "_SESSION";
+
         const SESSION_PREFIX = 'Cygnite';
+
         var $time_reference = 'time',$now,$config = array();
+
         public $_autostart= TRUE;
+
         private  $_initialized=FALSE,$_is_started = FALSE,$encrypt = NULL,$httponly = TRUE;
+
         private $sess_val = NULL;
 
         public function __construct()
-       {					
+       {
                     $this->config =  Config::get_config_items('config_items');
-                    $this->initialize();
+
                     $keys = array('HTTP_USER_AGENT', 'SERVER_PROTOCOL',
                                               'HTTP_ACCEPT_CHARSET', 'HTTP_ACCEPT_ENCODING', 'HTTP_ACCEPT_LANGUAGE');
                     $tmp = '';
@@ -47,21 +52,20 @@ class Session extends Globals implements SecureData
                             if (isset($_SERVER[$v])) $tmp .= $_SERVER[$v];
                     endforeach;
 
-                     $browser_sig = md5($tmp);
-                     if (empty($_SESSION)) : // new session
-                            $_SESSION['log'] = md5($browser_sig);
-                    elseif ($_SESSION['log'] != md5($browser_sig)):
-                            session_destroy(); // destroy fake session
-                            session_start(); // create a new “clean” session
-                     endif;
-                    if (!empty($_SERVER['HTTP_REFERER'])):
-                        $url = parse_url($_SERVER['HTTP_REFERER']);
-
-                        if ($url['host'] != $_SERVER['HTTP_HOST']):
-                                session_destroy(); // destroy fake session
-                        endif;
-
-                    endif;
+                             $browser_sig = md5($tmp);
+                             if (empty($_SESSION)) : // new session
+                                    $_SESSION['log'] = md5($browser_sig);
+                          //  elseif ($_SESSION['log'] != md5($browser_sig)):
+                                   // session_destroy(); // destroy fake session
+                                  //  session_start(); // create a new “clean” session
+                             endif;
+                            if (!empty($_SERVER['HTTP_REFERER'])):
+                                $url = parse_url($_SERVER['HTTP_REFERER']);
+                                        if ($url['host'] != $_SERVER['HTTP_HOST']):
+                                                session_destroy(); // destroy fake session
+                                        endif;
+                            endif;
+                    $this->initialize();
         }
 
                     public function set_gc_probability($value)
@@ -93,13 +97,13 @@ class Session extends Globals implements SecureData
                     private function start_session()
                     {
 
-                            if($this->_is_started ===FALSE){
+                            if($this->_is_started ===FALSE)
                                     @session_set_save_handler(array($this,'open'),array($this,'close'),array($this,'read'),array($this,'write'),array($this,'destroy'),array($this,'gc_session'));
-                            }
+
                             if(!$this->is_sess_started()):
                                     //Set the path for session
 
-                                    $path =  str_replace('/', OS_PATH_SEPERATOR , APPPATH);
+                                    $path =  str_replace('/', DS , APPPATH);
 
                                    if (is_dir($dir_path = APPPATH.'temp/sessions') === FALSE) :
                                             if (!mkdir($dir_path, 0777)) :
@@ -107,7 +111,7 @@ class Session extends Globals implements SecureData
                                             endif;
                                   endif;
 
-                                    $this->set_session_save_path(WEB_ROOT.OS_PATH_SEPERATOR.$path.'temp'.OS_PATH_SEPERATOR.'sessions'.OS_PATH_SEPERATOR);
+                                    $this->set_session_save_path(CYGNITE_BASE.DS.$path.'temp'.DS.'sessions'.DS);
                                     $this->set_session_name($this->config['SESSION_CONFIG']['cf_session_name']);
                                    // $this->set_cookie_parameters($session_array);
 
@@ -182,31 +186,6 @@ class Session extends Globals implements SecureData
 
                     /*Session fucntions need to be edit as per save handler  end  */
 
-
-                    public function destroy_session($userdata)
-                    {
-                             if(is_string($userdata) && isset($_SESSION[$userdata])):
-                                    unset($_SESSION[$userdata]);
-                            endif;
-
-                            if(is_array($userdata)):
-                                    foreach($userdata as $key=>$val)
-                                            unset($_SESSION[$key]);
-                            endif;
-                            /*
-                            $this->clear_session();
-                            if($this->get_session_id() != ""):
-                                    @session_unset();
-                                    @session_destroy();
-                            endif;
-                            */
-                    }
-
-                    private function clear_session()
-                    {
-                        foreach(array_keys($_SESSION) as $key)
-	 unset($_SESSION[$key]);
-                    }
 
                     public function get_session_id()
                     {
@@ -300,7 +279,7 @@ class Session extends Globals implements SecureData
                     * @param string $name name of the session variable
                     * @param mixed $value value of the session; can be string, array, object, etc
                     */
-                    public function setsession($key,$value)
+                    public function save($key,$value)
                     {
                       /*
                           if(! $this->_is_started):
@@ -315,8 +294,8 @@ class Session extends Globals implements SecureData
                                                           return TRUE;
                                             break;
                                         case is_string($value):
-                                                     if(!empty($key)):
-                                                          $_SESSION[$key]= Cygnite::loader()->request('Encrypt')->encrypt($value);
+                                                     if(!is_null($key)):
+                                                         $_SESSION[$key]= Cygnite::loader()->request('Encrypt')->encode($value);
                                                           return TRUE;
                                                     else:
                                                          GHelper::display_errors(E_USER_ERROR, 'Session Key', 'Empty key passed to '.__FUNCTION__.'()', $callee[0]['file'],$callee[0]['line'] , TRUE);
@@ -333,22 +312,21 @@ class Session extends Globals implements SecureData
                     * @param string $name Name of the variable you are looking for
                     * @return mixed
                     */
-                    public function getsession($key,$defaultValue=NULL)
+                    public function retrieve($key,$defaultValue=NULL)
                     {
                                  switch ($key):
                                         case is_array($_SESSION[$key]):
                                                     return isset($_SESSION[$key]) ? $_SESSION[$key] : $defaultValue;
                                             break;
                                         case is_string($_SESSION[$key]):
-                                                        return  isset($_SESSION[$key]) ? Cygnite::loader()->request('Encrypt')->decrypt($_SESSION[$key]) : $defaultValue;
+                                                        return  isset($_SESSION[$key]) ? Cygnite::loader()->request('Encrypt')->decode($_SESSION[$key]) : $defaultValue;
                                             break;
                                    endswitch;
                     }
 
-                 public   function unset_session($userdata)
-                    {
+                 public   function delete($userdata)
+                 {
                             if(is_string($userdata)):
-                                    //$userdata = array($userdata => '');
                                     unset($_SESSION[$userdata]);//unset(PHPSESSID);
                                     $_SESSION = array();
                             endif;
@@ -380,6 +358,31 @@ class Session extends Globals implements SecureData
                                 );
                         }*/
                             return true;
+                    }
+
+                     public function destroy_all($userdata)
+                    {
+                             if(is_string($userdata) && isset($_SESSION[$userdata])):
+                                    unset($_SESSION[$userdata]);
+                            endif;
+
+                            if(is_array($userdata)):
+                                    foreach($userdata as $key=>$val)
+                                            unset($_SESSION[$key]);
+                            endif;
+                            /*
+                            $this->clear_session();
+                            if($this->get_session_id() != ""):
+                                    @session_unset();
+                                    @session_destroy();
+                            endif;
+                            */
+                    }
+
+                    private function clear_session()
+                    {
+                        foreach(array_keys($_SESSION) as $key)
+	 unset($_SESSION[$key]);
                     }
 
                    public function _get_current_time()

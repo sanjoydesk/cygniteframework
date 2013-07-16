@@ -1,16 +1,15 @@
 <?php
-/*
-*===============================================================================================
-*
-* ===============================================================================================
-*/
- class CategoryAppsModels extends CF_ApplicationModel
+ class Category extends CF_BaseModel
 {
          function __construct()
         {
                parent::__construct();
                //$this->petro_dir->drivers();
                //$this->petro_dir->properties();
+        }
+        function test()
+        {
+            echo "Autoloaded model";
         }
 
         public function getuserlist()

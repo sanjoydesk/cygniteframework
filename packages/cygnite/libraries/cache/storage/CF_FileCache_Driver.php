@@ -1,16 +1,31 @@
-<?php
-
-    /*
-     * To change this template, choose Tools | Templates
-     * and open the template in the editor.
-     */
-
-    /**
-     * Description of CF_FileCache
-     *This library is influnced by simple cache class
-     *
-     */
-
+<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+/**
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *    http://www.cygniteframework.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         : Cygnite Framework File caching system
+ * @Filename                        : CF_FileCache_Driver.php
+ * @Description                    : This library is used to cache your web page and store into file format.
+ *                                                Part of the library is ispired by simple cache class.
+ * @Author                           : Sanjoy Dey
+ * @Copyright                      :  Copyright (c) 2013 - 2014,
+ * @Link	                    :   http://www.cygniteframework.com
+ * @Since	                    :  Version 1.0
+ * @Filesource
+ * @Warning                        :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
 
     class CF_FileCache_Driver
     {

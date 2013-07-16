@@ -21,7 +21,7 @@ Version 1.0.2
 
 New feature has been added on version 1.0.2. Single as well as multiple models can be loaded for example -
 $this->app()->model(array('usermodel','categorymodel'));
-DB core structures has been  redesigned and sub divided to make efficient db structure.
+DB core structures has been  redesigned and subdivided to make efficient db structure.
 Group By has been added with existing features.
 Separated View Core library as CFView and layout functionality has been added to core.
 Removed Registry Class and Lazy loading concept implemented with RobotLoader.

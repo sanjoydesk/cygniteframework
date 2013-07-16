@@ -1,4 +1,4 @@
-<?php
+<?php   if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /*
  *  Cygnite Framework
  *
@@ -30,54 +30,65 @@
 
 class Profiler
 {
-        /**
-        * Profiler starting point
-        *
-        * @access	public
-        * @param	string
-        */
+    private static $blocks = array();
 
-       public static function start()
-       {
-                     if(!defined('MEMORY_START_POINT') && !defined('START_TIME')):
-                                 define('MEMORY_START_POINT', self::memoryspace());
-                                 define('START_TIME', microtime(true));
-                     endif;
-        }
+    /**
+    * Profiler starting point
+    *
+    * @access	public
+    * @param	string
+    */
+    public static function start($starttoken = 'cygnite_start')
+    {
+        if(!defined('MEMORY_START_POINT')):
+            define('MEMORY_START_POINT', self::memoryspace());
+           self::$blocks[$starttoken] = self::get_time();
+        endif;
+    }
 
-         /**
-        * Profiler end point
-        *
-        * @access	public
-        * @param	string
-        */
+    private static function get_time()
+    {
+            return microtime(true);
+    }
 
-       public static function end()
-        {
-                    //echo memory_get_peak_usage(true);
-                    $html .= "<div id='benchmark'><div class='benchmark'>Total elapsed time : ".round(microtime(true) - START_TIME, 3). ' s';
-                    $html .= " &nbsp;&nbsp; &nbsp;Total memory :".self::memory_space_usage()."</div></div>";
-                    echo $html;
-        }
-       /**
-        * This Function is to get the memory usage by the script
-        *
-        * @access private
-        * @return get memory usage
-        */
-        private static function memoryspace()
-        {
-            return memory_get_usage();
-        }
+    private static function memory_peak()
+    {
+        return memory_get_peak_usage(true);
+    }
 
-        /**
-        *  This funtion is to calculate the total memory usage by the running script
-        *
-        * @access	public
-        * @param	string
-        */
-           public static function memory_space_usage()
-           {          //round(memory_get_usage()/1024/1024, 2).'MB';
-                        return round((( self::memoryspace()- MEMORY_START_POINT) / 1024), 2). '  KB<br />';
-            }
+     /**
+    * Profiler end point
+    *
+    * @access	public
+    * @param	string
+    */
+
+    public static function end($endtoken = 'cygnite_end')
+    {
+        $html .= "<div id='benchmark'><div class='benchmark'>Total elapsed time : ".round(self::get_time() - self::$blocks[$endtoken], 3). ' s';
+        //$html .= self::memory_peak();
+        $html .= " &nbsp;&nbsp; &nbsp;Total memory :".self::memory_space_usage()."</div></div>";
+        echo $html;
+    }
+    /**
+    * This Function is to get the memory usage by the script
+    *
+    * @access private
+    * @return get memory usage
+    */
+    private static function memoryspace()
+    {
+        return memory_get_usage();
+    }
+
+    /**
+    *  This funtion is to calculate the total memory usage by the running script
+    *
+    * @access	public
+    * @param	string
+    */
+    public static function memory_space_usage()
+    {          //round(memory_get_usage()/1024/1024, 2).'MB';
+                 return round((( self::memoryspace()- MEMORY_START_POINT) / 1024), 2). '  KB<br />';
+    }
 }

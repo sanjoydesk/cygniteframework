@@ -1,14 +1,14 @@
-<?php
-/*
+<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+/**
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2x or newer
+ *  An open source application development framework for PHP 5.2.5 or newer
  *
  *   License
  *
  *   This source file is subject to the MIT license that is bundled
  *   with this package in the file LICENSE.txt.
- *   http://www.appsntech.com/license.txt
+ *   http://www.cygniteframework.com/license.txt
  *   If you did not receive a copy of the license and are unable to
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
@@ -19,7 +19,7 @@
  * @Description                   :  This helper is used to load all assets of html page. Not implemented in current version. May be available on next version.
  * @Author                          :   Cygnite Dev Team
  * @Copyright                     :  Copyright (c) 2013 - 2014,
- * @Link	                  :  http://www.appsntech.com
+ * @Link	                  :  http://www.cygniteframework.com
  * @Since	                  :  Version 1.0
  * @Filesource
  * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
@@ -65,6 +65,25 @@
                  if(is_null($value))
                       throw new InvalidArgumentException("Cannot pass null argument to ".__METHOD__);
                    return htmlspecialchars($value, ENT_QUOTES, CF_Config::getconfig('global_config','encoding'), false);
+            }
+
+          /**
+            * Private method to sanitize data
+            * @param mixed $data
+            */
+            private function santize($value,$type='')
+            {
+                    switch($type):
+                                    default:
+                                                  return htmlspecialchars($value, ENT_QUOTES, "UTF-8");
+                                            break;
+                                    case 'strong':
+                                                 return htmlentities($value, ENT_QUOTES | ENT_IGNORE, "UTF-8");
+                                            break;
+                                    case 'strict':
+                                                 return urlencode($value);
+                                            break;
+                    endswitch;
             }
     }
 

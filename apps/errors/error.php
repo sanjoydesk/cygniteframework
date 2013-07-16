@@ -4,7 +4,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title><?php echo $title; ?></title>
         <style style="text/css">
-          .errcontent { font-family:Lucida Grande,Verdana,Sans-serif; margin: 40px; font-size:12px;padding: 20px 20px 12px 20px; background:#fff; border:1px solid #D3640F; }
+          .errcontent { font-family:Lucida Grande,Verdana,Sans-serif; margin: 40px; font-size:12px;padding: 20px 20px 12px 20px; background:#fff; border:1px solid #A7A788; }
           .errcontent h2 { color: #990000 !important;  font-size: 15px;font-weight: normal;margin: 5px 5px 5px 13px;   height:30px;
                 border-bottom:1px solid #CCC; }
           .errcontent p { margin:6px; padding: 9px; color:#888 !important;}

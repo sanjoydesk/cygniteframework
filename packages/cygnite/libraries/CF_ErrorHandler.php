@@ -1,4 +1,4 @@
-<?php  if ( ! defined('CF_SYSTEM')) exit('No direct script access allowed');
+<?php  if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 /**
  *  Cygnite Framework
  *
@@ -8,7 +8,7 @@
  *
  *   This source file is subject to the MIT license that is bundled
  *   with this package in the file LICENSE.txt.
- *   http://www.appsntech.com/license.txt
+ *   http://www.cygniteframework.com/license.txt
  *   If you did not receive a copy of the license and are unable to
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
@@ -19,7 +19,7 @@
  * @Description                   : This library used to handle all errors or exceptions of Cygnite Framework.
  * @Author                           :  Cygnite Dev Team
  * @Copyright                     :  Copyright (c) 2013 - 2014,
- * @Link	                  :  http://www.appsntech.com
+ * @Link	                  :  http://www.cygniteframework.com
  * @Since	                  :  Version 1.0
  * @Filesource
  * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
@@ -28,7 +28,8 @@
  */
        $logconfig = Config::getconfig('error_config','log_errors');
               if($logconfig == 'on' )
-                  Cygnite::import(CF_SYSTEM,'base', 'Logger');// Load the Logger Library
+                  Cygnite::import(CF_SYSTEM.'>cygnite>base>CF_Logger');// Load the Logger Library
+
 
     class CF_ErrorHandler
     {

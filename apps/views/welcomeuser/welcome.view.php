@@ -31,7 +31,7 @@
                                     <div class="features-head">
                                                             <h3 class="title"><a href="">Better <span class="title-em">Performance</span></a></h3>
                                      </div>
-                                      <p>With better performance and inbuilt APC, Memcache and own file caching technique to make your application faster.
+                                      <p> With better performance and caching mechanism which makes your application applications faster then you are expected.
                                       </p>
                                 </div>
                     </li>
@@ -40,8 +40,9 @@
                         <div class="features-head">
                                                                 <h3 class="title"><a href="">User  <span class="title-em">Friendly</span></a></h3>
                          </div>
-                      <p>Our application development framework to boost up your productivity, simplify your code and structure.
-                          You may be starter or experienced professional you will find very easy to work with cygnite.</p>
+                      <p>You may be starter or experienced professional you will find very easy to work with Cygnite Framework.
+                             Which boosts your productivity, simplify and minimise your code.
+                     </p>
                         </div>
                     </li>
 
@@ -51,7 +52,8 @@
                                                 <h3 class="title"><a href="">Inbuilt <span class="title-em">Libraries</span></a></h3>
                             </div>
 
-                      <p> Use inbuilt libraries on your need - x-auth, encryption, cache, error handler, pdf library, email, file upload  libraries use efficient way and lots more.
+                      <p> Use inbuilt libraries based on your needs - encryption, x-auth, secure session, cache, pdf, form, file upload  libraries which will make your
+                             work simpler then you think.
                      </p>
                            </div>
                     </li>
@@ -61,7 +63,9 @@
                         <div class="features-head">
                                     <h3 class="title"><a href="">Multiple <span class="title-em" >Databases  </span></a></h3>
                         </div>
-                      <p>Connect multiple database using pdo on the fly. Used pdo to secure your database queries.</p>
+                      <p>Connect multiple databases and generate queries with cygnite query builder.
+                             Used pdo to secure your database queries with multiple features.
+                      </p>
                         </div>
                     </li>
                           <li class="span3">
@@ -69,7 +73,7 @@
                                     <div class="features-head">
                                                                              <h3 class="title"><a href="">Zero  <span class="title-em">Configuration</span></a></h3>
                                 </div>
-                                  <p>Its very easy to use, almost zero configuration. Create and use your own libraries based upon your needs.  </p>
+                                  <p> Its very easy to use, almost zero configuration. Create and use your own libraries based upon your needs.</p>
                               </div>
                     </li>
 
@@ -107,7 +111,7 @@
 
                               <div class="footerrow" align="center" style="clear:both;padding-top: 0px;">
                                 <div class="footer-hr"></div>
-                                Copyrights @2013 <a href="htpp://www.appsntech.com">www.appsntech.com</a> Powered By - Sanjoy productions
+                                <?php echo Cygnite::powered_by(); ?>
                               </div>
                     </div>
       <div class="footer-inner-right"> </div>

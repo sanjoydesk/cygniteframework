@@ -1,17 +1,17 @@
 <?php
-/*
-*===============================================================================================
-*
-* ===============================================================================================
-*/
 class CategoryAppsController extends CF_BaseController
 {
            public function __construct()
            {
                 parent::__construct();
                $this->app()->model('users');
-               $enc = Cygnite::loader()->request('Encrypt')->encrypt("sanjay@123");
-               Cygnite::loader()->request('Encrypt')->decrypt($enc);
+               $enc = Cygnite::loader()->request('Encrypt')->encode("sanjay@123");
+               Cygnite::loader()->request('Encrypt')->decode($enc);
+          }
+
+          public function action_list()
+          {
+                echo "Hellow Category";
           }
 
           public function action_index()

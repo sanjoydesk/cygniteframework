@@ -1,0 +1,1367 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="generator" content="ApiGen 2.8.0" />
+
+	<title>Class SMTP | Cygnite</title>
+
+	<script type="text/javascript" src="resources/combined.js?394153670"></script>
+	<script type="text/javascript" src="elementlist.js?2084150974"></script>
+	<link rel="stylesheet" type="text/css" media="all" href="resources/style.css?3505392360" />
+
+</head>
+
+<body>
+<div id="left">
+	<div id="menu">
+		<a href="index.html" title="Overview"><span>Overview</span></a>
+
+
+		<div id="groups">
+			<h3>Packages</h3>
+			<ul>
+				<li><a href="package-..html">:</a>
+						</li>
+				<li><a href="package-None.html">None</a>
+						</li>
+				<li><a href="package-PHP.html">PHP</a>
+						</li>
+				<li class="active"><a href="package-PHPMailer.html">PHPMailer</a>
+						</li>
+			</ul>
+		</div>
+
+		<hr />
+
+
+		<div id="elements">
+			<h3>Classes</h3>
+			<ul>
+				<li><a href="class-CF_Mailer.html">CF_Mailer</a></li>
+				<li><a href="class-PHPMailer.html">PHPMailer</a></li>
+				<li><a href="class-POP3.html">POP3</a></li>
+				<li class="active"><a href="class-SMTP.html">SMTP</a></li>
+			</ul>
+
+
+
+			<h3>Exceptions</h3>
+			<ul>
+				<li><a href="class-phpmailerException.html">phpmailerException</a></li>
+			</ul>
+
+
+		</div>
+	</div>
+</div>
+
+<div id="splitter"></div>
+
+<div id="right">
+<div id="rightInner">
+	<form id="search">
+		<input type="hidden" name="cx" value="" />
+		<input type="hidden" name="ie" value="UTF-8" />
+		<input type="text" name="q" class="text" />
+		<input type="submit" value="Search" />
+	</form>
+
+	<div id="navigation">
+		<ul>
+			<li>
+				<a href="index.html" title="Overview"><span>Overview</span></a>
+			</li>
+			<li>
+				<a href="package-PHPMailer.html" title="Summary of PHPMailer"><span>Package</span></a>
+			</li>
+			<li class="active">
+<span>Class</span>			</li>
+		</ul>
+		<ul>
+			<li>
+				<a href="tree.html" title="Tree view of classes, interfaces, traits and exceptions"><span>Tree</span></a>
+			</li>
+		</ul>
+		<ul>
+		</ul>
+	</div>
+
+<div id="content" class="class">
+	<h1>Class SMTP</h1>
+
+
+	<div class="description">
+	
+<p>PHP RFC821 SMTP client</p>
+
+<p>Implements all the RFC 821 SMTP commands except TURN which will always return
+a not implemented error. SMTP also provides some utility methods for sending
+mail to an SMTP server.</p>
+
+	</div>
+
+
+
+
+
+
+
+
+
+	<div class="info">
+		
+		
+		
+		<b>Package:</b> <a href="package-PHPMailer.html">PHPMailer</a><br />
+
+				<b>Copyright:</b>
+				2004 - 2008 Andy Prevost<br />
+				<b>Copyright:</b>
+				2010 - 2012 Jim Jagielski<br />
+				<b>License:</b>
+				<a href="http://www.gnu.org/copyleft/lesser.html">Distributed under the Lesser General Public License (LGPL)</a><br />
+				<b>Author:</b>
+				Chris Ryan<br />
+				<b>Used by:</b>
+				<code><code><a href="class-PHPMailer.html#_SmtpSend">PHPMailer::SmtpSend()</a></code></code> <br />
+				<b>Used by:</b>
+				<code><code><a href="class-PHPMailer.html#_SmtpConnect">PHPMailer::SmtpConnect()</a></code></code> <br />
+		<b>Located at</b> <a href="source-class-SMTP.html#39-1092" title="Go to source code">packages/cygnite/libraries/phpmailer/class.smtp.php</a><br />
+	</div>
+
+
+
+	<table class="summary" id="methods">
+	<caption>Methods summary</caption>
+	<tr data-order="edebug" id="_edebug">
+
+		<td class="attributes"><code>
+			 protected 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_edebug">#</a>
+		<code><a href="source-class-SMTP.html#114-132" title="Go to source code">edebug</a>( <span>string <var>$str</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Outputs debugging info via user-defined method</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Outputs debugging info via user-defined method</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$str</var></dt>
+					<dd><code>string</code><br>$str</dd>
+				</dl></div>
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="__construct" id="___construct">
+
+		<td class="attributes"><code>
+			 public 
+			<code><a href="class-SMTP.html">SMTP</a></code>
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#___construct">#</a>
+		<code><a href="source-class-SMTP.html#134-145" title="Go to source code">__construct</a>( )</code>
+
+		<div class="description short">
+			
+<p>Initialize the class so that the data is in a known state.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Initialize the class so that the data is in a known state.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code><code><a href="class-SMTP.html">SMTP</a></code></code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Connect" id="_Connect">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Connect">#</a>
+		<code><a href="source-class-SMTP.html#151-214" title="Go to source code">Connect</a>( <span>string <var>$host</var></span>, <span>integer <var>$port</var> = <span class="php-num">0</span></span>, <span>integer <var>$timeout</var> = <span class="php-num">30</span></span>, <span>array <var>$options</var> = <span class="php-keyword1">array</span>()</span> )</code>
+
+		<div class="description short">
+			
+<p>Connect to an SMTP server</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Connect to an SMTP server</p>
+
+<p>SMTP CODE SUCCESS: 220 SMTP CODE FAILURE: 421</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$host</var></dt>
+					<dd><code>string</code><br>$host SMTP server IP or host name</dd>
+					<dt><var>$port</var></dt>
+					<dd><code>integer</code><br>$port The port number to connect to, or use the default port if not specified</dd>
+					<dt><var>$timeout</var></dt>
+					<dd><code>integer</code><br>$timeout How long to wait for the connection to open</dd>
+					<dt><var>$options</var></dt>
+					<dd><code>array</code><br>$options An array of options compatible with stream_context_create()</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="StartTLS" id="_StartTLS">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_StartTLS">#</a>
+		<code><a href="source-class-SMTP.html#216-259" title="Go to source code">StartTLS</a>( )</code>
+
+		<div class="description short">
+			
+<p>Initiate a TLS communication with the server.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Initiate a TLS communication with the server.</p>
+
+<p>SMTP CODE 220 Ready to start TLS SMTP CODE 501 Syntax error (no parameters
+allowed) SMTP CODE 454 TLS not available due to temporary reason</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br>success<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Authenticate" id="_Authenticate">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Authenticate">#</a>
+		<code><a href="source-class-SMTP.html#261-464" title="Go to source code">Authenticate</a>( <span>string <var>$username</var></span>, <span>string <var>$password</var></span>, <span>string <var>$authtype</var> = <span class="php-quote">'LOGIN'</span></span>, <span>string <var>$realm</var> = <span class="php-quote">''</span></span>, <span>string <var>$workstation</var> = <span class="php-quote">''</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Performs SMTP authentication. Must be run after running the Hello() method.
+Returns true if successfully authenticated.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Performs SMTP authentication. Must be run after running the Hello() method.
+Returns true if successfully authenticated.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$username</var></dt>
+					<dd><code>string</code><br>$username</dd>
+					<dt><var>$password</var></dt>
+					<dd><code>string</code><br>$password</dd>
+					<dt><var>$authtype</var></dt>
+					<dd><code>string</code><br>$authtype</dd>
+					<dt><var>$realm</var></dt>
+					<dd><code>string</code><br>$realm</dd>
+					<dt><var>$workstation</var></dt>
+					<dd><code>string</code><br>$workstation</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="hmac" id="_hmac">
+
+		<td class="attributes"><code>
+			 protected 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_hmac">#</a>
+		<code><a href="source-class-SMTP.html#466-496" title="Go to source code">hmac</a>( <span>string <var>$data</var></span>, <span>string <var>$key</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Works like hash_hmac('md5', $data, $key) in case that function is not
+available</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Works like hash_hmac('md5', $data, $key) in case that function is not
+available</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd><code>string</code><br>$data</dd>
+					<dt><var>$key</var></dt>
+					<dd><code>string</code><br>$key</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Connected" id="_Connected">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Connected">#</a>
+		<code><a href="source-class-SMTP.html#498-517" title="Go to source code">Connected</a>( )</code>
+
+		<div class="description short">
+			
+<p>Returns true if connected to a server otherwise false</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Returns true if connected to a server otherwise false</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Close" id="_Close">
+
+		<td class="attributes"><code>
+			 public 
+			
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Close">#</a>
+		<code><a href="source-class-SMTP.html#519-534" title="Go to source code">Close</a>( )</code>
+
+		<div class="description short">
+			
+<p>Closes the socket and cleans up the state of the class. It is not considered
+good to use this function without first trying to use QUIT.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Closes the socket and cleans up the state of the class. It is not considered
+good to use this function without first trying to use QUIT.</p>
+
+
+
+
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Data" id="_Data">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Data">#</a>
+		<code><a href="source-class-SMTP.html#540-683" title="Go to source code">Data</a>( <span>string <var>$msg_data</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Issues a data command and sends the msg_data to the server finializing the
+mail transaction. $msg_data is the message that is to be send with the headers.
+Each header needs to be on a single line followed by a &lt;CRLF&gt; with the
+message headers and the message body being separated by and additional
+&lt;CRLF&gt;.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Issues a data command and sends the msg_data to the server finializing the
+mail transaction. $msg_data is the message that is to be send with the headers.
+Each header needs to be on a single line followed by a &lt;CRLF&gt; with the
+message headers and the message body being separated by and additional
+&lt;CRLF&gt;.</p>
+
+<p>Implements rfc 821: DATA &lt;CRLF&gt;</p>
+
+<p>SMTP CODE INTERMEDIATE: 354 [data] &lt;CRLF&gt;.&lt;CRLF&gt; SMTP CODE
+SUCCESS: 250 SMTP CODE FAILURE: 552, 554, 451, 452 SMTP CODE FAILURE: 451, 554
+SMTP CODE ERROR : 500, 501, 503, 421</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$msg_data</var></dt>
+					<dd><code>string</code><br>$msg_data</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Hello" id="_Hello">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Hello">#</a>
+		<code><a href="source-class-SMTP.html#685-721" title="Go to source code">Hello</a>( <span>string <var>$host</var> = <span class="php-quote">''</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Sends the HELO command to the smtp server. This makes sure that we and the
+server are in the same known state.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Sends the HELO command to the smtp server. This makes sure that we and the
+server are in the same known state.</p>
+
+<p>Implements from rfc 821: HELO &lt;SP&gt; &lt;domain&gt; &lt;CRLF&gt;</p>
+
+<p>SMTP CODE SUCCESS: 250 SMTP CODE ERROR : 500, 501, 504, 421</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$host</var></dt>
+					<dd><code>string</code><br>$host</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="SendHello" id="_SendHello">
+
+		<td class="attributes"><code>
+			 protected 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_SendHello">#</a>
+		<code><a href="source-class-SMTP.html#723-754" title="Go to source code">SendHello</a>( <span>string <var>$hello</var></span>, <span>string <var>$host</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Sends a HELO/EHLO command.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Sends a HELO/EHLO command.</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$hello</var></dt>
+					<dd><code>string</code><br>$hello</dd>
+					<dt><var>$host</var></dt>
+					<dd><code>string</code><br>$host</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Mail" id="_Mail">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Mail">#</a>
+		<code><a href="source-class-SMTP.html#756-801" title="Go to source code">Mail</a>( <span>string <var>$from</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Starts a mail transaction from the email address specified in $from. Returns
+true if successful or false otherwise. If True the mail transaction is started
+and then one or more Recipient commands may be called followed by a Data
+command.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Starts a mail transaction from the email address specified in $from. Returns
+true if successful or false otherwise. If True the mail transaction is started
+and then one or more Recipient commands may be called followed by a Data
+command.</p>
+
+<p>Implements rfc 821: MAIL &lt;SP&gt; FROM:&lt;reverse-path&gt;
+&lt;CRLF&gt;</p>
+
+<p>SMTP CODE SUCCESS: 250 SMTP CODE SUCCESS: 552, 451, 452 SMTP CODE SUCCESS:
+500, 501, 421</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$from</var></dt>
+					<dd><code>string</code><br>$from</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Quit" id="_Quit">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Quit">#</a>
+		<code><a href="source-class-SMTP.html#803-854" title="Go to source code">Quit</a>( <span>boolean <var>$close_on_error</var> = <span class="php-keyword1">true</span></span> )</code>
+
+		<div class="description short">
+			
+<p>Sends the quit command to the server and then closes the socket if there is
+no error or the $close_on_error argument is true.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Sends the quit command to the server and then closes the socket if there is
+no error or the $close_on_error argument is true.</p>
+
+<p>Implements from rfc 821: QUIT &lt;CRLF&gt;</p>
+
+<p>SMTP CODE SUCCESS: 221 SMTP CODE ERROR : 500</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$close_on_error</var></dt>
+					<dd><code>boolean</code><br>$close_on_error</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Recipient" id="_Recipient">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Recipient">#</a>
+		<code><a href="source-class-SMTP.html#856-898" title="Go to source code">Recipient</a>( <span>string <var>$to</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Sends the command RCPT to the SMTP server with the TO: argument of $to.
+Returns true if the recipient was accepted false if it was rejected.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Sends the command RCPT to the SMTP server with the TO: argument of $to.
+Returns true if the recipient was accepted false if it was rejected.</p>
+
+<p>Implements from rfc 821: RCPT &lt;SP&gt; TO:&lt;forward-path&gt;
+&lt;CRLF&gt;</p>
+
+<p>SMTP CODE SUCCESS: 250, 251 SMTP CODE FAILURE: 550, 551, 552, 553, 450, 451,
+452 SMTP CODE ERROR : 500, 501, 503, 421</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$to</var></dt>
+					<dd><code>string</code><br>$to</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Reset" id="_Reset">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Reset">#</a>
+		<code><a href="source-class-SMTP.html#900-941" title="Go to source code">Reset</a>( )</code>
+
+		<div class="description short">
+			
+<p>Sends the RSET command to abort and transaction that is currently in
+progress. Returns true if successful false otherwise.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Sends the RSET command to abort and transaction that is currently in
+progress. Returns true if successful false otherwise.</p>
+
+<p>Implements rfc 821: RSET &lt;CRLF&gt;</p>
+
+<p>SMTP CODE SUCCESS: 250 SMTP CODE ERROR : 500, 501, 504, 421</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="SendAndMail" id="_SendAndMail">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_SendAndMail">#</a>
+		<code><a href="source-class-SMTP.html#943-989" title="Go to source code">SendAndMail</a>( <span>string <var>$from</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Starts a mail transaction from the email address specified in $from. Returns
+true if successful or false otherwise. If True the mail transaction is started
+and then one or more Recipient commands may be called followed by a Data
+command. This command will send the message to the users terminal if they are
+logged in and send them an email.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Starts a mail transaction from the email address specified in $from. Returns
+true if successful or false otherwise. If True the mail transaction is started
+and then one or more Recipient commands may be called followed by a Data
+command. This command will send the message to the users terminal if they are
+logged in and send them an email.</p>
+
+<p>Implements rfc 821: SAML &lt;SP&gt; FROM:&lt;reverse-path&gt;
+&lt;CRLF&gt;</p>
+
+<p>SMTP CODE SUCCESS: 250 SMTP CODE SUCCESS: 552, 451, 452 SMTP CODE SUCCESS:
+500, 501, 502, 421</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$from</var></dt>
+					<dd><code>string</code><br>$from</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="Turn" id="_Turn">
+
+		<td class="attributes"><code>
+			 public 
+			boolean
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_Turn">#</a>
+		<code><a href="source-class-SMTP.html#991-1011" title="Go to source code">Turn</a>( )</code>
+
+		<div class="description short">
+			
+<p>This is an optional command for SMTP that this class does not support. This
+method is here to make the RFC821 Definition complete for this class and __may__
+be implimented in the future</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>This is an optional command for SMTP that this class does not support. This
+method is here to make the RFC821 Definition complete for this class and __may__
+be implimented in the future</p>
+
+<p>Implements from rfc 821: TURN &lt;CRLF&gt;</p>
+
+<p>SMTP CODE SUCCESS: 250 SMTP CODE FAILURE: 502 SMTP CODE ERROR : 500, 503</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>boolean</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="client_send" id="_client_send">
+
+		<td class="attributes"><code>
+			 public 
+			Integer
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_client_send">#</a>
+		<code><a href="source-class-SMTP.html#1013-1024" title="Go to source code">client_send</a>( <span>string <var>$data</var></span> )</code>
+
+		<div class="description short">
+			
+<p>Sends data to the server</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Sends data to the server</p>
+
+
+
+				<h4>Parameters</h4>
+				<div class="list"><dl>
+					<dt><var>$data</var></dt>
+					<dd><code>string</code><br>$data</dd>
+				</dl></div>
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>Integer</code><br>number of bytes sent to the server or FALSE on error<br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="getError" id="_getError">
+
+		<td class="attributes"><code>
+			 public 
+			array
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_getError">#</a>
+		<code><a href="source-class-SMTP.html#1026-1033" title="Go to source code">getError</a>( )</code>
+
+		<div class="description short">
+			
+<p>Get the current error</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Get the current error</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>array</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	<tr data-order="get_lines" id="_get_lines">
+
+		<td class="attributes"><code>
+			 protected 
+			string
+			
+			</code>
+		</td>
+
+		<td class="name"><div>
+		<a class="anchor" href="#_get_lines">#</a>
+		<code><a href="source-class-SMTP.html#1039-1090" title="Go to source code">get_lines</a>( )</code>
+
+		<div class="description short">
+			
+<p>Read in as many lines as possible either before eof or socket timeout occurs
+on the operation. With SMTP we can tell if we have more lines to read if the 4th
+character is '-' symbol. If it is a space then we don't need to read anything
+else.</p>
+
+		</div>
+
+		<div class="description detailed hidden">
+			
+<p>Read in as many lines as possible either before eof or socket timeout occurs
+on the operation. With SMTP we can tell if we have more lines to read if the 4th
+character is '-' symbol. If it is a space then we don't need to read anything
+else.</p>
+
+
+
+
+				<h4>Returns</h4>
+				<div class="list">
+					<code>string</code><br />
+				</div>
+
+
+
+
+		</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+
+
+
+
+
+
+	<table class="summary" id="properties">
+	<caption>Properties summary</caption>
+	<tr data-order="SMTP_PORT" id="$SMTP_PORT">
+		<td class="attributes"><code>
+			public  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-SMTP.html#48-52" title="Go to source code"><var>$SMTP_PORT</var></a>
+		</td>
+		<td class="value"><code><span class="php-num">25</span></code></td>
+		<td class="description"><div>
+			<a href="#$SMTP_PORT" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>SMTP server port</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>SMTP server port</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="CRLF" id="$CRLF">
+		<td class="attributes"><code>
+			public  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-SMTP.html#54-58" title="Go to source code"><var>$CRLF</var></a>
+		</td>
+		<td class="value"><code><span class="php-quote">&quot;\r\n&quot;</span></code></td>
+		<td class="description"><div>
+			<a href="#$CRLF" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>SMTP reply line ending (don't change)</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>SMTP reply line ending (don't change)</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="do_debug" id="$do_debug">
+		<td class="attributes"><code>
+			public  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-SMTP.html#60-64" title="Go to source code"><var>$do_debug</var></a>
+		</td>
+		<td class="value"><code><span class="php-num">0</span></code></td>
+		<td class="description"><div>
+			<a href="#$do_debug" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Debug output level; 0 for no output</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Debug output level; 0 for no output</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="Debugoutput" id="$Debugoutput">
+		<td class="attributes"><code>
+			public  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-SMTP.html#66-71" title="Go to source code"><var>$Debugoutput</var></a>
+		</td>
+		<td class="value"><code><span class="php-quote">'echo'</span></code></td>
+		<td class="description"><div>
+			<a href="#$Debugoutput" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Sets the function/method to use for debugging output. Right now we only honor
+'echo', 'html' or 'error_log'</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Sets the function/method to use for debugging output. Right now we only honor
+'echo', 'html' or 'error_log'</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="do_verp" id="$do_verp">
+		<td class="attributes"><code>
+			public  
+			boolean
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-SMTP.html#73-77" title="Go to source code"><var>$do_verp</var></a>
+		</td>
+		<td class="value"><code><span class="php-keyword1">false</span></code></td>
+		<td class="description"><div>
+			<a href="#$do_verp" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Sets VERP use on/off (default is off)</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Sets VERP use on/off (default is off)</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="Timeout" id="$Timeout">
+		<td class="attributes"><code>
+			public  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-SMTP.html#79-83" title="Go to source code"><var>$Timeout</var></a>
+		</td>
+		<td class="value"><code><span class="php-num">15</span></code></td>
+		<td class="description"><div>
+			<a href="#$Timeout" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Sets the SMTP timeout value for reads, in seconds</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Sets the SMTP timeout value for reads, in seconds</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="Timelimit" id="$Timelimit">
+		<td class="attributes"><code>
+			public  
+			integer
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-SMTP.html#85-89" title="Go to source code"><var>$Timelimit</var></a>
+		</td>
+		<td class="value"><code><span class="php-num">30</span></code></td>
+		<td class="description"><div>
+			<a href="#$Timelimit" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Sets the SMTP timelimit value for reads, in seconds</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Sets the SMTP timelimit value for reads, in seconds</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="Version" id="$Version">
+		<td class="attributes"><code>
+			public  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-SMTP.html#91-95" title="Go to source code"><var>$Version</var></a>
+		</td>
+		<td class="value"><code><span class="php-quote">'5.2.6'</span></code></td>
+		<td class="description"><div>
+			<a href="#$Version" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Sets the SMTP PHPMailer Version number</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Sets the SMTP PHPMailer Version number</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="smtp_conn" id="$smtp_conn">
+		<td class="attributes"><code>
+			protected  
+			resource
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-SMTP.html#101-104" title="Go to source code"><var>$smtp_conn</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$smtp_conn" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>The socket to the server</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>The socket to the server</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="error" id="$error">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-SMTP.html#105-108" title="Go to source code"><var>$error</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$error" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>Error message, if any, for the last call</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>Error message, if any, for the last call</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	<tr data-order="helo_rply" id="$helo_rply">
+		<td class="attributes"><code>
+			protected  
+			string
+		</code></td>
+
+		<td class="name">
+				<a href="source-class-SMTP.html#109-112" title="Go to source code"><var>$helo_rply</var></a>
+		</td>
+		<td class="value"><code></code></td>
+		<td class="description"><div>
+			<a href="#$helo_rply" class="anchor">#</a>
+
+			<div class="description short">
+				
+<p>The reply the server sent to us for HELO</p>
+
+			</div>
+
+			<div class="description detailed hidden">
+				
+<p>The reply the server sent to us for HELO</p>
+
+
+			</div>
+		</div></td>
+	</tr>
+	</table>
+
+
+
+
+
+
+</div>
+
+	<div id="footer">
+		Cygnite API documentation generated by <a href="http://apigen.org">ApiGen 2.8.0</a>
+	</div>
+</div>
+</div>
+</body>
+</html>

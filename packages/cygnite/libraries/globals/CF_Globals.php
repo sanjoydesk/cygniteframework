@@ -11,7 +11,7 @@
  *
  * @name         : Globals
  * @Copyright    : Copyright (c) 2013 - 2014,
- * @License      : http://www.appsntech.com/license.txt
+ * @License      : http://www.cygniteframework.com/license.txt
  * @Link	 : http://appsntech.com
  * @Since	 : Version 1.0
  * @Filesource
@@ -22,28 +22,28 @@
  *
  *
  */
-class Globals implements ArrayAccess
+class CF_Globals implements ArrayAccess
 {
 
     /**
-     * @var array $_Array will hold validated global variables
+     * @var array $_array will hold validated global variables
      *
      */
 
-    private $_Array = array();
+    private $_array = array();
 
     public function __construct(){}
 
     /**
-     * __set() Magic method sets the value for given in Global array and $_Array
+     * __set() Magic method sets the value for given in Global array and $_array
      * @param string $key
      * @param string $value
      *
      */
 
-    public function __set($key,$value){
-
-    	$this->_Array[$key] = $value;
+    public function __set($key,$value)
+    {
+    	$this->_array[$key] = $value;
     	$GLOBALS[$this->_var][$key] = $value;
     }
 
@@ -58,12 +58,12 @@ class Globals implements ArrayAccess
     public function __get($key){
 
 
-    	if(isset($this->_Array[$key])):
-    		return $this->_Array[$key];
+    	if(isset($this->_array[$key])):
+    		return $this->_array[$key];
     	elseif(isset($GLOBALS[$this->_var][$key])):
     	    $this->doValidation($key);
-    	    $this->_Array[$key] = $GLOBALS[$this->_var][$key];
-    		return $this->_Array[$key];
+    	    $this->_array[$key] = $GLOBALS[$this->_var][$key];
+    		return $this->_array[$key];
     	else:
     	trigger_error("Undefined index : {$key} ",E_USER_NOTICE);
     	endif;
@@ -83,21 +83,22 @@ class Globals implements ArrayAccess
 
     public function offsetExists($offset){}
 
-    public function offsetGet($offset){
-
-		return $this->{$offset};
-
+    public function offsetGet($offset)
+    {
+        return $this->{$offset};
     }
 
-    public function offsetSet($offset, $value){
+    public function offsetSet($offset, $value)
+   {
 
-		if(is_null($offset))
-		 $GLOBALS[$this->_var][] = $value;
-		else
-		 $GLOBALS[$this->_var][$offset] = $value;
+        if(is_null($offset))
+            $GLOBALS[$this->_var][] = $value;
+        else
+             $GLOBALS[$this->_var][$offset] = $value;
     }
 
-    public function offsetUnset($offset){
+    public function offsetUnset($offset)
+    {
 
 		unset($this->{$offset});
     }
@@ -105,50 +106,48 @@ class Globals implements ArrayAccess
     public static function __xss_clean(&$item,&$key)
    {
 
-		 $item = htmlspecialchars($item,ENT_QUOTES);
-		 $item = preg_replace_callback('!&amp;#((?:[0-9]+)|(?:x(?:[0-9A-F]+)));?!i',array(__CLASS__,'decode'), $item); // PERL
-		 $item = preg_replace(
-                                                                                                '!<([A-Z]\w*)
-                                                                                                (?:\s* (?:\w+) \s* = \s* (?(?=["\']) (["\'])(?:.*?\2)+ | (?:[^\s>]*) ) )*
-                                                                                                \s* (\s/)? >!ix',
-                                                                                                '<\1\5>', strip_tags(html_entity_decode($item)));
+        $item = htmlspecialchars($item,ENT_QUOTES);
+        $item = preg_replace_callback('!&amp;#((?:[0-9]+)|(?:x(?:[0-9A-F]+)));?!i',array(__CLASS__,'decode'), $item); // PERL
+        $item = preg_replace(
+                                            '!<([A-Z]\w*)
+                                            (?:\s* (?:\w+) \s* = \s* (?(?=["\']) (["\'])(?:.*?\2)+ | (?:[^\s>]*) ) )*
+                                            \s* (\s/)? >!ix',
+                                            '<\1\5>', strip_tags(html_entity_decode($item)));
     }
 
     public static function decode($matches)
     {
+            if(!is_int($matches[1]{0}))
+                   $val = '0'.$matches[1]+0;
+            else
+                  $val = (int)$matches[1];
 
 
-		if(!is_int($matches[1]{0})){
-                                                                   $val = '0'.$matches[1]+0;
-		}else{
+            if($val>255)
+                   return '&#'.$val.';';
 
-		         $val = (int)$matches[1];
-		}
+            if($val >= 65 && $val <= 90  //A-Z
+               || $val >= 97 && $val <= 122 // a-z
+               || $val >= 48 && $val <= 57) // 0-9
+               return chr($val);
 
-		if($val>255)
-		          return '&#'.$val.';';
-
-		if($val >= 65 && $val <= 90  //A-Z
-		   || $val >= 97 && $val <= 122 // a-z
-		   || $val >= 48 && $val <= 57) // 0-9
-		   return chr($val);
-
-		   return $matches[0];
+               return $matches[0];
 
     }
 
 
-    public function doValidation($key){
+    public function doValidation($key)
+    {
 
 	if(is_array($GLOBALS[$this->_var][$key]))
-    		array_walk_recursive($GLOBALS[$this->_var][$key],array(__CLASS__,'clean'));
+    	       array_walk_recursive($GLOBALS[$this->_var][$key],array(__CLASS__,'clean'));
     	else
-    		self::__xss_clean($GLOBALS[$this->_var][$key], $key);
+    	       self::__xss_clean($GLOBALS[$this->_var][$key], $key);
     }
 
     public static function clean($item,$key)
    {
-        self::__xss_clean($item, $key);
+              self::__xss_clean($item, $key);
     }
 
         protected function clean_variables($value)
@@ -162,6 +161,7 @@ class Globals implements ArrayAccess
                     endif;
                 return $value;
         }
+        
 
     public function __destruct(){}
 }

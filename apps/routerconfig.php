@@ -1,8 +1,8 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('No direct script access allowed');
+<?php if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 /**
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2x or newer
+ *  An open source application development framework for PHP 5.3 or newer
  *
  *   License
  *
@@ -19,7 +19,7 @@
  * @Description                    : This file is used to set all routing configurations
  * @Author                           : Cygnite dev team
  * @Copyright                     :  Copyright (c) 2013 - 2014,
- * @Link	                   :  http://www.appsntech.com
+ * @Link	                   :  http://www.cygniteframework.com
  * @Since	                  :  Version 1.0
  * @Filesource
  * @warning                     :  Any changes in this library can cause abnormal behaviour of the framework
@@ -27,37 +27,7 @@
  *                                           core code for routing feature, have to add more filter validation.
  *
  */
-
-/*
-*---------------------------------------------------------------------------------
-* ROUTER CONFIG
-* --------------------------------------------------------------------------------
-* This file is used to enable routing
-*
-*
-* Created Date   : 05-07-2012
-* Modified Date  : 06-07-2012
-*/
-abstract class Route
-{
-    public static $path,$routeto;
-    public static $routing = array();
-
-    public static function set_route()
-    {
-       return self::$routing = array(
-                              'is_router_enabled' => TRUE,
-                              'url'=>'category/list',
-                              'routeto' => 'welcomeuser@testing'
-                              );
-    }
-
-    public static function get_route()
-    {
-        if(!is_null(self::set_route()))
-            return self::set_route();
-
-        return FALSE;
-    }
-
-}
+return array(
+                        '/sayhello/(\w+)'                                                                       => 'home.test',
+                        '/blog(/\d{4}(/\d{2}(/\d{2}(/[a-z0-9_-]+)?)?)?)?'          => 'home.runcrons'
+);

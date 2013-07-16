@@ -1,4 +1,4 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('Direct script access not allowed');
+<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
        /*
          *===============================================================================================
          *  An open source application development framework for PHP 5.2 or newer
@@ -16,7 +16,6 @@
          * ===============================================================================================
          */
 
-
 class CF_Authx  implements IRegistry
 {
     var $query = NULL;
@@ -27,10 +26,7 @@ class CF_Authx  implements IRegistry
     private $sess_key = NULL;
 
     function __construct()
-    {
-             $this->app=  GHelper::get_singleton();
-             //CF_AppRegistry::load_lib_class('Encrypt','BaseSession');
-    }
+    {    }
 
     public static function initialize($dirRegistry = array()) {}
 
@@ -61,20 +57,20 @@ class CF_Authx  implements IRegistry
       */
      public function build_user_session($sess_details = array())
      {
-                $this->auth =  CF_ApplicationModel::get_db_instance($this->db_name);
+                $this->auth =  CF_BaseModel::get_db_instance($this->db_name);
                 $user_credentials = array();
 
                 $select_query = (!is_null($this->query)) ? $this->query : "";
                 if(is_null($select_query) || trim($select_query) == ' ')
                        throw new Exception('Empty query passed ');
 
-               $this->auth->sql_generator(FALSE);
-                $stmt = $this->auth->db->query($select_query);   //build user query
+               $this->auth->sql_generator('dbfetch',TRUE);
+                $stmt = $this->auth->db->prepare_query($select_query);   //build user query
                 $stmt->execute();
                 $user_credentials = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
                 if($stmt->rowCount() > 0):
-                           $user_credentials[0]['password']= $this->app->request('Encrypt')->decrypt($user_credentials[0]['password']);
+                           $user_credentials[0]['password']= Cygnite::loader()->request('Encrypt')->decrypt($user_credentials[0]['password']);
 
                          if(($user_credentials[0]['password'] == $this->user_password)):
                                      $user_credentials['logged_in'] =  TRUE;
@@ -87,7 +83,7 @@ class CF_Authx  implements IRegistry
                                                foreach($user_credentials as $userkey => $uservalue):
                                                              unset($user_credentials[0]);
                                                endforeach;
-                                                $is_set_sess= $this->app->request('BaseSession')->setsession($this->sess_key,$user_credentials);
+                                                $is_set_sess= Cygnite::loader()->request('Session')->save($this->sess_key,$user_credentials);
                                      return ($is_set_sess == TRUE) ? TRUE : FALSE;
                         else:
                                 return FALSE;
@@ -105,9 +101,9 @@ class CF_Authx  implements IRegistry
      */
     public function is_logged_in($login_key)
     {
-            if($this->app->request('Session')):
+            if(Cygnite::loader()->request('Session')):
                     //If user has valid session, and such is logged in
-                    $sess_array = $this->app->request('BaseSession')->getsession($login_key);
+                    $sess_array = Cygnite::loader()->request('Session')->retrieve($login_key);
                     if(!empty($sess_array['logged_in']))
                            return TRUE;
                     else
@@ -119,7 +115,6 @@ class CF_Authx  implements IRegistry
 
      function __destruct()
      {
-           unset($this->app);
            unset($this->db);
      }
 }

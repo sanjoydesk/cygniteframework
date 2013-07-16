@@ -1,5 +1,5 @@
 <?php
-class Server extends Globals implements SecureData
+class CF_Server extends CF_Globals implements ISecureData
 {
     public $_var = "_SERVER";
 

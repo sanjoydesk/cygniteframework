@@ -1,10 +1,5 @@
 <?php
-/*
-*===============================================================================================
-*
-* ===============================================================================================
-*/
-    class Users_AppsModel extends CF_BaseModel
+    class Users extends CF_BaseModel
     {
 
                      function __construct()
@@ -12,6 +7,27 @@
                            parent::__construct();
                            //$this->cygnite->db->drivers();
                            //$this->cygnite->db->properties();
+                    }
+
+                    public function getdb()
+                    {
+                          $this->cygnite->sql_generator('dbfetch',TRUE);
+                           $where = array(
+                                                    'name LIKE' => '%Sa%',
+                                                   'id >'=> '4'
+                               );
+
+                           $data =$this->cygnite->db->where($where)
+                                                                           ->group_by(array('name','comment'))->order_by('id','DESC')
+                                                                          ->limit(2)->select('name,comment')->fetch_all('guestbook');
+                          //  $this->cygnite->db->group_by(array('name','comment'));
+                        //  $this->cygnite->db->select('name,comment');
+                       //   $data = $this->cygnite->db->fetch_all('guestbook');
+
+                         $this->cygnite->db->flushresult();
+                          $this->cygnite->db->debug_query();
+                       if($this->cygnite->db->num_row_count() > 0)
+                              return $data;
                     }
 
                     public function getdetails()
@@ -89,7 +105,7 @@
                     {
                           $this->hris->sql_generator('dbfetch',TRUE);
                           $data =  $this->hris->db->prepare_query("SELECT * FROM hs_hr_employee")->fetchAll(PDO::FETCH_ASSOC);
-                         
+
                           return $data;
                     }
 
@@ -107,10 +123,8 @@
                                                      'name' => $insertarray['name_of_author'],
                                                     'mobile_no' => $insertarray['mobile_no'],
                                                     'email' => $insertarray['email_id'],
-                                                    'address1' => $insertarray['address_line1'],
-                                                    'address2' => $insertarray['address_line2'],
+                                                    'address' => $insertarray['address_line1'],
                                                     'city' => $insertarray['city'],
-                                                    'district' => $insertarray['district'],
                                                     'state' => $insertarray['state'],
                                                     'country' => $insertarray['country'],
                                                     'zip_code' => $insertarray['zipcode']
@@ -118,7 +132,7 @@
                             $this->cygnite->sql_generator('dbfetch',FALSE);
                             $this->cygnite->db->insert('registration',$data);
                         //    $this->cygnite->db->last_inserted_Id();
-                          $this->cygnite->db->debug_query();
+                         // $this->cygnite->db->debug_query();
 
                             return TRUE;
                     }

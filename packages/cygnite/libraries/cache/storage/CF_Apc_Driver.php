@@ -1,31 +1,37 @@
-<?php
-
-   /*
-     *===============================================================================================
-     *  An open source application development framework for PHP 5.1.6 or newer
-     *
-     * @Package
-     * @Filename                             : cf_Apc_Driver.php
-     * @Abstract Class                    : cf_Apc_Driver
-     * @Description                         : This driver library is used to store , retrive and destroy data from memcache memory.
-     *                                                     Use of this library to boost up application performance.
-     * @Author	     	 : Appsntech Dev Team
-     * @Copyright	: Copyright (c) 2013 - 2014,
-     * @License		: http://www.appsntech.com/license.html
-     * @Link		: http://appsntech.com
-     * @Since		: Version 1.0
-     * @Filesource
-     * @Warning                            : Any changes in this library can cause abnormal behaviour of the framework
-     * ===============================================================================================
-     */
+<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+/**
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *    http://www.cygniteframework.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         : Library - Cache
+ *@Filename                         : CF_Apc_Driver.php
+ * @Description                    : This driver library is used to store , retrive and destroy data from apc memory.
+     *                                           Use of this library is to boost up application performance.
+ *                                               This library required abstract storage class to implement APC Cache.
+ * @Author                           : Sanjoy Dey
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.cygniteframework.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                      :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
 
     /**
      * @require Abstract storage class to implement APC Cache
      */
-    require_once '../IMemoryStorage'.EXT;
-
-
-    class CF_Apc_Driver extends IMemoryStorage
+    class CF_Apc_Driver extends CF_IMemoryStorage
     {
 
                 private $life_time = NULL; // default life time

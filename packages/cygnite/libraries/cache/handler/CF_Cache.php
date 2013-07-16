@@ -1,22 +1,33 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('Direct script access not allowed');
-    /*
-     *===============================================================================================
-     *  An open source application development framework for PHP 5.1.6 or newer
-     *
-     * @Package
-     * @Filename                            : CF_Cache.php
-     * @Class                               : CF_Cache
-     * @Description                         : This library is used to load memory driver libraries based on users need
-     * @Author	     	 : Appsntech Dev Team
-     * @Copyright	: Copyright (c) 2013 - 2014,
-     * @License		: http://www.appsntech.com/license.txt
-     * @Link		: http://appsntech.com
-     * @Since		: Version 1.0
-     * @Filesource
-     * @Warning                            : Any changes in this library can cause abnormal behaviour of the framework
-     * ===============================================================================================
-     */
-     class CF_Cache
+<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+/**
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.2.5 or newer.
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.appsntech.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @Package                         :  Packages
+ * @Sub Packages               :  Library
+ * @Filename                       : CF_Cache
+ * @Description                   : This factory class is used to load memory driver libraries based on users request
+ * @Author                          :   Cygnite Dev Team
+ * @Copyright                     :  Copyright (c) 2013 - 2014,
+ * @Link	                  :  http://www.appsntech.com
+ * @Since	                  :  Version 1.0
+ * @Filesource
+ * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
+
+    class CF_Cache
     {
             /* set static variable storage directory  path */
             private static $directory = 'storage';
@@ -38,13 +49,13 @@
 
                 $path = $this->get_path();
                 if(is_readable($path)):
-                        try{
+                       /* try {
                               require_once $path;
                         } catch(Exception $exception) {
-                                $exception->getMessage();
-                        }
-                        if(class_exists($this->driver__class))
-                            return new $this->driver__class();
+                               echo $exception->getMessage();
+                        } */
+                        if(class_exists($this->driver_class))
+                            return new $this->driver_class();
                         else
                             throw new Exception("Class $cache not found");
                 else:
@@ -59,9 +70,9 @@
              */
             private function get_path()
             {
-                   $this->driver__class = 'CF_'.$this->file_name.'_Driver';
+                   $this->driver_class = 'CF_'.$this->file_name.'_Driver';
                return (self::$directory != "" && !is_null($this->file_name))
-                            ?  str_replace('handler',self::$directory.'\\', dirname(__FILE__)).'cf_'.$this->file_name.'_Driver'.EXT
+                            ?  str_replace('handler',self::$directory.'\\', dirname(__FILE__)).'CF_'.$this->file_name.'_Driver'.EXT
                            : NULL;
             }
    }

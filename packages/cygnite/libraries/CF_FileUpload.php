@@ -1,5 +1,5 @@
-<?php  if ( ! defined('CF_SYSTEM')) exit('No direct script access allowed');
-/*
+<?php  if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
+/**
  *  Cygnite Framework
  *
  *  An open source application development framework for PHP 5.2x or newer
@@ -8,7 +8,7 @@
  *
  *   This source file is subject to the MIT license that is bundled
  *   with this package in the file LICENSE.txt.
- *   http://www.appsntech.com/license.txt
+ *   http://www.cygniteframework.com/license.txt
  *   If you did not receive a copy of the license and are unable to
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
@@ -17,9 +17,10 @@
  * @Sub Packages               :  Library
  * @Filename                       : CF_FileUpload
  * @Description                   : This library used to handle all errors or exceptions of Cygnite Framework.
- * @Author                          :   Cygnite Dev Team
+ * @Author                          :  Balamathan Kumar
+ * @author                          :  Sanjoy Dey
  * @Copyright                     :  Copyright (c) 2013 - 2014,
- * @Link	                  :  http://www.appsntech.com
+ * @Link	                  :  http://www.cygniteframework.com
  * @Since	                  :  Version 1.0
  * @Filesource
  * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
@@ -35,10 +36,10 @@ class CF_FileUpload
          * @type array
          */
         private $file_requirements = array(
-                                                                            "ext"=>array(
-                                                                                                    "jpeg","png","jpg","gif","pdf","doc","docx" ,'txt'
-                                                                                                    ),
+                                                                            "ext"=>array("jpeg","png","jpg","gif","pdf","doc","docx" ,'txt','xlsx','xls','ppt','pptx'),
+
                                                                            "params"=>array(),
+
                                                                            "file"=>array()
                                                                         );
         /*
@@ -96,10 +97,10 @@ class CF_FileUpload
                                 throw new InvalidArgumentException("Upload path required");
 
                 $path_array = pathinfo($this->file_requirements['file']['name']);
-
+                var_dump($this->file_requirements);
                 // if invalid file uploaded InvalidArgumentException will be throwned
                 if(!in_array(strtolower($path_array['extension']),$this->file_requirements["ext"]))
-                             throw new InvalidArgumentException("Invalid file upload: Following formats only allowed ".implode(",",$this->file_requirements['ext']));
+                             throw new InvalidArgumentException("<span style='color: #D8000C;' >Invalid file upload: Following formats only allowed ".implode(",",$this->file_requirements['ext']).'</span>');
 
 
                 if($this->file_requirements['file']['size'] <= $this->getNumericFileSize($this->file_requirements["size"])):
@@ -107,9 +108,9 @@ class CF_FileUpload
                                                                       getcwd().$this->file_requirements['params']['upload_path']."/".$this->file_requirements['file']['name']))
                                     return true;
                             else // if file was not uploaded successfully  ErrorException will be throwned
-                                throw new ErrorException($this->file_requirements['file']['name']." was not uploaded successfully ");
+                                throw new ErrorException("<span style='color: #00B050;' >".$this->file_requirements['file']['name']." was not uploaded successfully </span>");
                 else: // if file size was too large  OutofRange exception will be throwned
-                            throw OutOfRangeException($this->file_requirements['file']['name']." was too large exceeds upload limit ".$this->file_requirements['size']);
+                            throw OutOfRangeException("<span style='color: #D8000C;' >".$this->file_requirements['file']['name']." was too large exceeds upload limit ".$this->file_requirements['size']."</span>");
                 endif;
         }
 
@@ -155,12 +156,13 @@ class CF_FileUpload
         }
 
 
-        /***************************************
+        /*---------------------------------------------------------------------------------------------
          *
          *This function to change numeric value to it binary string and to get the file size
          *@access private
          *@param integer
-         * @return unknown
+         *@return unknown
+         *----------------------------------------------------------------------------------------------
         */
         private function filesize($filesize)
         {
@@ -176,12 +178,12 @@ class CF_FileUpload
                 endif;
 
      }
-     /***************************************
+     /*----------------------------------------------------------------------------------------
       * TODO : please change the regular expression matching in a efficient way
       *
-      * function to change binary string to it numeric value
+      * This function is to change binary string to it numeric value
       *
-      *
+      *----------------------------------------------------------------------------------------
       */
       private function getNumericFileSize($str)
      {

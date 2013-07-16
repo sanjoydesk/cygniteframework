@@ -1,4 +1,4 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('Direct script access not allowed');
+<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *  Autoloader Configuration Settings
@@ -43,7 +43,7 @@ return array(
                     *  as well as user defined libraries here. That's all. Cygnite will
                     *  take care of rest.
                     */
-                      Cygnite::loader()->register_classess(
+                      Cygnite::loader()->register_classes(
                                             array(
                                                      'CF_Cache' => CF_SYSTEM.'>cygnite>libraries>cache>handler>CF_Cache'.EXT,
                                                      'CF_Authx' => APPVENDORSDIR.'>libs>CF_Authx'.EXT,
@@ -56,17 +56,23 @@ return array(
                     *---------------------------------------------------------------------------
                     * Load your helpers when cygnite initialize. Which will be available
                     * globally on your application. But we prefer import your helpers
-                    * when needed.
-                    *
+                    * when needed else it may cause of slow application.
+                    * This feature is inprogress.
                     */
-                     'helpers' => array(),
+                     'helpers' => array(''),
 
                   /*
                     *---------------------------------------------------------------------------
                     * Autoload Models
                     *---------------------------------------------------------------------------
-                    * Autoload your models when cygnite boot up. But we prefer import
-                   *  your models when needed. It may effect application performance.
+                    * Autoload your models when cygnite boot up. All models will be dynamically
+                    * loaded when you try to access model functions. Please register your
+                    * all models here so that you can directly access. Don't worry about
+                    * application performance since cygnite follows dynamic autoload. You
+                    * can register n numbers of models in cygnite robot loader.
                     */
-                     'models' => array(''),
+                    Cygnite::loader()->register_models(array(
+                                    'Activerecords'=>'apps>models>activerecords.php',
+                                    'Records'=>'apps>models>records.php'
+                    ))
 );

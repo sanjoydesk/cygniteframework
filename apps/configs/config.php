@@ -1,4 +1,4 @@
-<?php  if ( ! defined('CF_SYSTEM')) exit('Direct script access not allowed');
+<?php  if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *  Global Configuration Settings
@@ -37,7 +37,7 @@ return array (
                         * Based on base url we will perform page redirect and other internal
                         * functionalities.
                         */
-                        'base_path'                   => 'http://'.$_SERVER['HTTP_HOST'].'/oxi/',
+                        'base_path'                   => 'http://'.$_SERVER['HTTP_HOST'].'/cygnite/',
 
                       /*
                         *--------------------------------------------------------------------------
@@ -46,15 +46,17 @@ return array (
                         * Set your application default controller here. Default controller
                         * will be called when you try to access cygnite application.
                         */
-                         'default_controller'          => 'welcomeuser',
+                         'default_controller'          => 'home',
 
                         /*
                         *--------------------------------------------------------------------------
                         * Your Application Default Method
                         *--------------------------------------------------------------------------
                         * You can set your application default method here. By default we
-                        * we will call index method of your controller. You can able to change
-                        * it here which feature will be available on next version of Cygnite framework.
+                        * we will call index method of your controller.
+                        *
+                        * @note : You cannot change the default method in current version. We will
+                        * have a provision to change the default method in next version of cygnite.
                         *
                         */
                          'default_method'          => 'index',
@@ -107,7 +109,7 @@ return array (
                         * Enable profiling as True if you wish to benchmark your aplication. You can
                         * make it FALSE to deactivate profiling. Cygnite will take care rest.
                         */
-                        'enable_profiling'            => FALSE,
+                        'enable_profiling'            => TRUE,
 
                         /*
                         *--------------------------------------------------------------------------
@@ -157,13 +159,48 @@ return array (
                         */
                         'cache_directory'              => 'temp/cache', //Default value is none
 
+                        /*
+                        *---------------------------------------------------------------------------
+                        * Set Application Environment
+                        *---------------------------------------------------------------------------
+                        * You can set your application environment in order to handle errors and exceptions.
+                        * Development mode all errors are turned on. So that you can able to fix all issues easily.
+                        * Errors will be turned of in production server mode.
+                        *
+                        */
                         'environment'               =>  'development', //Errors are turned on in development environtment
+
                         'level'                             => 'E_ALL & ~E_DEPRECATED',//E_ALL ^ E_DEPRECATED
-                        'display_errors'            => 'off',
-                        'log_errors'                   => 'on', // Will be available on beta version
+
+                       /*
+                        *---------------------------------------------------------------------------
+                        * Cygnite Application Logs
+                        *---------------------------------------------------------------------------
+                        * Though cygnite log generator library available we need to integrate
+                        * with core files in order to make it. It will be available in next version
+                        * of cygnite.
+                        */
+                        'log_errors'                   => 'on', 
+
                         //You can set value  1- Display error, 2 - Generate and write into log file
-                        'log_trace_type'         => 2, // Will be available on beta version.
+                        'log_trace_type'         => 2,  // Will be available on next version.
+                      /*
+                        *---------------------------------------------------------------------------
+                        * Logs File Name
+                        *---------------------------------------------------------------------------
+                        * Set your log file name here. Your applications logs will generate
+                        * by cygnite engine and store as filename you provide here.
+                        *
+                        */
                         'log_file_name'          => 'application_logs' ,
+                        /*
+                        *---------------------------------------------------------------------------
+                        * Logs Storage Location
+                        *---------------------------------------------------------------------------
+                        * Set your log storage location here. By default we are using
+                        * temp/logs.
+                        *
+                        */
                         'log_path'                    => 'temp/logs'
 
 );

@@ -1,3 +1,4 @@
+<title>Users list</title>
 <table class="" cellpadding="4" cellspacing="1" border="0">
     <thead>
                 <th>EMP ID# </th>

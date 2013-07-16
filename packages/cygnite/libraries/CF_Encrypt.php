@@ -1,4 +1,4 @@
-<?php  if ( ! defined('CF_SYSTEM')) exit('No direct script access allowed');
+<?php  if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 /**
  *  Cygnite Framework
  *
@@ -8,7 +8,7 @@
  *
  *   This source file is subject to the MIT license that is bundled
  *   with this package in the file LICENSE.txt.
- *   http://www.appsntech.com/license.txt
+ *   http://www.cygniteframework.com/license.txt
  *   If you did not receive a copy of the license and are unable to
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
@@ -19,7 +19,7 @@
  * @Description                   : This library used to encrypt and decrypt user input.
  * @Author                           : Cygnite Dev Team
  * @Copyright                     :  Copyright (c) 2013 - 2014,
- * @Link	                  :  http://www.appsntech.com
+ * @Link	                  :  http://www.cygniteframework.com
  * @Since	                  :  Version 1.0
  * @Filesource
  * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
@@ -31,13 +31,14 @@
     {
 
             private $securekey, $iv;
+
             var $value;
             /*
              *  Constructor function
              * @param string - encryption key
              *
              */
-            function __construct()
+           public function __construct()
             {
                    $encryptkey = Config::getconfig('global_config','cf_encryption_key');
                   $callee = debug_backtrace();
@@ -58,7 +59,7 @@
 
             public function set($encryptkey)
             {
-                     $this->securekey = hash('sha256',$encryptkey,TRUE);
+                     $this->securekey = hash('sha256',$encryptkey.time(),TRUE);
            }
 
            public function get()
@@ -72,7 +73,7 @@
              *  @param string
              * @return encrypted hash
              */
-            function encrypt($input)
+           public function encode($input)
             {
                     if(!function_exists('mcrypt_create_iv')):
                             $callee = debug_backtrace();
@@ -89,16 +90,14 @@
              *  @param string
              * @return decrypted string
              */
-            function decrypt($input)
+            public function decode($input)
             {
-                //    $this->value = trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $this->securekey, base64_decode($input), MCRYPT_MODE_ECB, $this->iv));
+                    $this->value = trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $this->securekey, base64_decode($input), MCRYPT_MODE_ECB, $this->iv));
                     return $this->value;
             }
 
-            function __destruct()
+            public function __destruct()
             {
-                    unset($securekey);
-                    unset($iv);
+                    unset($this->securekey);unset($this->iv);
             }
-
     }

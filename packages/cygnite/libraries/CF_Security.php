@@ -1,5 +1,5 @@
-<?php
-/*
+<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+/**
  *  Cygnite Framework
  *
  *  An open source application development framework for PHP 5.2x or newer
@@ -8,7 +8,7 @@
  *
  *   This source file is subject to the MIT license that is bundled
  *   with this package in the file LICENSE.txt.
- *   http://www.appsntech.com/license.txt
+ *   http://www.cygniteframework.com/license.txt
  *   If you did not receive a copy of the license and are unable to
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
@@ -20,28 +20,19 @@
  *                                              This package provides necessary in built validation for users data.
  * @Author                          :   Cygnite Dev Team
  * @Copyright                     :  Copyright (c) 2013 - 2014,
- * @Link	                  :  http://www.appsntech.com
+ * @Link	                  :  http://www.cygniteframework.com
  * @Since	                  :  Version 1.0
  * @Filesource
  * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
  *
  *
  */
-
-include_once('globals'.OS_PATH_SEPERATOR.FRAMEWORK_PREFIX.'Globals.php'); // includes GLOBAL class
-include_once('globals'.OS_PATH_SEPERATOR.FRAMEWORK_PREFIX.'SecureData.php'); // includes SecureData Interface
-include_once('globals'.OS_PATH_SEPERATOR.FRAMEWORK_PREFIX.'Cookie.php'); // includes Cookie class
-include_once('globals'.OS_PATH_SEPERATOR.FRAMEWORK_PREFIX.'Files.php'); // includes Files class
-include_once('globals'.OS_PATH_SEPERATOR.FRAMEWORK_PREFIX.'Get.php'); // includes Get class
-include_once('globals'.OS_PATH_SEPERATOR.FRAMEWORK_PREFIX.'Post.php'); // includes Post class
-include_once('globals'.OS_PATH_SEPERATOR.FRAMEWORK_PREFIX.'Request.php'); // includes Request class
-include_once('globals'.OS_PATH_SEPERATOR.FRAMEWORK_PREFIX.'Server.php'); // includes Server class
-include_once('globals'.OS_PATH_SEPERATOR.FRAMEWORK_PREFIX.'Session.php'); // includes Session class
-
+Cygnite::import(CF_SYSTEM.'>cygnite>libraries>globals>CF_Globals');// includes GLOBAL class
+Cygnite::import(CF_SYSTEM.'>cygnite>libraries>globals>ISecureData'); // includes ISecureData Interface
 /**
  *
  *  Security class creates instance for a class thats inheriting GLOBALS class and implementing
- *  secureData interface and holds instances in register_global array
+ *  ISecureData interface and holds instances in register_global array
  *
  *  @todo need to more validation or data filter methods
  *

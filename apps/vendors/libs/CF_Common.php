@@ -1,4 +1,4 @@
-<?php //if ( ! defined('CF_SYSTEM')) exit('Direct script access not allowed');
+<?php //if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
        /*
          *===============================================================================================
          *  An open source application development framework for PHP 5.2 or newer

@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /*
  *  Cygnite Framework
  *
@@ -8,7 +8,7 @@
  *
  *   This source file is subject to the MIT license that is bundled
  *   with this package in the file LICENSE.txt.
- *   http://www.appsntech.com/license.txt
+ *   http://www.cygniteframework.com/license.txt
  *   If you did not receive a copy of the license and are unable to
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
@@ -19,7 +19,7 @@
  * @Description                   :  This library is used to zip files and download it
  * @Author                          :   Cygnite Dev Team
  * @Copyright                     :  Copyright (c) 2013 - 2014,
- * @Link	                  :  http://www.appsntech.com
+ * @Link	                  :  http://www.cygniteframework.com
  * @Since	                  :  Version 1.0
  * @Filesource
  * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
@@ -63,9 +63,9 @@
  */
 
 
-        public function make_zip($filename,$pathlocation, $new_location ="",$zip_name = "")
+        public function make($filename,$pathlocation, $new_location ="",$zip_name = "")
         {
-                $this->open_zip_archive($filename);
+                $this->open_zip_archive($pathlocation.$filename);
 
                  $dir_handler = opendir($pathlocation);
 
@@ -75,10 +75,10 @@
 
                         while (TRUE == ($file = readdir($dir_handler))):
                                   if (is_file($pathlocation.$file)):
-                                        $this->add_file($pathlocation.'/'.$filename, $new_location.$file);
+                                        $this->add_file($pathlocation.$filename, $new_location.$file);
                                  elseif ($file != '.' && $file != '..' and is_dir($directory.$file)):
-                                        $this->add_dir($new_location.$file.'/');
-                                        $this->make_zip($pathlocation.$file.'/', $new_location.$file.'/');
+                                        $this->add_dir($new_location.$file.DS);
+                                        $this->make_zip($pathlocation.$file.DS, $new_location.$file.DS);
                                 endif;
                         endwhile;
                 endif;
@@ -118,7 +118,7 @@
                 if(! file_exists( $zip_name) || $zip_name == "" )
                         throw new Exception("The zip archive file not specified to download.");
 
-				  Cygnite::loader()->request('Downloader')->download($file_path);
+                Cygnite::loader()->request('Downloader')->download($file_path);
 
                 header("Pragma: public");
                 header("Excfres: 0");

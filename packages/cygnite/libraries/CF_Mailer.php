@@ -1,4 +1,4 @@
-<?php
+<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *
@@ -8,7 +8,7 @@
  *
  *   This source file is subject to the MIT license that is bundled
  *   with this package in the file LICENSE.txt.
- *   http://www.appsntech.com/license.txt
+ *   http://www.cygniteframework.com/license.txt
  *   If you did not receive a copy of the license and are unable to
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
@@ -19,7 +19,7 @@
  * @Description                     : This library will be available with all features in next version.
  * @Author                          :   Cygnite Dev Team
  * @Copyright                       :  Copyright (c) 2013 - 2014,
- * @Link	                    :  http://www.appsntech.com
+ * @Link	                    :  http://www.cygniteframework.com
  * @Since	                    :  Version 1.0
  * @Filesource                      :
  * @Warning                         :  Any changes in this library can cause abnormal behaviour of the framework
@@ -29,8 +29,8 @@
 
 
 /*
- include CF_Mailer.php; 
-  
+ include CF_Mailer.php;
+
 $mail->IsSMTP();                                      // Set mailer to use SMTP
 $mail->Host = 'smtp1.example.com;smtp2.example.com';  // Specify main and backup server
 $mail->SMTPAuth = true;                               // Enable SMTP authentication
@@ -40,7 +40,7 @@ $mail->SMTPSecure = 'tls';                            // Enable encryption, 'ssl
 
 $mail->From = 'from@example.com';
 $mail->FromName = 'Mailer';
- * 
+ *
 $mail->AddAddress('josh@example.net', 'Josh Adams');  // Add a recipient
 $mail->AddAddress('ellen@example.com');               // Name is optional
 $mail->AddReplyTo('info@example.com', 'Information');
@@ -66,11 +66,12 @@ echo 'Message has been sent';
 
 
 */
-include_once 'phpmailer/class.phpmailer.php';
+
+Cygnite::import(CF_SYSTEM.'>cygnite>libraries>phpmailer>class.phpmailer');// Load the Phpmailer Library
 
 class CF_Mailer extends PHPMailer
 {
-    
+
    /*
      public $host;
     public $smtpsecure;
@@ -85,53 +86,53 @@ class CF_Mailer extends PHPMailer
     public $subject;
     public $body;
     public $altbody;
-    
-    
+
+
     public function setlanguage()
     {
-        
-    }        
-    
+
+    }
+
     public function is_smtp()
     {
-        
-    }        
-    
+
+    }
+
     public function mailto()
     {
-        
-    }      
-    
+
+    }
+
     public function replyto()
     {
-        
-    }        
-    
+
+    }
+
     public function addcc()
     {
-        
+
     }
-    
+
     public function addbcc()
     {
-        
+
     }
-    
+
     public function attachment()
     {
-        
-    } 
-    
+
+    }
+
     public function send()
     {
-        
+
     }
-    
+
     public function debug_mail()
     {
-        
+
     }
-    
+
     */
 }
 

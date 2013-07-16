@@ -1,4 +1,4 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('Direct script access not allowed');
+<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *  Database Configuration Settings
@@ -41,22 +41,22 @@
   * @prototype set database password
   * @prototype set database name
   * @prototype set database prefix
-  * @prototype set database type
+  * @prototype set database type (mysql,pg,oracle)
   * @prototype set database persistance connection TRUE or FALSE
   */
 return array(
-                'db' =>array(
-                                         'hostname' => 'localhost',
-                                         'username'  => 'root',
-                                         'password'  => '',
-                                         'dbname'    => 'cygnite',
-                                         'dbprefix'  => '',
-                                         'dbtype'    => 'mysql',
-                                         'port'        => '',
-                                         'pconnection' =>TRUE
-                )
+                       'db' =>array(
+                                    'hostname' => 'localhost',
+                                    'username'  => 'root',
+                                    'password'  => '',
+                                    'dbname'    => 'cygnite',
+                                    'dbprefix'  => '',
+                                    'dbtype'    => 'mysql',
+                                    'port'        => '',
+                                    'pconnection' =>TRUE
+                    )
                   ,'db2' => array(
-                                    'host_name' => 'localhost',
+                                    'hostname' => 'localhost',
                                     'username'  => 'root',
                                     'password'  => '',
                                     'dbname'    => 'hris',

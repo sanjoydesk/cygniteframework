@@ -17,17 +17,17 @@ You can find the future official release on the url http://www.cygniteframework.
 Core features of Cygnite Framework -
 ==================================
 
-i. Inbuilt multiple libraries to make your work simpler.
+i. Inbuilt multiple libraries.
 
-ii. Cygnite Framework follows lazy loading concept which gives you better performance and also provides inbuilt caching libraries.
+ii. Cygnite Framework follows lazy loading concept which gives you expressive performance and also provides inbuilt caching libraries.
 
 iii. Zero configuration.
 
 iv. Object oriented programming with MVC architechture.
 
-v. User friendly structures of cygnite framework make you to understand the framework easily.
+v.  User friendly structures of cygnite framework make you to understand the framework easily.
 
-vi. We are still adding and updating features to make your work simple.
+vi. Dynamic routing feature makes your work simple then you think.
 
 vii. Cygnite has great user guide which will allow you to grab the speed as quick as possible.
 
@@ -39,23 +39,22 @@ x. Connect and use Multiple Database on the go.
 
 xi. Cygnite follows active records style.
 
-xi. Not end here, we still adding new features daily to fulfill all your needs.
+xii. Not end here, we still adding new features daily to fulfill all your needs.
 
 
 Contribute -
-========
+===========
 
--> Are you experienced in PHP or in object oriented programing concept ? 
+-> Are you experienced PHP professional and having good knowledge of object oriented programing concept ? 
 
--> Getting bore with same kind of development work daily ?
+-> Getting bore with same kind of development work daily ? 
 
--> Want to learn something interesting and to make your knowledge sharp ?
+-> Want to learn something interesting and want to show up your skills to entire world ?
 
-You are in right place. We welcome you to perticipate on our Cygnite development. 
+You are in right place. We welcome you to perticipate on Cygnite Framwork development. 
 
 Contribute on cygnite framework development and grow with us. Join my team, learn, get help and help others, find, report
-bugs, send us your feedback, send your wishlist to keep on adding new features, write and send us patches if you find any 
-on Cygnite Framework. 
+bugs, send us your feedback, send your wishlist to keep on adding new features, write and send us patches for Cygnite Framework. 
 
 
 Getting Started with Cygnite -
@@ -73,11 +72,11 @@ v. Please follow the coding standard as followed or request for coding standard 
 
 History -
 =======
-Hi I am Sanjoy Dey. I love to create web applications. After enjoying couple of MVC frameworks and nearly 1 years of gained knowledge by creating small mvc with registry pattern, 
+Hi I am Sanjoy Dey. I love to create web applications. After enjoying couple of MVC frameworks and nearly 1 years of gained knowledge by creating small mvc, 
 I started creating cygnite framework by DEC 2012. Cygnite Framework which will give you creative experiance with expressive performance and user friendly architechture to 
-reduce your development time and implementations.
+reduce your development time. 
 
-Cygnite is now development stage (Alpha 1.0) and contributing in cygnite development would be much appreciated.
+Cygnite is now development stage (Alpha 1.0) and contributing in cygnite development would be much more appreciated.
 
 You can also find me on - http://www.appsntech.com
 

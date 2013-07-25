@@ -3,7 +3,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2x or newer
+ *  An open source application development framework for PHP 5.3x or newer
  *
  *   License
  *
@@ -14,16 +14,16 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- *@package                         :  Packages
- *@subpackages                :  Base
- *@filename                        :  CF_RobotLoader
- *@description                    : This is registry auto loader for CF
- *@author                           : Sanjoy Dey
- *@copyright                     :  Copyright (c) 2013 - 2014,
- *@link	                   :  http://www.cygniteframework.com
+ *@package                  :  Packages
+ *@subpackages              :  Base
+ *@filename                 :  CF_RobotLoader
+ *@description              : This is registry auto loader for CF
+ *@author                   : Sanjoy Dey
+ *@copyright                :  Copyright (c) 2013 - 2014,
+ *@link	                  :  http://www.cygniteframework.com
  *@since	                  :  Version 1.0
  *@filesource
- *@warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ *@warning                  :  Any changes in this library can cause abnormal behaviour of the framework
  *
  *
  */

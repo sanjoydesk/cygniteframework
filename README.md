@@ -52,7 +52,7 @@ Contribute -
 
 -> Want to learn something interesting and showcase your skills to entire world ?
 
-You are in right place. We welcome you to perticipate on Cygnite Framwork development. 
+You are in right place. We welcome you to perticipate on Cygnite Framwork development and its documentation. 
 
 Contribute on cygnite framework development and grow with us. Join my team, learn, get help and help others, find, report
 bugs, send us your feedback, send your wishlist to keep on adding new features, write and send us patches for Cygnite Framework. 
@@ -74,7 +74,7 @@ v. Please follow the coding standard as followed or request for coding standard 
 History -
 =======
 Hi I am Sanjoy Dey. I love to create web applications. After enjoying couple of MVC frameworks and nearly 1 years of gained knowledge by creating small mvc, 
-I started creating cygnite framework by DEC 2012. Cygnite Framework which will give you creative experiance with expressive performance and user friendly architechture to 
+I started creating cygnite framework by 2012. Cygnite Framework which will give you creative experiance with expressive performance and user friendly architechture to 
 reduce your development time. 
 
 Cygnite is now development stage (Alpha 1.0) and contributing in cygnite development would be much more appreciated.

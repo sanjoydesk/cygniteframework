@@ -1,6 +1,8 @@
 <?php
 namespace Cygnite\Libraries;
-/**
+
+if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+/*
  *  Cygnite Framework
  *
  *  An open source application development framework for PHP 5.3x or newer
@@ -16,29 +18,28 @@ namespace Cygnite\Libraries;
  *
  * @Package                         :  Packages
  * @Sub Packages               :  Library
- * @Filename                       :  CF_ISecureData
- * @Description                   :  Files class that inherits Global base class and implements ISecureData interface
- * @Author                           : Sanjoy Dey
+ * @Filename                       :  CF_Pdf
+ * @Description                   : This library will be available with all features in next version.
+ * @Author                          :   Cygnite Dev Team
  * @Copyright                     :  Copyright (c) 2013 - 2014,
  * @Link	                  :  http://www.cygniteframework.com
  * @Since	                  :  Version 1.0
  * @Filesource
  * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
- *@todo                            : need to add more validation or data filter methods
+ *
  *
  */
 
-interface ISecureData
+class Pdf
 {
 
-    public function __set($key,$value);
+    function get()
+    {
+        echo "Hele here generate";
+    }
 
-    public function __get($key);
+    public function convert()
+    {
 
-    public function __isset($key);
-
-    public function __unset($key);
-
-    public function doValidation($key);
-
+    }
 }

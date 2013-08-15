@@ -1,3 +1,7 @@
+<?php
+use Cygnite\Helpers\Url;
+use Cygnite\Helpers\Assets;
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 <head>
@@ -111,7 +115,8 @@
 
                               <div class="footerrow" align="center" style="clear:both;padding-top: 0px;">
                                 <div class="footer-hr"></div>
-                                <?php echo Cygnite::powered_by(); ?>
+
+                                <?php echo Cygnite\Cygnite::powered_by(); ?>
                               </div>
                     </div>
       <div class="footer-inner-right"> </div>

@@ -1,3 +1,7 @@
+<?php
+use Cygnite\Helpers\Url;
+use Cygnite\Helpers\Assets;
+?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
 <head>
@@ -12,10 +16,10 @@
              <div style="color: #ECECEC; padding: 31px; ">
                  <div align="center" style="font-size: 28px; ">  Welcome To Cygnite Framework </div>
                  <div align="center" style=" margin-top: 3px;"><span style="font-size: 16px;">Framework For Web Artists</span></div>
-                 <div align="center" style=" margin-top: 16px;"><span style="font-size: 16px;">"Discover Cygnite to make your life simpler"</span> </div>
+                 <div align="center" style=" margin-top: 16px;"><span style="font-size: 16px;">"Discover Cygnite to make your life simple and better."</span> </div>
              </div>
     </div>
-
+<?php //show($this->values); ?>
 
   <div class="container-body">
 
@@ -111,7 +115,8 @@
 
                               <div class="footerrow" align="center" style="clear:both;padding-top: 0px;">
                                 <div class="footer-hr"></div>
-                                <?php echo Cygnite::powered_by(); ?>
+
+                                <?php echo Cygnite\Cygnite::powered_by(); ?>
                               </div>
                     </div>
       <div class="footer-inner-right"> </div>

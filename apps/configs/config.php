@@ -54,9 +54,7 @@ return array (
                         *--------------------------------------------------------------------------
                         * You can set your application default method here. By default we
                         * we will call index method of your controller.
-                        *
-                        * @note : You cannot change the default method in current version. We will
-                        * have a provision to change the default method in next version of cygnite.
+                        * You can also change the default method.
                         *
                         */
                          'default_method'          => 'index',
@@ -180,7 +178,7 @@ return array (
                         * with core files in order to make it. It will be available in next version
                         * of cygnite.
                         */
-                        'log_errors'                   => 'on', 
+                        'log_errors'                   => 'on',
 
                         //You can set value  1- Display error, 2 - Generate and write into log file
                         'log_trace_type'         => 2,  // Will be available on next version.

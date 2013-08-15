@@ -1,6 +1,10 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+<?php
+namespace Apps\Controllers;
 
-    class HomeAppsController extends CF_BaseController
+use Cygnite\Cygnite;
+use Cygnite\Loader\CF_BaseController;
+
+    class Home extends CF_BaseController
     {
       /**
         * --------------------------------------------------------------------------
@@ -52,7 +56,6 @@
          */
         public function action_index()
         {
-                Cygnite::import('packages>cygnite>helpers>CF_Assets');
                $this->render("welcome")->with(array(
                                                                                      'author'=>$this->author,
                                                                                     'email'=>'sanjoy09@hotmail.com',
@@ -71,10 +74,11 @@
                 echo "This testing ";
         }
 
-        public function action_runcrons($param ="")
-        { echo $param;
-                echo "This is cron test ";exit;
-        }
 
+        public function action_runcrons($param ="",$param1,$param3)
+        {
+                echo $param.$param1.$param3;
+                echo "This is cron test ";exit;
+        } 
 
     } // End of your home controller

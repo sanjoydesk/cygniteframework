@@ -49,7 +49,7 @@
     *  Define application folder name
     * -------------------------------------------------------------------
     */
-     defined('APPPATH') OR define('APPPATH', 'apps/');
+     defined('APPPATH') OR define('APPPATH', 'apps');
     /* -------------------------------------------------------------------
     *  Define root directory name
     * -------------------------------------------------------------------
@@ -63,4 +63,4 @@
     *  Lets start to include default core files
     * -------------------------------------------------------------------
     */
-    require_once CF_SYSTEM.DS.'cygnite'.DS.'Cygnite'.EXT;
+    require_once CF_SYSTEM.DS.'boot'.EXT;

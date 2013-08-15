@@ -1,0 +1,11 @@
+{
+    "name": "Cygnite/package_name",
+    "description": "Cygnite PHP Framework",
+    "minimum-stability": "alpha",
+    "authors": [
+        {
+            "name": "Sanjoy Dey",
+            "email": "sanjoy09@hotmail.com"
+        }
+    ]
+}

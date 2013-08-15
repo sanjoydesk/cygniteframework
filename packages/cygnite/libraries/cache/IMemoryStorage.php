@@ -1,9 +1,12 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+<?php
+namespace Cygnite\Libraries\Cache;
+
+if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 
 /**
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2.5 or newer
+ *  An open source application development framework for PHP 5.3  or newer
  *
  *   License
  *

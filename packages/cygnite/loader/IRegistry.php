@@ -1,6 +1,8 @@
 <?php
-namespace Cygnite\Libraries;
-/**
+namespace Cygnite\Loader;
+
+if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+/*
  *  Cygnite Framework
  *
  *  An open source application development framework for PHP 5.3x or newer
@@ -15,30 +17,23 @@ namespace Cygnite\Libraries;
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
  * @Package                         :  Packages
- * @Sub Packages               :  Library
- * @Filename                       :  CF_ISecureData
- * @Description                   :  Files class that inherits Global base class and implements ISecureData interface
- * @Author                           : Sanjoy Dey
+ * @Sub Packages               :   Loader
+ * @Filename                       :  IRegistry
+ * @Description                   :  This is the Registry Interface which is implemented in applibraryregistry loader.
+ * @Author                          :   Cygnite Dev Team
  * @Copyright                     :  Copyright (c) 2013 - 2014,
  * @Link	                  :  http://www.cygniteframework.com
  * @Since	                  :  Version 1.0
  * @Filesource
  * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
- *@todo                            : need to add more validation or data filter methods
+ *
  *
  */
+    interface IRegistry
+    {
+          public function __get($key);
 
-interface ISecureData
-{
+          public function __set($key, $value);
 
-    public function __set($key,$value);
-
-    public function __get($key);
-
-    public function __isset($key);
-
-    public function __unset($key);
-
-    public function doValidation($key);
-
-}
+          public   function helper($file_name,$prefix = FRAMEWORK_PREFIX);
+    }

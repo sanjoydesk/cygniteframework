@@ -1,4 +1,9 @@
 <?php
+namespace Apps\Models;
+
+use Cygnite\Cygnite;
+use Cygnite\Sparker\CF_BaseModel;
+
 class Activerecords extends CF_BaseModel
 {
     function __construct()

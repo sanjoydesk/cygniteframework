@@ -98,7 +98,7 @@ return array (
                         * library for encryption library. So please check whether you have else please activate
                         * to work with secure encryption and session library.
                         */
-                        'cf_encryption_key'           => 'cygnite-shaXatBNHQ4z59c4mrez',
+                        'cf_encryption_key'           => 'cygnite-shaXatBNHQ4',
 
                        /*
                         *--------------------------------------------------------------------------

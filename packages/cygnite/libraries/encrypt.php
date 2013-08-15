@@ -1,8 +1,8 @@
 <?php
 namespace Cygnite\Libraries;
 
-use Cygnite\Helpers\Config as Config;
-use Cygnite\Helpers\GHelper as GHelper;
+use Cygnite\Helpers\Config;
+use Cygnite\Helpers\GHelper;
 
 
 if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
@@ -66,7 +66,7 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 
             public function set($encryptkey)
             {
-                     $this->securekey = hash('sha256',$encryptkey.time(),TRUE);
+                     $this->securekey = hash('sha256',$encryptkey,TRUE);
            }
 
            public function get()

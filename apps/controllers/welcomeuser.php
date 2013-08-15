@@ -44,7 +44,48 @@ use Cygnite\Helpers\GHelper;
 
         public function action_index()
         {
-            echo "Here Index";
+         /*    $sess_details = array(
+                                                      'session_key' => 'validated_login',
+                                                      'session_value' => array('id','username','email')
+                      );
+
+              $query = array(
+                                          'table_name' => 'userdetails',
+                                          'username' => 'sanjay',//post values need to be passed for username or email address field
+                                          'password' => 'sanjay@123',
+                                          'status' => '' // optional field to check user authentication
+              ); */
+             // Cygnite::loader()->CFAuthx->tableName = 'userdetails';
+            //  Cygnite::loader()->CFAuthx->useDatabase = 'cygnite';
+
+          /*    Cygnite::loader()->CFAuthx->session = array(
+                                                      'session_key' => 'validated_login',
+                                                      'session_value' => array('id','username','email')
+               ); */
+
+
+
+              $isAuthenticated = Cygnite::loader()->CFAuthx->identifyUser(new \Apps\Components\Libs\Authxidentity(array(
+                                                                                                                                      'username' => 'sanjay',//post values need to be passed for username or email address field
+                                                                                                                                      'password' =>  'sanjay2123',
+                                                                                                                                     // 'status' => 1 // optional field to check user authentication
+                                                                                                                                     )
+                                                                                                                           )
+                                                                                         );
+
+
+
+          //    $is_authenticated = Cygnite::loader()->CFAuthx->validate($query ,'cygnite')->authenticateUser($sess_details);
+
+               //var_dump($this->request('Session')->getsession('validated_login'));
+             //var_dump(Cygnite::loader()->request('Authx')->is_logged_in('validated_login'));
+               if($isAuthenticated === TRUE):
+                      echo "User Authenticated Successfully";
+               else:
+                       echo "Not a valid User";
+               endif;
+
+
         }
 
         public function action_gethtml()

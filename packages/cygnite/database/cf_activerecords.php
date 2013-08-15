@@ -9,8 +9,8 @@ class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
     private  $connection;
 
     private $selectfields = NULL,
-                  $from_where =1,
-                  $field_where = '=1',
+                  $from_where ,
+                  $field_where,
                  $field_where_in,
                 $from_where_in,
                 $limit_value,
@@ -30,8 +30,8 @@ class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
 
 
     public function __construct($connkey)
-    {
-        $this->connect();
+    { 
+        parent::connect();
         $this->connection = $connkey;
         $this->pdo[$this->connection] = $this->getInstance($this->connection);
     }
@@ -138,7 +138,7 @@ class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
                         (is_string($row['2'])) ? $whrvalue  = " '".$row['2']."'" : $whrvalue = $row['2'] ;
                         (is_string($row['1'])) ? $whrcondition  = strtoupper($row['1']) : $whrcondition = $row['1'] ;
                         $this->from_where .= "`".$row['0']."`"." ".$whrcondition.$whrvalue;
-                        $wheretype = ($where == '') ? 'AND' : ' '.$where.' ';
+                        $wheretype = ($where == '') ? ' AND' : ' '.$where.' ';
                         $this->from_where .= ($i < $arrCount-1) ? $wheretype  :  '';
                         $this->where_type = '';
                         $i++;
@@ -328,12 +328,12 @@ class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
 
     public function num_row_count()
     {
-         return Cygnite::loader()->request('SQLUtilities')->num_row_count();
+         return Cygnite::loader()->sqlutilities->num_row_count();
     }
 
     private function _processquery($tblname,$groupby,$orderby,$limit)
     {
-          $searchedkey = strpos($this->from_where, "AND");
+          $searchedkey = strpos($this->from_where, 'AND');
             if($searchedkey === FALSE):
                 ($this->field_where) ?  $where = '  WHERE  '.$this->field_where.' =  :where '    :  $where = ' ';
                 $where = (is_null($this->field_where) && is_null($this->from_where)) ? '' : ' WHERE  '.$this->field_where." $this->where_type ".$this->from_where."";
@@ -461,7 +461,7 @@ class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
 
     public function debug_query()
     {
-         return Cygnite::loader()->request('SQLUtilities')->debugqry($this->debugqry,$this->_dbstatement);
+         return Cygnite::loader()->sqlutilities->debugqry($this->debugqry,$this->_dbstatement);
     }
 
     public function dblogerror() { }

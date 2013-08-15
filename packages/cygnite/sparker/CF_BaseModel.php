@@ -1,8 +1,13 @@
-<?php  if( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+<?php
+namespace Cygnite\Sparker;
+
+use Cygnite\Database\CF_ActiveRecords;
+
+if( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2.5 or newer.
+ *  An open source application development framework for PHP 5.3  or newer.
  *
  *   License
  *
@@ -20,14 +25,14 @@
  * @Author                          :   Sanjoy Dey
  * @Author                          :   Cygnite Dev Team
  * @Copyright                     :   Copyright (c) 2013 - 2014,
- * @Brought you by           :    http://www.appsntech.com
+ * @Brought you by           :    http://www.cygniteframework.com
  * @Since	                  :   Version 1.0
  * @Filesource
  * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
  *
  *
  */
-class CF_BaseModel //implements CF_IActiveRecords
+class CF_BaseModel   //implements CF_IActiveRecords
 {
         public $arr = array();
         private $db;

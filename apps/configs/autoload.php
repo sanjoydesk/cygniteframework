@@ -49,8 +49,8 @@ return array(
                       Cygnite::loader()->registerClasses(
                                             array(
                                                      'Cache' => '\\Cygnite\\Libraries\\Cache\\Handler\\Cache',
-                                                //     'Authx' => '>libs>CF_Authx',
-                                                 //    'Common' => '>libs>CF_Common',
+                                                    'CFAuthx' => '\\Apps\\Components\\Libs\\CFAuthx',
+                                                    'Authxidentity' => '\\Apps\\Components\\Libs\\Authxidentity',
                                           )
                      ),
                   /*

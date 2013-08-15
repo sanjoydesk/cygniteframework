@@ -1,7 +1,7 @@
 <?php
 namespace Cygnite\Database;
 
-use Cygnite\Helpers\Config as Config;
+use Cygnite\Helpers\Config;
 
 abstract class DBConnector
 {
@@ -56,8 +56,8 @@ abstract class DBConnector
                 switch(strtolower(trim($db_type))):
                         case "mysql":
                                 $this->conn[$database] = (is_numeric($this->port) && is_null($this->dbinstance)) ?
-                                new \PDO("mysql:host=".$this->host.";port=".$this->port.";dbname=".$this->database, $this->user, $this->password)
-                                : new \PDO("mysql:host=".$this->host.";dbname=".$this->database, $this->user, $this->password);
+                                new \PDO("mysql:host=".$this->host.";port=".$this->port.";dbname=".$this->database, $this->user, $this->password, array(PDO_ATTR_PERSISTENT => true))
+                                : new \PDO("mysql:host=".$this->host.";dbname=".$this->database, $this->user, $this->password, array(PDO_ATTR_PERSISTENT => true));
 
                                 break;
                         case "mssql":

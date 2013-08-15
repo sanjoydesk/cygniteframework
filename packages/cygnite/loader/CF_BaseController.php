@@ -1,8 +1,14 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+<?php
+namespace Cygnite\Loader;
+
+use  Cygnite\Sparker\CFView;
+use Cygnite\Loader\Apploader;
+
+if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2x or newer
+ *  An open source application development framework for PHP 5.3x or newer
  *
  *   License
  *
@@ -27,7 +33,7 @@
  *
  */
 
-class CF_BaseController extends CF_View
+class CF_BaseController extends CFView
 {
 
     public static $instance;
@@ -46,16 +52,14 @@ class CF_BaseController extends CF_View
     //prevent clone.
     public function __clone(){}
 
-
-
     /**
     * Returns singleton instance of the class
     * @return object
     */
     public function app()
     {
-      if (self::$instance === NULL)
-           self::$instance = new CF_AppLoader();
+      if (is_null(self::$instance))
+           self::$instance = new Apploader();
 
       return self::$instance;
     }

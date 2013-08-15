@@ -64,11 +64,6 @@ use Cygnite\Loader\CF_BaseController;
                                                                                   ));
         }
 
-        public function action_test($param1,$param2,$param3)
-        {
-                echo "This test $param1,$param2,$param3";
-        }
-
         public function action_testing()
         {
                 echo "This testing ";
@@ -79,6 +74,6 @@ use Cygnite\Loader\CF_BaseController;
         {
                 echo $param.$param1.$param3;
                 echo "This is cron test ";exit;
-        } 
+        }
 
     } // End of your home controller

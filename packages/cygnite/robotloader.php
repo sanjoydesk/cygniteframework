@@ -157,8 +157,9 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
     public function __get($key)
     {
             $class = $libpath = "";
+            
             if(!array_key_exists(ucfirst($key),self::$_classnames))
-                        throw new Exception("Requested $class Library not exists !!");
+                        throw new \Exception("Requested  $key Library not exists !!");
 
             $class = self::$_classnames[ucfirst($key)];
 

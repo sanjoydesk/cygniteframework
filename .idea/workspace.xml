@@ -2,10 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2809f18-bfcf-4476-9825-b15618ea5f77" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/temp/cache/5164e8b2cca89c2364544b63833e13a2.cache" afterPath="$PROJECT_DIR$/apps/temp/cache/5164e8b2cca89c2364544b63833e13a2.cache" />
+      <change type="DELETED" beforePath="G:\wamp\www\cygniteframework\apps\vendors\libs\CFAuthx.php" afterPath="" />
+      <change type="DELETED" beforePath="G:\wamp\www\cygniteframework\apps\vendors\libs\CF_Common.php" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/configs/autoload.php" afterPath="$PROJECT_DIR$/apps/configs/autoload.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/controllers/home.php" afterPath="$PROJECT_DIR$/apps/controllers/home.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/controllers/welcomeuser.php" afterPath="$PROJECT_DIR$/apps/controllers/welcomeuser.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MOVED" beforePath="G:\wamp\www\cygniteframework\packages\cygnite\Cygnite.php" afterPath="$PROJECT_DIR$/packages/cygnite/cygnite.php" />
-      <change type="MOVED" beforePath="G:\wamp\www\cygniteframework\packages\cygnite\Strapper.php" afterPath="$PROJECT_DIR$/packages/cygnite/strapper.php" />
-      <change type="MOVED" beforePath="G:\wamp\www\cygniteframework\packages\cygnite\database\CF_ActiveRecords.php" afterPath="$PROJECT_DIR$/packages/cygnite/database/cf_activerecords.php" />
       <change type="MOVED" beforePath="G:\wamp\www\cygniteframework\packages\cygnite\loader\CF_BaseController.php" afterPath="$PROJECT_DIR$/packages/cygnite/loader/cf_basecontroller.php" />
       <change type="MOVED" beforePath="G:\wamp\www\cygniteframework\packages\cygnite\sparker\CF_BaseModel.php" afterPath="$PROJECT_DIR$/packages/cygnite/sparker/cf_basemodel.php" />
     </list>
@@ -68,8 +71,10 @@
       <file leaf-file-name="welcomeuser.php" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/apps/controllers/welcomeuser.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="20" selection-start="55" selection-end="55" vertical-scroll-proportion="0.06428572">
-              <folding />
+            <state line="6" column="0" selection-start="123" selection-end="123" vertical-scroll-proportion="-1.8035715">
+              <folding>
+                <element signature="e#35#55#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -113,7 +118,7 @@
       <file leaf-file-name="home.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/controllers/home.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="77" column="0" selection-start="2717" selection-end="2717" vertical-scroll-proportion="0.0">
+            <state line="72" column="0" selection-start="2577" selection-end="2577" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -545,7 +550,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="754" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -556,7 +561,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41750842" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41750842" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -637,11 +642,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/standard_7.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="310" column="9" selection-start="9382" selection-end="9404" vertical-scroll-proportion="0.3611111" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/packages/cygnite/strapper.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="40" column="0" selection-start="1485" selection-end="1485" vertical-scroll-proportion="-24.666666" />
@@ -717,17 +717,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/controllers/welcomeuser.php">
+    <entry file="file://$PROJECT_DIR$/apps/controllers/home.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="20" selection-start="55" selection-end="55" vertical-scroll-proportion="0.06428572">
+        <state line="72" column="0" selection-start="2577" selection-end="2577" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/controllers/home.php">
+    <entry file="file://$PROJECT_DIR$/packages/cygnite/base/logger.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="77" column="0" selection-start="2717" selection-end="2717" vertical-scroll-proportion="0.0">
+        <state line="113" column="34" selection-start="4696" selection-end="4696" vertical-scroll-proportion="0.0">
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/controllers/welcomeuser.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="6" column="0" selection-start="123" selection-end="123" vertical-scroll-proportion="-1.8035715">
+          <folding>
+            <element signature="e#35#55#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

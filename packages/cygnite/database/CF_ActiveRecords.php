@@ -1,12 +1,16 @@
 <?php
-class CF_ActiveRecords extends CF_DBConnector //implements CF_IActiveRecords
+namespace Cygnite\Database;
+
+use Cygnite\Cygnite;
+
+class CF_ActiveRecords extends DBConnector //implements CF_IActiveRecords
 {
     private $pdo;
     private  $connection;
 
     private $selectfields = NULL,
                   $from_where =1,
-                  $field_where = 1,
+                  $field_where = '=1',
                  $field_where_in,
                 $from_where_in,
                 $limit_value,
@@ -49,7 +53,7 @@ class CF_ActiveRecords extends CF_DBConnector //implements CF_IActiveRecords
             try{
                  $this->dbstatement = $this->pdo[$this->connection]->prepare($this->sqlqry);
                  $this->dbstatement->execute();
-            } catch(CF_DBException  $exception){
+            } catch(CFDBException  $exception){
                  echo  $exception->getMessage();
             }
           return TRUE;
@@ -80,7 +84,7 @@ class CF_ActiveRecords extends CF_DBConnector //implements CF_IActiveRecords
                 $this->dbstatement = $this->pdo[$this->connection]->prepare($this->sqlqry);
                 $this->dbstatement->bindValue(':column',$updatekey[$x[0]]);
                 return $this->dbstatement->execute();
-            } catch(PDOException  $exception){
+            } catch( \PDOException  $exception){
                    echo  $exception->getMessage();
             }
     }
@@ -277,13 +281,13 @@ class CF_ActiveRecords extends CF_DBConnector //implements CF_IActiveRecords
          try{
 
                  $this->_dbstatement = $this->pdo[$this->connection]->prepare($this->sqlqry);
-                 Cygnite::loader()->request('SQLUtilities')->setdbstmt($this->_dbstatement,$this->pdo[$this->connection]);
+                 Cygnite::loader()->sqlutilities->setdbstmt($this->_dbstatement,$this->pdo[$this->connection]);
                  $this->_dbstatement->bindValue(':where',$this->from_where);
               //   Profiler::start('select');
                  $this->_dbstatement->execute();
 
 
-         } catch(PDOException  $exception){
+         } catch( \PDOException  $exception){
                    $this->_err = $exception;
                    GHelper::trace();
                   GHelper::display_errors(E_USER_ERROR, 'Database Error Occured', $this->_err->getMessage(), __FILE__, $this->_err->getLine(),$this->debugqry);
@@ -292,25 +296,25 @@ class CF_ActiveRecords extends CF_DBConnector //implements CF_IActiveRecords
 
         switch($fetchmode):
                     case 'FETCH_ASSOC':
-                                     $datas = $this->_dbstatement->fetchAll(PDO::FETCH_ASSOC);
+                                     $datas = $this->_dbstatement->fetchAll(\PDO::FETCH_ASSOC);
                                      break;
                     case 'FETCH_GROUP':
-                                     $datas = $this->_dbstatement->fetchAll(PDO::FETCH_GROUP|PDO::FETCH_ASSOC);
+                                     $datas = $this->_dbstatement->fetchAll(\PDO::FETCH_GROUP|PDO::FETCH_ASSOC);
                                      break;
                     case 'FETCH_BOTH':
-                                     $datas = $this->_dbstatement->fetchAll(PDO::FETCH_BOTH);
+                                     $datas = $this->_dbstatement->fetchAll(\PDO::FETCH_BOTH);
                                      break;
                      case 'FETCH_CLASS':
-                                     $datas = $this->_dbstatement->fetchAll(PDO::FETCH_CLASS ,'CFDataReader');
+                                     $datas = $this->_dbstatement->fetchAll(\PDO::FETCH_CLASS ,'CFDataReader');
                                      break;
                     case 'FETCH_OBJECT':
-                                     $datas = $this->_dbstatement->fetchAll(PDO::FETCH_OBJ);
+                                     $datas = $this->_dbstatement->fetchAll(\PDO::FETCH_OBJ);
                                      break;
                      case 'FETCH_COLUMN':
-                                     $datas = $this->_dbstatement->fetchAll(PDO::FETCH_COLUMN);
+                                     $datas = $this->_dbstatement->fetchAll(\PDO::FETCH_COLUMN);
                                      break;
                     default :
-                                     $datas = $this->_dbstatement->fetchAll(PDO::FETCH_ASSOC);
+                                     $datas = $this->_dbstatement->fetchAll( \PDO::FETCH_ASSOC);
         endswitch;
      //echo round(memory_get_usage() / (1024*1024),3) .' MB<br />';
         //echo $this->_dbstatement->rowCount();
@@ -369,7 +373,7 @@ class CF_ActiveRecords extends CF_DBConnector //implements CF_IActiveRecords
    {
        $sql = $explain = "";
        $sql = 'EXPLAIN EXTENDED '.$this->sqlqry;
-       $explain = $this->pdo[$this->connection]->query($sql)->fetchAll(PDO::FETCH_ASSOC);
+       $explain = $this->pdo[$this->connection]->query($sql)->fetchAll( \PDO::FETCH_ASSOC);
         $html = "";
         $html  .= "<html> <head><title>Explain Query</title>
                            <style type='text/css'>

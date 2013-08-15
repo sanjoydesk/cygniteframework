@@ -1,9 +1,17 @@
-<?php   //namespace Cygnite;
+<?php
+namespace Cygnite;
+
+use Cygnite\Helpers\GHelper;
+use Cygnite\Helpers\Url;
+use Cygnite\Helpers\Config;
+use Cygnite\Helpers\Profiler;
+
+
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *
- *  An open source application development framework for PHP 5.2x or newer
+ *  An open source application development framework for PHP 5.3x or newer
  *
  *   License
  *
@@ -32,10 +40,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
     *  Import all core helpers and start booting
     * --------------------------------------------------------------------------------
     */
-    Cygnite::import(CF_SYSTEM.'>cygnite>helpers>CF_GHelper');
-    Cygnite::import(CF_SYSTEM.'>cygnite>helpers>CF_Config');
-    Cygnite::import(CF_SYSTEM.'>cygnite>helpers>CF_Profiler');
-
+   // Cygnite::import(CF_SYSTEM.'>cygnite>helpers>CF_Profiler');
    /**
     * --------------------------------------------------------------------------------
     *  Turn on benchmarking application is profiling is on in configuration
@@ -44,20 +49,19 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
       if(Config::getconfig('global_config','enable_profiling')==TRUE)
              Profiler::start('cygnite_start');
 
-
       /* Set Environment for Application
     * Example :
     *  define('DEVELOPMENT_ENVIRONMENT', 'development');
     * define('DEVELOPMENT_ENVIRONMENT', 'production');
     */
     define('APP_ENVIRONMENT', Config::getconfig('error_config','environment'));
-    Cygnite::loader()->request('ErrorHandler')->set_environment(Config::getconfig('error_config'));
+    Cygnite::loader()->errorhandler->set_environment(Config::getconfig('error_config'));
 
   /*----------------------------------------------------------------
     * Import initial core classes of Cygnite Framework
     * ----------------------------------------------------------------
     */
-    Cygnite::import(CF_SYSTEM.'>cygnite>loader>CF_BaseController');// Load the Base Controller
+  //  Cygnite::import(CF_SYSTEM.'>cygnite>loader>CF_BaseController');// Load the Base Controller
     //Cygnite::import(CF_SYSTEM.'>cygnite>helpers>CF_AutoLoader');
 
    /* ----------------------------------------------------------------------
@@ -73,45 +77,59 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
     */
     define('SECURE_SESSION', Config::getconfig('session_config','cf_session'));
 
-
     /*----------------------------------------------------------------
     * Autoload Session library based on user configurations
     * ----------------------------------------------------------------
     */
     if(SECURE_SESSION === TRUE)
-           Cygnite::loader()->request('Session');
+           Cygnite::loader()->session;
+
    /*------------------------------------------------------------------------------------
     * Throw Exception is default controller has not been set in configuration
     * ------------------------------------------------------------------------------------
     */
     if(is_null(Config::getconfig('global_config',"default_controller")) )
-            throw new ErrorException("Default controller not found ! Please set the default controller in configs/config".EXT);
+        trigger_error ("Default controller not found ! Please set the default controller in configs/config".EXT);
 
     /*-----------------------------------------------------------------------------------------------
      * Check register globals and remove them. Secure application by build in libraries
      * -----------------------------------------------------------------------------------------------
      */
-      Cygnite::loader()->request('Security');
+      Cygnite::loader()->security;
      //Cygnite::loader()->request('BaseSecurity')->unset_globals();
     //Cygnite::loader()->request('BaseSecurity')->unset_magicquotes();
+
      $filename = preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
-	if (php_sapi_name() === 'cli-server' && is_file($filename)) {
-	    return false;
-	}
+    if (php_sapi_name() === 'cli-server' && is_file($filename)) {
+          return false;
+    }
+    $router = null;
 
     // Create a Router
-    $router =Cygnite::loader()->request('Router');
-    Cygnite::import('apps>routerconfig');
-     Cygnite::import(str_replace('/', '', APPPATH).'>routes');
+    $router =Cygnite::loader()->router;
+
+    // Cygnite::import('apps.routerconfig');
+     Cygnite::import('apps.routes');
+
 
     // Before Router Middleware
     $router->before('GET', '/.*', function() {
             header('X-Powered-By: CF Router');
     });
 
+         function  show($resultArray = array(),$hasexit ="")
+        {
+              echo "<pre>";
+                  print_r($resultArray);
+             echo "</pre>";
+            if($hasexit === 'exit')
+                 exit;
+        }
+        
     /*-------------------------------------------------------
      * Booting completed. Lets handle user request!!
      * Lets Go !!
      * -------------------------------------------------------
      */
-    Cygnite::loader()->request('UserRequest',$router);
+    Cygnite::loader()->request('dispatcher',$router);
+    Profiler::end('cygnite_start');

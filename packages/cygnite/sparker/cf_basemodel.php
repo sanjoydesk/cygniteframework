@@ -32,7 +32,7 @@ if( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *
  *
  */
-class CF_BaseModel //implements CF_IActiveRecords
+class CF_BaseModel   //implements CF_IActiveRecords
 {
         public $arr = array();
         private $db;

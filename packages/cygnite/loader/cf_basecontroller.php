@@ -1,8 +1,8 @@
 <?php
 namespace Cygnite\Loader;
 
-use  Cygnite\Sparker\CFView as CF_View;
-use Cygnite\Loader\Apploader as CF_Apploader;
+use  Cygnite\Sparker\CFView;
+use Cygnite\Loader\Apploader;
 
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
@@ -33,7 +33,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *
  */
 
-class CF_BaseController extends CF_View
+class CF_BaseController extends CFView
 {
 
     public static $instance;
@@ -52,8 +52,6 @@ class CF_BaseController extends CF_View
     //prevent clone.
     public function __clone(){}
 
-
-
     /**
     * Returns singleton instance of the class
     * @return object
@@ -61,7 +59,7 @@ class CF_BaseController extends CF_View
     public function app()
     {
       if (is_null(self::$instance))
-           self::$instance = new CF_Apploader();
+           self::$instance = new Apploader();
 
       return self::$instance;
     }

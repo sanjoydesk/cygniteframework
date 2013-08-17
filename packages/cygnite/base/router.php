@@ -149,7 +149,7 @@ class Router
 		$this->match('OPTIONS', $pattern, $fn);
 	}
 
-                            function url_routes()
+                            public function url_routes()
                             {
                                     return (isset($this->routes[$_SERVER['REQUEST_METHOD']] )) ? $this->routes[$_SERVER['REQUEST_METHOD']] : NULL;
                             }

@@ -1,7 +1,5 @@
 <?php
-namespace Cygnite\Libraries;
-
-use Cygnite\Helpers\GHelper as GHelper;
+namespace cygnite\libraries\globals;
 
 if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 /**
@@ -33,7 +31,7 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
  *
  */
 
-class Post extends Globals implements ISecureData
+class post extends Globals implements ISecureData
 {
             public $_var = "_POST";
 
@@ -41,7 +39,6 @@ class Post extends Globals implements ISecureData
             {
                     return  filter_has_var(INPUT_POST, $input) ? TRUE : FALSE;
             }
-
 
             /**
              * Sets new value for given POST variable.
@@ -65,6 +62,5 @@ class Post extends Globals implements ISecureData
                 else
                     return (isset($_POST[$key])) ? $this->clean_variables($_POST[$key]) : $default;
             }
-
 
 }

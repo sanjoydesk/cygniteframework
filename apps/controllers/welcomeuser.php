@@ -65,7 +65,7 @@ use Cygnite\Helpers\GHelper;
 
 
 
-              $isAuthenticated = Cygnite::loader()->CFAuthx->identifyUser(new \Apps\Components\Libs\Authxidentity(array(
+              $isAuthenticated = Cygnite::loader()->CFAuthx->identifyUser(new \Apps\Components\Libs\AuthxIdentity(array(
                                                                                                                                       'username' => 'sanjay',//post values need to be passed for username or email address field
                                                                                                                                       'password' =>  'sanjay2123',
                                                                                                                                      // 'status' => 1 // optional field to check user authentication

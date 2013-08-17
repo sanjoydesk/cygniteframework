@@ -67,6 +67,9 @@ use Cygnite\Loader\CF_BaseController;
         public function action_testing()
         {
                 echo "This testing ";
+
+                echo \Cygnite\Helpers\Url::segment(2);
+
         }
 
 

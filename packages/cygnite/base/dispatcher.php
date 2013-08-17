@@ -118,12 +118,6 @@ class Dispatcher
         endif;
     }
 
-    public function getSegment($uri)
-    {
-
-            return $uri;
-    }
-
     public  function __destruct()
     {
         $this->router->run();

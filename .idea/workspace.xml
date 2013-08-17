@@ -2,28 +2,23 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="f2809f18-bfcf-4476-9825-b15618ea5f77" name="Default" comment="">
-      <change type="DELETED" beforePath="G:\wamp\www\cygniteframework\apps\vendors\libs\CFAuthx.php" afterPath="" />
-      <change type="DELETED" beforePath="G:\wamp\www\cygniteframework\apps\vendors\libs\CF_Common.php" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/configs/autoload.php" afterPath="$PROJECT_DIR$/apps/configs/autoload.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/controllers/home.php" afterPath="$PROJECT_DIR$/apps/controllers/home.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/apps/controllers/welcomeuser.php" afterPath="$PROJECT_DIR$/apps/controllers/welcomeuser.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/cygniteframework.iml" afterPath="$PROJECT_DIR$/.idea/cygniteframework.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/packages/cygnite/base/dispatcher.php" afterPath="$PROJECT_DIR$/packages/cygnite/base/dispatcher.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MOVED" beforePath="G:\wamp\www\cygniteframework\packages\cygnite\Cygnite.php" afterPath="$PROJECT_DIR$/packages/cygnite/cygnite.php" />
-      <change type="MOVED" beforePath="G:\wamp\www\cygniteframework\packages\cygnite\loader\CF_BaseController.php" afterPath="$PROJECT_DIR$/packages/cygnite/loader/cf_basecontroller.php" />
-      <change type="MOVED" beforePath="G:\wamp\www\cygniteframework\packages\cygnite\sparker\CF_BaseModel.php" afterPath="$PROJECT_DIR$/packages/cygnite/sparker/cf_basemodel.php" />
     </list>
     <ignored path="cygniteframework.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1376560538946" ignored="false" />
+    <file path="/Dummy.txt" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1376684192293" ignored="false" />
     <file path="/a.php" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1375514750623" ignored="false" />
     <file path="/welcome.view.php" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1375477487814" ignored="false" />
     <file path="/robotloader.php" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1375515874059" ignored="false" />
     <file path="/config.php" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1375512633844" ignored="false" />
-    <file path="/url.php" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1375513114120" ignored="false" />
+    <file path="/url.php" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1376773149487" ignored="false" />
     <file path="/assets.php" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1375513951487" ignored="false" />
     <file path="/boot.php" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1375515369875" ignored="false" />
     <file path="/cygnite.php" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1375515893101" ignored="false" />
     <file path="/admin.layout.php" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1375601305170" ignored="false" />
+    <file path="/dispatcher.php" changelist="f2809f18-bfcf-4476-9825-b15618ea5f77" time="1376773492994" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -62,16 +57,34 @@
       <file leaf-file-name="robotloader.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/packages/cygnite/robotloader.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="83" column="79" selection-start="4906" selection-end="4906" vertical-scroll-proportion="0.0">
+            <state line="298" column="0" selection-start="14248" selection-end="14248" vertical-scroll-proportion="-8.296296">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="welcomeuser.php" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="url.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/packages/cygnite/helpers/url.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="72" column="53" selection-start="2352" selection-end="2352" vertical-scroll-proportion="-7.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="dispatcher.php" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/packages/cygnite/base/dispatcher.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="123" column="18" selection-start="5842" selection-end="5842" vertical-scroll-proportion="0.40433925">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="welcomeuser.php" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/apps/controllers/welcomeuser.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="0" selection-start="123" selection-end="123" vertical-scroll-proportion="-1.8035715">
+            <state line="44" column="0" selection-start="1564" selection-end="1564" vertical-scroll-proportion="-0.6666667">
               <folding>
                 <element signature="e#35#55#0" expanded="true" />
               </folding>
@@ -144,9 +157,7 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/packages/cygnite/base/logger.php" />
-        <option value="$PROJECT_DIR$/packages/cygnite/base/dispatcher.php" />
         <option value="$PROJECT_DIR$/apps/configs/config.php" />
-        <option value="$PROJECT_DIR$/packages/cygnite/helpers/url.php" />
         <option value="$PROJECT_DIR$/packages/cygnite/helpers/config.php" />
         <option value="$PROJECT_DIR$/apps/views/home/welcome.view.php" />
         <option value="$PROJECT_DIR$/packages/cygnite/helpers/assets.php" />
@@ -159,6 +170,8 @@
         <option value="$PROJECT_DIR$/packages/cygnite/robotloader.php" />
         <option value="$PROJECT_DIR$/apps/models/activerecords.php" />
         <option value="$PROJECT_DIR$/apps/controllers/welcomeuser.php" />
+        <option value="$PROJECT_DIR$/packages/cygnite/helpers/url.php" />
+        <option value="$PROJECT_DIR$/packages/cygnite/base/dispatcher.php" />
       </list>
     </option>
   </component>
@@ -199,6 +212,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -407,7 +421,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -425,16 +438,16 @@
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder0" value="0" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/index.php" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth2" value="151" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="825" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatWidth3" value="825" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth3" value="825" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth2" value="151" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_treeWidth1" value="150" />
-    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder2" value="2" />
     <property name="FileHistory.git4idea.history.GitHistoryProvider_flatOrder3" value="3" />
     <property name="FullScreen" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager" selected="PHPUnit.cygniteframework">
     <configuration default="false" name="RobotloaderTest" type="PHPUnitRunConfigurationType" factoryName="PHPUnit" temporary="true">
@@ -485,12 +498,12 @@
       <method />
     </configuration>
     <list size="6">
-      <item index="0" class="java.lang.String" itemvalue="PHPUnit.cygniteframework" />
-      <item index="1" class="java.lang.String" itemvalue="PHPUnit.RobotloaderTest" />
-      <item index="2" class="java.lang.String" itemvalue="PHP Script.runtests2.php" />
-      <item index="3" class="java.lang.String" itemvalue="PHP Script.phpunit_test.php" />
-      <item index="4" class="java.lang.String" itemvalue="PHP Script.index.php" />
-      <item index="5" class="java.lang.String" itemvalue="PHP Script.logger.php" />
+      <item index="0" class="java.lang.String" itemvalue="PHPUnit.RobotloaderTest" />
+      <item index="1" class="java.lang.String" itemvalue="PHP Script.runtests2.php" />
+      <item index="2" class="java.lang.String" itemvalue="PHP Script.phpunit_test.php" />
+      <item index="3" class="java.lang.String" itemvalue="PHP Script.index.php" />
+      <item index="4" class="java.lang.String" itemvalue="PHP Script.logger.php" />
+      <item index="5" class="java.lang.String" itemvalue="PHPUnit.cygniteframework" />
     </list>
     <recent_temporary>
       <list size="5">
@@ -556,12 +569,12 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.21742424" sideWeight="0.5824916" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.22121212" sideWeight="0.6700337" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3956229" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32996634" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.41750842" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4161074" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -642,16 +655,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/packages/cygnite/strapper.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="40" column="0" selection-start="1485" selection-end="1485" vertical-scroll-proportion="-24.666666" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/packages/cygnite/helpers/url.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="31" column="6" selection-start="1164" selection-end="1174" vertical-scroll-proportion="-4.3333335" />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/configs/config.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="39" column="88" selection-start="1832" selection-end="1853" vertical-scroll-proportion="0.0" />
@@ -696,13 +699,6 @@
         <state line="89" column="36" selection-start="2780" selection-end="2780" vertical-scroll-proportion="2.9502761" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/packages/cygnite/robotloader.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="83" column="79" selection-start="4906" selection-end="4906" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/apps/models/activerecords.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="4" column="33" selection-start="84" selection-end="84" vertical-scroll-proportion="0.0">
@@ -717,13 +713,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/apps/controllers/home.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="72" column="0" selection-start="2577" selection-end="2577" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/packages/cygnite/base/logger.php">
       <provider selected="true" editor-type-id="text-editor">
         <state line="113" column="34" selection-start="4696" selection-end="4696" vertical-scroll-proportion="0.0">
@@ -733,10 +722,38 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/apps/controllers/welcomeuser.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="123" selection-end="123" vertical-scroll-proportion="-1.8035715">
+        <state line="44" column="0" selection-start="1564" selection-end="1564" vertical-scroll-proportion="-0.6666667">
           <folding>
             <element signature="e#35#55#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/apps/controllers/home.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="0" selection-start="2577" selection-end="2577" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/cygnite/robotloader.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="298" column="0" selection-start="14248" selection-end="14248" vertical-scroll-proportion="-8.296296">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/cygnite/helpers/url.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="72" column="53" selection-start="2352" selection-end="2352" vertical-scroll-proportion="-7.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/packages/cygnite/base/dispatcher.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="123" column="18" selection-start="5842" selection-end="5842" vertical-scroll-proportion="0.40433925">
+          <folding />
         </state>
       </provider>
     </entry>

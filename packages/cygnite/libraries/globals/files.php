@@ -1,5 +1,5 @@
 <?php
-namespace Cygnite\Libraries;
+namespace cygnite\libraries\globals;
 
 use Cygnite\Libraries\Globals as Globals;
 
@@ -22,7 +22,7 @@ use Cygnite\Libraries\Globals as Globals;
  * @Warning      : Any changes in this library can cause abnormal behaviour of the framework
  *
  */
-class Files extends Globals implements ISecureData
+class files extends Globals implements ISecureData
 {
     public $_var = "_FILES";
 

@@ -1,5 +1,5 @@
 <?php
-namespace Cygnite\Libraries\Globals;
+namespace cygnite\libraries\globals;
 /**
  * Globals class a base class to handle all global variables.this class implements ArrayAccess
  * to use object as an array
@@ -23,7 +23,7 @@ namespace Cygnite\Libraries\Globals;
  *
  *
  */
-class Globals implements \ArrayAccess
+class globals implements \ArrayAccess
 {
 
     /**
@@ -44,36 +44,36 @@ class Globals implements \ArrayAccess
 
     public function __set($key,$value)
     {
-    	$this->_array[$key] = $value;
-    	$GLOBALS[$this->_var][$key] = $value;
+        $this->_array[$key] = $value;
+        $GLOBALS[$this->_var][$key] = $value;
     }
 
     /**
      * __get() Magic method return value with necessary validation for requested key in Global variables
      * if key string does not exists in Gloabal array error will be triggered
-     * @param string $key
-     * @return any type
+     * @param  string $key
+     * @return any    type
      *
      */
 
-    public function __get($key){
+    public function __get($key)
+    {
+        if(isset($this->_array[$key])):
+            return $this->_array[$key];
+        elseif(isset($GLOBALS[$this->_var][$key])):
+            $this->doValidation($key);
+            $this->_array[$key] = $GLOBALS[$this->_var][$key];
 
-
-    	if(isset($this->_array[$key])):
-    		return $this->_array[$key];
-    	elseif(isset($GLOBALS[$this->_var][$key])):
-    	    $this->doValidation($key);
-    	    $this->_array[$key] = $GLOBALS[$this->_var][$key];
-    		return $this->_array[$key];
-    	else:
-    	trigger_error("Undefined index : {$key} ",E_USER_NOTICE);
-    	endif;
+            return $this->_array[$key];
+        else:
+        trigger_error("Undefined index : {$key} ",E_USER_NOTICE);
+        endif;
 
     }
 
     /**
      * Determines wheather the key exists or not in Global array
-     * @param string $key
+     * @param  string  $key
      * @return boolean true if exists else false
      *
      */
@@ -101,7 +101,7 @@ class Globals implements \ArrayAccess
     public function offsetUnset($offset)
     {
 
-		unset($this->{$offset});
+        unset($this->{$offset});
     }
 
     public static function __xss_clean(&$item,&$key)
@@ -121,21 +121,21 @@ class Globals implements \ArrayAccess
             if(!is_int($matches[1]{0}))
                    $val = '0'.$matches[1]+0;
             else
-                  $val = (int)$matches[1];
-
+                  $val = (int) $matches[1];
 
             if($val>255)
+
                    return '&#'.$val.';';
 
             if($val >= 65 && $val <= 90  //A-Z
                || $val >= 97 && $val <= 122 // a-z
                || $val >= 48 && $val <= 57) // 0-9
+
                return chr($val);
 
                return $matches[0];
 
     }
-
 
     public function doValidation($key)
     {
@@ -157,8 +157,10 @@ class Globals implements \ArrayAccess
                     if( is_string($value) ):
                             $spec = array('/[\']/', '/--/', '/\bdrop\b/i', '/\bdelete\b/i', '/\binsert\b/i', '/\bupdate\b/i');
                             $value = preg_replace($spec, "", $value);
+
                             return $value;
                     endif;
+
                 return $value;
         }
 

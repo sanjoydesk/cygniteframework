@@ -1,7 +1,7 @@
 <?php
-namespace Cygnite\Libraries;
+namespace Cygnite\Libraries\Globals;
 
-use Cygnite\Libraries\Globals as Globals;
+use Cygnite\Libraries\Globals;
 
 /**
  * Get class that inherits Global base class and implements ISecureData interface

@@ -19,7 +19,7 @@ class CFAuthx extends CF_ActiveRecords
     public function identifyUser($instance)
     {
 
-        if($instance instanceof Authxidentity)
+        if($instance instanceof AuthxIdentity)
                 $this->authx = $instance;
 
          parent::__construct($this->authx->getDbName());

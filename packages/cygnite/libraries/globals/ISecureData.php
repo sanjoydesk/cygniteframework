@@ -37,7 +37,7 @@ interface ISecureData
 
     public function __isset($key);
 
-    public function __unset($key);
+  //  public function __unset($key);
 
     public function doValidation($key);
 

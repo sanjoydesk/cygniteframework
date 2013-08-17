@@ -1,5 +1,5 @@
 <?php
-namespace Cygnite\Libraries;
+namespace Cygnite\Libraries\Globals;
 
 use Cygnite\Libraries\Globals as Globals;
 
@@ -31,11 +31,10 @@ use Cygnite\Libraries\Globals as Globals;
  *
  */
 
-class Cookie extends Globals implements ISecureData
+class cookie extends Globals implements ISecureData
 {
         public $_var = "_COOKIE";
         private $_cookie; // the returned COOKIE values
-
 
         /**
          * Sets or returns the cookie variable value.
@@ -51,6 +50,7 @@ class Cookie extends Globals implements ISecureData
                // No given value, the user is requesting the cookie value.
                 if( is_null($value) ):
                     $this->_cookie = ( (isset($_COOKIE[$name]) ) ?   $_COOKIE[$name] :  NULL);
+
                     return $this->_cookie;
                 endif;
                 $expire = time() + ($expire * 60); // Excfre will passed in minutes, so multiply by 60 seconds.

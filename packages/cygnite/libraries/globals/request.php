@@ -1,7 +1,5 @@
 <?php
-namespace Cygnite\Libraries;
-
-use Cygnite\Helpers\GHelper as GHelper;
+namespace cygnite\libraries\globals;
 
 /**
  * Request class that inherits Global base class and implements ISecureData interface
@@ -22,7 +20,7 @@ use Cygnite\Helpers\GHelper as GHelper;
  * @Warning      : Any changes in this library can cause abnormal behaviour of the framework
  *
  */
-class Request extends Globals implements ISecureData
+class request extends Globals implements ISecureData
 {
     public $_var = "_REQUEST";
     /**
@@ -42,6 +40,7 @@ class Request extends Globals implements ISecureData
                         $this->_param = $defvalue;
             endif;
             if( empty($this->_param) ) $this->_param = $default;
+
        return $this->clean_variables($this->_param);
     }
 

@@ -3,7 +3,7 @@ namespace Apps\Components\Libs;
 
 use Cygnite\Cygnite;
 
-class Authxidentity
+class AuthxIdentity
 {
     public $userCredentials = array();
 

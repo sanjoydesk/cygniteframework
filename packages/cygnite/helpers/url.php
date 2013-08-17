@@ -43,12 +43,14 @@ class Url
         */
       public static function redirect_to($uri = '', $type = 'location', $http_response_code = 302)
       {
-                    if (! preg_match('#^https?://#i', $uri))
-                          $uri = self::sitepath($uri);
-                   if($type == 'refresh')
-                            header("Refresh:0;url=".$uri);
-                   else
-                            header("Location: ".$uri, TRUE, $http_response_code);
+          $uri = str_replace(array('.','/'),'/',$uri);
+           
+          if (! preg_match('#^https?://#i', $uri))
+                $uri = self::sitepath($uri);
+          if($type == 'refresh')
+                  header("Refresh:0;url=".$uri);
+          else
+                  header("Location: ".$uri, TRUE, $http_response_code);
       }
         /**
         * This Function is to get the previous visited url based on current url

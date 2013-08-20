@@ -133,7 +133,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                      if(preg_match("/Apps/i", self::$_classnames[self::changeCase($_classnames['\\'.$classname],TRUE)])):
                          $rootdir = $ds=  '';
                      else:
-                         $rootdir = CF_SYSTEM;
+                         $rootdir = CF_SYSTEM.DS;
                          $ds = DS;
                      endif;
                  $path = ltrim(self::changeCase(str_replace(array('\\','>','.'),DS,self::$_classnames[self::changeCase($_classnames['\\'.$classname],TRUE)])).EXT,'/');

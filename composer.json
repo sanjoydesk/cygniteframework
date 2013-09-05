@@ -1,7 +1,11 @@
 {
-    "name": "Cygnite/package_name",
+    "name": "cygnite/package_name",
     "description": "Cygnite PHP Framework",
-    "minimum-stability": "alpha",
+    "minimum-stability": "v1.0-alpha",
+    "require": {
+        "php": ">=5.3.0",
+        "another-vendor/package": "1.*"
+    },
     "authors": [
         {
             "name": "Sanjoy Dey",

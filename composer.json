@@ -1,5 +1,5 @@
 {
-    "name": "cygnite/package_name",
+    "name": "sanjoy87/cygniteframework",
     "description": "Cygnite PHP Framework",
     "minimum-stability": "v1.0-alpha",
     "require": {

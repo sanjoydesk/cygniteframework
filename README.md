@@ -74,7 +74,7 @@ v. Please follow the coding standard as followed or request for coding standard 
 History -
 =======
 Hi I am Sanjoy Dey. I love to create web applications. After enjoying couple of MVC frameworks and nearly 1 years of gained knowledge by creating small mvc,
-I started creating cygnite framework by 2012. Cygnite Framework which will give you creative experiance with expressive performance and user friendly architechture to
+I started creating cygnite framework by 2012. Cygnite Framework which will give you creative experience with expressive performance and user friendly architecture to
 reduce your development time.
 
 Cygnite is now development stage (Alpha 1.0) and contributing in cygnite development would be much more appreciated.

@@ -66,7 +66,7 @@ iv. Fork Cygnite Repository on GitHub.
 
 v. Please follow the coding standard as followed on the project or request for coding standard to follow.
 
-##[Note: We are upgrading the coding standard to PSR style to make code uniform. We request you to follow same.]
+[Note: We are upgrading the coding standard to PSR style to make code uniform. We request you to follow same.]
 
 
 History -

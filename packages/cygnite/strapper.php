@@ -22,15 +22,15 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- * @Package                         : Cygnite Framework BootStrap file
- *@Filename                         : cygnite.php
- * @Description                    : Bootstrap file to auto load core libraries initially.
- * @Author                           : Sanjoy Dey
- * @Copyright                     :  Copyright (c) 2013 - 2014,
- * @Link	                  :  http://www.cygniteframework.com
- * @Since	                  :  Version 1.0
+ * @Package                 : Cygnite Framework BootStrap file
+ * @Filename                : cygnite.php
+ * @Description             : Bootstrap file to auto load core libraries initially.
+ * @Author                  : Sanjoy Dey
+ * @Copyright               :  Copyright (c) 2013 - 2014,
+ * @Link	                   :  http://www.cygniteframework.com
+ * @Since	                :  Version 1.0
  * @Filesource
- * @Warning                      :  Any changes in this library can cause abnormal behaviour of the framework
+ * @Warning                 :  Any changes in this library can cause abnormal behaviour of the framework
  *
  *
  */
@@ -61,8 +61,6 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
     * Import initial core classes of Cygnite Framework
     * ----------------------------------------------------------------
     */
-  //  Cygnite::import(CF_SYSTEM.'>cygnite>loader>CF_BaseController');// Load the Base Controller
-    //Cygnite::import(CF_SYSTEM.'>cygnite>helpers>CF_AutoLoader');
 
    /* ----------------------------------------------------------------------
     *  Set Cygnite user defined encryption key and start booting
@@ -91,13 +89,11 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
     if(is_null(Config::getconfig('global_config',"default_controller")) )
         trigger_error ("Default controller not found ! Please set the default controller in configs/config".EXT);
 
-    /*-----------------------------------------------------------------------------------------------
-     * Check register globals and remove them. Secure application by build in libraries
-     * -----------------------------------------------------------------------------------------------
-     */
-      Cygnite::loader()->security;
-     //Cygnite::loader()->request('BaseSecurity')->unset_globals();
-    //Cygnite::loader()->request('BaseSecurity')->unset_magicquotes();
+   /*-----------------------------------------------------------------------------------------------
+   * Check register globals and remove them. Secure application by build in libraries
+   * -----------------------------------------------------------------------------------------------
+   */
+    Cygnite::loader()->security;
 
      $filename = preg_replace('#(\?.*)$#', '', $_SERVER['REQUEST_URI']);
     if (php_sapi_name() === 'cli-server' && is_file($filename)) {
@@ -117,15 +113,6 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
             header('X-Powered-By: CF Router');
     });
 
-         function  show($resultArray = array(),$hasexit ="")
-        {
-              echo "<pre>";
-                  print_r($resultArray);
-             echo "</pre>";
-            if($hasexit === 'exit')
-                 exit;
-        }
-        
     /*-------------------------------------------------------
      * Booting completed. Lets handle user request!!
      * Lets Go !!

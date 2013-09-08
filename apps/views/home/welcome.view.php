@@ -1,6 +1,7 @@
 <?php
 use Cygnite\Helpers\Url;
 use Cygnite\Helpers\Assets;
+//var_dump($this->params['author']);
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html lang="en">
@@ -8,7 +9,7 @@ use Cygnite\Helpers\Assets;
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 <title>Welcome to Cygnite Framework</title>
 <?php echo Assets::addstyle('webroot/css/cygnite/style.css'); ?>
-<!--<link rel="shortcut icon" href="<?php //echo GHelper::base_path(); ?>webroot/img/cygnite/favicon.png" >-->
+<link rel="shortcut icon" href="<?php echo Url::getBase(); ?>webroot/img/cygnite/fevicon.ico" > </link>
 </head>
 <body>
     <div class="container">
@@ -23,17 +24,22 @@ use Cygnite\Helpers\Assets;
 
   <div class="container-body">
 
-    <hr class="featurette-divider">
+    <hr class="featurette-divider" />
 
     <div class="container">
                 <div class="block features">
                   <h2 class="title-divider"><span><span class="title-em">Core Features OF Cygnite Framework  <?php echo CF_VERSION; ?></span></span>
-                      <small>Core libraries are rapidly customised and adding with new features to full-fill all your needs.</small></h2>
+                      <small>Core libraries are rapidly customized and upgrading with new features to full-fill all your needs.</small></h2>
+
                   <ul class="thumbnails">
                     <li class="span3">
                                 <div class="feature-block">
                                     <div class="features-head">
+
+                                              <h3 class="title"><a href="http://www.cygniteframework.com/p/documentation.html">Better <span class="title-em">Performance</span></a></h3>
+
                                                             <h3 class="title"><a href="http://www.cygniteframework.com/">Better <span class="title-em">Performance</span></a></h3>
+
                                      </div>
                                       <p> With better performance and caching mechanism which makes your application applications faster then you are expected.
                                       </p>
@@ -42,10 +48,15 @@ use Cygnite\Helpers\Assets;
                     <li class="span3">
                         <div class="feature-block">
                         <div class="features-head">
+
+                                    <h3 class="title">
+                                        <a href="http://www.cygniteframework.com/p/documentation.html">User  <span class="title-em">Friendly</span></a>
+                                    </h3>
+
                                                                 <h3 class="title"><a href="http://www.cygniteframework.com/">User  <span class="title-em">Friendly</span></a></h3>
+
                          </div>
-                      <p>You may be starter or experienced professional you will find very easy to work with Cygnite Framework.
-                             Which boosts your productivity, simplify and minimise your code.
+                      <p>You may be starter or experienced professional you will find very easy to work with Cygnite Framework. Which boosts your productivity, simplify and minimise your code.
                      </p>
                         </div>
                     </li>
@@ -53,11 +64,14 @@ use Cygnite\Helpers\Assets;
                        <li class="span3">
                            <div class="feature-block">
                             <div class="features-head">
+
+                                                <h3 class="title"><a href="http://www.cygniteframework.com/2013/08/form-builder.html">Inbuilt <span class="title-em">Packages</span></a></h3>
+
                                                 <h3 class="title"><a href="http://www.cygniteframework.com/">Inbuilt <span class="title-em">Libraries</span></a></h3>
+
                             </div>
 
-                      <p> Use inbuilt libraries based on your needs - encryption, x-auth, secure session, cache, pdf, form, file upload  libraries which will make your
-                             work simpler then you think.
+                      <p> Use inbuilt libraries based on your needs - Encryption, Authx Components,Secure Session,Cache, Assets,CForm,Upload classes which will make your work easier.
                      </p>
                            </div>
                     </li>
@@ -65,19 +79,22 @@ use Cygnite\Helpers\Assets;
                     <li class="span3">
                         <div class="feature-block">
                         <div class="features-head">
+
+                                    <h3 class="title"><a href="http://www.cygniteframework.com/2013/08/query-builder.html">Multiple <span class="title-em">Databases  </span></a></h3>
+
                                     <h3 class="title"><a href="http://www.cygniteframework.com/">Multiple <span class="title-em" >Databases  </span></a></h3>
+
                         </div>
-                      <p>Connect multiple databases and generate queries with cygnite query builder.
-                             Used pdo to secure your database queries with multiple features.
+                      <p>Connect multiple databases, generate queries using cygnite query builder.Proven secure database abstraction PDO class has been used for building database queries.
                       </p>
                         </div>
                     </li>
                           <li class="span3">
                               <div class="feature-block">
                                     <div class="features-head">
-                                                                             <h3 class="title"><a href="">Zero  <span class="title-em">Configuration</span></a></h3>
-                                </div>
-                                  <p> Its very easy to use, almost zero configuration. Create and use your own libraries based upon your needs.</p>
+                                           <h3 class="title"><a href="http://www.cygniteframework.com/2013/08/routing.html">Dynamic <span class="title-em">Routing</span></a></h3>
+                                    </div>
+                                  <p> Cygnite framework has powerful routing features which allow you to have various routing patterns.</p>
                               </div>
                     </li>
 
@@ -85,16 +102,22 @@ use Cygnite\Helpers\Assets;
                         <li class="span3">
                             <div class="feature-block">
                                        <div class="features-head">
+
+                                                           <h3 class="title">
+                                                               <a href="http://www.cygniteframework.com/p/documentation.html"> Secure <span class="title-em">Applications </span></a>
+                                                           </h3>
+
                                                            <h3 class="title"><a href="http://www.cygniteframework.com/"> Secure <span class="title-em">Applications </span></a></h3>
+
                                     </div>
                                   <p> Security is main concern of any applications. Cygnite make your session and input strings more secure with built in mechanism.</p>
                             </div>
                     </li>
 
                   </ul>
-                </div>
-    </div>
 
+    </div>
+  </div>
 
 
     <hr class="featurette-divider">

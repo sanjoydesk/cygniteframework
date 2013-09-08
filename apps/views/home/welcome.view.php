@@ -38,8 +38,6 @@ use Cygnite\Helpers\Assets;
 
                                               <h3 class="title"><a href="http://www.cygniteframework.com/p/documentation.html">Better <span class="title-em">Performance</span></a></h3>
 
-                                                            <h3 class="title"><a href="http://www.cygniteframework.com/">Better <span class="title-em">Performance</span></a></h3>
-
                                      </div>
                                       <p> With better performance and caching mechanism which makes your application applications faster then you are expected.
                                       </p>
@@ -53,8 +51,6 @@ use Cygnite\Helpers\Assets;
                                         <a href="http://www.cygniteframework.com/p/documentation.html">User  <span class="title-em">Friendly</span></a>
                                     </h3>
 
-                                                                <h3 class="title"><a href="http://www.cygniteframework.com/">User  <span class="title-em">Friendly</span></a></h3>
-
                          </div>
                       <p>You may be starter or experienced professional you will find very easy to work with Cygnite Framework. Which boosts your productivity, simplify and minimise your code.
                      </p>
@@ -67,7 +63,6 @@ use Cygnite\Helpers\Assets;
 
                                                 <h3 class="title"><a href="http://www.cygniteframework.com/2013/08/form-builder.html">Inbuilt <span class="title-em">Packages</span></a></h3>
 
-                                                <h3 class="title"><a href="http://www.cygniteframework.com/">Inbuilt <span class="title-em">Libraries</span></a></h3>
 
                             </div>
 
@@ -82,7 +77,6 @@ use Cygnite\Helpers\Assets;
 
                                     <h3 class="title"><a href="http://www.cygniteframework.com/2013/08/query-builder.html">Multiple <span class="title-em">Databases  </span></a></h3>
 
-                                    <h3 class="title"><a href="http://www.cygniteframework.com/">Multiple <span class="title-em" >Databases  </span></a></h3>
 
                         </div>
                       <p>Connect multiple databases, generate queries using cygnite query builder.Proven secure database abstraction PDO class has been used for building database queries.
@@ -106,8 +100,6 @@ use Cygnite\Helpers\Assets;
                                                            <h3 class="title">
                                                                <a href="http://www.cygniteframework.com/p/documentation.html"> Secure <span class="title-em">Applications </span></a>
                                                            </h3>
-
-                                                           <h3 class="title"><a href="http://www.cygniteframework.com/"> Secure <span class="title-em">Applications </span></a></h3>
 
                                     </div>
                                   <p> Security is main concern of any applications. Cygnite make your session and input strings more secure with built in mechanism.</p>

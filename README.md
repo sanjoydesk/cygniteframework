@@ -5,7 +5,7 @@ Cygnite Framework for php web artist is brought you by appsntech.com. Cygnite Fr
 We have just begun and have long way to go. We are still on development and soon we will bring you dynamic features of Cygnite to serve you better
 
 
-Cygnite PHP Framework For Web Artists (Alpha Version 1.0)
+Cygnite PHP Framework For Web Artists (v1.0-alpha)
 =========================================================
 
 Cygnigte Framework is rapid web application development framework for PHP. Our primary goal is to provide developers - multiple libraries at one place with better way to develop dynamic applications. Discover Cygnite to make your work smarter,simpler and faster.

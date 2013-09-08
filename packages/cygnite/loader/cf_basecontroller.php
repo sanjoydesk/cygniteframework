@@ -4,7 +4,6 @@ namespace Cygnite\Loader;
 use  Cygnite\Sparker\CFView;
 use Cygnite\Loader\Apploader;
 
-if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**
  *  Cygnite Framework
  *
@@ -32,36 +31,32 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *
  *
  */
-
 class CF_BaseController extends CFView
 {
 
     public static $instance;
-
-
     /**
-    * Constructor function
-    * Creating Object for load class
-    *
-    * @access	public
-    * @return	load class object
-    *
-    */
-    public function __construct(){  }
+     * Constructor function
+     * Creating Object for load class
+     *
+     * @access    public
+     * @return \Cygnite\Loader\CF_BaseController class object
+     */
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     //prevent clone.
     public function __clone(){}
 
     /**
-    * Returns singleton instance of the class
-    * @return object
-    */
-    public function app()
-    {
-      if (is_null(self::$instance))
-           self::$instance = new Apploader();
-
-      return self::$instance;
+     * Magic Method for handling errors.
+     *
+     */
+    public function __call($method, $parameters)
+    { 
+        throw new \Exception("Method [$method] is not defined on the Base Controller.");
     }
 
     public static function getins()

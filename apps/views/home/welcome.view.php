@@ -9,7 +9,7 @@ use Cygnite\Helpers\Assets;
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" >
 <title>Welcome to Cygnite Framework</title>
 <?php echo Assets::addstyle('webroot/css/cygnite/style.css'); ?>
-<link rel="shortcut icon" href="<?php echo Url::getBase(); ?>webroot/img/cygnite/fevicon.ico" > </link>
+<link rel="shortcut icon" href="<?php echo Url::getBase(); ?>webroot/img/cygnite/fevicon.png" > </link>
 </head>
 <body>
     <div class="container">

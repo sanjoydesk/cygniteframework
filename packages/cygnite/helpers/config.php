@@ -38,7 +38,7 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
     class Config
     {
         private static $config = array();
-    
+
         public static function getconfig($arrkey,$keyval = FALSE)
         {
             $config = array();
@@ -53,25 +53,25 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
 
             if(FALSE !== array_key_exists($arrkey, $config) && $keyval != FALSE)
                   return $config[$arrkey][$keyval];
-    
+
         }
-    
+
         public static function store_config_items($name, $values = array())
         {
               self::$config[$name]  = $values;
         }
-    
+
         public static function get_config_items($key)
         {
             if(is_null($key))
               throw new InvalidArgumentException("Cannot pass null argument to ".__METHOD__);
             return self::$config[strtolower($key)];
         }
-    
+
         public static function appsconfig()
         {
              $config = array();
-             $config['global_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'config'.EXT;
+             $config['global_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'application'.EXT;
              $config['db_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'database'.EXT;
              $config['session_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'session'.EXT;
              $config['autoload_config'] = include_once strtolower(APPPATH).DS.'configs'.DS.'autoload'.EXT;

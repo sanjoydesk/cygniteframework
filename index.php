@@ -1,4 +1,4 @@
-<?PHP
+<?php
 /**
  *   Cygnite Framework
  *

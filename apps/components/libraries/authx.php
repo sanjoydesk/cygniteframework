@@ -1,10 +1,37 @@
 <?php
 namespace Apps\Components\Libs;
 
-use Cygnite\Cygnite;
+use Cygnite;
 use Cygnite\Database\CF_ActiveRecords;
 
-class CFAuthx extends CF_ActiveRecords
+/**
+ *  Cygnite Framework
+ *
+ *  An open source application development framework for PHP 5.3x or newer
+ *
+ *   License
+ *
+ *   This source file is subject to the MIT license that is bundled
+ *   with this package in the file LICENSE.txt.
+ *   http://www.cygniteframework.com/license.txt
+ *   If you did not receive a copy of the license and are unable to
+ *   obtain it through the world-wide-web, please send an email
+ *   to sanjoy@hotmail.com so I can send you a copy immediately.
+ *
+ * @package                          Apps
+ * @subpackages                 Components
+ * @filename                         AuthxIdentity
+ * @description                    This file is used to map all routing of the cygnite framework
+ * @author                           Sanjoy Dey
+ * @copyright                      Copyright (c) 2013 - 2014,
+ * @link	                    http://www.cygniteframework.com
+ * @since	                    Version 1.0
+ * @filesource
+ * @warning                       Any changes in this library can cause abnormal behaviour of the framework
+ *
+ *
+ */
+class Authx extends CF_ActiveRecords
 {
     var $query = NULL;
     public $username = NULL;
@@ -12,7 +39,7 @@ class CFAuthx extends CF_ActiveRecords
     public $database = NULL;
     public $credentials = array();
     public $sessionDetails = array();
-    private $authx = NULL;
+    private $cfAuthx = NULL;
 
 
 
@@ -20,14 +47,18 @@ class CFAuthx extends CF_ActiveRecords
     {
 
         if($instance instanceof AuthxIdentity)
-                $this->authx = $instance;
+                $this->cfAuthx = $instance;
 
-         parent::__construct($this->authx->getDbName());
+                try{
+                     parent::__construct($this->cfAuthx->getDbName());
+                 } catch(\Exception $ex){
+                        echo $ex->getTrace();
+                 }
 
                  $whereQuery= array();
 
                  $i = 0;
-                 foreach ($this->authx->userCredentials as $key => $value) :
+                 foreach ($this->cfAuthx->userCredentials as $key => $value) :
                         if($i===0):
                                 $whereQuery[$key.' ='] = $value;
                                 $this->username  = $value;
@@ -39,17 +70,21 @@ class CFAuthx extends CF_ActiveRecords
                         $i++;
                  endforeach;
 
-                 $userCredentials= $this->where($whereQuery)->select('all')->fetch_all($this->authx->getTableName());
-                 $this->flushresult();
+                 try{
+                         $userCredentials= $this->where($whereQuery)->select('all')->fetch_all($this->cfAuthx->getTableName());
+                         $this->flush();
+                 } catch(\Exception $ex){
+                        echo $ex->getTrace();
+                 }
 
                       if(($this->num_row_count() && count($userCredentials) ) > 0):
 
-                         if((Cygnite::loader()->encrypt->decode($userCredentials[0]['password']) == $this->authx->userCredentials['password'])):
+                         if((Cygnite::loader()->encrypt->decode($userCredentials[0]['password']) == $this->cfAuthx->userCredentials['password'])):
 
                                      $credentials['isLoggedIn'] =  TRUE;
                                      $credentials['flashMsg'] = ucfirst($this->username).' has authenticated successfully !';
 
-                                     $this->sessionDetails = $this->authx->getSessionConfig();
+                                     $this->sessionDetails = $this->cfAuthx->getSessionConfig();
 
                                                  foreach ($this->sessionDetails['value'] as $key => $val):
                                                             $credentials[$val] =    $userCredentials[0][$val];
@@ -87,8 +122,14 @@ class CFAuthx extends CF_ActiveRecords
             endif;
      }
 
+     public function logout()
+     {
+                Cygnite::loader()->session->vanish();
+                Url::redirect_to(Url::getBase());
+     }
+
      public function __destruct()
      {
-           unset($this->authx);
+           unset($this->cfAuthx);
      }
 }

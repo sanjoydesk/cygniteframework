@@ -1,5 +1,5 @@
 <?php
-namespace Apps\Components\Libs;
+namespace Apps\Components\Libraries;
 
 use Cygnite;
 use Cygnite\Database\CF_ActiveRecords;
@@ -18,16 +18,16 @@ use Cygnite\Database\CF_ActiveRecords;
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- * @package                          Apps
+ * @package                     Apps
  * @subpackages                 Components
- * @filename                         AuthxIdentity
- * @description                    This file is used to map all routing of the cygnite framework
- * @author                           Sanjoy Dey
- * @copyright                      Copyright (c) 2013 - 2014,
+ * @filename                    Authx
+ * @description                 This file is used to map all routing of the cygnite framework
+ * @author                      Sanjoy Dey
+ * @copyright                   Copyright (c) 2013 - 2014,
  * @link	                    http://www.cygniteframework.com
  * @since	                    Version 1.0
  * @filesource
- * @warning                       Any changes in this library can cause abnormal behaviour of the framework
+ * @warning                     Any changes in this library can cause abnormal behaviour of the framework
  *
  *
  */
@@ -72,7 +72,7 @@ class Authx extends CF_ActiveRecords
 
                  try{
                          $userCredentials= $this->where($whereQuery)->select('all')->fetch_all($this->cfAuthx->getTableName());
-                         $this->flush();
+                        // $this->flush();
                  } catch(\Exception $ex){
                         echo $ex->getTrace();
                  }

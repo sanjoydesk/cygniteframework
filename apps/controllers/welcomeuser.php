@@ -3,7 +3,7 @@ namespace Apps\Controllers;
 
 use Cygnite\Cygnite;
 use Cygnite\Loader\CF_BaseController;
-use Cygnite\Helpers\GHelper;
+use Apps\Components\Libraries\AuthxIdentity;
 
     class Welcomeuser extends CF_BaseController
     {

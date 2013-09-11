@@ -15,7 +15,7 @@
 </IfModule>
 
 # For all files not found in the file system, reroute the request to the
-# "index.php" front controller, keecfng the query string intact
+# "index.php" front controller, keeping the query string intact
 
 <IfModule mod_rewrite.c>
 	RewriteCond %{REQUEST_FILENAME} !-f
@@ -33,22 +33,22 @@ AddOutputFilterByType DEFLATE text/html text/plain text/xml text/css text/css ap
 <ifModule mod_headers.c>
     Header set Connection keep-alive
 </ifModule>
-<IfModule mod_excfres.c>
-ExcfresActive On ExcfresByType text/html "access plus 1 days"
-ExcfresByType image/gif "access plus 1 weeks"
-ExcfresByType image/jpeg "access plus 1 weeks"
-ExcfresByType image/jpg "access plus 1 weeks"
-ExcfresByType image/png "access plus 1 weeks"
-ExcfresByType image/x-icon "access plus 1 years" 
-ExcfresByType text/css "access plus 1 weeks"
-ExcfresByType text/javascript "access plus 1 weeks"
-ExcfresByType application/x-javascript "access plus 1 weeks"
-ExcfresByType application/x-shockwave-flash "access plus 1 weeks" 
-ExcfresByType text/javascript A900
-ExcfresByType text/html A90
-ExcfresByType text/xml A90
-ExcfresByType text/css A900
-ExcfresByType text/plain A62
+<IfModule mod_expires.c>
+ExpiresActive On ExpiresByType text/html "access plus 1 days"
+ExpiresByType image/gif "access plus 1 weeks"
+ExpiresByType image/jpeg "access plus 1 weeks"
+ExpiresByType image/jpg "access plus 1 weeks"
+ExpiresByType image/png "access plus 1 weeks"
+ExpiresByType image/x-icon "access plus 1 years" 
+ExpiresByType text/css "access plus 1 weeks"
+ExpiresByType text/javascript "access plus 1 weeks"
+ExpiresByType application/x-javascript "access plus 1 weeks"
+ExpiresByType application/x-shockwave-flash "access plus 1 weeks" 
+ExpiresByType text/javascript A900
+ExpiresByType text/html A90
+ExpiresByType text/xml A90
+ExpiresByType text/css A900
+ExpiresByType text/plain A62
 </IfModule>
 <ifModule mod_headers.c>
   <filesMatch "\\.(ico|pdf|flv|jpg|jpeg|png|gif|swf)$">

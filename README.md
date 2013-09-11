@@ -1,12 +1,24 @@
 Cygnite Framework Dev Team
 ==========================
-Cygnite Framework for php web artist is brought you by appsntech.com. Cygnite Framework (Alpha 1.0) is not full fledged, it's just a small footprint to give you the creative experience of developing a web application.
+Cygnite Framework for php web artist is brought you by appsntech.com. Cygnite Framework (v1.0-alpha) is not full fledged, it's just a small footprint to give you the creative experience of developing a web application.
 
 We have just begun and have long way to go. We are still on development and soon we will bring you dynamic features of Cygnite to serve you better
 
 
+[ Note: We are sorry for the inconvenience. The core code is under development for few days from(11 Sept 2013), please be patient with us as we are doing
+couple changes on core code -
+
+i.   PSR standards to make core code much readable by community members.
+ii.  Database layer changes. Active records style, Schema builder etc. 
+iii. ORM integration to have much control on database.
+iv.  Composer to manage its dependencies.
+v.   Template engine, Symfony  components or Zend libraries integration. 
+
+We are sure you will find much more in next versions. We would also appreciate if you would like to be part of us. ]
+
+
 Cygnite PHP Framework For Web Artists (v1.0-alpha)
-=========================================================
+==================================================
 
 Cygnigte Framework is rapid web application development framework for PHP. Our primary goal is to provide developers - multiple libraries at one place with better way to develop dynamic applications. Discover Cygnite to make your work smarter,simpler and faster.
 
@@ -51,7 +63,8 @@ Contribute -
 
 You are at the right place. We welcome you to participate on Cygnite Framework development and its documentation.
 
-Contribute on Cygnite Framework development and grow with us. Join the team, learn, get help and help others, find, report bugs, send us your feedback, send your wishlist for new features, write and send us patches for Cygnite Framework.
+Contribute on Cygnite Framework development and grow with us. Join the team, learn, get help and help others, find, 
+report bugs, send us your feedback, send your wishlist for new features, write and send us patches for Cygnite Framework.
 
 
 Getting Started with Cygnite -

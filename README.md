@@ -5,7 +5,7 @@ Cygnite Framework for php web artist is brought you by appsntech.com. Cygnite Fr
 We have just begun and have long way to go. We are still on development and soon we will bring you dynamic features of Cygnite to serve you better
 
 
-[ Note: We are sorry for the inconvenience. The core code is under development for few days from(11 Sept 2013), please be patient with us as we are doing
+##[ Note: We are sorry for the inconvenience. The core code is under development for few days from(11 Sept 2013), please be patient with us as we are doing
 couple changes on core code -
 
 i.   PSR standards to make core code much readable by community members.
@@ -14,7 +14,7 @@ iii. ORM integration to have much control on database.
 iv.  Composer to manage its dependencies.
 v.   Template engine, Symfony  components or Zend libraries integration. 
 
-We are sure you will find much more in next versions. We would also appreciate if you would like to be part of us. ]
+We are sure you will find much more in next versions. We would also appreciate if you would like to be part of us.]
 
 
 Cygnite PHP Framework For Web Artists (v1.0-alpha)

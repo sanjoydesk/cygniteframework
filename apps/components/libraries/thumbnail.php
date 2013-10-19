@@ -14,27 +14,27 @@
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- * @package                          Apps
+ * @package                     Apps
  * @subpackages                 Thumbnail image Components
- * @filename                         thumbnail
- * @description                    Thumbnail component is used to generate thumb images from given configurations
- * @author                           Sanjoy Dey
- * @copyright                      Copyright (c) 2013 - 2014,
- * @link	                    http://www.cygniteframework.com
- * @since	                    Version 1.0
+ * @filename                    Thumbnail
+ * @description                 Thumbnail component is used to generate thumb images from given configurations
+ * @author                      Sanjoy Dey
+ * @copyright                   Copyright (c) 2013 - 2014,
+ * @link	                http://www.cygniteframework.com
+ * @since	                Version 1.0
  * @filesource
- * @warning                       Any changes in this library can cause abnormal behaviour of the framework
+ * @warning                     Any changes in this library can cause abnormal behaviour of the framework
  *
  * <code>
  *    Example:
- *    $image = new \Apps\Components\Libraries\Thumbnail();
- *    $image->directory = 'Set your directory path';
- *    $image->fixedWidth  = 100;
- *    $image->fixedHeight = 100;
- *    $image->thumbPath = 'your thumb path';
- *    $image->thumbName = 'Your thumb image name';// Optional. If you doen't want to have custom name then it will generate
+ *    $thumb = new \Apps\Components\Libraries\Thumbnail();
+ *    $thumb->directory = 'Set your directory path';
+ *    $thumb->fixedWidth  = 100;
+ *    $thumb->fixedHeight = 100;
+ *    $thumb->thumbPath = 'your thumb path';
+ *    $thumb->thumbName = 'Your thumb image name';// Optional. If you doen't want to have custom name then it will generate
  *                                                 thumb as same name of original image.
- *    $image->resize();
+ *    $thumb->resize();
  * </code>
  */
 
@@ -68,8 +68,8 @@ class Thumbnail
                             throw new \Exception(404,"File type not supports");
 
                    $thumbName = (!is_null($this->thumbName))
-                                                                             ?   $this->thumbName.'.'.$path['extension']
-                                                                            :  $path['basename'];
+                                                             ?   $this->thumbName.'.'.$path['extension']
+                                                            :  $path['basename'];
 
 
                             switch(strtolower($path['extension'])):

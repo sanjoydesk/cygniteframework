@@ -1,11 +1,11 @@
 Cygnite Framework Dev Team
 ==========================
-Cygnite Framework for php web artist is brought you by appsntech.com. Cygnite Framework (Alpha 1.0) is not full fledged, it's just a small footprint to give you the creative experience of developing a web application.
+Cygnite Framework for php web artist is brought you by appsntech.com. Cygnite Framework (v1.0.5 alpha) is not full fledged, it's just a small footprint to give you the creative experience of developing a web application.
 
 We have just begun and have long way to go. We are still on development and soon we will bring you dynamic features of Cygnite to serve you better
 
 
-Cygnite PHP Framework For Web Artists (Alpha Version 1.0)
+Cygnite PHP Framework For Web Artists (Version v1.0.5)
 =========================================================
 
 Cygnite Framework is rapid web application development framework for PHP. Our primary goal is to provide developers - multiple libraries at one place with better way to develop dynamic applications. Discover Cygnite to make your work smarter,simpler and faster.
@@ -71,7 +71,7 @@ History -
 =======
 Hi I am Sanjoy Dey. I love to create web applications. After enjoying couple of MVC frameworks and nearly 1 years of gained knowledge by creating small MVC, I started creating Cygnite Framework around 2012. Cygnite Framework will give you creative experience with expressive performance and user friendly architecture to reduce your development time.
 
-Cygnite is currently in development stage (Alpha 1.0) and contributions to Cygnite development would be highly appreciated.
+Cygnite is currently in development stage (v1.0.5) and contributions to Cygnite development would be highly appreciated.
 
 Hope you enjoy the simplicity of Cygnite Framework.
 

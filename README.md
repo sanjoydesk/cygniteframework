@@ -1,18 +1,18 @@
-Cygnite Framework Dev Team
+##Cygnite Framework Dev Team
 ==========================
 Cygnite Framework for php web artist is brought you by appsntech.com. Cygnite Framework (v1.0.5 alpha) is not full fledged, it's just a small footprint to give you the creative experience of developing a web application.
 
 We have just begun and have long way to go. We are still on development and soon we will bring you dynamic features of Cygnite to serve you better
 
 
-Cygnite PHP Framework For Web Artists (Version v1.0.5)
+##Cygnite PHP Framework For Web Artists (Version v1.0.5)
 =========================================================
 
 Cygnite Framework is rapid web application development framework for PHP. Our primary goal is to provide developers - multiple libraries at one place with better way to develop dynamic applications. Discover Cygnite to make your work smarter,simpler and faster.
 
 You can find the future official releases at http://www.cygniteframework.com.
 
-Core features of Cygnite Framework -
+##Core features of Cygnite Framework -
 ==================================
 
 i. Multiple  inbuilt libraries.
@@ -40,7 +40,7 @@ xi. Cygnite follows active records style.
 xii. And there is more, we are still adding new features regularly to cater to your needs. Feel free to open an issue if you require anything.
 
 
-Contribute -
+##Contribute -
 ===========
 
 -> Are you an experienced PHP professional and have good knowledge of Object Oriented Programming concepts?
@@ -54,7 +54,7 @@ You are at the right place. We welcome you to participate on Cygnite Framework d
 Contribute on Cygnite Framework development and grow with us. Join the team, learn, get help and help others, find, report bugs, send us your feedback, send your wishlist for new features, write and send us patches for Cygnite Framework.
 
 
-Getting Started with Cygnite -
+##Getting Started with Cygnite -
 ============================
 i.  Make sure you have GitHub Account.
 
@@ -67,8 +67,8 @@ iv. Fork Cygnite Repository on GitHub.
 v. Please follow the coding standard as followed on the project or request for coding standard to follow.
 
 
-History -
-=======
+##History -
+==========
 Hi I am Sanjoy Dey. I love to create web applications. After enjoying couple of MVC frameworks and nearly 1 years of gained knowledge by creating small MVC, I started creating Cygnite Framework around 2012. Cygnite Framework will give you creative experience with expressive performance and user friendly architecture to reduce your development time.
 
 Cygnite is currently in development stage (v1.0.5) and contributions to Cygnite development would be highly appreciated.

@@ -39,22 +39,22 @@ class Profiler
     * Profiler starting point
     *
     * @access	public
-    * @param	string
+    * @false	string
     */
     public static function start($starttoken = 'cygnite_start')
     {
         if(!defined('MEMORY_START_POINT')):
-            define('MEMORY_START_POINT', self::memoryspace());
-           self::$blocks[$starttoken] = self::get_time();
+            define('MEMORY_START_POINT', self::getMemorySpace());
+           self::$blocks[$starttoken] = self::getTime();
         endif;
     }
 
-    private static function get_time()
+    private static function getTime()
     {
             return microtime(true);
     }
 
-    private static function memory_peak()
+    public static function getMemoryPeakUsage()
     {
         return memory_get_peak_usage(true);
     }
@@ -63,14 +63,15 @@ class Profiler
     * Profiler end point
     *
     * @access	public
-    * @param	string
+    * @false	string
     */
 
     public static function end($endtoken = 'cygnite_end')
     {
-        $html .= "<div id='benchmark'><div class='benchmark'>Total elapsed time : ".round(self::get_time() - self::$blocks[$endtoken], 3). ' s';
-        //$html .= self::memory_peak();
-        $html .= " &nbsp;&nbsp; &nbsp;Total memory :".self::memory_space_usage()."</div></div>";
+        $html = "";
+        $html .= "<div id='benchmark'><div class='benchmark'>Total elapsed time : ".round(self::getTime() - self::$blocks[$endtoken], 3). ' s';
+        //$html .= self::getMemoryPeakUsage();
+        $html .= " &nbsp;&nbsp; &nbsp;Total memory :".self::getMemorySpaceUsage()."</div></div>";
         echo $html;
     }
     /**
@@ -79,7 +80,7 @@ class Profiler
     * @access private
     * @return get memory usage
     */
-    private static function memoryspace()
+    private static function getMemorySpace()
     {
         return memory_get_usage();
     }
@@ -88,10 +89,11 @@ class Profiler
     *  This funtion is to calculate the total memory usage by the running script
     *
     * @access	public
-    * @param	string
+    * @false	string
+    * @return string
     */
-    public static function memory_space_usage()
+    public static function getMemorySpaceUsage()
     {          //round(memory_get_usage()/1024/1024, 2).'MB';
-                 return round((( self::memoryspace()- MEMORY_START_POINT) / 1024), 2). '  KB<br />';
+                 return round((( self::getMemorySpace()- MEMORY_START_POINT) / 1024), 2). '  KB<br />';
     }
 }

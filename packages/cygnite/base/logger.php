@@ -1,5 +1,6 @@
 <?php
 namespace Cygnite\Base;
+
 /**
  *  Cygnite Framework
  *
@@ -14,106 +15,128 @@ namespace Cygnite\Base;
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- * @Package                         :  Packages
- * @Sub Packages               :  Base
- * @Filename                       :  CF_Logger
- * @Description                   : This class is used to handle error logs of the cygnite framework
- * @Author                           : Sanjoy Dey
- * @Copyright                     :  Copyright (c) 2013 - 2014,
- * @Link	                  :  http://www.cygniteframework.com
- * @Since	                  :  Version 1.0
+ * @Package          :  Packages
+ * @Sub Packages     :  Base
+ * @Filename         :  CF_Logger
+ * @Description      :  This class is used to handle error logs of the cygnite framework
+ * @Author           :  Sanjoy Dey
+ * @Copyright        :  Copyright (c) 2013 - 2014,
+ * @Link	         :  http://www.cygniteframework.com
+ * @Since	         :  Version 1.0
  * @Filesource
- * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ * @Warning          :  Any changes in this library can cause abnormal behaviour of the framework
  *
  *
  */
 
-//AppLogger::write_error_log('Logger Initialized By Sanjay',__FILE__);
+//AppLogger::writeLog('Logger Initialized By Sanjay',__FILE__);
 
 class Logger
 {
-      protected static $log_date_format =  'Y-m-d H:i:s';
-      protected static $file_name = NULL;
-      protected static $fp = NULL;
-      protected static $log_path;
-      protected static $log_size;
-      protected static $log_ext = ".log";
-      protected static $config = array();
-      public static $log_errors = '';
+    public $log_errors = '';
+    protected $logDateFormat =  'Y-m-d H:i:s';
+    protected $fileName = null;
+    protected $fp = null;
+    protected $logPath;
+    protected $logSize;
+    protected $logExt = ".log";
+    protected $config = array();
 
-      public function __construct()   { }
+    private function getLogConfig()
+    {
+        if (empty($this->config)) {
+            $this->config =  Config::getConfig('error_config');
+        }
 
-      private static function get_log_config()
-      {
-                if(empty(self::$config))
-                     self::$config =  Config::getconfig('error_config');
+        if ($this->config['log_path'] !="" || $this->config['log_path'] !== null) {
+            $this->log_path  = APPPATH.$this->config['log_path'].'/';
+        } else {
+            $this->log_path  = APPPATH.'temp/logs/';
+        }
+        // var_dump($this->config['ERROR_CONFIG']['log_file_name']);
+        $this->fileName  = ($this->config['log_file_name'] !="") ?
+            $this->config['log_file_name']  :
+            'cf_error_logs';
+    }
 
-                if(self::$config['log_path'] !="" || self::$config['log_path'] !==NULL)
-                        self::$log_path  = APPPATH.self::$config['log_path'].'/';
-                else
-                        self::$log_path  = APPPATH.'temp/logs/';
-               // var_dump(self::$config['ERROR_CONFIG']['log_file_name']);
-                self::$file_name  = (self::$config['log_file_name'] !="") ? self::$config['log_file_name']  : 'cf_error_logs';
-      }
+    public function read()
+    {
+        //var_dump( $this->config);
+    }
 
-      public static function read()
-      {
-           // var_dump( self::$config);
-      }
+    private function open($logFilePath)
+    {
+        $this->fp = fopen($logFilePath, 'a')
+        or exit("Can't open log file ".$this->fileName.$this->logExt."!");
+    }
 
-      private static function open($log_file_path)
-      {
-              self::$fp = fopen($log_file_path, 'a') or exit("Can't open log file ".self::$file_name.self::$log_ext."!");
-      }
+    public function writeLog(
+        $log_msg = "",
+        $fileName,
+        $logLevel = "log_debug",
+        $log_size = 1
+    ) {
+        $this->getLogConfig();
 
-      public static function write_error_log($log_msg= "",$files_name,$log_level = "log_debug", $log_size = 1)
-      {
-                 self::get_log_config();
+         $logFilePath = $this->log_path.$this->fileName.'_'.date('Y-m-d').''.$this->logExt; //exit;
+        $this->logSize = $log_size *(1024*1024); // Megs to bytes
 
-                 $log_file_path = self::$log_path.self::$file_name.'_'.date('Y-m-d').''.self::$log_ext; //exit;
-                self::$log_size = $log_size *(1024*1024); // Megs to bytes
+        if ($this->config['log_trace_type'] == 2) {
+            $this->writeInternal(
+                $log_msg = "",
+                $fileName,
+                $logLevel = "log_debug",
+                $log_size = 1
+            );
+            return true;
+        } else {
+            throw new Exception(
+                "Log config not set properly in config file. Set log_errors = on and log_trace_type = 2 "
+            );
+        }
 
-                if(self::$config['log_trace_type'] == 2):
-                        self::_write($log_msg= "",$files_name,$log_level = "log_debug", $log_size = 1);
-                        return TRUE;
-                 else:
-                       throw new Exception("Log config not set properly in config file. Set log_errors = on and log_trace_type = 2 ");
-                endif;
+    }
 
-          }
+    private function writeInternal(
+        $logMsg = "",
+        $fileName,
+        $logLevel = "log_debug",
+        $log_size = 1
+    ) {
 
-          private function _write($log_msg= "",$files_name,$log_level = "log_debug", $log_size = 1)
-          {
-               if (!is_resource(self::$fp))
-                        self::open($log_file_path);
+        if (!is_resource($this->fp)) {
+            $this->open($this->logPath);
+        }
 
-             /*   if (file_exists($log_file_path)):
-                        if (filesize($log_file_path) > self::$log_size):
-                                self::$fp = fopen($log_file_path, 'w') or die("can't open file file!");
-                                fclose(self::$fp);
-                                unlink($log_file_path);
-                       endif;
-              endif; */
+        /*   if (file_exists($logFilePath)):
+            if (filesize($logFilePath) > $this->logSize):
+                    $this->fp = fopen($logFilePath, 'w') or die("can't open file file!");
+                    fclose($this->fp);
+                    unlink($logFilePath);
+           endif;
+        endif;
+        */
 
-                switch ($log_level):
-                            case 'log_debug':
-                                        $log_level = "LOG DEBUG :";
-                                break;
-                           case 'log_info':
-                                        $log_level = "LOG INFO : ";
-                                break;
-                          case 'log_warning':
-                                        $log_level = "LOG WARNING : ";
-                                break;
-                  endswitch;
-                 $log_msg = $log_level."  [".date('Y-m-d H:i:s')."] -> [File:  $files_name ] ->  $log_msg".PHP_EOL;// write current time, file name and log msg to the log file
+        switch ($logLevel) {
+            case 'log_debug':
+                $logLevel = "LOG DEBUG :";
+                break;
+            case 'log_info':
+                $logLevel = "LOG INFO : ";
+                break;
+            case 'log_warning':
+                $logLevel = "LOG WARNING : ";
+                break;
+        }
 
-                flock(self::$fp, LOCK_EX);
-                fwrite(self::$fp, $log_msg);
-                flock(self::$fp, LOCK_UN);
-                fclose(self::$fp);
+        $logMsg = $logLevel."  [".date('Y-m-d H:i:s')."] -> [File:  $fileName ] ->  $logMsg".PHP_EOL;// write current time, file name and log msg to the log file
 
-                @chmod($log_file_path,FILE_WRITE_MODE);
-                return TRUE;
-          }
+        flock($this->fp, LOCK_EX);
+        fwrite($this->fp, $logMsg);
+        flock($this->fp, LOCK_UN);
+        fclose($this->fp);
+
+        @chmod($this->logPath, FILE_WRITE_MODE);
+        return true;
+    }
 }

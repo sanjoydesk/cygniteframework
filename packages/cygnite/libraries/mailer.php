@@ -1,8 +1,7 @@
 <?php
 namespace Cygnite\Libraries;
 
-use Cygnite\Libraries\Phpmailer\Email;
-
+use Cygnite\Vendors\Phpmailer\Email;
 
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /**

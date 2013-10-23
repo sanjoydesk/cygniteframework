@@ -1,7 +1,9 @@
 <?php
 namespace Cygnite;
 
-if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+if (!defined('CF_SYSTEM')) {
+    exit('External script access not allowed');
+}
 /**
  *  Cygnite Framework
  *
@@ -30,170 +32,220 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *
  */
 
-    class Robotloader
+class RobotLoader
+{
+    /**
+     * Cygnite Framework Core Classes Prefix
+     */
+
+     private static $coreprefix = 'CF_';
+
+     private static $instance = array();
+
+    /**
+     * ----------------------------------------------------------
+     * Register all core classes to Cygnite Robot Engine
+     * ----------------------------------------------------------
+     * Never Manually change any core classes in this section
+     * If you would like to add new class into our Robot Engine
+     * then you can just register it on autoload Libraries which will
+     * be added dynamically to Engine else send me patches will
+     * update core class.
+     *
+     */
+
+     public static $_classNames = array(
+        'Dispatcher' =>  '\\Cygnite\\Base\\Dispatcher',
+        'Router' =>  '\\Cygnite\\Base\\Router',
+        'IRouter' =>  '\\Cygnite\\Base\\IRouter',
+        'Events' =>  '\\Cygnite\\Base\\Events',
+        'Encrypt'  =>  '\\Cygnite\\Libraries\\Encrypt',
+        'Exceptions'  =>  '\\Cygnite\\Exceptions',
+        'Security'  =>  '\\Cygnite\\Security',
+        'Upload'  =>  '\\Cygnite\\Libraries\\Upload',
+        'Validator' => '\\Cygnite\\Libraries\\Validator',
+        'Forms'  =>  '\\Cygnite\\Libraries\\Forms',
+        'Mailer'  =>  '\\Cygnite\\Libraries\\Mailer',
+        'Inflectors'  =>  '\\Cygnite\\Inflectors',
+        'Email'  =>  '\\Cygnite\\Libraries\\Phpmailer\\Email',
+        'Zip'  =>  '\\Cygnite\\Libraries\\Zip',
+        'Session'  =>  '\\Cygnite\\Libraries\\Session',
+        'StorageInterface'  =>  '\\Cygnite\\Libraries\\Cache\\StorageInterface',
+        'Apc'  =>  '\\Cygnite\\Libraries\\Cache\\Storage\\Apc',
+        'CfMemcache'  =>  '\\Cygnite\\Libraries\\Cache\\Storage\\CfMemcache',
+        'Pdf'  =>  '\\Cygnite\\Libraries\\Pdf',
+        'Parser'  =>  '\\Cygnite\\Libraries\\Parser',
+        'BaseController'  =>  '\\Cygnite\\BaseController',
+        'CFView'  =>  '\\Cygnite\\CFView',
+        'Singleton' => '\\Cygnite\\Singleton',
+        'Cookie' => '\\Cygnite\\Cookie',
+        'CookiesInterface' => '\\Cygnite\\CookiesInterface',
+        'Configurations' => '\\Cygnite\\Database\\Configurations',
+        'DatabaseExceptions'  =>  '\\Cygnite\\Database\\Exceptions\\DatabaseExceptions',
+        'Schema'  =>  '\\Cygnite\\Database\\Schema',
+        'ActiveRecords'  =>  '\\Cygnite\\Database\\ActiveRecords',
+        'Connections'  =>  '\\Cygnite\\Database\\Connections',
+        'Table'  =>  '\\Cygnite\\Database\\Table',
+        'Datasource'  =>  '\\Cygnite\\Database\\Datasource',
+        'Transactions'  =>  '\\Cygnite\\Database\\Transactions',
+        'Joins'  =>  '\\Cygnite\\Database\\Joins',
+        'GHelper'=>'\\Cygnite\\Helpers\\GHelper',
+        'Config'=>'\\Cygnite\\Helpers\\Config',
+        'Url'=>'\\Cygnite\\Helpers\\Url',
+        'Profiler'=>'\\Cygnite\\Helpers\\Profiler',
+        'Assets'=>'\\Cygnite\\Helpers\\Assets',
+     );
+
+    public $loadedClass = array();
+
+    private function __construct()
     {
-       /**
-         * Cygnite Framework Core Classes Prefix
-         */
-         static private $coreprefix = 'CF_';
 
-         static private $instance = array();
+    }
 
-         /*
-          * ----------------------------------------------------------
-          * Register all core classes to Cygnite Robot Engine
-          * ----------------------------------------------------------
-          * Never Manually change any core classes in this section
-          * If you would like to add new class into our Robot Engine
-          * then you can just register it on autoload libraries which will
-          * be added dynamically to Engine else send me patches will
-          * update core class.
-          *
-          */
-        static public $_classnames = array(
-                                        'Dispatcher' =>  '\\Cygnite\\Base\\Dispatcher',
-                                        'Router' =>  '\\Cygnite\\Base\\Router',
-                                        'IRouter' =>  '\\Cygnite\\Base\\IRouter',
-                                        'Encrypt'  =>  '\\Cygnite\\Libraries\\Encrypt',
-                                        'Errorhandler'  =>  '\\Cygnite\\Libraries\\Errorhandler', //name changed
-                                        'Security'  =>  '\\Cygnite\\Libraries\\Security',
-                                        'Upload'  =>  '\\Cygnite\\Libraries\\Upload', //name changed
-                                        'Httprequest'  =>  '\\Cygnite\\Libraries\\Httprequest', //name changed
-                                        'CForm'  =>  '\\Cygnite\\Libraries\\Form', //name changed *
-                                        'Mailer'  =>  '\\Cygnite\\Libraries\\Mailer',
-                                        'Email'  =>  '\\Cygnite\\Libraries\\Phpmailer\\Email',
-                                        'Zip'  =>  '\\Cygnite\\Libraries\\Zip',
-                                        'ISecureData'  =>  '\\Cygnite\\Libraries\\Globals\\ISecureData', //name changed *
-                                        'Globals'  =>  '\\Cygnite\\Libraries\\Globals\\Globals',
-                                        'Cookie'  =>  '\\Cygnite\\Libraries\\Globals\\Cookie',
-                                        'Files'  =>  '\\Cygnite\\Libraries\\Globals\\Files',
-                                        'Get'  =>  '\\Cygnite\\Libraries\\Globals\\Get',
-                                        'Post'  =>  '\\Cygnite\\Libraries\\Globals\\Post',
-                                        'Request'  =>  '\\Cygnite\\Libraries\\Globals\\Request',
-                                        'Server'  =>  '\\Cygnite\\Libraries\\Globals\\Server',
-                                        'Session'  =>  '\\Cygnite\\Libraries\\Globals\\Session',
-                                         'IMemoryStorage'  =>  '\\Cygnite\\Libraries\\Cache\\IMemoryStorage',
-                                        'Apc'  =>  '\\Cygnite\\Libraries\\Cache\\Storage\\Apc',
-                                        'CFMemcache'  =>  '\\Cygnite\\Libraries\\Cache\\Storage\\CFMemcache',
-                                        'Pdf'  =>  '\\Cygnite\\Libraries\\Pdf',
-                                        'Parser'  =>  '\\Cygnite\\Libraries\\Parser',
-                                        'IRegistry'  =>  '\\Cygnite\\Loader\\IRegistry',
-                                        'Appregistry'  =>  '\\Cygnite\\Loader\\Appregistry', //name changed
-                                        'CF_BaseController'  =>  '\\Cygnite\\Loader\\CF_BaseController', //name changed
-                                        'Apploader'  =>  '\\Cygnite\\Loader\\Apploader', //name changed
-                                        'CF_BaseModel'  =>  '\\Cygnite\\Sparker\\CF_BaseModel', //name changed
-                                        'CFView'  =>  '\\Cygnite\\Sparker\\CFView', //name changed
-                                        'IActiverecords'  =>  '\\Cygnite\\Database\\IActiverecords',
-                                        'CF_ActiveRecords'  =>  '\\Cygnite\\Database\\CF_ActiveRecords',//Cygnite\Database\CF_ActiveRecords
-                                        'DBConnector'  =>  '\\Cygnite\\Database\\DBConnector',
-                                        'Sqlutilities'  =>  '\\Cygnite\\Database\\Sqlutilities',
-                                        'GHelper'=>'\\Cygnite\\Helpers\\GHelper',
-                                        'Config'=>'\\Cygnite\\Helpers\\Config',
-                                        'Url'=>'\\Cygnite\\Helpers\\Url',
-                                        'Profiler'=>'\\Cygnite\\Helpers\\Profiler',
-                                        'Assets'=>'\\Cygnite\\Helpers\\Assets',
+    protected function init()
+    {
+        set_include_path(get_include_path().DS.APPPATH);
+        set_include_path(get_include_path().DS.CF_SYSTEM);
+        spl_autoload_unregister(array($this, 'autoLoad'));
+        spl_autoload_extensions(".php");
+        spl_autoload_register(array($this, 'autoLoad'));
+    }
 
-        );
+    private static function changeCase($string, $isLower = false)
+    {
+        return ($isLower === false)
+            ? strtolower($string)
+            : ucfirst($string);
+    }
 
-        private function __construct() { }
+    /**
+     *----------------------------------------------------------
+     * Auto load all classes
+     *----------------------------------------------------------
+     * All classes will get auto loaded here.
+     *
+     * @param $className
+     * @throws \Exception
+     * @internal param string $className
+     * @return boolean
+     */
+    private function autoLoad($className)
+    {
 
-        protected function init()
-        {
-               set_include_path(get_include_path().DS.APPPATH);
-               set_include_path(get_include_path().DS.CF_SYSTEM);
-               spl_autoload_unregister(array($this,'autoload'));
-               spl_autoload_extensions(".php");
-               spl_autoload_register(array($this, 'autoload'));
+        $path  = $rootDir ='';
+        $_classNames =array();
+
+        $_classNames = array_flip(self::$_classNames);
+
+        //var_dump($_classNames);
+
+        if (!array_key_exists(
+            $_classNames['\\'.self::changeCase($className, true)],
+            self::$_classNames
+        )) {
+            throw new \Exception("Error occurred while loading class $className");
         }
 
-        static private function changeCase($string,$islower=FALSE)
-        {
-              return ($islower===FALSE) ? strtolower($string): ucfirst($string);
+        try {
+            if (array_key_exists(
+                $_classNames['\\'.self::changeCase($className, true)],
+                self::$_classNames
+            )
+            ) {
+
+                if (preg_match(
+                    "/Apps/i",
+                    self::$_classNames[self::changeCase($_classNames['\\'.$className], true)]
+                )
+                ) {
+                    $rootDir = $ds=  '';
+                } else {
+                    $rootDir = CF_SYSTEM.DS;
+                    $ds = DS;
+                }
+
+                $path = ltrim(
+                    self::changeCase(
+                        str_replace(
+                            array('\\','>','.'
+                            ),
+                            DS,
+                            self::$_classNames[self::changeCase($_classNames['\\'.$className], true)]
+                        )
+                    ).EXT,
+                    '/'
+                );
+
+                $includePath = "";
+                $includePath = getcwd().$ds.$rootDir.$path;
+
+                if (is_readable($includePath)) {
+                    return include_once str_replace(array('//', '\\\\'), array('/', '\\'), $includePath);
+                } else {
+                    throw new \Exception("Requested class $className not found!!");
+                }
+
+            } //else {
+        } catch (Exception $ex) {
+            throw new \Exception("Error occurred while loading class $className");
         }
-
-       /**
-        * ----------------------------------------------------------
-        * Autoload all classes
-        * ----------------------------------------------------------
-        * All classes will get autoloaded here.
-        *@param $classname string
-        *@return void
-        *
-        */
-       private function autoload($classname)
-        {
-
-                $path  = $rootdir ='';
-                $_classnames =array();
-
-                $_classnames = array_flip(self::$_classnames);
-
-                if(array_key_exists($_classnames['\\'.self::changeCase($classname,TRUE)], self::$_classnames)):
-
-                     if(preg_match("/Apps/i", self::$_classnames[self::changeCase($_classnames['\\'.$classname],TRUE)])):
-                         $rootdir = $ds=  '';
-                     else:
-                         $rootdir = CF_SYSTEM.DS;
-                         $ds = DS;
-                     endif;
-                 $path = ltrim(self::changeCase(str_replace(array('\\','>','.'),DS,self::$_classnames[self::changeCase($_classnames['\\'.$classname],TRUE)])).EXT,'/');
-
-                    $includepath = getcwd().$ds.$rootdir.$path;
-
-                             if(is_readable($includepath))
-                                     return include_once $includepath;
-                             else
-                                    throw new \Exception("Requested class $classname not found!!");
-                  else:
-                        $callee = debug_backtrace();
-                        trigger_error("Error occured while loading class $classname", E_USER_WARNING);
-                      //GHelper::trace();
-                      // GHelper::display_errors(E_USER_ERROR, 'Error Occurred ',"Error occured while loading class $classname", $callee[1]['file'],$callee[1]['line'],TRUE );
-                  endif;
-
-
     }
 
     public function __get($key)
     {
-            $class = $libpath = "";
-            
-            if(!array_key_exists(ucfirst($key),self::$_classnames))
-                        throw new \Exception("Requested  $key Library not exists !!");
+        $class = $libpath = "";
 
-            $class = self::$_classnames[ucfirst($key)];
+        if (!array_key_exists(ucfirst($key), self::$_classNames)) {
+            throw new \Exception("Requested $key Library not exists !!");
+        }
 
-                if(preg_match("/Apps/i", $class)):
-                     $rootdir = $ds=  '';
-                 else:
-                     $rootdir = CF_SYSTEM;
-                     $ds = DS;
-                 endif;
+        $class = self::$_classNames[ucfirst($key)];
 
-             $libpath = getcwd().DS.$rootdir.strtolower(str_replace(array('\\','.','>'),DS,$class)).EXT;
+        if (preg_match("/Apps/i", $class)) {
+             $rootDir = $ds=  '';
+        } else {
+             $rootDir = CF_SYSTEM;
+             $ds = DS;
+        }
 
-                 if(is_readable($libpath) && class_exists($class)):
-                          if(!isset(self::$instance[$class]))
-                                      self::$instance[$class] = new $class;
-                          return self::$instance[$class]; // You cannot pass parameters to constructor of the class
-                else:
-                         trigger_error("Requested class not available on $libpath");
-                endif;
+        $libpath = getcwd().$ds.$rootDir.strtolower(
+            str_replace(
+                array('\\', '.', '>', ''
+                ),
+                DS,
+                $class
+            )
+        ).EXT;
+
+        if (is_readable($libpath) && class_exists($class)) {
+
+            if (!isset(self::$instance[$class])) {
+                self::$instance[$class] = new $class;
+            }
+
+            return self::$instance[$class];
+            //You cannot pass parameters to constructor of the class
+        } else {
+            throw new \Exception("Requested class not readable or class not exists on $libpath");
+        }
     }
+
     /*
-     * Call magic method to register classes and models dynamically into cygnite engine
-     *@param $name method name
-     * @args    $args   array passed into the method
-     */
+    * Call magic method to register classes and models dynamically into cygnite engine
+    * @param $name method name
+    * @args $args array passed into the method
+    */
     public function __call($name, $args)
     {
-          if($name == 'registerClasses' || $name == 'registerModels')
-                 call_user_func_array(array($this,'setClasses'),$args);
-          else
-                trigger_error("Invalid method $name",E_USER_WARNING);
+        if ($name == 'registerClasses' || $name == 'registerModels') {
+            call_user_func_array(array($this, 'setClasses'), $args);
+        } else {
+            throw new \Exception("Invalid method $name");
+        }
     }
 
- /**
+    /**
     * ----------------------------------------------------------
     * Set classes dynamically
     * ----------------------------------------------------------
@@ -203,108 +255,134 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
     *@return void
     *
     */
-    function setClasses($args)
+    public function setClasses($args)
     {
-         switch ($args) :
+        switch ($args) {
             case is_array($args):
-                            foreach($args as $key =>$value):
-                               self::$_classnames[self::changeCase($key,TRUE)] = $value;
-                            endforeach;
+                foreach ($args as $key => $value) {
+                    self::$_classNames[self::changeCase($key, true)] = $value;
+                }
                 break;
             default:
-                          self::$_classnames[self::changeCase(@$args[0],TRUE)] = @$args[1];
+                self::$_classNames[self::changeCase(@$args[0], true)] = @$args[1];
                 break;
-         endswitch;
+        }
+    }
+
+
+    /**
+    * --------------------------------------------------------------------
+    * Import application files
+    * --------------------------------------------------------------------
+    * This method is used to import application
+    * and system helpers and plugins.
+    *
+    * @param $path
+    * @throws \Exception
+    * @return bool
+    */
+    public static function import($path)
+    {
+        if (is_null($path) || $path == "") {
+            throw new \InvalidArgumentException("Empty path passed on ".__METHOD__);
+        }
+
+        $dirPath = getcwd().DS.str_replace(array('>', '.'), DS, $path).EXT;
+
+        if (is_readable($dirPath) && file_exists($dirPath)) {
+            return include_once $dirPath;
+        } else {
+            throw new \Exception("Requested file doesn't exist in following path $dirPath ".__METHOD__);
+        }
+    }
+
+    /**
+    * ----------------------------------------------------------
+    * Request a object of the class
+    * ----------------------------------------------------------
+    * This method is used to request classes from
+    * Cygnite Engine and  return library object
+    *
+    * @param $key string
+    * @param $val NULL
+    * @throws \Exception
+    * @return object
+    */
+    public function request($key, $val = null)
+    {
+        $class = $libPath = "";
+
+        if (!array_key_exists(ucfirst($key), self::$_classNames)) {
+            throw new \Exception("Requested $class Library not exists !!");
+        }
+
+        $class = self::$_classNames[ucfirst($key)];
+        $libPath = getcwd().DS.CF_SYSTEM.strtolower(
+            str_replace(
+                array(
+                     '\\',
+                     '.',
+                     '>'
+                ),
+                DS,
+                $class
+            )
+        ).EXT;
+
+        if (is_readable($libPath) && class_exists($class)) {
+            if (!isset(self::$instance[$class])) {
+                self::$instance[$class] = new $class($val);
+            }
+
+            return self::$instance[$class];
+            // You cannot pass parameters to constructor of the class
+        } else {
+            throw new \Exception("Requested class not available on $libPath");
+        }
     }
 
 
-
-         /**
-            * ------------------------------------------------------------------------------------------
-            * Import application files
-            * -----------------------------------------------------------------------------------------
-            * This method is used to import application and system helpers and plugins.
-            *@return bool
-            */
-           public static function  import($path)
-          {
-                         if(is_null($path) || $path == "")
-                                throw new Exception("Empty path passed on ".__METHOD__);
-                              $dirpath = getcwd().DS.str_replace(array('>','.'),DS,$path).EXT;
-
-                        if(is_readable($dirpath) && file_exists($dirpath)):
-                                   return include_once $dirpath;
-                        else:
-                                 echo  '<pre>';print_r(debug_print_backtrace()); echo'</pre>';
-                                trigger_error ("Requested file doesn't exist in following path $dirpath ".__METHOD__,E_USER_WARNING);
-                        endif;
-         }
-
-         /**
-        * ----------------------------------------------------------
-        * Request a object of the class
-        * ----------------------------------------------------------
-        * This method is used to request classes from
-        * Cygnite Engine and  return library object
-        *@param $key string
-        * @param $val NULL
-        *@return object
-        *
-        */
-        public function request($key,$val=NULL)
-        {
-                   $class = $libpath = "";
-                    if(!array_key_exists(ucfirst($key),self::$_classnames))
-                                throw new Exception("Requested $class Library not exists !!");
-
-                    $class = self::$_classnames[ucfirst($key)];
-                     $libpath = getcwd().DS.CF_SYSTEM.strtolower(str_replace(array('\\','.','>'),DS,$class)).EXT;
-
-                         if(is_readable($libpath) && class_exists($class)):
-                                  if(!isset(self::$instance[$class]))
-                                              self::$instance[$class] = new $class($val);
-                                  return self::$instance[$class]; // You cannot pass parameters to constructor of the class
-                        else:
-                                echo  '<pre>';print_r(debug_print_backtrace()); echo'</pre>';
-                                 trigger_error("Requested class not available on $libpath");
-                        endif;
-        }
-
-
-      /**
-        * ------------------------------------------------------------------------------------------
-        * Get all loaded classes
-        * -----------------------------------------------------------------------------------------
-        * This method is used to return all registered class names from cygnite robot
-        *@return array
-        */
-        public function registeredClasses()
-        {
-            return self::$_classnames;
-        }
-
-      /**
-        * ------------------------------------------------------------------------------------------
-        * Load models and return model object
-        * -----------------------------------------------------------------------------------------
-        * This method is used to load all models dynamically and return model object
-        *@param $key string
-        *@param $val string
-        *@return object
-        */
-         public function model($key,$val=NULL)
-        {
-            $class = $libpath = "";
-            $class = ucfirst(trim($key));
-
-             if(!array_key_exists($class,self::$_classnames))
-                    throw new Exception("Requested $class Library not exists !!");
-
-             $libpath = strtolower(APPPATH).DS.'models'.DS;
-             if(is_readable($libpath) && class_exists($class))
-                     return new $class();
-             else
-                   trigger_error("Path not readable $libpath");
-        }
+    /**
+    * -----------------------------------------------------------------
+    * Get all loaded classes
+    * -----------------------------------------------------------------
+    * This method is used to return all registered class names
+    * from cygnite robot
+    *@return array
+    */
+    public function registeredClasses()
+    {
+        return self::$_classNames;
     }
-//set_include_path(implode(PATH_SEPARATOR, array(get_include_path(), './libs', './controllers', './models')));
+
+    /**
+     * -------------------------------------------------------------------
+     * Load models and return model object
+     * -------------------------------------------------------------------
+     * This method is used to load all models dynamically
+     * and return model object
+     *
+     * @param $key string
+     * @param $val string
+     * @throws \Exception
+     * @return object
+     */
+    public function model($key, $val = null)
+    {
+        $class = $libPath = "";
+        $class = ucfirst(trim($key));
+
+        if (!array_key_exists($class, self::$_classNames)) {
+            throw new \Exception("Requested $class Library not exists !!");
+        }
+
+        $libPath = strtolower(APPPATH).DS.'models'.DS;
+
+        if (is_readable($libPath) && class_exists($class)) {
+            return new $class();
+        } else {
+            throw new \Exception("Path not readable $libPath");
+        }
+
+    }
+}

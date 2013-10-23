@@ -1,5 +1,5 @@
-<?php
-namespace Cygnite\Helpers;
+<?php namespace Cygnite\Helpers;
+
 if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
 /*
  *  Cygnite Framework
@@ -33,11 +33,11 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
     {
           /*
             * This function is used to validate required fields of user input
-            * @param array
-            * @param string
+            * @false array
+            * @false string
             * @return error html
             */
-            public static function validate_require_fields($required_fields = array(),$isrequired,$submit)
+            public static function validate($required_fields = array(),$isrequired,$submit)
             {
                     $num_of_args = func_num_args();
                                 if ($num_of_args >= 2):
@@ -67,8 +67,8 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                                                 endif;
                                             endforeach;
 
-                                         if(count($errors_arr) == 0 && count($errors_arr) ==TRUE):
-                                                return TRUE;
+                                         if(count($errors_arr) == 0 && count($errors_arr) ==true):
+                                                return true;
                                          endif;
 
                                         $error =  $images_url = $empty_val = "";
@@ -89,7 +89,7 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                                                 if(isset($_POST[$submit])):
                                                          if($empty_val == "" && empty($empty_val)):
                                                                       unset($errors);
-                                                                      return TRUE;
+                                                                      return true;
                                                           endif;
                                                             $error .= "&nbsp;There ";
                                                                             if ($errors > 1)
@@ -111,50 +111,50 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                                 unset($errors_arr);
             }
 
-            public static function is_valid_email($email)
+            public static function isValidEmail($email)
             {
-                        $email =  self::trim_str($email);
+                        $email =  self::trimStr($email);
                         if(empty($email))
-                                throw new Exception("Email parameter missing  !");
+                                throw new Exception("Email falseeter missing  !");
 
                         if(isset($_POST[$email])):
                                 $post_email = $_POST[$email];
-                                //( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? FALSE : TRUE; codeingiter
+                                //( ! preg_match("/^([a-z0-9\+_\-]+)(\.[a-z0-9\+_\-]+)*@([a-z0-9\-]+\.)+[a-z]{2,6}$/ix", $str)) ? false : true; codeingiter
                                   if(preg_match("/^[a-zA-Z]w+(.w+)*@w+(.[0-9a-zA-Z]+)*.[a-zA-Z]{2,4}$/", $post_email) === 0)
-                                            return FALSE;
+                                            return false;
                                   else
-                                            return TRUE;
+                                            return true;
 
                         endif;
             }
 
             /*
              * This function is used to trim the post values
-             * @param sting
+             * @false sting
              */
-            private function trim_str($value)
+            private function trimStr($value)
             {
                 $trimed_value = trim($value);
                 return $trimed_value;
             }
 
-            public static function chk_email_validity($email = "")
+            public static function isEmail($email = "")
            {
                     if (filter_var($email, FILTER_VALIDATE_EMAIL))
-                            return TRUE;
+                            return true;
                     else
-                           return FALSE;
+                           return false;
             }
 
-            public static function chk_ip($ip_address = "" )
+            public static function isValidIP($ip_address = "" )
             {
                     if (filter_var($ip_address, FILTER_VALIDATE_IP))
-                            return TRUE;
+                            return true;
                      else
-                           return FALSE;
+                           return false;
             }
 
-            public static function _input_range($intputvalue = "", array $range)
+            public static function  getInputRange($intputvalue = "", array $range)
             {
                   /*   range check
                    $int_a = '4';
@@ -164,43 +164,43 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                                                     'max_range' => 3,
                     )
                     );*/
-                    if (filter_var($intputvalue, FILTER_VALIDATE_INT, $range) !== FALSE)
+                    if (filter_var($intputvalue, FILTER_VALIDATE_INT, $range) !== false)
                                 echo "This given ".$intputvalue."  is considered valid and between ".$range['range']['min_range']."and ".$range['range']['max_range']."\n";
                      else
                                echo "Given input is considered Invalid and range mismatched";
             }
 
-            public static function is_num($value)
+            public static function isNum($value)
             {
-                      if (!is_numeric($value))
-                             return FALSE;
+                      if (!isNumeric($value))
+                             return false;
                       else
-                          return TRUE;
+                          return true;
             }
 
             /*
                  * This function used to check whether the given array is number or not
-                 *  @param int
-                 * @return boolean TRUE or FALSE
+                 *  @false int
+                 * @return boolean true or false
                  */
 
-                function is_numeric_array(array $arrayinput)
+                function isNumericArray(array $arrayinput)
                {
                     foreach ($arrayinput as $key => $value):
-                             if (!is_numeric($value)) return FALSE;
+                             if (!isNumeric($value)) return false;
                     endforeach;
 
-                    return TRUE;
+                    return true;
                 }
 
                                   /*
                    *  This function is used to check password strength
-                   * @param string
+                   * @false string
                    * @ return boolean
                    *  Password must be at least 6 characters and must contain at least one lower case letter, one upper case letter and one digit
                    */
 
-                  public static function check_pass_strength($password="", $min  ="")
+                  public static function checkPassStrength($password="", $min  ="")
                  {
                          // Password must be strong
                         if(preg_match("/^.*(?=.{{$min},})(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).*$/" , $password) === 0)
@@ -212,10 +212,10 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
                 /**
                 * Integer
                 *
-                * @param	string
+                * @false	string
                 * @return	boolean value
                 */
-                public static function integer($str)
+                public static function isInteger($str)
                 {
                          return (bool) preg_match('/^[\-+]?[0-9]+$/', $str);
                 }

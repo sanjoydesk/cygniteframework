@@ -34,77 +34,101 @@ if ( ! defined('CF_SYSTEM')) exit('No External script access allowed');
  *
  */
 
-    class Encrypt
+class Encrypt
+{
+
+    private $secureKey;
+
+    private $iv;
+
+    private $value;
+
+    /**
+    * Constructor function
+    * @false string - encryption key
+    *
+    */
+    public function __construct()
     {
+        $encryptKey = Config::getConfig('global_config', 'cf_encryption_key');
 
-            private $securekey, $iv;
+        if (!is_null($encryptKey)) {
 
-            var $value;
-            /*
-             *  Constructor function
-             * @param string - encryption key
-             *
-             */
-           public function __construct()
-            {
-                   $encryptkey = Config::getconfig('global_config','cf_encryption_key');
-                  $callee = debug_backtrace();
-                    if(!is_null($encryptkey)) :
-                                $this->set($encryptkey);
-                                if(!function_exists('mcrypt_create_iv')):
-                                        GHelper::display_errors(E_USER_WARNING, 'Unhandled Exception',"Mcrypt extention library not loaded", $callee[1]['file'],$callee[1]['line'],TRUE);
-                                else:
-                                $this->iv = mcrypt_create_iv(32);
-                                endif;
-                    else:
-                              GHelper::display_errors(E_USER_WARNING, 'Unhandled Exception',
-                                      "Please check for encription key inside config file and autoload helper encrypt key is set or not ",
-                                      $callee[1]['file'],$callee[1]['line'],TRUE);
-                    endif;
+            $this->set($encryptKey);
+
+            if (!function_exists('mcrypt_create_iv')) {
+                throw new \BadFunctionCallException("Mcrypt extension library not loaded");
             }
 
+            $this->iv = mcrypt_create_iv(32);
 
-            public function set($encryptkey)
-            {
-                     $this->securekey = hash('sha256',$encryptkey,TRUE);
-           }
-
-           public function get()
-            {
-                return $this->securekey;
-            }
-
-            /*
-             *  This function is to encrypt string
-             * @access  public
-             *  @param string
-             * @return encrypted hash
-             */
-           public function encode($input)
-            {
-                    if(!function_exists('mcrypt_create_iv')):
-                            $callee = debug_backtrace();
-                            GHelper::display_errors(E_USER_WARNING, 'Unhandled Exception',"Mcrypt extention library not loaded", $callee[1]['file'],$callee[1]['line'],TRUE);
-                   else:
-                          $this->value = base64_encode(mcrypt_encrypt(MCRYPT_RIJNDAEL_256, $this->securekey, $input, MCRYPT_MODE_ECB, $this->iv));
-                    endif;
-                     return $this->value;
-            }
-
-            /*
-             *  This function is to decrypt the encoded string
-             * @access  public
-             *  @param string
-             * @return decrypted string
-             */
-            public function decode($input)
-            {
-                    $this->value = trim(mcrypt_decrypt(MCRYPT_RIJNDAEL_256, $this->securekey, base64_decode($input), MCRYPT_MODE_ECB, $this->iv));
-                    return $this->value;
-            }
-
-            public function __destruct()
-            {
-                    unset($this->securekey);unset($this->iv);
-            }
+        } else {
+            throw new \BadFunctionCallException(
+                "Please check for encription key inside config file and autoload helper encrypt key is set or not."
+            );
+        }
     }
+
+
+    public function set($encryptKey)
+    {
+        $this->secureKey = hash('sha256', $encryptKey, true);
+    }
+
+    public function get()
+    {
+        return $this->secureKey;
+    }
+
+    /*
+     *  This function is to encrypt string
+     * @access  public
+     *  @false string
+     * @return encrypted hash
+     */
+    public function encode($input)
+    {
+        if (!function_exists('mcrypt_create_iv')) {
+            throw new \BadFunctionCallException("Mcrypt extension library not loaded");
+        }
+
+        $this->value = base64_encode(
+            mcrypt_encrypt(
+                MCRYPT_RIJNDAEL_256,
+                $this->secureKey,
+                $input,
+                MCRYPT_MODE_ECB,
+                $this->iv
+            )
+        );
+
+        return $this->value;
+    }
+
+    /*
+     * This function is to decrypt the encoded string
+     * @access  public
+     * @false string
+     * @return decrypted string
+     */
+    public function decode($input)
+    {
+        $this->value = trim(
+            mcrypt_decrypt(
+                MCRYPT_RIJNDAEL_256,
+                $this->secureKey,
+                base64_decode($input),
+                MCRYPT_MODE_ECB,
+                $this->iv
+            )
+        );
+
+        return $this->value;
+    }
+
+    public function __destruct()
+    {
+        unset($this->secureKey);
+        unset($this->iv);
+    }
+}

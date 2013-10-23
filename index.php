@@ -13,54 +13,61 @@
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- *    @Package         : Cygnite Framework
- *    @Filename         : index.php
- *    @Description      : This index file is entry point of the framework to define framework base paths.
- *    @Author           : Cygnite Dev Team
- *    @Copyright        :  Copyright (c) 2013 - 2014,
- *    @Link             :  http://www.cygniteframework.com
- *    @Since            :  Version 1.0
- *    @Filesource
- *    @Warning          :  Any changes in this library can cause abnormal behaviour of the framework
- * 
+ * @Package          : Cygnite Framework
+ * @Filename         : index.php
+ * @Description      : This index file is entry point of
+ * the framework to define framework base paths.
+ * @Author           : Cygnite Dev Team
+ * @Copyright        :  Copyright (c) 2013 - 2014,
+ * @Link             :  http://www.cygniteframework.com
+ * @Since            :  Version 1.0
+ * @Filesource
+ * @Warning          :  Any changes in this library can cause
+ * abnormal behaviour of the framework
  */
 
-  /*---------------------------------------------------------------
-    * Define Directory Separator
-    * ---------------------------------------------------------------
-    */
-    define('DS',DIRECTORY_SEPARATOR);
+/**
+ * ---------------------------------------------------------------
+ * Define Directory Separator
+ * ---------------------------------------------------------------
+ */
+   define('DS', DIRECTORY_SEPARATOR);
 
-  /*-------------------------------------------------------------------
-    *  Define PHP file extension
-    * -------------------------------------------------------------------
-    */
-    defined('EXT') OR define('EXT', '.php');
+/**
+*---------------------------------------------------------------
+* Define PHP file extension
+* ---------------------------------------------------------------
+*/
+   defined('EXT') or define('EXT', '.php');
 
-  /*-------------------------------------------------------------------
-    * Now that we know the path, set the main path constants
-    * path to the packages folder.
-    * -------------------------------------------------------------------
-    */
-     defined('CF_SYSTEM') OR define('CF_SYSTEM', 'packages');
+/*---------------------------------------------------------------
+* Now that we know the path, set the main path constants
+* path to the packages folder.
+* ---------------------------------------------------------------
+*/
+defined('CF_SYSTEM') or define('CF_SYSTEM', 'packages');
 
-  /* -------------------------------------------------------------------
-    * Define application folder name
-    * -------------------------------------------------------------------
-    */
-     defined('APPPATH') OR define('APPPATH', 'apps');
-     
-  /* -------------------------------------------------------------------
-    * Define `root` directory name
-    * -------------------------------------------------------------------
-    */
-     $dir =explode(DS,dirname(__FILE__));
-     defined('ROOTDIR') OR define('ROOTDIR', rtrim(end($dir)));
+/* --------------------------------------------------------------
+* Define application folder name
+* ---------------------------------------------------------------
+*/
+defined('APPPATH') or define('APPPATH', 'apps');
 
-     defined('CYGNITE_BASE') OR define('CYGNITE_BASE', dirname(__FILE__));
+/* --------------------------------------------------------------
+* Define `root` directory name
+* ---------------------------------------------------------------
+*/
+$dir = explode(DS, dirname(__FILE__));
+defined('ROOTDIR') or define('ROOTDIR', rtrim(end($dir)));
 
-  /* -------------------------------------------------------------------
-    * Lets start by include default core files
-    * -------------------------------------------------------------------
-    */
-    require_once CF_SYSTEM.DS.'boot'.EXT;
+defined('CYGNITE_BASE') or define('CYGNITE_BASE', dirname(__FILE__));
+
+require __DIR__ . "/vendor/autoload.php";
+
+//require __DIR__.'/packages/'.DS.'cygnite'.DS.'exceptions'.EXT;
+
+/* ---------------------------------------------------------------
+* Lets start by include default core files
+* ----------------------------------------------------------------
+*/
+require_once CF_SYSTEM.DS.'boot'.EXT;

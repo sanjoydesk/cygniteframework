@@ -1,5 +1,4 @@
-<?php
-namespace Cygnite\Helpers;
+<?php namespace Cygnite\Helpers;
 
 use Cygnite\Cygnite;
 
@@ -44,17 +43,17 @@ class GHelper
              return $values;
         }
 
-        public static function  display_errors($err_type,$err_header,$err_message,$err_file,$line_num = NULL,$debug = FALSE)
+        public static function  display_errors($err_type,$err_header,$err_message,$err_file,$line_num = null,$debug = false)
         {
-                 Cygnite::loader()->errorhandler->handleExceptions($err_type, $err_header,$err_message, $err_file, $line_num,$debug);
+                 Cygnite::loader()->Exceptions->handleExceptions($err_type, $err_header,$err_message, $err_file, $line_num,$debug);
         }
 
-         public static function  log_error($messege,$error_code ="",$line_num = "")
+         public static function  logError($messege,$error_code ="",$line_num = "")
         {
 
         }
 
-         public static function  days_diff($date1)
+         public static function  daysDiff($date1)
         {
                   if (!$date1) $date1="0000-00-00 00:00:00";
 
@@ -67,9 +66,9 @@ class GHelper
              return $d;
         }
 
-          public static function  get_singleton()
+         public static function  getSingleton()
         {
-                return \Cygnite\Loader\CF_BaseController::app(CF_ENCRYPT_KEY);
+                return \Cygnite\CF_BaseController::app(CF_ENCRYPT_KEY);
         }
 
         public static function trace()

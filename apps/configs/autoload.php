@@ -1,7 +1,9 @@
 <?php
 namespace Cygnite;
 
-if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+if (!defined('CF_SYSTEM')) {
+    exit('External script access not allowed');
+}
 /**
  *  Cygnite Framework
  *  Autoloader Configuration Settings
@@ -32,51 +34,55 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  */
 return array(
 
-                  /*---------------------------------------------------------------------------
-                    * Autoload Libraries
-                    *---------------------------------------------------------------------------
-                    * You can specify mutiple numbers of libraries here to register on
-                    * Cygnite Engine during runtime. Don't worry about the application
-                    * performance because all libraries are lazy loaded. But filename,
-                    * Class Name should be  same and start with CF prefix. When you
-                    * are requesting the class it will create singleton and return
-                    *  you the object.
-                    *
-                    *  Specify your class name and path here. You can register core
-                    *  as well as user defined libraries here. That's all. Cygnite will
-                    *  take care of rest.
-                    */
-                      Cygnite::loader()->registerClasses(
-                                            array(
-                                                     'Cache' => '\\Cygnite\\Libraries\\Cache\\Handler\\Cache',
-                                                    'CFAuthx' => '\\Apps\\Components\\Libs\\CFAuthx',
-                                                    'Authxidentity' => '\\Apps\\Components\\Libs\\Authxidentity',
-                                          )
-                     ),
-                  /*
-                    *---------------------------------------------------------------------------
-                    * Autoload Helpers
-                    *---------------------------------------------------------------------------
-                    * Load your helpers when cygnite initialize. Which will be available
-                    * globally on your application. But we prefer import your helpers
-                    * when needed else it may cause of slow application.
-                    * This feature is inprogress.
-                    */
-                     'helpers' => array(''),
+   /*---------------------------------------------------------------------------
+    * Autoload Libraries
+    *---------------------------------------------------------------------------
+    * You can specify mutiple numbers of libraries here to register on
+    * Cygnite Engine during runtime. Don't worry about the application
+    * performance because all libraries are lazy loaded. But filename,
+    * Class Name should be  same and start with CF prefix. When you
+    * are requesting the class it will create singleton and return
+    *  you the object.
+    *
+    *  Specify your class name and path here. You can register core
+    *  as well as user defined libraries here. That's all. Cygnite will
+    *  take care of rest.
+    */
+    Cygnite::loader()->registerClasses(
+        array(
+            'Cache'     => '\\Cygnite\\Libraries\\Cache\\Handler\\Cache',
+            'Authx'     => '\\Apps\\Components\\Authx\\Authentication',
+            'Identity'  => '\\Apps\\Components\\Authx\\Identity',
+            'Image'  => '\\Apps\\Components\\Thumbnail\\Image',
+        )
+    ),
+  /*
+    *---------------------------------------------------------------------------
+    * Autoload Helpers
+    *---------------------------------------------------------------------------
+    * Load your helpers when cygnite initialize. Which will be available
+    * globally on your application. But we prefer import your helpers
+    * when needed else it may cause of slow application.
+    * This feature is inprogress.
+    */
+     'helpers' => array(''),
 
-                  /*
-                    *---------------------------------------------------------------------------
-                    * Autoload Models
-                    *---------------------------------------------------------------------------
-                    * Autoload your models when cygnite boot up. All models will be dynamically
-                    * loaded when you try to access model functions. Please register your
-                    * all models here so that you can directly access. Don't worry about
-                    * application performance since cygnite follows dynamic autoload. You
-                    * can register n numbers of models in cygnite robot loader.
-                    */
-                   Cygnite::loader()->registerModels(array(
-                                    'Activerecords' => '\\Apps\\Models\\Activerecords',
-                                    'Records'=>'\\Apps\\Models\\Records',
-                                    'Users'=>'\\Apps\\Models\\Users'
-                    ))
+  /*
+    *---------------------------------------------------------------------------
+    * Autoload Models
+    *---------------------------------------------------------------------------
+    * Autoload your models when cygnite boot up. All models will be dynamically
+    * loaded when you try to access model functions. Please register your
+    * all models here so that you can directly access. Don't worry about
+    * application performance since cygnite follows dynamic autoload. You
+    * can register n numbers of models in cygnite robot loader.
+    */
+   Cygnite::loader()->registerModels(
+       array(
+            'Activerecords' => '\\Apps\\Models\\Activerecords',
+            'Guestbook' => '\\Apps\\Models\\Guestbook',
+            'Records'=>'\\Apps\\Models\\Records',
+            'Users'=>'\\Apps\\Models\\Users'
+       )
+   )
 );

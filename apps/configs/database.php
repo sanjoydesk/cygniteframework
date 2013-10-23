@@ -1,4 +1,6 @@
-<?php if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+<?php
+namespace Cygnite\Database;
+
 /**
  *  Cygnite Framework
  *  Database Configuration Settings
@@ -9,61 +11,56 @@
  *
  *   This source file is subject to the MIT license that is bundled
  *   with this package in the file LICENSE.txt.
- *   http://www.cygniteframework.com/license.txt
+ *   http://www.appsntech.com/license.txt
  *   If you did not receive a copy of the license and are unable to
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- *@package                         :  Apps
- *@subpackages                :  Configurations
- *@filename                        :  database.php
- *@description                    : You can set your database configurations here.
- *@author                           : Sanjoy Dey
- *@copyright                      :  Copyright (c) 2013 - 2014,
- *@link	                  :  http://www.cygniteframework.com
- *@since	                 :  Version 1.2
+ *@package               : Apps
+ *@subpackages           : Database Configurations
+ *@filename              : database.php
+ *@description           : You can set your session configurations here.
+ *@author                : Sanjoy Dey
+ *@copyright             : Copyright (c) 2013 - 2014,
+ *@link	                 : http://www.cygniteframework.com
+ *@since	             : Version 1.2
  *@filesource
- *@warning                      :  If you don't protect this directory from direct web access, anybody will be able to see your database configuaration and settings.
+ *@warning               : If you don't protect this directory from direct web access,
+ * anybody will be able to see your database configuration and settings.
  *
  *
  */
 
+if (!defined('CF_SYSTEM')) {
+    exit('External script access not allowed');
+}
 
-
- /*
-  * ----------------------------------------------------------------------------
-  * Set Database Configuration
-  * ----------------------------------------------------------------------------
-  *
-  * To connect Multiple database connection use db2,db3.... etc
-  * @prototype set database hostname
-  * @prototype set database username
-  * @prototype set database password
-  * @prototype set database name
-  * @prototype set database prefix
-  * @prototype set database type (mysql,pg,oracle)
-  * @prototype set database persistance connection TRUE or FALSE
-  */
-return array(
-                       'db' =>array(
-                                    'hostname' => 'localhost',
-                                    'username'  => 'root',
-                                    'password'  => '',
-                                    'dbname'    => 'cygnite',
-                                    'dbprefix'  => '',
-                                    'dbtype'    => 'mysql',
-                                    'port'        => '',
-                                    'pconnection' =>TRUE
-                    )
-               /*   ,'db2' => array(
-                                    'hostname' => 'localhost',
-                                    'username'  => 'root',
-                                    'password'  => '',
-                                    'dbname'    => 'hris',
-                                    'dbprefix'  => '',
-                                    'dbtype'    => 'mysql',
-                                    'port'        => '',
-                                    'pconnection' =>TRUE
-                    ) */
-
+/**
+ * Initialize your database configurations settings here.
+ * You can connect with multiple database on the fly.
+ * Don't worry about performance Cygnite will not
+ * connect with database until first time you need your
+ * connection to interact with database.
+ * Specify your database name and table name in model to
+ * do crude operations.
+ *
+ * <code>
+ * 'db'  => 'mysql://root:@localhost/cygnite?charset=utf8',
+ * 'db1' => 'mysql://root:admin@localhost/mis?charset=utf8',
+ * 'db2' => 'mysql://root:root@localhost/mis?charset=utf8',
+ *
+ * </code>
+ *
+ * Please protect this file to have maximum security.
+ *
+ */
+Configurations::initialize(
+    function ($config) {
+        $config->setConfig(
+            array(
+             'db'  => 'mysql://root:@localhost/cygnite?charset=utf8',
+             'db1' => 'mysql://root:@localhost/mis?charset=utf8',
+            )
+        );
+    }
 );

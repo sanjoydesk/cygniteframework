@@ -18,16 +18,16 @@ use Apps\Components\Authx\Identity;
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- * @package                          Apps
- * @subpackages                 Components
- * @filename                         AuthxIdentity
- * @description                    This file is used to map all routing of the cygnite framework
- * @author                           Sanjoy Dey
- * @copyright                      Copyright (c) 2013 - 2014,
- * @link	                    http://www.cygniteframework.com
- * @since	                    Version 1.0
+ * @package              Apps
+ * @subpackages          Components
+ * @filename             Identity
+ * @description          This file is used to map all routing of the cygnite framework
+ * @author               Sanjoy Dey
+ * @copyright            Copyright (c) 2013 - 2014,
+ * @link	             http://www.cygniteframework.com
+ * @since	             Version 1.0
  * @filesource
- * @warning                       Any changes in this library can cause abnormal behaviour of the framework
+ * @warning              Any changes in this library can cause abnormal behaviour of the framework
  *
  *
  */

@@ -76,3 +76,6 @@ Cygnite is currently in development stage (Alpha 1.0) and contributions to Cygni
 Hope you enjoy the simplicity of Cygnite Framework.
 
 You can also find me on - http://www.appsntech.com
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/sanjoy87/cygniteframework/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+

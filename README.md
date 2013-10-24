@@ -23,7 +23,7 @@ iii. Zero configuration.
 
 iv. Object oriented programming with MVC architecture.
 
-v.  User friendly structures of Cygnite framework helps you to understand the framework easily.
+v.  User friendly structures of Cygnite framework helps you painless development.
 
 vi. Dynamic routing feature makes your work simpler.
 
@@ -35,9 +35,11 @@ ix. Cygnite Framework gives you flexibility for both beginners as well as advanc
 
 x. Connect and use Multiple Databases on the go.
 
-xi. Cygnite follows active records style.
+xi. Now building database schema is very simple.
 
-xii. And there is more, we are still adding new features regularly to cater to your needs. Feel free to open an issue if you require anything.
+xii. Cygnite follows active records style.
+
+xiii. And there is more, we are still adding new features regularly to cater to your needs. Feel free to open an issue if you require anything.
 
 
 ##Contribute -
@@ -64,12 +66,15 @@ iii. Create a branch where you would like to place your changes and send the pat
 
 iv. Fork Cygnite Repository on GitHub.
 
-v. Please follow the coding standard as followed on the project or request for coding standard to follow.
+v. Please follow the coding standard as followed (Resembles PSR) on the project or please request for coding standard to follow.
 
 
 ##History -
 ==========
-Hi I am Sanjoy Dey. I love to create web applications. After enjoying couple of MVC frameworks and nearly 1 years of gained knowledge by creating small MVC, I started creating Cygnite Framework around 2012. Cygnite Framework will give you creative experience with expressive performance and user friendly architecture to reduce your development time.
+Hi I am Sanjoy Dey. I am passionate about web technologies. After enjoying couple of MVC frameworks and 
+nearly 1 years of gained knowledge by creating small MVC, I started creating Cygnite Framework around 2012.
+Cygnite Framework will give you creative experience with expressive performance and user friendly architecture 
+to reduce your development time.
 
 Cygnite is currently in development stage (v1.0.5) and contributions to Cygnite development would be highly appreciated.
 

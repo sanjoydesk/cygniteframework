@@ -1,7 +1,9 @@
 <?php
 namespace Cygnite\Helpers;
 
-if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+if (!defined('CF_SYSTEM')) {
+    exit('External script access not allowed');
+}
 /*
  *  Cygnite Framework
  *
@@ -16,16 +18,16 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- * @Package                         :  Packages
- * @Sub Packages               :  Library
- * @Filename                       : CF_Profiler
- * @Description                   : This library used to benchmark the code.
- * @Author                          :   Cygnite Dev Team
- * @Copyright                     :  Copyright (c) 2013 - 2014,
- * @Link	                  :  http://www.cygniteframework.com
- * @Since	                  :  Version 1.0
+ * @Package                    :  Packages
+ * @Sub Packages               :  Helpers
+ * @Filename                   :  Profiler
+ * @Description                :  This library used to benchmark the code.
+ * @Author                     :  Cygnite Dev Team
+ * @Copyright                  :  Copyright (c) 2013 - 2014,
+ * @Link	                   :  http://www.cygniteframework.com
+ * @Since	                   :  Version 1.0
  * @Filesource
- * @Warning                     :  Any changes in this library can cause abnormal behaviour of the framework
+ * @Warning                    :  Any changes in this library can cause abnormal behaviour of the framework
  *
  *
  */
@@ -45,13 +47,13 @@ class Profiler
     {
         if(!defined('MEMORY_START_POINT')):
             define('MEMORY_START_POINT', self::getMemorySpace());
-           self::$blocks[$starttoken] = self::getTime();
+            self::$blocks[$starttoken] = self::getTime();
         endif;
     }
 
     private static function getTime()
     {
-            return microtime(true);
+        return microtime(true);
     }
 
     public static function getMemoryPeakUsage()
@@ -66,10 +68,11 @@ class Profiler
     * @false	string
     */
 
-    public static function end($endtoken = 'cygnite_end')
+    public static function end($endToken = 'cygnite_end')
     {
         $html = "";
-        $html .= "<div id='benchmark'><div class='benchmark'>Total elapsed time : ".round(self::getTime() - self::$blocks[$endtoken], 3). ' s';
+        $html .= "<div id='benchmark'>
+        <div class='benchmark'>Total elapsed time : ".round(self::getTime() - self::$blocks[$endToken], 3). ' s';
         //$html .= self::getMemoryPeakUsage();
         $html .= " &nbsp;&nbsp; &nbsp;Total memory :".self::getMemorySpaceUsage()."</div></div>";
         echo $html;
@@ -93,7 +96,8 @@ class Profiler
     * @return string
     */
     public static function getMemorySpaceUsage()
-    {          //round(memory_get_usage()/1024/1024, 2).'MB';
-                 return round((( self::getMemorySpace()- MEMORY_START_POINT) / 1024), 2). '  KB<br />';
+    {
+        //round(memory_get_usage()/1024/1024, 2).'MB';
+        return round((( self::getMemorySpace() - MEMORY_START_POINT) / 1024), 2). '  KB<br />';
     }
 }

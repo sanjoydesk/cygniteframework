@@ -1,8 +1,8 @@
 {
     "name": "cygnite/cygnite-application",
-    "description": "Cygnite PHP classify- Skeleton Application",
-    "keywords": ["Cygnite", "classify"],
-    "homepage": "http://www.cygniteclassify.com",
+    "description": "Cygnite PHP Framework- Skeleton Application",
+    "keywords": ["Cygnite", "framework"],
+    "homepage": "http://www.cygniteframework.com",
     "license": "MIT",
     "authors": [
         {
@@ -12,10 +12,10 @@
     ],
     "require": {
      "php": ">=5.3.3",
-     "cygnite/classify": "1.0.8",
+     "cygnite/framework": "dev-master",
      "twig/twig": "1.*",
      "symfony/console": "2.3.*",
-     "tracy/tracy": "v2.2-rc1"
+     "tracy/tracy": "2.2.1"
    },
   "autoload": {
      "classmap": [

@@ -1,0 +1,24 @@
+{
+    "name": "cygnite/framework",
+    "description": "The Cygnite PHP Framework.",
+    "type": "package",
+    "keywords": ["framework", "cygnite"],
+    "license": "MIT",
+    "authors": [{
+        "name": "Sanjoy Dey",
+        "email": "sanjoy09@hotmail.com"
+    }],
+    "require": {
+        "php": ">=5.3.3"
+    },
+    "require-dev": {
+        "mockery/mockery": "dev-master",
+        "phpunit/phpunit": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "Cygnite\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}

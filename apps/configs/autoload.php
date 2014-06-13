@@ -1,10 +1,12 @@
 <?php
-namespace Cygnite;
+namespace Cygnite\Foundation;
 
-if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
+if (!defined('CF_SYSTEM')) {
+    exit('External script access not allowed');
+}
 /**
- *  Cygnite Framework
- *  Autoloader Configuration Settings
+ *  Cygnite framework
+ *  Auto loader Configuration Settings
  *
  *  An open source application development framework for PHP 5.3x or newer
  *
@@ -17,66 +19,47 @@ if ( ! defined('CF_SYSTEM')) exit('External script access not allowed');
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- *@package                         :  Apps
- *@subpackages                :  Configurations
- *@filename                        :  autoload
- *@description                    : This file is used to specify which files should be register on cygnite engine by default.
- *@author                           : Sanjoy Dey
- *@copyright                      :  Copyright (c) 2013 - 2014,
- *@link	                  :  http://www.cygniteframework.com
- *@since	                 :  Version 1.0
+ *@package                  :  Apps
+ *@subpackages              :  Configurations
+ *@filename                 :  autoload
+ *@description              :  This file is used to specify which files should be register
+ *                             on cygnite engine by default.
+ *@author                   :  Sanjoy Dey
+ *@copyright                :  Copyright (c) 2013 - 2014,
+ *@link	                    :  http://www.cygniteframework.com
+ *@since	                :  Version 1.0
  *@filesource
- *@warning                      :  If you don't protect this directory from direct web access, anybody will be able to see your configuaration and settings.
+ *@warning                  :  If you don't protect this directory from direct web access,
+ *                             anybody will be able to see your configuaration and settings.
  *
  *
  */
 return array(
-
-                  /*---------------------------------------------------------------------------
-                    * Autoload Libraries
-                    *---------------------------------------------------------------------------
-                    * You can specify mutiple numbers of libraries here to register on
-                    * Cygnite Engine during runtime. Don't worry about the application
-                    * performance because all libraries are lazy loaded. But filename,
-                    * Class Name should be  same and start with CF prefix. When you
-                    * are requesting the class it will create singleton and return
-                    *  you the object.
-                    *
-                    *  Specify your class name and path here. You can register core
-                    *  as well as user defined libraries here. That's all. Cygnite will
-                    *  take care of rest.
-                    */
-                      Cygnite::loader()->registerClasses(
-                                            array(
-                                                     'Cache' => '\\Cygnite\\Libraries\\Cache\\Handler\\Cache',
-                                                    'CFAuthx' => '\\Apps\\Components\\Libs\\CFAuthx',
-                                                    'Authxidentity' => '\\Apps\\Components\\Libs\\Authxidentity',
-                                          )
-                     ),
-                  /*
-                    *---------------------------------------------------------------------------
-                    * Autoload Helpers
-                    *---------------------------------------------------------------------------
-                    * Load your helpers when cygnite initialize. Which will be available
-                    * globally on your application. But we prefer import your helpers
-                    * when needed else it may cause of slow application.
-                    * This feature is inprogress.
-                    */
-                     'helpers' => array(''),
-
-                  /*
-                    *---------------------------------------------------------------------------
-                    * Autoload Models
-                    *---------------------------------------------------------------------------
-                    * Autoload your models when cygnite boot up. All models will be dynamically
-                    * loaded when you try to access model functions. Please register your
-                    * all models here so that you can directly access. Don't worry about
-                    * application performance since cygnite follows dynamic autoload. You
-                    * can register n numbers of models in cygnite robot loader.
-                    */
-                   Cygnite::loader()->registerModels(array(
-                                    'Activerecords' => '\\Apps\\Models\\Activerecords',
-                                    'Records'=>'\\Apps\\Models\\Records',
-                                    'Users'=>'\\Apps\\Models\\Users'
-                    ))
+    /*---------------------------------------------------------------------------
+    * Register all your directories to auto load your files.
+    *---------------------------------------------------------------------------
+    * You can specify multiple numbers of directories here to register on
+    * Cygnite Engine during runtime. Don't worry about the application
+    * performance because all libraries are lazy loaded. But filename,
+    * class name and file should be same, StudlyCaps.
+    *
+    *  Specify your directory path here. That's all. Cygnite will
+    *  take care of rest.
+    *
+    *  Note: Don't register directory if PHP file doesn't exists in it.
+    * It may cause blank screen error.
+    *
+    */
+    Application::instance()->registerDirectories(
+        array(
+            'apps.controllers',
+            'apps.configs.definitions',
+            'apps.models',
+            'apps.components.authx',
+            'apps.components.thumbnail',
+            'apps.components.form',
+            'apps.extensions',
+            'apps.modules.admin',
+        )
+    )
 );

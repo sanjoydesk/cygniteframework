@@ -7,7 +7,6 @@ use Cygnite\Common\Validator;
 use Apps\Components\Form\Registration;
 use Cygnite\Common\CookieManager\Cookie;
 
-
 class HomeController extends AbstractBaseController
 {
     /**
@@ -40,16 +39,13 @@ class HomeController extends AbstractBaseController
     * That's it you are ready to start your awesome application with Cygnite framework.
     *
     */
-
-    private $author = 'Sanjoy Dey';
-
     protected $layout = 'layout.users';
 
-    protected $templateEngine = false;
+   // protected $templateEngine = false;
 
    // protected $templateExtension = '.html.twig';
 
-   protected $autoReload = true;
+   //protected $autoReload = true;
 
    public $service;
 
@@ -71,13 +67,6 @@ class HomeController extends AbstractBaseController
      */
    public function indexAction()
    {
-
-       $session = $this->get('cygnite.base.router');
-       //show($this->get());
-       $registration = new Registration();
-       echo $registration->buildForm()->render();
-      // show($session);
-
         $this->render('welcome')->with(
             array(
                 'author' => $this->author,
@@ -89,7 +78,12 @@ class HomeController extends AbstractBaseController
 
    public function testAction()
    {
-            //setcookie('City', "Edmonton43003", (time()+3600), "/");
+            //setcookie('City', "Edmonton43003", (time()+3600), "/");			
+			 $session = $this->get('cygnite.base.router');
+			//show($this->get());
+			$registration = new Registration();
+			echo $registration->buildForm()->render();
+			// show($session);
 
              $session = $this->get('cygnite.common.session-manager.session');
              $session->save('name', 'Sanjoy Dey');

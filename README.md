@@ -18,6 +18,8 @@ Create your project from terminal simply entering below command -
     composer create-project cygnite/cygnite-application cygnite --prefer-dist
     or
     composer.phar create-project cygnite/cygnite-application cygnite --prefer-dist
+	
+If you are unable to download framework via composer you can simply download the latest framework from sanjoydesk/cygniteframework repository.
 
 That's all you are ready to go.
 

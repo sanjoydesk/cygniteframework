@@ -45,14 +45,11 @@ return array(
     *
     *  Specify your directory path here. That's all. Cygnite will
     *  take care of rest.
-    *
-    *  Note: Don't register directory if PHP file doesn't exists in it.
-    * It may cause blank screen error.
-    *
     */
     Application::instance()->registerDirectories(
         array(
             'apps.controllers',
+            'apps.modules',
             'apps.configs.definitions',
             'apps.models',
             'apps.components.authx',

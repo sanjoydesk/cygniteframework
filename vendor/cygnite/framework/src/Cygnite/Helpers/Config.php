@@ -2,7 +2,7 @@
 namespace Cygnite\Helpers;
 
 use Exception;
-use Cygnite\Facade\Facade;
+use Cygnite\Proxy\StaticResolver;
 use InvalidArgumentException;
 
 if (defined('CF_SYSTEM') == false) {
@@ -38,7 +38,7 @@ if (defined('CF_SYSTEM') == false) {
  *
  */
 
-class Config extends Facade
+class Config extends StaticResolver
 {
 
     private static $_config = array();

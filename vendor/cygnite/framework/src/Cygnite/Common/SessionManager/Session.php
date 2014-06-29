@@ -1,7 +1,7 @@
 <?php
 namespace Cygnite\Common\SessionManager;
 
-use Cygnite\Security;
+use Cygnite\Common\Security;
 use Cygnite\Helpers\Config;
 use Cygnite\Common\Encrypt;
 use Cygnite\Foundation\Application;
@@ -33,7 +33,7 @@ use Cygnite\Common\SessionManager\Flash\FlashMessage;
  *
  */
 
-class Session extends FlashMessage implements SessionInterface
+class Session implements SessionInterface
 {
     public $_var = "_SESSION";
 
@@ -160,7 +160,7 @@ class Session extends FlashMessage implements SessionInterface
 
 
 
-            static::$session = (isset($_SESSION)) ? $_SESSION : null;
+            static::$session = (isset($_SESSION) && !empty($_SESSION)) ? $_SESSION : null;
 
             if (empty(static::$session)) {// new session
                 static::$session['log'] = md5($browser_sig);

@@ -90,7 +90,7 @@ class Schema extends Connections
      * directly
      *
      * @param $model
-     * @param \Cygnite\Inflector $inflection
+     * @param \Cygnite\Helpers\Inflector $inflection
      */
     private function __construct($model, Inflector $inflection)
     {

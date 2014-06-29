@@ -4,7 +4,7 @@ namespace Cygnite\Common;
 use Closure;
 use Cygnite\Common\CookieManager\CookieInterface;
 use Cygnite\Common\Security;
-use Cygnite\Facade\Facade;
+use Cygnite\Proxy\StaticResolver;
 use InvalidArgumentException;
 use Cygnite\Common\Singleton;
 use Cygnite\Common\CookieManager\Cookie;

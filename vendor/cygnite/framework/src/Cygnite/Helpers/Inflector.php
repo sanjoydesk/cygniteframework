@@ -1,7 +1,7 @@
 <?php
 namespace Cygnite\Helpers;
 
-use Cygnite\Facade\Facade;
+use Cygnite\Proxy\StaticResolver;
 
 if (!defined('CF_SYSTEM')) {
     exit('External script access not allowed');
@@ -34,7 +34,7 @@ if (!defined('CF_SYSTEM')) {
  *
  */
 
-class Inflector extends Facade
+class Inflector extends StaticResolver
 {
 
     private static $instance;
@@ -228,6 +228,22 @@ class Inflector extends Facade
         $nsParts = null;
         $nsParts = explode('\\', $class);
         return end($nsParts);
+    }
+
+    /**
+     * Covert dash-dot to namespace
+     *
+     * @param $key
+     * @return string
+     */
+    public function toNamespace($key)
+    {
+        $class = null;
+        $class = explode('.', $key);
+        $class = array_map('ucfirst', Inflector::instance()->classify($class));
+        $class = '\\'.implode('\\', $class);
+
+        return $class;
     }
 
     /*

@@ -1,64 +1,57 @@
-{% extends 'layout/main/base.html.twig' %}
+<?php
+use Cygnite\AssetManager\Asset;
+?>
+<?php
+if ($this->hasFlash('success')) {
+    echo $this->getFlash('success');
+} elseif ($this->hasError()) {
+    echo $this->getFlash('error');
+}
+?>
+<div style="margin-left: 79%;margin-bottom: 10px;margin-top: 10px;">
+    <?php echo Asset::link('#controllerName#/type', 'Add #ControllerName#', array('class' => 'btn btn btn-info')); ?>
+</div>
 
-{% block title %}
-    Cygnite Framework - Simple Crud Operation
-{% endblock %}
+<table cellspacing="0" id="dataTable" cellpadding="0" style="width:890px;margin:0px auto;" class="tablesorter data-grid">
+    <thead>
+    <tr>
+        <th>Sl No.</th>
+        {#thColumns#}
+        <th class="sorter-false">Action</th>
+    </tr>
+    </thead>
 
-{% block content %}
+    <tbody>
+    <?php
+    if (count($this->records) > 0) {
+        $i = 1;
+        $rowType = null;
+        foreach ($this->records as $key => $value) {
 
-    {# dump(records) #}
+            $rowType = ($i % 2 == 0) ? 'even' : 'odd';
+            ?>
+            <tr class='<?php echo $rowType; ?>'>
+                <td> <?php echo $i; ?></td>
+                {#tdColumns#}
+                <td>
+                    <?php
+                    echo Asset::link('#controllerName#/show/' . $value->id, 'View', array('class' => 'btn btn btn-info'));
+                    echo Asset::link('#controllerName#/type/' . $value->id, 'Edit', array('class' => 'btn btn btn-info'));
+                    echo Asset::link('#controllerName#/delete/' . $value->id, 'Delete', array('class' => 'btn btn-danger'));
+                    ?>
 
-    <div style="margin-left: 79%;margin-bottom: 10px;margin-top: 10px;">
-        {{ link('#controllerName#.type', 'Add #ControllerName#', buttonAttributes.primary) | raw }}
-    </div>
-
-    <table cellspacing="0" id="dataTable" cellpadding="0" style="width:890px;margin:0px auto;" class="tablesorter data-grid">
-        <thead>
-        <tr>
-            <th>Sl No.</th>
-            {#thColumns#}
-            <th class="sorter-false">Action</th>
-        </tr>
-        </thead>
-
-        <tbody>
-        {%  if records|length > 0 %}
-
-            {% for key, row in records %}
-
-                {% if loop.index % 2 == 0 %}
-                    {%  set rowType = 'even' %}
-                {% else %}
-                    {%  set rowType = 'odd' %}
-                {% endif %}
-
-                <tr class='{{ rowType }}'>
-                    <td> {{ loop.index }}</td>
-
-                    {#tdColumns#}
-
-                    <td>
-                        {{ link('#controllerName#.show.' ~ row.id ~ '/' ~ pageNumber , 'View' | upper, buttonAttributes.primary) | raw }}
-                        {{ link('#controllerName#.type.' ~ row.id ~ '/' ~ pageNumber , 'Edit' | upper, buttonAttributes.primary) | raw }}
-                        {{ link('#controllerName#.delete.' ~ row.id ~ '/' ~ pageNumber  , 'Delete' | upper, buttonAttributes.delete) | raw }}
-
-                    </td>
-                </tr>
-
-            {% endfor %}
-        {% else %}
-            No records found !
-        {% endif  %}
-        </tbody>
-
-
-    </table>
-
-    <div >{{ links |raw }} </div>
+                </td>
+            </tr>
+            <?php
+            $i++;
+        }
+    } else {
+        echo '<tr> <td >No records found !</td></tr>';
+    }
+    ?>
+    </tbody>
 
 
-{% endblock %}
+</table>
 
-{% block footer %}
-
-{% endblock %}
+<div ><?php echo $this->links; ?> </div>

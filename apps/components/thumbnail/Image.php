@@ -2,10 +2,10 @@
 namespace Apps\Components\Thumbnail;
 
 use Cygnite\Cygnite;
-use Cygnite\Helpers\Inflectors;
+use Cygnite\Inflectors;
 
 /**
- *  Cygnite framework
+ *  Cygnite Framework
  *
  *  An open source application development framework for PHP 5.3x or newer
  *

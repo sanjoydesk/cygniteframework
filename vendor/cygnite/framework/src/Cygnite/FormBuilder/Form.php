@@ -3,7 +3,7 @@ namespace Cygnite\FormBuilder;
 
 use Closure;
 use Cygnite\Common\Input;
-use Cygnite\Facade\Facade;
+use Cygnite\Proxy\StaticResolver;
 
 if (!defined('CF_SYSTEM')) {
     exit('No External script access allowed');
@@ -34,7 +34,7 @@ if (!defined('CF_SYSTEM')) {
  *
  */
 
-class Form extends Facade implements FormInterface
+class Form extends StaticResolver implements FormInterface
 {
 
     private static $formHolder = array();
@@ -53,12 +53,19 @@ class Form extends Facade implements FormInterface
 
     private static $object;
 
+    private $validArray = array('text', 'button', 'select', 'textarea');
+
+    public $validator;
+
+    public $errorClass = 'error';
+
     /**
      * @param       $name
      * @param array $arguments
      * @return mixed
      * @throws \Exception
-     *//*
+     */
+     /*
     public static function __callStatic($name, $arguments = array())
     {
         if ($name == 'instance' && empty($arguments)) {
@@ -79,6 +86,13 @@ class Form extends Facade implements FormInterface
         return new self;
     }
 
+    /**
+     * Form open tag
+     *
+     * @param       $formName
+     * @param array $attributes
+     * @return $this
+     */
     public function open($formName, $attributes = array())
     {
         self::$formName = $formName;
@@ -161,9 +175,24 @@ class Form extends Facade implements FormInterface
                     unset($val['type']);
                     $this->label($key, $val);
                     break;
+                case 'button':
+                    unset($val['type']);
+                    $this->button($key, $val);
+                    break;
                 default:
                     $this->input($key, $val);
                     break;
+            }
+
+            if (isset($val['type']) && in_array($val['type'], $this->validArray)) {
+
+                if (!in_array('submit', $val)) {
+
+                    if (is_object($this->validator) && isset($this->validator->errors[$key.'_error'])) {
+                        $this->elements[self::$formHolder[self::$formName]][$key.'_error'] =
+                            '<span class="'.$this->errorClass.'">'.$this->validator->errors[$key.'_error'].'</span>'.PHP_EOL;
+                    }
+                }
             }
 
         }
@@ -204,6 +233,7 @@ class Form extends Facade implements FormInterface
 
         $this->elements[self::$formHolder[self::$formName]][$key] =
             "<$type name='".$key."' ".$this->attributes($val)." />".PHP_EOL;
+
     }
 
     /**
@@ -291,6 +321,7 @@ class Form extends Facade implements FormInterface
 
         foreach ($this->elements[self::$formHolder[self::$formName]] as $key => $val) {
             $elementString .= $val;
+
         }
 
         $close = "";

@@ -1,16 +1,7 @@
 <?php
 use Cygnite\AssetManager\Asset;
-
 ?>
 
-          <?php
-
-            echo $this->getFlash('success');
-
-          if ($this->hasFlash('success')) {
-                        echo "dddddddddd";
-              echo $this->getFlash('success').'jjjjjjjjjjjjjj';exit;
-             } ?>
          <div style="margin-left: 79%;margin-bottom: 10px;margin-top: 10px;">
             <?php echo Asset::link('products/type', 'Add Products', array('class' => 'btn btn btn-info')); ?>
         </div>

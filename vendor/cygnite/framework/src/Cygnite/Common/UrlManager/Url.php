@@ -37,7 +37,7 @@ class Url
 
 	private static $router;
 
-	public function __construct(Router $route = null)
+	public function __construct(Router $route)
 	{
         if(is_object($route)) {
             if ($route instanceof Router) {
@@ -46,12 +46,18 @@ class Url
         }
 	}
 
+    /**
+     * @param $route
+     */
     private function setRoute($route)
     {
         static::$router = $route;
     }
 
-	public function getRoute()
+    /**
+     * @return instance / null
+     */
+    public function getRoute()
 	{
 		return isset(static::$router) && is_object(static::$router) ? static::$router : null;
 	}
@@ -60,9 +66,9 @@ class Url
      * Header Redirect
      *
      * @access    public
-     * @false     string $uri
-     * @false     string $type
-     * @false     int    $httpResponseCode
+     * @param     string $uri
+     * @param    string $type
+     * @param     int    $httpResponseCode
      * @internal  false \Cygnite\Helpers\the $string URL
      * @internal  false \Cygnite\Helpers\the $string method: location or redirect
      * @param string $uri
@@ -111,7 +117,6 @@ class Url
     {
 		$segment = (!is_null($segment[0])) ? $segment[0] : 1;
 	    $uri = $this->getRoute()->getCurrentUri();
-
         $urlArray = array_filter(explode('/', $uri));
 
         $indexCount = array_search('index.php', $urlArray);
@@ -158,7 +163,7 @@ class Url
 		}
 
 		if ($method == 'segment') {
-			return call_user_func_array(array(new Url(), $method), (array)$args);
+            return call_user_func_array(array(new Url(new Router()), 'get'.ucfirst($method)), array($args));
 		}
     }
 
@@ -172,9 +177,6 @@ class Url
 
         if ($method == self::$instance) {
             return $this;
-        }
-		if ($method == 'segment') {
-            return call_user_func_array(array(new Url, 'get'.ucfirst($method)), array($arguments));
         }
     }
 

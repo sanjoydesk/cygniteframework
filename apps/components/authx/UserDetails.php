@@ -4,7 +4,7 @@ namespace Apps\Components\Authx;
 use Cygnite\Database\ActiveRecord;
 
 /**
- *  Cygnite framework
+ *  Cygnite Framework
  *
  *  An open source application development framework for PHP 5.3x or newer
  *

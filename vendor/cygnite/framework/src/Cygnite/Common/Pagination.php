@@ -2,7 +2,7 @@
 namespace Cygnite\Common;
 
 use Closure;
-use Cygnite\Facade\Facade;
+use Cygnite\Proxy\StaticResolver;
 use Cygnite\Helpers\Inflector;
 use Cygnite\Common\UrlManager\Url;
 
@@ -99,7 +99,7 @@ class Pagination
      * @param null $number
      */
     public function setPerPage($number = null)
-    { 
+    {
         if (is_null($number)) {
             if (property_exists($this->model,'perPage')) {
                 $this->perPage = $this->model->perPage;
@@ -117,7 +117,7 @@ class Pagination
        $numRecords = null;
 
        $modelClass = Inflector::instance()->getClassNameFromNamespace(get_class($this->model));
-       $table = Inflector::instance()->tabilize($modelClass);  
+       $table = Inflector::instance()->tabilize($modelClass);
 
        $numRecords = $this->model
                           ->query("SELECT ".$this->count()." as ".$this->numCount." FROM `".$table."`")
@@ -160,7 +160,7 @@ class Pagination
         $this->next = $pageNumber + 1;
         //last page is = total pages / items per page, rounded up.
         $this->lastPage = ceil($this->getTotalNumberOfPages()/$this->model->perPage);
-        
+
         $this->lastPageMinusOne = $this->lastPage - 1;	//last page minus 1
         $this->create();
     }

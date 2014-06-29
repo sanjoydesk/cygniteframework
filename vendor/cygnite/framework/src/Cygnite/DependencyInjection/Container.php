@@ -277,6 +277,8 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      */
     public function resolve($class)
     {
+        $class = Inflector::instance()->toNamespace($class);
+
         return $this->make($class);
     }
 

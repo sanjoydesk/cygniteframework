@@ -66,7 +66,7 @@ class Strapper
 
 	   /**
 		 *--------------------------------------------------
-		 * Turn on benchmarking application if profiling is on
+		 * Turn on 	 application if profiling is on
 		 * in configuration
 		 *--------------------------------------------------
 		 */

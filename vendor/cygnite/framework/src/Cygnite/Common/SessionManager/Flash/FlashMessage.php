@@ -1,172 +1,175 @@
 <?php
 namespace Cygnite\Common\SessionManager\Flash;
 
-use Cygnite\Common\SessionManager\Session;
+use Cygnite\Common\Encrypt;
+use Cygnite\Helpers\Inflector;
 use Cygnite\Common\SessionManager;
+use Cygnite\Common\SessionManager\Session;
 
 class FlashMessage
 {
-    private $msgString;
+    // Valid Flash Types
+    private $validFlashTypes = array('help', 'info', 'success', 'error', 'warning');
 
-    private $validFlashTypes = array( 'help', 'info', 'warning', 'success', 'error' );
+    private $class = __CLASS__;
 
-    private $msgTypes = array( 'help', 'info', 'warning', 'success', 'error' );
+    private $flashWrapper = "<div class='%s %s'><a href='#' class='closeFlash'></a>\n%s</div>\n";
 
-    private static $sessionArray;
+    private $inflection;
 
-    var $msgClass = 'messages';
-    var $msgWrapper = "<div class='%s %s'><a href='#' class='closeMessage'></a>\n%s</div>\n";
-    var $msgBefore = '<p>';
-    var $msgAfter = "</p>\n";
-
-    private $flashMessageWrapper = "<div class='%s %s'><a href='javascript:void(0);' class='closeFlash'></a>\n%s</div>\n";
-
-
-    public function __construct()
+    /**
+     * Constructor
+     *
+     * @param Inflector $inflection
+     */
+    public function __construct(Inflector $inflection)
     {
-       // if( !session_id() ) session_start();
-        // Create the session array if it doesnt already exist
-        if( !array_key_exists('flashMessages', $_SESSION) ) $_SESSION['flashMessages'] = array();
-    }
-
-    public function setSession($value)
-    {
-        $_SESSIONArray = $value;
-    }
-
-    public function getSession()
-    {
-        return !empty($_SESSIONArray) ? $_SESSIONArray : null;
-    }
-
-    public function setFlash($type, $message)
-    {
-
-        if( !isset($_SESSION['flash_messages']) ) return false;
-
-        if( !isset($type) || !isset($message[0]) ) return false;
-
-        // Replace any shorthand codes with their full version
-        if( strlen(trim($type)) == 1 ) {
-            $type = str_replace( array('h', 'i', 'w', 'e', 's'), array('help', 'info', 'warning', 'error', 'success'), $type );
-
-            // Backwards compatibility...
-        } elseif( $type == 'information' ) {
-            $type = 'info';
+        // Check whether $inflection is instance of Inflector
+        if ($inflection instanceof Inflector) {
+            $this->inflection = $inflection;
         }
 
-        // Make sure it's a valid message type
-        if( !in_array($type, $this->msgTypes) ) die('"' . strip_tags($type) . '" is not a valid message type!' );
+        if( !session_id() ) session_start();
 
-        // If the session array doesn't exist, create it
-        if( !array_key_exists( $type, $_SESSION['flash_messages'] ) ) $_SESSION['flash_messages'][$type] = array();
+        if (!isset($_SESSION['flashMessages'])) {
+            $_SESSION['flashMessages'] = array();
+        }
+    }
 
-
-
-        $_SESSION['flash_messages'][$type][] = $message;
-
-        if( !is_null($redirect_to) ) {
-            header("Location: $redirect_to");
-            exit();
+    /**
+     * Set a flash message to the queue
+     *
+     * @param  string $key      Flash type to set
+     * @param  string $message  Flash Message
+     * @throws \Exception
+     * @return  bool
+     */
+    public function setFlash($key, $message)
+    {
+        if (!isset($_SESSION['flashMessages'])) {
+            return false;
         }
 
-        show($_SESSION);
+        if (!isset($key) || !isset($message[0])) {
+            return false;
+        }
 
+        // Verify $key is a valid message type or not
+        if (!in_array($key, $this->validFlashTypes)) {
+            throw new \Exception('"' . strip_tags($key) . '" is not a valid message type!');
+        }
 
-        exit;
+        // If the flash session array doesn't exist, make it
+        if (!array_key_exists($key, $_SESSION['flashMessages'])) {
+            $_SESSION['flashMessages'][$key] = array();
+        }
+
+        $_SESSION['flashMessages'][$key][] = $message;
 
         return true;
     }
 
     /**
+     * Get the Queued message and return it
      *
-     * @param $key
-     * @return bool|string
+     * @param  string $key
+     * @return mixed
+     *
      */
-    public function getFlash($type = '', $print = false)
+    public function getFlash($key = null)
     {
-        $messages = '';
-        $data = '';
+        $messages = $flash = '';
 
-        if( !isset($_SESSION['flash_messages']) ) return false;
-
-        if( $type == 'g' || $type == 'growl' ) {
-            $this->displayGrowlMessages();
-            return true;
+        if (!isset($_SESSION['flashMessages'])) {
+            return false;
         }
 
-        // Print a certain type of message?
-        if( in_array($type, $this->msgTypes) ) {
-            foreach( $_SESSION['flash_messages'][$type] as $msg ) {
-                $messages .= $this->msgBefore . $msg . $this->msgAfter;
+        // Check $key is valid flash type
+        if (in_array($key, $this->validFlashTypes)) {
+
+            if (isset($_SESSION['flashMessages'][$key])) {
+
+                foreach ($_SESSION['flashMessages'][$key] as $msg) {
+                    $messages .= '<p>' . $msg . "</p>\n";
+                }
             }
 
-            $data .= sprintf($this->msgWrapper, $this->msgClass, $type, $messages);
+            $flash .= sprintf(
+                $this->flashWrapper,
+                strtolower($this->inflection->getClassName($this->class)),
+                $key,
+                $messages
+            );
 
-            // Clear the viewed messages
-            $this->clear($type);
+            // clear the viewed messages from browser
+            $this->clearViewedMessages($key);
 
             // Print ALL queued messages
-        } elseif( $type == 'all' ) {
-            foreach( $_SESSION['flash_messages'] as $type => $msgArray ) {
+        } elseif (is_null($key)) {
+
+            foreach ($_SESSION['flashMessages'] as $key => $msgArray) {
                 $messages = '';
-                foreach( $msgArray as $msg ) {
-                    $messages .= $this->msgBefore . $msg . $this->msgAfter;
+                foreach ($msgArray as $msg) {
+                    $messages .= '<p>' . $msg . "</p>\n";
                 }
-                $data .= sprintf($this->msgWrapper, $this->msgClass, $type, $messages);
+
+                $flash .= sprintf($this->flashWrapper, strtolower($this->class), $key, $messages);
             }
 
-            // Clear ALL of the messages
-            $this->clear();
+            // clear already viewed messages
+            $this->clearViewedMessages();
 
-            // Invalid Message Type?
+        // Invalid message type
         } else {
             return false;
         }
 
-        // Print everything to the screen or return the data
-        if( $print ) {
-            echo $data;
-        } else {
-            return $data;
-        }
-
+        return $flash;
     }
 
-    private function getMessageString($key, $messages)
-    {
-        return sprintf($this->flashMessageWrapper, 'flash', $key, $messages);
-    }
 
-    public function hasFlash($key, $default = 'flashMessages')
+    /**
+     * Check is there any error messages
+     *
+     * @return bool  true/false
+     */
+    public function hasError()
     {
-        if( !is_null($key) ) {
-            if( !empty($_SESSION['flash_messages'][$key]) ) return $_SESSION['flash_messages'][$key];
-        } else {
-            foreach( $this->msgTypes as $type ) {
-                if( !empty($_SESSION['flash_messages']) ) return true;
-            }
-        }
-        return false;
-    }
-
-    private function clearViewedMessage($key = '', $default = 'flashMessages')
-    {
-        if( $key == 'all' ) {
-            unset($_SESSION['flash_messages']);
-        } else {
-            unset($_SESSION['flash_messages'][$key]);
-        }
-        return true;
+        return empty($_SESSION['flashMessages']['error']) ? false : true;
     }
 
     /**
-     * Display the Flash Message to browser
+     * Check is there any flash message in session
      *
-     * @return mixed
+     * @param  string $key
+     * @return bool
+     *
      */
-    public function __toString()
+    public function hasFlash($key = null)
     {
-        return $this->hasMessages();
+        if (!is_null($key)) {
+            if (!empty($_SESSION['flashMessages'][$key])) {
+                return $_SESSION['flashMessages'][$key];
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Clear viewed messages from the session
+     *
+     * @param  string $key
+     * @return bool
+     *
+     */
+    public function clearViewedMessages($key = null)
+    {
+        if (is_null($key)) {
+            unset($_SESSION['flashMessages']);
+        } else {
+            unset($_SESSION['flashMessages'][$key]);
+        }
+        return true;
     }
 }

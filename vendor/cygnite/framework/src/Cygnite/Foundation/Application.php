@@ -29,6 +29,8 @@ class Application extends Container
     public $aliases = array();
 
     public $namespace = '\\Apps\\Controllers\\';
+	
+	private static $version = 'v1.2';
 
     /**
      * ---------------------------------------------------
@@ -120,7 +122,7 @@ class Application extends Container
 	 */
     public static function version()
     {
-        return CF_VERSION;
+        return static::$version;
     }
 
     /**
@@ -129,7 +131,7 @@ class Application extends Container
      */
     public static function poweredBy()
     {
-        return 'Cygnite Framework - '.CF_VERSION.' Powered by -
+        return 'Cygnite Framework - '.static::$version.' Powered by -
             Sanjoy Productions (<a href="http://www.cygniteframework.com">
             http://www.cygniteframework.com
             </a>)';
@@ -235,41 +237,5 @@ class Application extends Container
         };
 
         return $this['config.definition'];
-    }
-
-    /**
-     * Inject all your properties into controller at run time
-     * @param $instance
-     * @param $controller
-     * @throws Exception
-     */
-    public function propertyInjection($instance, $controller)
-    {
-        $definition = $this->getDefinition();
-
-        $injectableDefinitions = $definition()->getPropertyDependencies();
-
-        $this->setPropertyInjection($injectableDefinitions);
-
-        $dependencies = $this->getDefinitions($controller);
-
-        if (array_key_exists($controller, $this->definitions)) {
-
-            $property = key($dependencies);
-
-            $reflection = new Reflection();
-            $reflection->setClass($controller);
-
-            if (!$reflection->reflectionClass->hasProperty($property)) {
-                throw new Exception(
-                    sprintf("Property %s is not defined in $controller controller", $property)
-                );
-            }
-
-            $reflection->makePropertyAccessible($property);
-            $reflection->reflectionProperty->setValue(
-                $instance, $dependencies[$property]
-            );
-        }
     }
 }

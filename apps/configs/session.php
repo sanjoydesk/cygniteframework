@@ -3,7 +3,7 @@ if (!defined('CF_SYSTEM')) {
     exit('External script access not allowed');
 }
 /**
- *  Cygnite framework
+ *  Cygnite Framework
  *  Database Configuration Settings
  *
  *  An open source application development framework for PHP 5.3x or newer
@@ -61,7 +61,7 @@ return array(
     * All your session details will be store on apps/temp/sessions/ directory.
     * Keep save path as default.
     */
-    'cf_session_save_path' => 'default', // framework default Session path is apps/temp/sessions/
+    'cf_session_save_path' => 'default', // Framework default Session path is apps/temp/sessions/
 
 
     /*

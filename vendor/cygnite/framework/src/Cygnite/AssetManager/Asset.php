@@ -1,7 +1,7 @@
 <?php
 namespace Cygnite\AssetManager;
 
-use Cygnite\Facade\Facade;
+use Cygnite\Proxy\StaticResolver;
 use Cygnite\AssetManager\Html;
 use Cygnite\Common\UrlManager\Url;
 use InvalidArgumentException;
@@ -55,7 +55,7 @@ $asset->dump('link');
 
 
 
-class Asset extends Facade implements \ArrayAccess
+class Asset extends StaticResolver implements \ArrayAccess
 {
     protected $assets = array();
 
@@ -227,7 +227,7 @@ class Asset extends Facade implements \ArrayAccess
 
     private function isFacade($caller)
     {
-        return (strpos($caller['file'], 'Facade') !== FALSE) ? true : false;
+        return (strpos($caller['file'], 'StaticResolver') !== FALSE) ? true : false;
     }
 
     /**

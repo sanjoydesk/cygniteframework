@@ -41,9 +41,9 @@ use Cygnite\Mvc\View\Template;
 
 abstract class AbstractBaseController extends CView
 {
-    public $app;
+    public $container;
 
-    private $validFlashMessage = array('setFlash', 'hasFlash', 'getFlash');
+    private $validFlashMessage = array('setFlash', 'hasFlash', 'getFlash', 'hasError');
 
     /**
      * Constructor function
@@ -54,7 +54,7 @@ abstract class AbstractBaseController extends CView
     public function __construct()
     {
         parent::__construct(new Template);
-        $this->app = new Container();
+        $this->container = new Container();
     }
 
     //prevent clone.
@@ -70,9 +70,9 @@ abstract class AbstractBaseController extends CView
     public function __call($method, $arguments)
     {
         if (in_array($method, $this->validFlashMessage)) {
-            //$session = $this->get('cygnite.common.session-manager.flash.FlashMessage');
-            
-            $return = call_user_func_array(array(new FlashMessage(new Session(new Encrypt())), $method), $arguments);
+            $flashSession = $this->get('cygnite.common.session-manager.flash.FlashMessage');
+
+            $return = call_user_func_array(array($flashSession, $method), $arguments);
 
             return ($method == 'setFlash') ? $this : $return;
         }
@@ -80,23 +80,12 @@ abstract class AbstractBaseController extends CView
         throw new Exception("Undefined method [$method] called by ".get_class($this).' Controller');
     }
 
-   /* protected function setFlashMessage($key, $value)
-    {
-        $this->session->addFlash($key, $value);
-
-        return $this;
-    }
-
-    protected function hasFlashMessage($key)
-    {
-        return $this->session->hasFlash($key);
-    }
-
-    protected function getFlashMessage($key)
-    {
-        return $this->session->getFlash($key);
-    }*/
-
+    /**
+     * @param string $uri
+     * @param string $type
+     * @param int    $httpResponseCode
+     * @return $this
+     */
     protected function redirectTo($uri = '', $type = 'location', $httpResponseCode = 302)
     {
         $url = $this->get('cygnite.common.url-manager.url');
@@ -106,18 +95,12 @@ abstract class AbstractBaseController extends CView
     }
 
     /**
-     * @param $key
+     * @param $class
      * @return object @instance instance of your class
      */
-    protected function get($key)
+    protected function get($class)
     {
-        $class = null;
-        $class = explode('.', $key);
-        $class = array_map('ucfirst', Inflector::instance()->classify($class));
-        $class = implode('\\', $class);
-
-        return $this->app->resolve('\\'.$class);
-       // return $this->app->make('\\'.$class);
+        return $this->container->resolve($class);
     }
 
     /**

@@ -1,5 +1,4 @@
 <?php
-
 use Cygnite\Strapper;
 use Cygnite\Foundation\Application;
 use Cygnite\Base\Event;
@@ -11,7 +10,7 @@ use Cygnite\Helpers\Profiler;
 * Define the Cygnite Framework  Version
 * ------------------------------------------------------
 */
-defined('CF_VERSION') or define('CF_VERSION', '(v1.0.8 beta)');
+defined('CF_VERSION') or define('CF_VERSION', '(v1.0.9)');
 
 /*
 * -------------------------------------------------------------

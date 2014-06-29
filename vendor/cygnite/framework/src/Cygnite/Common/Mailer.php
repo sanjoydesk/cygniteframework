@@ -81,6 +81,7 @@ class Mailer
     public function __construct()
     {
         $this->emailConfig = Config::get('global.config', 'emailConfiguration');
+
         try {
             Application::import('vendor'.DS.$this->emailConfig['swift_mailer_path']);
         }catch (Exception $ex) {

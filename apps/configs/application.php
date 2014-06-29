@@ -3,7 +3,7 @@ if (!defined('CF_SYSTEM')) {
     exit('External script access not allowed');
 }
 /**
- *  Cygnite framework
+ *  Cygnite Framework
  *  Global Configuration Settings
  *
  *  An open source application development framework for PHP 5.3x or newer
@@ -213,9 +213,7 @@ return array (
      *
      */
 
-    'emailConfiguration' => array(
-        
-                 'swift_mailer_path' => 'swiftmailer.swiftmailer',
+    'email_configurations' => array(
 
                 'protocol' => 'smtp',
 

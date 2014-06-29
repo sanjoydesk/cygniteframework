@@ -2,7 +2,7 @@
 namespace Cygnite\Database;
 
 /**
- *  Cygnite framework
+ *  Cygnite Framework
  *  Database Configuration Settings
  *
  *  An open source application development framework for PHP 5.3x or newer
@@ -59,7 +59,7 @@ Configurations::initialize(
         $config->setConfig(
             array(
              'db'  => 'mysql://root:@localhost/cygnite?charset=utf8',
-             //'db1' => 'mysql://root:cygnite#98723@localhost/shopping_cart?charset=utf8',
+             'db1' => 'mysql://root:cygnite#98723@localhost/shopping_cart?charset=utf8',
             )
         );
     }

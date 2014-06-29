@@ -1,12 +1,12 @@
 <?php
-use Cygnite\Application;
+use Cygnite\Foundation\Application;
 use Cygnite\Base\Router;
 
 if (!defined('CF_SYSTEM')) {
     exit('No External script access allowed');
 }
 /**
-*  Cygnite framework
+*  Cygnite Framework
 *
 *  An open source application development framework for PHP 5.3 or newer
 *
@@ -39,7 +39,7 @@ $router->before(
     'GET',
     '/.*',
     function () {
-        //echo "The framework is under active development";
+        //echo "The Framework is under active development";
     }
 );
 
@@ -47,13 +47,15 @@ $router->before(
 $router->get(
     '/hello/(\w+)',
     function ($name) {
-        echo "sfsdfds"; exit;
-        Router::call('Home.testing', array($name,' PHP framework'));
+        Router::call('Home.welcome', array($name,' PHP Framework'));
         Router::end();
     }
 );
 
-
+/**
+ * Json Request Format {"USER_ID": "32"}
+ * type : POST
+*/
 $router->post(
     '/categories/post/',
     function () {
@@ -64,6 +66,10 @@ $router->post(
     }
 );
 
+/**
+ * Json Request Format {"USER_ID": "32"} or Empty
+ * type : GET
+*/
 $router->get(
     '/categories/emplist/',
     function () {

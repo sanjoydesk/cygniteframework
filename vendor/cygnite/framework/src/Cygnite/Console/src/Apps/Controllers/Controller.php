@@ -7,6 +7,7 @@ use Cygnite\Validation\Validator;
 use Cygnite\AssetManager\Asset;
 use Cygnite\Common\UrlManager\Url;
 use Cygnite\Mvc\Controller\AbstractBaseController;
+use Apps\Components\Form\%ControllerName%Form;
 use Apps\Models\%StaticModelName%;
 
 /**
@@ -25,9 +26,9 @@ class %controllerName% extends AbstractBaseController
     *
     * Your GET request of "%controllerName%/form" will respond like below -
     *
-    *      public function formAction()
+    *     public function formAction()
     *     {
-    *            echo "Cygnite : Hello ! World ";
+    *         echo "Cygnite : Hello ! World ";
     *     }
     * Note: By default cygnite doesn't allow you to pass query string in url, which
     * consider as bad url format.
@@ -35,10 +36,10 @@ class %controllerName% extends AbstractBaseController
     * You can also pass parameters into the function as below-
     * Your request to  "%controllerName%/index/2134" will pass to
     *
-    *      public function indexAction($id = ")
-    *      {
-    *             echo "Cygnite : Your user Id is $id";
-    *      }
+    *     public function indexAction($id = ")
+    *     {
+    *         echo "Cygnite : Your user Id is $id";
+    *     }
     * In case if you are not able to access parameters passed into method
     * directly as above, you can also get the uri segment
     *  echo Url::segment(3);
@@ -100,22 +101,20 @@ class %controllerName% extends AbstractBaseController
                 ),
             )
         );
-
     }
 
-
+    /**
+    * Handle add or update action
+    * @param $id null
+    */
     public function typeAction($id = null)
     {
-        $input = Input::getInstance(
-            function ($instance) {
-                return $instance;
-            }
-        );
+        $input = Input::make();
 
-        $errors = '';
+        $errors = $validator = null;
+
         if ($input->hasPost('btnSubmit') == true) {
 
-            $validator = null;
             $validator = Validator::instance(
                 $input,
                 function ($validate) {
@@ -136,13 +135,14 @@ class %controllerName% extends AbstractBaseController
 
                 $postArray = $input->except('btnSubmit')->post();
 
-				%model Columns%
+				%modelColumns%
 
                 if ($%modelName%->save()) {
-                    Url::redirectTo('%controllerName%/index/'.Url::segment(4));
+                    $this->setFlash('success', '%controllerName% saved successfully!')
+                         ->redirectTo('%controllerName%/index/'.Url::segment(4));
                 } else {
-                    //echo "Error occured while saving data.";
-                    Url::redirectTo('%controllerName%/index/'.Url::segment(4));
+                    $this->setFlash('error', 'Error occured while saving %controllerName%!')
+                         ->redirectTo('%controllerName%/index/'.Url::segment(4));
                 }
 
             } else {
@@ -156,22 +156,51 @@ class %controllerName% extends AbstractBaseController
         if (isset($id) && $id !== null) {
             $%controllerName% = array();
             $%controllerName% = %StaticModelName%::find($id);
-            $form = $this->generateForm($%controllerName%, Url::segment(4));
+            $form = new %ControllerName%Form($%controllerName%, Url::segment(4));
             $form->errors = $errors;
-            $this->editProduct($id, $form);
+            $form->validation = $validator;
+            $this->edit($id, $form);
         } else {
-            $form = $this->generateForm();
+            $form = new %ControllerName%Form();
             $form->errors = $errors;
-            $this->addProduct($form);
+            //Set the validator instance to handle validation errors
+            $form->validation = $validator;
+            $this->add($form);
         }
     }
 
-    private function editProduct($id, $form)
+    /**
+    * Add a new Product view page
+    * @param type $form
+    */
+    private function add($form)
+    {
+        // Since our all all logic is in controller
+        // You can also use same view page for create and update
+        $this->render('create')->with(array(
+                'createForm' => $form->buildForm()->render(),
+                'validation_errors' => $form->errors,
+                'baseUrl' => Url::getBase(),
+                'buttonAttributes' => array(
+                'primary' => array('class' => 'btn primary', 'style' => 'border:1px solid #888;'),
+                'delete' => array('class' => 'btn danger'),
+                ),
+            )
+        );
+
+    }
+
+    /**
+    * Call update view page
+    * @param type $id
+    * @param type $form object
+    */
+    private function edit($id, $form)
     {
         // Since our all all logic is in controller
         // You can also use same view page for create and update
         $this->render('update')->with(array(
-                'updateForm' => $form->getForm(),
+                'updateForm' => $form->buildForm()->render(),
                 'validation_errors' => $form->errors,
                 'baseUrl' => Url::getBase(),
                 'buttonAttributes' => array(
@@ -182,6 +211,10 @@ class %controllerName% extends AbstractBaseController
         );
     }
 
+    /**
+    * Display product details
+    * @param type $id
+    */
     public function showAction($id)
     {
         $%modelName% = %StaticModelName%::find($id);
@@ -198,40 +231,20 @@ class %controllerName% extends AbstractBaseController
         );
     }
 
-    private function addProduct($form)
-    {
-        // Since our all all logic is in controller
-        // You can also use same view page for create and update
-        $this->render('create')->with(array(
-                'createForm' => $form->getForm(),
-                'validation_errors' => $form->errors,
-                'baseUrl' => Url::getBase(),
-                'buttonAttributes' => array(
-                    'primary' => array('class' => 'btn primary', 'style' => 'border:1px solid #888;'),
-                    'delete' => array('class' => 'btn danger'),
-                ),
-            )
-        );
-
-    }
-
-    private function generateForm($%controllerName% = array(), $pageNumber = '')
-    {
-        $id = (isset($%controllerName%->id)) ? $%controllerName%->id : '';
-
-        {%formElements%}
-
-        return $form;
-
-    }
-
+    /**
+    * Delete %controllerName% using id
+    *
+    * @param type $id
+    */
     public function deleteAction($id)
     {
         $%controllerName% = new %modelName%();
         if ($%controllerName%->trash($id) == true) {
-            Url::redirectTo('%controllerName%/');
+            $this->setFlash('success', '%controllerName% Deleted Successfully!')
+                 ->redirectTo('%controllerName%/');
         } else {
-            echo "Error Occured";exit;
+            $this->setFlash('error', 'Error Occured while deleting %controllerName%!')
+                 ->redirectTo('%controllerName%/');
         }
     }
 

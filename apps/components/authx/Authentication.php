@@ -6,7 +6,7 @@ use Apps\Components\Authx\UserDetails;
 
 
 /**
- *  Cygnite framework
+ *  Cygnite Framework
  *
  *  An open source application development framework for PHP 5.3x or newer
  *

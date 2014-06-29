@@ -1,29 +1,29 @@
 <?php
 /**
- *   Cygnite PHP classify
+ *   Cygnite PHP Framework
  *
- *   An open source application development classify for PHP 5.3x or newer
+ *   An open source application development framework for PHP 5.3x or newer
  *
  *   License
  *
  *   This source file is subject to the MIT license that is bundled
  *   with this package in the file LICENSE.txt.
- *   http://www.cygniteclassify.com/license.txt
+ *   http://www.cygniteframework.com/license.txt
  *   If you did not receive a copy of the license and are unable to
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- * @Package          : Cygnite classify
+ * @Package          : Cygnite Framework
  * @Filename         : index.php
  * @Description      : This index file is entry point of
- * the classify to define classify base paths.
+ * the framework to define framework base paths.
  * @Author           : Cygnite Dev Team
  * @Copyright        :  Copyright (c) 2013 - 2014,
- * @Link             :  http://www.cygniteclassify.com
+ * @Link             :  http://www.cygniteframework.com
  * @Since            :  Version 1.0
  * @Filesource
  * @Warning          :  Any changes in this library can cause
- * abnormal behaviour of the classify
+ * abnormal behaviour of the framework
  */
 
 /**

@@ -4,7 +4,7 @@ if (!defined('CF_SYSTEM')) {
     exit('No External script access allowed');
 }
 /**
- *  Cygnite framework
+ *  Cygnite Framework
  *
  *  An open source application development framework for PHP 5.3 or newer
  *
@@ -32,6 +32,6 @@ if (!defined('CF_SYSTEM')) {
  *
  */
 return array(
-    '/sayhello/(\w+)' => 'home.testing',
-    '/blog(/\d{4}(/\d{2}(/\d{2}(/[a-z0-9_-]+)?)?)?)?' => 'home.users'
+    '/sayhello/(\w+)' => 'home.welcome',
+    '/blog(/\d{4}(/\d{2}(/\d{2}(/[a-z0-9_-]+)?)?)?)?' => 'home.category'
 );

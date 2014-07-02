@@ -12,8 +12,8 @@ use Cygnite\AssetManager\AssetCollection;
 <?php echo Asset::style('assets/css/cygnite/style.css'); ?>
         <link rel="shortcut icon" href="<?php echo Url::getBase(); ?>assets/img/cygnite/fevicon.png" > </link>
 
-        <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css">
-        <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css"></link>
+        <link href="http://fonts.googleapis.com/css?family=Corben:bold" rel="stylesheet" type="text/css"/>
+        <link href="http://fonts.googleapis.com/css?family=Nobile" rel="stylesheet" type="text/css"/>
     </head>
     <body style="background: #F4F5F7;">
 
@@ -135,7 +135,6 @@ use Cygnite\AssetManager\AssetCollection;
 
                     .feature-block{ float: left;border:0px; font-size: 17px;font-family: small-caption;}
                     .feature-block:hover{box-shadow:none;}
-					.feature-block p {height:auto !important;}
                     .ul-text { color:#61A5AA;height: 213px !important;}
                     .header { height: 131px; padding: 4px 0;}
                     .features {height: 284px;}

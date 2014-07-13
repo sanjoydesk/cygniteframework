@@ -41,7 +41,7 @@ class Controller
 
     private $columns = array();
 
-    private $controller;
+    public $controller;
 
     private $controllerTemplatePath;
 
@@ -55,13 +55,15 @@ class Controller
 
     private $replacedContent;
 
-    private $applicationDir;
+    public $applicationDir;
 
     private $filePointer;
 
     private $viewType;
 
     private $formPath;
+
+    private $controllerCommand;
 
 
     /*
@@ -73,13 +75,14 @@ class Controller
      * @param $columns array of columns
      * @return void
      */
-    private function __construct(Inflector $inflect, $columns = array(), $viewType = null)
+    private function __construct(Inflector $inflect, $columns = array(), $viewType = null, $generator = null)
     {
         if ($inflect instanceof Inflector) {
             $this->inflector = $inflect;
         }
         $this->columns = $columns;
         $this->viewType = $viewType;
+        $this->controllerCommand = $generator;
     }
 
     /**
@@ -125,19 +128,14 @@ class Controller
      */
     private function buildFormOpen()
     {
-        return '$this->open(
-                        "'.$this->controller.'",
-                        array(
-                            "method" => "post",
+        return '$this->open("'.$this->controller.'", array(
+                            "method" => "post", "id"     => "uniform", "role"   => "form",
                             "action" => Url::sitePath("'.
-                        strtolower(
-                            str_replace('Controller', '', $this->controller)
-                        ).'/type/$id/$this->segment"),
-                            "id"     => "uniform",
-                            "role"   => "form",
-                            "style" => "width:500px;margin-top:35px;float:left;"
-                        )
-                    )';
+                            strtolower(
+                                str_replace('Controller', '', $this->controller)
+                            ).'/type/$id/$this->segment"),
+                            "style" => "width:500px;margin-top:35px;float:left;" )
+                            )';
     }
 
     /**
@@ -148,16 +146,13 @@ class Controller
      */
     private function generateFormElements($value)
     {
-        $form = '';
-        $form .= "\t".'->addElement("label", "'.$this->inflector->underscoreToSpace($value->column_name).'",
-                                      array("class" => "col-sm-2 control-label",
-                                            "style" => "width:100%;")
-                                   )'.PHP_EOL;
-        $form .= "\t".'->addElement("text", "'.$value->column_name.'",
-                                      array(
-                                          "value" => (isset($this->model->'.$value->column_name.')) ? $this->model->'.$value->column_name.' : "",
-                                          "class" => "form-control",
-                                      )
+        $form = $label = '';
+        $label = $this->inflector->underscoreToSpace($value->column_name);
+        $form .= "\t\t".'->addElement("label", "'.$label.'", array("class" => "col-sm-2 control-label","style" => "width:100%;"))'.PHP_EOL;
+
+        $form .= "\t\t".'->addElement("text", "'.$value->column_name.'", array(
+                                      "value" => (isset($this->model->'.$value->column_name.')) ? $this->model->'.$value->column_name.' : "",
+                                      "class" => "form-control", )
                                    )'.PHP_EOL;
         return $form;
     }
@@ -169,12 +164,11 @@ class Controller
     private function buildFormCloseTags()
     {
         $form = '';
-        $form .= "\t".'->addElement("submit", "btnSubmit", array(
-                    "value" => "Save",
-                    "class" => "btn btn-primary",
-                    "style" => "margin-top:15px;"
-                )
-                )'.PHP_EOL;
+        $form .= "\t\t".'->addElement("submit", "btnSubmit", array(
+                                            "value" => "Save",
+                                            "class" => "btn btn-primary",
+                                            "style" => "margin-top:15px;" )
+                                   )'.PHP_EOL;
 
         $form .= "\t\t".'->close()'.PHP_EOL;
         $form .= "\t\t".'->createForm();'.PHP_EOL;
@@ -204,7 +198,7 @@ class Controller
     private function generateValidator($value)
     {
         $validationCode = '';
-        $validationCode .= "\t->addRule('".$value->column_name."', 'required|min:5')".PHP_EOL;
+        $validationCode .= "\t\t->addRule('".$value->column_name."', 'required|min:5')".PHP_EOL;
 
         return $validationCode;
     }
@@ -242,7 +236,11 @@ class Controller
     }
 
 
-    private function getForm()
+    /**
+     * Get the form
+     * @return null|string
+     */
+    public function getForm()
     {
         return (is_string($this->form) && $this->form !== '') ?
             $this->form :
@@ -363,7 +361,9 @@ class Controller
 
         $content = $this->replaceControllerName($content);
 
+        $primaryKey = $this->controllerCommand->getPrimaryKey();
 
+        $content = str_replace('{%primaryKey%}', $primaryKey, $content);
         $content = str_replace('%modelColumns%', $this->getDbCode().PHP_EOL, $content);
         $content = str_replace('%addRule%', $this->getValidationCode().PHP_EOL, $content);
         $controllerNameOnly = $this->inflector->classify(str_replace('Controller', '', $this->controller));
@@ -393,7 +393,7 @@ class Controller
      * @param $formContent
      * @return bool
      */
-    private function generateFormComponent($formContent)
+    public function generateFormComponent($formContent)
     {
 
         /*write operation ->*/
@@ -448,7 +448,7 @@ class Controller
     public static function __callStatic($method, $arguments = array())
     {
         if ($method == 'instance') {
-            return new self($arguments[0], $arguments[1], $arguments[2]);
+            return new self($arguments[0], $arguments[1], $arguments[2], $arguments[3]);
         }
     }
 }

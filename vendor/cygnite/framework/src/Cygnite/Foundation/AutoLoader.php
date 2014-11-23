@@ -1,8 +1,18 @@
 <?php
+
+/**
+ * This file is part of the Cygnite package.
+ *
+ * (c) Sanjoy Dey <dey.sanjoy0@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Cygnite\Foundation;
 
 use Cygnite\Exception;
-use Cygnite\Common\FileExtensionFilter;
+use Cygnite\Common\File\FileExtensionFilter;
 
 if (!defined('CF_SYSTEM')) {
     exit('External script access not allowed');

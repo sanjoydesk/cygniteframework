@@ -20,14 +20,14 @@ if (!defined('CF_SYSTEM')) {
  *   obtain it through the world-wide-web, please send an email
  *   to sanjoy@hotmail.com so I can send you a copy immediately.
  *
- * @Package                  :  Packages
- * @Sub Packages             :
+ * @Package                  :  Cygnite
+ * @Sub Packages             :  Helpers
  * @Filename                 :  Inflector
  * @Description              :  This class is used to make class name, method name and others.
  * @Author                   :  Cygnite Dev Team
  * @Copyright                :  Copyright (c) 2013 - 2014,
- * @Link	                 :  http://www.cygniteframework.com
- * @Since	                 :  Version 1.0
+ * @Link                     :  http://www.cygniteframework.com
+ * @Since                    :  Version 1.0
  * @Filesource
  * @Warning                  :  Any changes in this library can cause abnormal behaviour of the framework
  *
@@ -260,7 +260,10 @@ class Inflector extends StaticResolver
     */
     public static function camelize($word)
     {
-        return preg_replace('/(^|_)([a-z])/e', 'strtoupper("\\2")', $word);
+        //return preg_replace('/(^|_)([a-z])/e', 'strtoupper("\\2")', $word);
+        $func = create_function('$c','return strtoupper("\\2");');
+
+        return preg_replace_callback('/_([a-z])/', $func, $word);
     }
 
     public function __call($method, $arguments = array())

@@ -1,5 +1,5 @@
 
-namespace Apps\Models;
+namespace {%Apps%}\Models;
 
 use Cygnite\Foundation\Application;
 use Cygnite\Database\Schema;
@@ -27,7 +27,7 @@ class %StaticModelName% extends ActiveRecord
         parent::__construct();
     }
 
-    protected function pageLimit()
+    public function pageLimit()
     {
         return Url::segment(3);
     }

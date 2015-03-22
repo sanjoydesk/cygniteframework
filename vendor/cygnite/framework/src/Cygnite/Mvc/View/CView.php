@@ -65,6 +65,8 @@ class CView
 
     protected $autoReload = false;
 
+    public $twig;
+
     /**
      * @param Template $template
      */
@@ -80,13 +82,14 @@ class CView
 
             if ($template instanceof Template) {
                 $template->init($this, new Reflection);
+                $this->setTemplate($template);
 
                 $ns = $controller = null;
                 $ns = get_called_class();
 
-                $controller = str_replace('Controller', '', Inflector::instance()->getClassNameFromNamespace($ns));
+                $controller = str_replace('Controller', '', Inflector::getClassNameFromNamespace($ns));
 
-                $this->layout = Inflector::instance()->toDirectorySeparator($this->layout);
+                $this->layout = Inflector::toDirectorySeparator($this->layout);
 
                 if ($this->layout == '') {
                     $this->layout = strtolower($controller);
@@ -101,6 +104,22 @@ class CView
         }
     }
 
+    /**
+     * @param $template
+     */
+    private function setTemplate($template)
+    {
+        $this->twig = $template;
+    }
+
+    /**
+     * Get Template instance
+     * @return null
+     */
+    public function getTemplate()
+    {
+        return isset($this->twig) ? $this->twig : null;
+    }
     /**
     * Magic Method for handling dynamic data access.
     * @param $key
@@ -137,7 +156,7 @@ class CView
     public function render($view, $values = array(), $ui_content = false)
     {
 
-        $controller = Inflector::instance()->getClassNameFromNamespace(get_called_class());
+        $controller = Inflector::getClassNameFromNamespace(get_called_class());
 
         $controller =
             strtolower(str_replace('Controller' , '', $controller)
@@ -174,7 +193,7 @@ class CView
 
         if (is_readable($viewPage)) {
 
-            $this->layout = Inflector::instance()->toDirectorySeparator($this->layout);
+            $this->layout = Inflector::toDirectorySeparator($this->layout);
 
                 if ($this->layout !== '') { // render view page into the layout
                     $layout = getcwd().DS.APPPATH.DS.$viewPath.DS.$this->layout.'.view'.EXT;

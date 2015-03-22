@@ -19,14 +19,13 @@ use ReflectionClass;
 
 class Container extends DependencyExtension implements ContainerInterface, ArrayAccess
 {
-
     /**
      * The container's bind data
      *
      * @var array
      * @access private
      */
-    private $storage = array();
+    private $stack = array();
 
     private $services;
 
@@ -42,17 +41,17 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      */
     public function &__get($key)
     {
-        if (!isset($this->storage[$key])) {
+        if (!isset($this->stack[$key])) {
             throw new InvalidArgumentException(sprintf('Value "%s" is not defined.', $key));
         }
 
-        $set = isset($this->storage[$key]);
+        $set = isset($this->stack[$key]);
 
-        //return $this->storage[$key];
+        //return $this->stack[$key];
         $return = $set &&
-        is_callable($this->storage[$key]) ?
-            $this->storage[$key]($this) :
-            $this->storage[$key];
+        is_callable($this->stack[$key]) ?
+            $this->stack[$key]($this) :
+            $this->stack[$key];
 
         return $return;
     }
@@ -66,7 +65,7 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      */
     public function __set($key, $value)
     {
-        $this->storage[$key] = $value;
+        $this->stack[$key] = $value;
     }
 
     /**
@@ -79,16 +78,14 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      */
     public function share(Closure $callable)
     {
-        return function ($c) use ($callable) {
+        return function () use ($callable) {
             static $object;
-
+            $c = $this;
             if (is_null($object)) {
-
                 if ($callable instanceof Closure) {
                     $object = $callable($c);
                 }
             }
-
             return $object;
         };
     }
@@ -102,7 +99,7 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      */
     public function isShared($key)
     {
-        return array_key_exists($key, $this->storage);
+        return array_key_exists($key, $this->stack);
     }
 
     /**
@@ -114,8 +111,8 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      */
     public function unShare($class)
     {
-        if (array_key_exists($class, $this->storage)) {
-            unset($this->storage[$class]);
+        if (array_key_exists($class, $this->stack)) {
+            unset($this->stack[$class]);
         }
     }
 
@@ -128,7 +125,7 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      */
     public function __isset($key)
     {
-        return isset($this->storage[$key]);
+        return isset($this->stack[$key]);
     }
 
     /**
@@ -139,7 +136,7 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      */
     public function __unset($key)
     {
-        unset($this->storage[$key]);
+        unset($this->stack[$key]);
     }
 
     /**
@@ -152,9 +149,9 @@ class Container extends DependencyExtension implements ContainerInterface, Array
     public function offsetSet($offset, $value)
     {
         if (is_null($offset)) {
-            $this->storage[] = $value;
+            $this->stack[] = $value;
         } else {
-            $this->storage[$offset] = $value;
+            $this->stack[$offset] = $value;
         }
         //$boundClosure = $value->bindTo($value);
         //$boundClosure();
@@ -170,7 +167,7 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      */
     public function offsetExists($offset)
     {
-        return isset($this->storage[$offset]);
+        return isset($this->stack[$offset]);
     }
 
     /**
@@ -197,12 +194,12 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      */
     public function offsetGet($offset)
     {
-        return $this->offsetExists($offset) ? $this->storage[$offset] : null;
+        return $this->offsetExists($offset) ? $this->stack[$offset] : null;
     }
 
     public function extend($key, Closure $callable)
     {
-        if (!isset($this->storage[$key])) {
+        if (!isset($this->stack[$key])) {
             throw new InvalidArgumentException(sprintf('Identifier "%s" is not defined.', $key));
         }
 
@@ -212,7 +209,7 @@ class Container extends DependencyExtension implements ContainerInterface, Array
             );
         }
 
-        $binding = $this->offsetExists($key) ? $this->storage[$key] : null;
+        $binding = $this->offsetExists($key) ? $this->stack[$key] : null;
 
         $extended = function ($container) use ($callable, $binding) {
 
@@ -234,7 +231,7 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      */
     public function keys()
     {
-        return array_keys($this->storage);
+        return array_keys($this->stack);
     }
 
     /**
@@ -248,7 +245,7 @@ class Container extends DependencyExtension implements ContainerInterface, Array
 
     public function getRegisteredInstance()
     {
-        return $this->storage;
+        return $this->stack;
     }
 
     /**
@@ -256,17 +253,29 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      *
      *
      */
-    public function singleton($class)
+    public function singleton($key, $callback = null)
     {
-        static $instance = [];
+        static $instance = array();
 
-        if (!isset($instance[$class])) {
-            $instance[$class] = new $class;
+        // if closure callback given we will create a singleton instance of class
+        // and return it to user
+        if ($callback instanceof Closure) {
+
+            if (!isset($instance[$key])) {
+                $instance[$key] = $callback($this);
+            }
+
+            return $this->stack[$key] = $instance[$key];
         }
 
-        return $instance[$class];
-    }
+        //| If callback is not instance of closure then we will simply
+        //| create a singleton instance and return it
+        if (!isset($instance[$key])) {
+            $instance[$key] = new $callback();
+        }
 
+        return $instance[$key];
+    }
     /**
      * Resolve the class. We will create and return instance if already
      * not exists.
@@ -276,7 +285,7 @@ class Container extends DependencyExtension implements ContainerInterface, Array
      */
     public function resolve($class)
     {
-        $class = Inflector::instance()->toNamespace($class);
+        $class = Inflector::toNamespace($class);
 
         return $this->make($class);
     }
@@ -313,7 +322,7 @@ class Container extends DependencyExtension implements ContainerInterface, Array
         // if class does not have explicitly defined constructor or constructor does not have parameters
         // get the new instance
         if (!isset($constructor) && is_null($constructor) || $constructorArgsCount < 1) {
-            $this->storage[$class] = $reflection->reflectionClass->newInstance();
+            $this->stack[$class] = $reflection->reflectionClass->newInstance();
         } else {
             $dependencies = $constructor->getParameters();
 
@@ -343,7 +352,7 @@ class Container extends DependencyExtension implements ContainerInterface, Array
                         $definition = $this->getDefinition();
                         $aliases = $definition()->registerAlias();
 
-                        $interface = Inflector::instance()->getClassName($reflectionParam->getName());
+                        $interface = Inflector::getClassName($reflectionParam->getName());
                         if (array_key_exists($interface, $aliases)) {
                             $constructorArgs[] = $this->makeInstance($aliases[$interface]);
                         }
@@ -359,10 +368,10 @@ class Container extends DependencyExtension implements ContainerInterface, Array
                 }
             }
 
-            $this->storage[$class] = $reflection->reflectionClass->newInstanceArgs($constructorArgs);
+            $this->stack[$class] = $reflection->reflectionClass->newInstanceArgs($constructorArgs);
         }
 
-        return $this->storage[$class];
+        return $this->stack[$class];
     }
 
     /**
@@ -375,8 +384,7 @@ class Container extends DependencyExtension implements ContainerInterface, Array
         if (!class_exists($resolvedClass)) {
             throw new DependencyException(sprintf('Class "%s" not exists.', $resolvedClass));
         }
-
-        return new $resolvedClass;
+        return $this->stack[$resolvedClass] = new $resolvedClass;
     }
 
     /**

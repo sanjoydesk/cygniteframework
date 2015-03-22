@@ -1,33 +1,22 @@
 <?php
+/*
+ * This file is part of the Cygnite package.
+ *
+ * (c) Sanjoy Dey <dey.sanjoy0@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Cygnite\Console\Generator;
 
 use Cygnite\Helpers\Inflector;
-
 /**
- *  Cygnite Framework
+ * Cygnite View Generator
  *
- *  An open source application development framework for PHP 5.3 or newer
- *
- *   License
- *
- *   This source file is subject to the MIT license that is bundled
- *   with this package in the file LICENSE.txt.
- *   http://www.cygniteframework.com/license.txt
- *   If you did not receive a copy of the license and are unable to
- *   obtain it through the world-wide-web, please send an email
- *   to sanjoy@hotmail.com so that I can send you a copy immediately.
- *
- * @Package            :  Console
- * @Filename           :  View.php
- * @Description        :  This class is used to generate view pages of your application using Cygnite console
- * @Author             :  Sanjoy Dey
- * @Copyright          :  Copyright (c) 2013 - 2014,
- * @Link	           :  http://www.cygniteframework.com
- * @Since	           :  Version 1.0.6
- * @File Source
+ * This class used to generate views
+ * @author Sanjoy Dey <dey.sanjoy0@gmail.com>
  *
  */
-
 class View
 {
     private $command;
@@ -48,12 +37,7 @@ class View
     // Twig layout extension
     const TWIG_EXTENSION = '.html.twig';
 
-    private $views = array(
-                        'index',
-                        'create',
-                        'update',
-                        'view',
-    );
+    private $views = array('index', 'create', 'update', 'show');
 
     private $fields = array();
 
@@ -62,23 +46,18 @@ class View
      * for this class directly
      *
      * @access private
-     * @param $inflect instance of Inflector
      * @param $columns array of columns
      * @return void
      */
-    private function __construct(Inflector $inflect, $command = null)
+    private function __construct($command = null)
     {
-        if ($inflect instanceof Inflector) {
-            $this->inflector = $inflect;
-        }
         $this->command = $command;
-
     }
 
     public static function __callStatic($method, $arguments = array())
     {
         if ($method == 'instance') {
-            return new self($arguments[0], $arguments[1]);
+            return new self($arguments[0]);
         }
     }
 
@@ -145,7 +124,7 @@ class View
      */
     public function generateLayout($layout)
     {
-        $layout = $this->inflector->toDirectorySeparator($layout);
+        $layout = Inflector::toDirectorySeparator($layout);
 
         $file = $this->getViewTemplatePath().$layout.DS.$this->viewLayoutName();
         $appViewPath = '';
@@ -206,7 +185,7 @@ class View
             case 'update':
                 $content = $this->replaceCreateOrUpdateTemplateContents($content);
                 break;
-            case 'view':
+            case 'show':
                 $content = $this->replaceViewTemplateContents($content);
                 break;
         }
@@ -251,8 +230,9 @@ class View
             $content
         );
 
-        $content = str_replace('#ControllerName#',
-            ucfirst($this->command->controller),
+        $content = str_replace(
+            '#ControllerName#',
+            Inflector::classify(str_replace("Controller", "", $this->command->controller)),
             $content
         );
 
@@ -287,7 +267,7 @@ class View
             if ($value->column_name !== 'id') {
 
                 if ($type == 'th') {
-                    $tableHead = $this->inflector->underscoreToSpace($value->column_name);
+                    $tableHead = Inflector::underscoreToSpace($value->column_name);
                     $column .= "\t\t\t".'<'.$type.'>'.$tableHead.'</'.$type.'>'.PHP_EOL;
                 } else{
                     $rowType = '';
@@ -318,6 +298,12 @@ class View
             $content
         );
 
+        $content = str_replace(
+            '#Controller#',
+            Inflector::classify(str_replace("Controller", "", $this->command->controller)),
+            $content
+        );
+
         return $content;
     }
 
@@ -340,9 +326,9 @@ class View
 
                 $column .=
                 "\t\t\t".'<div class="form-group">
-                    <div class="form-label control-label">'.
-                    $this->inflector->underscoreToSpace($value->column_name).
-                    '</div>
+                    <label class="col-sm-2 control-label">'.
+                    Inflector::underscoreToSpace($value->column_name).
+                    '</label>
                     <div class="col-sm-10">
                         <p class="form-control-static"><span>'.$rowType.'</span></p>
                     </div>

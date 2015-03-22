@@ -5,7 +5,7 @@ use Closure;
 use Cygnite\Proxy\StaticResolver;
 use Cygnite\Foundation\Application;
 use Cygnite\Helpers\Inflector;
-use Cygnite\Common\Input;
+use Cygnite\Common\Input\Input;
 
 /**
  *  Cygnite Framework
@@ -150,7 +150,7 @@ class Validator
 
     private function convertToFieldName($key)
     {
-        return Inflector::instance()->underscoreToSpace($key);
+        return Inflector::underscoreToSpace($key);
     }
 
     private function validEmail($key)
@@ -381,7 +381,7 @@ class Validator
                     !strstr($rule, 'min')
                 ) {
 
-                    $method = Inflector::instance()->toCameCase($rule);
+                    $method = Inflector::camelize($rule);
 
                     if (is_callable(array($this, $method)) === false) {
                         throw new \Exception('Undefined method '.__CLASS__.' '.$method.' called.');
@@ -398,7 +398,7 @@ class Validator
 
                     $rule = explode(':', $rule);
 
-                    $method = Inflector::instance()->toCameCase($rule[0]);
+                    $method = Inflector::camelize($rule[0]);
 
                     if (is_callable(array($this, $method)) === false) {
                         throw new \Exception('Undefined method '.__CLASS__.' '.$method.' called.');

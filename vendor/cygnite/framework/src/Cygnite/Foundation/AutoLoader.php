@@ -29,13 +29,11 @@ class AutoLoader
     private $inflection;
 
     /**
-     * @param $inflection
+     * Autoloader Constructor
      */
-    public function __construct($inflection)
+    public function __construct()
     {
-        $this->inflection = $inflection;
         $this->init();
-
     }
 
     /**
@@ -139,8 +137,7 @@ class AutoLoader
     private function setDirectories($paths)
     {
 
-        foreach ($paths as $key => $dir)
-        {
+        foreach ($paths as $key => $dir) {
             $path = str_replace(".", DS, $dir);
 
             //Iterate through all paths and filter with extension provided
@@ -154,7 +151,10 @@ class AutoLoader
                $alias = str_replace('.php', '', $item->getPathName());
 
                $alias = implode("\\", array_map("ucfirst", explode(DS, $alias)));
-               $this->directories[$alias] = str_replace('\\', '/', $item->getPathName());
+               if (!isset($this->directories[$alias])) {
+                   $this->directories[$alias] = str_replace('\\', '/', $item->getPathName());
+               }
+
             }
         }
 

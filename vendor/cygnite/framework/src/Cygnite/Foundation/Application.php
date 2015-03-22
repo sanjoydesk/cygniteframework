@@ -11,14 +11,14 @@
 namespace Cygnite\Foundation;
 
 use Closure;
-use Cygnite\Base\Dispatcher;
-use Cygnite\Base\Router;
-use Cygnite\Common\UrlManager\Url;
-use Cygnite\DependencyInjection\Container;
+use Exception;
+use Cygnite\Strapper;
+use Cygnite\Base\Router\Router;
 use Cygnite\Helpers\Config;
 use Cygnite\Helpers\Inflector;
-use Cygnite\Strapper;
-use Exception;
+use Cygnite\Base\Request\Dispatcher;
+use Cygnite\Common\UrlManager\Url;
+use Cygnite\DependencyInjection\Container;
 
 if (!defined('CF_SYSTEM')) {
     exit('External script access not allowed');
@@ -28,7 +28,7 @@ class Application extends Container
 {
     protected static $loader;
     private static $instance;
-    private static $version = 'v1.2.6';
+    private static $version = 'v1.3.0';
     public $aliases = array();
     public $namespace = '\\Controllers\\';
 
@@ -40,15 +40,13 @@ class Application extends Container
      * instance method will dynamically return you instance of
      * Application
      *
-     * @param Inflector  $inflection
      * @param Autoloader $loader
      * @return \Cygnite\Foundation\Application
      */
 
-    protected function __construct(Inflector $inflection = null, Autoloader $loader = null)
+    protected function __construct(Autoloader $loader = null)
     {
-        $inflection = $inflection ? : new Inflector();
-        self::$loader = $loader ? : new AutoLoader($inflection);
+        self::$loader = $loader ? : new AutoLoader();
     }
 
     /**
@@ -81,27 +79,24 @@ class Application extends Container
      * Return instance of Application
      * ----------------------------------------------------
      *
-     * @param Inflector  $inflection
-     * @param Autoloader $loader object
-     * @internal param \Cygnite\Inflector $inflector object
+     * @param Autoloader $loader
      * @return Application object
      */
-    public static function getInstance(Inflector $inflection = null, Autoloader $loader = null)
+    public static function getInstance(Autoloader $loader = null)
     {
         if (static::$instance instanceof Application) {
             return static::$instance;
         }
 
-        $inflection = $inflection ? : new Inflector();
-        $loader = $loader ? : new AutoLoader($inflection);
+        $loader = $loader ? : new AutoLoader();
 
-        return static::$instance = new Application($inflection, $loader);
+        return static::$instance = new Application($loader);
     }
 
     /**
      * Get framework version
      *
-     * @access public
+     * @return string
      */
     public static function version()
     {
@@ -130,6 +125,12 @@ class Application extends Container
         return self::$loader->import($path);
     }
 
+    /**
+     * Service Closure callback
+     * @param callable $callback
+     * @return mixed
+     * @throws \Exception
+     */
     public static function service(Closure $callback)
     {
         if (!$callback instanceof Closure) {
@@ -140,16 +141,19 @@ class Application extends Container
     }
 
     /**
-     * set all your configurations
+     * Set up all required configurations
      *
      * @param $config
      * @return $this
      */
     public function setConfiguration($config)
     {
-        $this->setValue('config', $config['app'])
-            ->setValue('boot', new Strapper)
-            ->setValue('router', new Router);
+        $this->importHelpers();
+
+        $this->setValue('config', $config)
+             ->setValue('boot', new Strapper)
+             ->setValue('router', new Router)
+             ->setServices();
 
         return $this;
     }
@@ -171,6 +175,10 @@ class Application extends Container
         return isset($this->aliases) ? $this->aliases : null;
     }
 
+    /**
+     * We will include services
+     * @return $this
+     */
     public function setServices()
     {
         $this['service.provider'] = function () {
@@ -199,7 +207,7 @@ class Application extends Container
         $dir = ($dir !== '') ? $dir . '\\' : '';
 
         return
-            "\\" . ucfirst(APPPATH) . $this->namespace . $dir . Inflector::instance()->classify(
+            "\\" . ucfirst(APPPATH) . $this->namespace . $dir . Inflector::classify(
                 $class
             ) . 'Controller';
     }
@@ -210,7 +218,7 @@ class Application extends Container
      */
     public function getActionName($actionName)
     {
-        return Inflector::instance()->toCameCase(
+        return Inflector::camelize(
             (!isset($actionName)) ? 'index' : $actionName
         ) . 'Action';
     }
@@ -228,6 +236,12 @@ class Application extends Container
         return $this['config.definition'];
     }
 
+    /**
+     * We will register all service providers into application
+     *
+     * @param array $services
+     * @return $this
+     */
     public function registerServiceProvider($services = array())
     {
         foreach ($services as $key => $serviceProvider) {
@@ -251,6 +265,7 @@ class Application extends Container
     /**
      * @param $key
      * @param $class
+     * @return void
      */
     public function setServiceController($key, $class)
     {
@@ -264,13 +279,21 @@ class Application extends Container
     }
 
     /**
+     * We will include Supporting Helpers
+     * @return mixed
+     */
+    public function importHelpers()
+    {
+        return include '/../'.'Helpers/Support'.EXT;
+    }
+
+    /**
      * Start booting and handler all user request
      *
      * @return Dispatcher
      */
     public function boot()
     {
-        Url::instance($this['router']);
         //Set up configurations for your awesome application
         Config::set('config.items', $this['config']);
         //Set URL base path.
@@ -298,7 +321,7 @@ class Application extends Container
          * Lets Go !!
          * -------------------------------------------------------
          */
-        $dispatcher = new Dispatcher($this['router']);
+        $dispatcher = new Dispatcher($this);
         return $dispatcher->run();
     }
 }

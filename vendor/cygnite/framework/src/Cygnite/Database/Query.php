@@ -21,6 +21,7 @@ use Exception;
 use PDOException;
 use Cygnite\Helpers\Inflector;
 use Cygnite\Common\Pagination;
+use Cygnite\Foundation\Collection;
 
 //extends Connection
 class Query
@@ -71,6 +72,8 @@ class Query
      * @var Array $bindings
      */
     private $bindings = array();
+
+    private $_values = array();
 
     /**
      * You can not instantiate the Query object directly
@@ -140,16 +143,11 @@ class Query
         $sql = $ar = null;
         $ar = self::getActiveRecord();
         $this->triggerEvent('beforeCreate');
-        $sql = $this->getInsertQuery(strtoupper(__FUNCTION__));
-
+        $sql = $this->getInsertQuery(strtoupper(__FUNCTION__), $ar, $arguments);
         try {
             $statement = $this->getDatabaseConnection()->prepare($sql);
-            // we will bind all parameters into the statement
-            foreach ($arguments as $key => $val) {
-                $statement->bindParam(":$key", $val);
-            }
-
-            if ($bool = $statement->execute()) {
+            // we will bind all parameters into the statement using execute method
+            if ($bool = $statement->execute($arguments)) {
                 $ar->{$ar->getPrimaryKey()} = (int)$this->getDatabaseConnection()->lastInsertId();
                 $this->triggerEvent('afterCreate');
 
@@ -427,7 +425,7 @@ class Query
     }
 
     /**
-     * Add an INNER JOIN souce to the query
+     * Add an INNER JOIN source to the query
      */
     public function leftJoin($table, $constraint, $tableAlias = null)
     {
@@ -435,7 +433,7 @@ class Query
     }
 
     /**
-     * Add an INNER JOIN souce to the query
+     * Add an INNER JOIN source to the query
      */
     public function innerJoin($table, $constraint, $tableAlias = null)
     {
@@ -450,7 +448,7 @@ class Query
     */
 
     /**
-     * Add a LEFT OUTER JOIN souce to the query
+     * Add a LEFT OUTER JOIN source to the query
      */
     public function leftOuterJoin($table, $constraint, $tableAlias = null)
     {
@@ -458,7 +456,7 @@ class Query
     }
 
     /**
-     * Add an RIGHT OUTER JOIN souce to the query
+     * Add an RIGHT OUTER JOIN source to the query
      */
     public function rightOuterJoin($table, $constraint, $tableAlias = null)
     {
@@ -466,7 +464,7 @@ class Query
     }
 
     /**
-     * Add an FULL OUTER JOIN souce to the query
+     * Add an FULL OUTER JOIN source to the query
      */
     public function fullOuterJoin($table, $constraint, $tableAlias = null)
     {
@@ -476,15 +474,15 @@ class Query
     /**
      * Add a RAW JOIN source to the query
      */
-    public function rawJoin($table, $constraint, $tableAlias, $parameters = array())
+    public function rawJoin($query, $constraint, $tableAlias)
     {
+        $this->hasJoin = true;
+
         // Add table alias if present
         if (!is_null($tableAlias)) {
             $tableAlias = $this->quoteIdentifier($tableAlias);
-            $table .= " {$tableAlias}";
+            $query .= " {$tableAlias}";
         }
-
-        $this->_values = array_merge($this->_values, $parameters);
 
         // Build the constraint
         if (is_array($constraint)) {
@@ -494,7 +492,7 @@ class Query
             $constraint = "{$firstColumn} {$operator} {$secondColumn}";
         }
 
-        $this->joinSources[] = "{$table} ON {$constraint}";
+        $this->joinSources[] = "{$query} ON {$constraint}";
 
         return $this;
     }
@@ -530,7 +528,7 @@ class Query
             if ($statement->rowCount() > 0) {
                 return new Collection($data);
             } else {
-                return null;
+                return new Collection(array());
             }
         } catch (PDOException $ex) {
             throw new \Exception("Database exceptions: Invalid query x" . $ex->getMessage());
@@ -726,7 +724,7 @@ class Query
         if (count($condition) == count($arguments[0])) {
 
             foreach ($condition as $key => $value) {
-                $field = Inflector::instance()->tabilize($value);
+                $field = Inflector::tabilize($value);
                 $whrValue = isset($arguments[0][$key]) ?
                     trim($arguments[0][$key]) :
                     '';
@@ -905,7 +903,7 @@ class Query
     protected function addJoinSource($joinOperator, $table, $constraint, $tableAlias = null)
     {
         $joinOperator = trim("{$joinOperator} JOIN");
-        $table = Inflector::instance()->tabilize($this->quoteIdentifier(lcfirst($table)));
+        $table = Inflector::tabilize($this->quoteIdentifier(lcfirst($table)));
 
         // Add table alias if exists
         if (!is_null($tableAlias)) {
@@ -918,7 +916,7 @@ class Query
             $constraint = "{$firstColumn} {$operator} {$secondColumn}";
         }
 
-        //$table = Inflector::instance()->tabilize(lcfirst($table));
+        //$table = Inflector::tabilize(lcfirst($table));
         $this->hasJoin = true;
         $this->joinSources[] = "{$joinOperator} {$table} ON {$constraint}";
 
@@ -938,7 +936,7 @@ class Query
 
             return join(', ', $result);
         } else {
-            return Inflector::instance()->tabilize($this->quoteOneIdentifier(lcfirst($identifier)));
+            return Inflector::tabilize($this->quoteOneIdentifier(lcfirst($identifier)));
         }
     }
 
@@ -1014,17 +1012,17 @@ class Query
      *
      * @access   private
      * @param $function
-     * @internal param Array $attributes
+     * @param $ar
+     * @param $arguments
      * @return string
      */
-    private function getInsertQuery($function)
+    private function getInsertQuery($function, $ar, $arguments)
     {
-        $ar = static::getActiveRecord();
-        $keys = array_keys($ar->attributes);
+        $keys = array_keys($arguments);
 
         return $function . " INTO `" . $ar->getDatabase() . "`.`" . $ar->getTableName() .
-        "` (" . implode(",", $keys) . ")" .
-        " VALUES(:" . implode(",:", $keys) . ")";
+        "` (" . implode(", ", $keys) . ")" .
+        " VALUES(:" . implode(", :", $keys) . ")";
     }
 
     /**
@@ -1105,7 +1103,7 @@ class Query
     private function buildQuery()
     {
         // Ignore columns while selecting from database
-        if (method_exists(self::getActiveRecord(), 'exceptColumns')) {
+        if (method_exists(self::getActiveRecord(), 'skip')) {
             $this->prepareExceptColumns();
         }
 
@@ -1133,7 +1131,7 @@ class Query
         $columns = $this->query($select->schema)->getAll();
 
         // Get all column name which need to remove from the result set
-        $exceptColumns = $ar->exceptColumns();
+        $exceptColumns = $ar->skip();
         $columnArray = array();
         foreach ($columns as $key => $value) {
 
@@ -1185,7 +1183,7 @@ class Query
         return ($this->_selectColumns == '*') ?
             $this->quoteIdentifier(
                 self::getActiveRecord()->getTableName()
-            ) . ' ' . $this->_selectColumns : $this->_selectColumns;
+            ) . ' .' . $this->_selectColumns : $this->_selectColumns;
     }
 
     /**
@@ -1232,7 +1230,7 @@ class Query
                 ) . '.*';
         } else {
 
-            if (strpos($column, 'AS') !== false || strpos($column, 'as') !== false) {
+            if (stripos($column, 'AS') !== false) {
                 return $this->selectExpr($column);
             }
 

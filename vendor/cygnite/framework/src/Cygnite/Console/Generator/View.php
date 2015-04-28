@@ -139,7 +139,7 @@ class View
         $layoutFile = $appViewPath.$layout.DS.$this->viewLayoutName();
 
         if ($this->layoutType == 'php') {
-            $layoutFile = str_replace('.stub', '.php', $layoutFile);
+            $layoutFile = str_replace('.stub', EXT, $layoutFile);
         } else {
             $layoutFile = str_replace('.stub', '.twig', $layoutFile);
         }
@@ -272,7 +272,7 @@ class View
                 } else{
                     $rowType = '';
                     if ($this->layoutType == 'php') {
-                        $rowType = '<?php echo $value->'.$value->column_name.'; ?>';
+                        $rowType = '<?php echo $row->'.$value->column_name.'; ?>';
                     } else {
                         $rowType = '{{row.'.$value->column_name.'}}';
                     }
@@ -293,16 +293,9 @@ class View
         /* Update View Page */
         # replace controller name - #controllerName#
 
-        $content = str_replace('#controllerName#',
-            strtolower(str_replace("Controller", "", $this->command->controller)),
-            $content
-        );
-
-        $content = str_replace(
-            '#Controller#',
-            Inflector::classify(str_replace("Controller", "", $this->command->controller)),
-            $content
-        );
+        $controller = str_replace("Controller", "", $this->command->controller);
+        $content = str_replace('#controllerName#', strtolower($controller), $content);
+        $content = str_replace('#Controller#', Inflector::classify($controller), $content);
 
         return $content;
     }
@@ -319,7 +312,7 @@ class View
             if ($value->column_name !== 'id') {
 
                 if ($this->layoutType == 'php') {
-                    $rowType = '<?php echo $this->record->'.$value->column_name.'; ?>';
+                    $rowType = '<?php echo $record->'.$value->column_name.'; ?>';
                 } else {
                     $rowType = '{{ record.'.$value->column_name.' }}';
                 }
@@ -365,7 +358,7 @@ class View
         $appViewPath = $this->getApplicationViewPath();
 
         if ($this->layoutType == 'php') {
-           $viewName = str_replace('.stub', '.php', $viewName);
+           $viewName = str_replace('.stub', EXT, $viewName);
         } else {
            $viewName = str_replace('.stub', '.twig', $viewName);
         }

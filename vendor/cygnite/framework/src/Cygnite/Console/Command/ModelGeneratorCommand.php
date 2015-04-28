@@ -1,4 +1,12 @@
 <?php
+/*
+ * This file is part of the Cygnite package.
+ *
+ * (c) Sanjoy Dey <dey.sanjoy0@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 namespace Cygnite\Console\Command;
 
 use Cygnite\Foundation\Application;
@@ -12,6 +20,13 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
+/**
+ * Cygnite Model Generator
+ *
+ * This class used to generate model skeleton
+ * @author Sanjoy Dey <dey.sanjoy0@gmail.com>
+ *
+ */
 class ModelGeneratorCommand extends Command
 {
     public $applicationDir;
@@ -46,7 +61,7 @@ class ModelGeneratorCommand extends Command
     {
         return $this->tableSchema->connect(
                     $this->database,
-                    $this->inflection->tabilize($this->model)
+                    Inflector::tabilize($this->model)
                 )->getColumns();
     }
 
@@ -102,7 +117,7 @@ class ModelGeneratorCommand extends Command
             throw new \Exception("Please check your model name. It seems doesn't exists in the database.");
         }
 
-        $this->applicationDir = BASE_PATH.DS.APP_PATH;
+        $this->applicationDir = CYGNITE_BASE.DS.APPPATH;
         $this->generateModel();
 
         $modelPath = $this->applicationDir.DS.'models'.DS.$this->model.EXT;

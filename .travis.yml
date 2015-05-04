@@ -2,3 +2,11 @@ language: php
 
 php:
   - 5.4
+  - 5.5
+
+gem install travis
+travis encrypt GITHUB_COMPOSER_AUTH = 86a2f8223124fb7c194349b2eb8021d3815a4783 --add #crypter your token
+
+install :
+  -  composer config -g github-oauth.github.com $GITHUB_COMPOSER_AUTH
+  -  composer install --dev --no-interaction

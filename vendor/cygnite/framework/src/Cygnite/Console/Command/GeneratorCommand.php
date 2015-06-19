@@ -25,7 +25,6 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
 class GeneratorCommand extends Command
 {
-
     public $applicationDir;
     public $controller;
     public $model;
@@ -36,11 +35,9 @@ class GeneratorCommand extends Command
     private $output;
     private $viewType;
 
-    public static function __callStatic($method, $arguments = array())
+    public static function instance()
     {
-        if ($method == 'instance') {
-            return new self();
-        }
+        return new self();
     }
 
     public function setSchema($table)
@@ -59,8 +56,8 @@ class GeneratorCommand extends Command
 
         if (count($this->columns) > 0) {
             foreach ($this->columns as $key => $value) {
-                if ($value->column_key == 'PRI' || $value->extra == 'auto_increment') {
-                    $primaryKey = $value->column_name;
+                if ($value->COLUMN_KEY == 'PRI' || $value->EXTRA == 'auto_increment') {
+                    $primaryKey = $value->COLUMN_NAME;
                     break;
                 }
             }
@@ -93,7 +90,8 @@ class GeneratorCommand extends Command
         $this->controller = Inflector::classify($input->getArgument('name')) . 'Controller';
         // Model name
         $this->model = Inflector::classify($input->getArgument('model'));
-        /** Check for argument database name if not given we will use default
+        /**
+         * Check for argument database name if not given we will use default
          *  database connection
          */
         $this->database = (!is_null($input->getArgument('database'))) ?
@@ -102,7 +100,6 @@ class GeneratorCommand extends Command
 
         // By default we will generate plain php layout and view pages
         $this->viewType = ($input->getOption('template') == false) ? 'php' : 'twig';
-
         $this->columns = $this->getColumns();
 
         if (empty($this->columns)) {
@@ -163,7 +160,7 @@ class GeneratorCommand extends Command
     {
         $modelInstance = Model::instance($this);
         $modelTemplateDir =
-            dirname(dirname(__FILE__)) . DS . 'src' . DS . ucfirst('apps') . DS . ucfirst('models') . DS;
+            dirname(dirname(__FILE__)) . DS . 'src' . DS . 'Apps' . DS . 'Models' . DS;
 
         $modelInstance->setModelTemplatePath($modelTemplateDir);
         $modelInstance->updateTemplate();
@@ -178,7 +175,7 @@ class GeneratorCommand extends Command
     {
         $viewInstance = View::instance($this);
         $viewInstance->setLayoutType($this->viewType);
-        $viewTemplateDir = dirname(dirname(__FILE__)) . DS . 'src' . DS . ucfirst('apps') . DS . ucfirst('views') . DS;
+        $viewTemplateDir = dirname(dirname(__FILE__)) . DS . 'src' . DS . 'Apps' . DS . 'Views' . DS;
         $viewInstance->setTableColumns($this->columns);
         $viewInstance->setViewTemplatePath($viewTemplateDir);
 

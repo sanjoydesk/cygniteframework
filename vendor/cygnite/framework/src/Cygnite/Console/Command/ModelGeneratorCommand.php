@@ -62,7 +62,7 @@ class ModelGeneratorCommand extends Command
         return $this->tableSchema->connect(
                     $this->database,
                     Inflector::tabilize($this->model)
-                )->getColumns();
+                )->{__FUNCTION__}();
     }
 
     /**
@@ -75,8 +75,8 @@ class ModelGeneratorCommand extends Command
 
         if (count($this->columns) > 0) {
             foreach ($this->columns as $key => $value) {
-                if ($value->column_key == 'PRI' || $value->extra == 'auto_increment') {
-                    $primaryKey = $value->column_name;
+                if ($value->COLUMN_KEY == 'PRI' || $value->EXTRA == 'auto_increment') {
+                    $primaryKey = $value->COLUMN_NAME;
                     break;
                 }
             }
@@ -110,11 +110,10 @@ class ModelGeneratorCommand extends Command
         // Check for argument database name if not given we will use default
         // database connection
         $this->database = $this->getDatabase($input);
-
         $this->columns = $this->getColumns();
 
         if (empty($this->columns)) {
-            throw new \Exception("Please check your model name. It seems doesn't exists in the database.");
+            throw new \Exception("Please check your model name. It seems table doesn't exists into database.");
         }
 
         $this->applicationDir = CYGNITE_BASE.DS.APPPATH;

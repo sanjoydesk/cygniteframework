@@ -26,15 +26,15 @@ class Product extends Migration
                 $table->tableName = 'product';
                 $table->create(
                     array(
-                        array('name'=> 'id', 'type' => 'int', 'length' => 11,
+                        array('column'=> 'id', 'type' => 'int', 'length' => 11,
                             'increment' => true, 'key' => 'primary'),
-                        array('name'=> 'product_name', 'type' => 'string', 'length' =>100),
-                        array('name'=> 'category', 'type' => 'string', 'length' =>150),
-                        array('name'=> 'description', 'type' => 'string', 'length'  =>255),
-                        array('name'=> 'validity', 'type' => 'date', 'length'  =>'0000-00-00'),
-                        array('name'=> 'price', 'type' => 'decimal', 'length'  =>'10,2'),
-                        array('name'=> 'created_at', 'type' => 'datetime','length'  =>"DEFAULT '0000-00-00 00:00:00'"),
-                        array('name'=> 'updated_at','type' => 'datetime','length'  =>"DEFAULT '0000-00-00 00:00:00'"),
+                        array('column'=> 'product_name', 'type' => 'string', 'length' =>100),
+                        array('column'=> 'category', 'type' => 'string', 'length' =>150),
+                        array('column'=> 'description', 'type' => 'string', 'length'  =>255),
+                        array('column'=> 'validity', 'type' => 'date', 'length'  =>'0000-00-00'),
+                        array('column'=> 'price', 'type' => 'decimal', 'length'  =>'10,2'),
+                        array('column'=> 'created_at', 'type' => 'datetime','length'  =>"DEFAULT '0000-00-00 00:00:00'"),
+                        array('column'=> 'updated_at','type' => 'datetime','length'  =>"DEFAULT '0000-00-00 00:00:00'"),
                     ),
                     'InnoDB',
                     'latin1'

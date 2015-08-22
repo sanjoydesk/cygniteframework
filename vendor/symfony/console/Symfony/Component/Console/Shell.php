@@ -31,7 +31,7 @@ class Shell
     private $history;
     private $output;
     private $hasReadline;
-    private $processIsolation;
+    private $processIsolation = false;
 
     /**
      * Constructor.
@@ -47,7 +47,6 @@ class Shell
         $this->application = $application;
         $this->history = getenv('HOME').'/.history_'.$application->getName();
         $this->output = new ConsoleOutput();
-        $this->processIsolation = false;
     }
 
     /**
@@ -164,7 +163,7 @@ EOF;
      *
      * @param string $text The last segment of the entered text
      *
-     * @return bool|array    A list of guessed strings or true
+     * @return bool|array A list of guessed strings or true
      */
     private function autocompleter($text)
     {

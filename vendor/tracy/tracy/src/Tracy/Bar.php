@@ -17,7 +17,7 @@ use Tracy;
  */
 class Bar
 {
-	/** @var string[] */
+	/** @deprecated */
 	public $info = array();
 
 	/** @var IBarPanel[] */
@@ -69,6 +69,7 @@ class Bar
 				$panelHtml = $tab ? (string) $panel->getPanel() : NULL;
 				if ($tab && $panel instanceof \Nette\Diagnostics\IBarPanel) {
 					$panelHtml = preg_replace('~(["\'.\s#])nette-(debug|inner|collapsed|toggle|toggle-collapsed)(["\'\s])~', '$1tracy-$2$3', $panelHtml);
+					$panelHtml = str_replace('tracy-toggle-collapsed', 'tracy-toggle tracy-collapsed', $panelHtml);
 				}
 				$panels[] = array('id' => $idHtml, 'tab' => $tab, 'panel' => $panelHtml);
 
@@ -76,7 +77,8 @@ class Bar
 				$panels[] = array(
 					'id' => "error-$idHtml",
 					'tab' => "Error in $id",
-					'panel' => '<h1>Error: ' . $id . '</h1><div class="tracy-inner">' . nl2br(htmlSpecialChars($e, ENT_IGNORE)) . '</div>',
+					'panel' => '<h1>Error: ' . $id . '</h1><div class="tracy-inner">'
+						. nl2br(htmlSpecialChars($e, ENT_IGNORE, 'UTF-8')) . '</div>',
 				);
 				while (ob_get_level() > $obLevel) { // restore ob-level if broken
 					ob_end_clean();
@@ -104,8 +106,7 @@ class Bar
 		}
 		$session = NULL;
 
-		$info = array_filter($this->info);
-		require __DIR__ . '/templates/bar.phtml';
+		require __DIR__ . '/assets/Bar/bar.phtml';
 	}
 
 }

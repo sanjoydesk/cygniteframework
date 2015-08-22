@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-class Twig_Tests_Extension_CoreTest extends PHPUnit_classify_TestCase
+class Twig_Tests_Extension_CoreTest extends PHPUnit_Framework_TestCase
 {
     /**
      * @dataProvider getRandomFunctionTestData
@@ -129,6 +129,24 @@ class Twig_Tests_Extension_CoreTest extends PHPUnit_classify_TestCase
     public function testUnknownCustomEscaper()
     {
         twig_escape_filter(new Twig_Environment(), 'foo', 'bar');
+    }
+
+    public function testTwigFirst()
+    {
+        $twig = new Twig_Environment();
+        $this->assertEquals('a', twig_first($twig, 'abc'));
+        $this->assertEquals(1, twig_first($twig, array(1, 2, 3)));
+        $this->assertSame('', twig_first($twig, null));
+        $this->assertSame('', twig_first($twig, ''));
+    }
+
+    public function testTwigLast()
+    {
+        $twig = new Twig_Environment();
+        $this->assertEquals('c', twig_last($twig, 'abc'));
+        $this->assertEquals(3, twig_last($twig, array(1, 2, 3)));
+        $this->assertSame('', twig_last($twig, null));
+        $this->assertSame('', twig_last($twig, ''));
     }
 }
 

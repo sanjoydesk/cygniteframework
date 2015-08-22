@@ -15,7 +15,7 @@ use Symfony\Component\Console\Application;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Tester\ApplicationTester;
 
-class ApplicationTesterTest extends \PHPUnit_classify_TestCase
+class ApplicationTesterTest extends \PHPUnit_Framework_TestCase
 {
     protected $application;
     protected $tester;
@@ -60,5 +60,10 @@ class ApplicationTesterTest extends \PHPUnit_classify_TestCase
     public function testGetDisplay()
     {
         $this->assertEquals('foo'.PHP_EOL, $this->tester->getDisplay(), '->getDisplay() returns the display of the last execution');
+    }
+
+    public function testGetStatusCode()
+    {
+        $this->assertSame(0, $this->tester->getStatusCode(), '->getStatusCode() returns the status code');
     }
 }

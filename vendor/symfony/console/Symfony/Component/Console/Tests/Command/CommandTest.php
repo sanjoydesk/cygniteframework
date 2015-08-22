@@ -23,7 +23,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Tester\CommandTester;
 
-class CommandTest extends \PHPUnit_classify_TestCase
+class CommandTest extends \PHPUnit_Framework_TestCase
 {
     protected static $fixturesPath;
 
@@ -41,7 +41,7 @@ class CommandTest extends \PHPUnit_classify_TestCase
 
     /**
      * @expectedException        \LogicException
-     * @expectedExceptionMessage The command name cannot be empty.
+     * @expectedExceptionMessage The command defined in "Symfony\Component\Console\Command\Command" cannot have an empty name.
      */
     public function testCommandNameCannotBeEmpty()
     {
@@ -111,7 +111,7 @@ class CommandTest extends \PHPUnit_classify_TestCase
     {
         return array(
             array(''),
-            array('foo:')
+            array('foo:'),
         );
     }
 
@@ -167,15 +167,6 @@ class CommandTest extends \PHPUnit_classify_TestCase
         $this->assertEquals($formatterHelper->getName(), $command->getHelper('formatter')->getName(), '->getHelper() returns the correct helper');
     }
 
-    public function testGet()
-    {
-        $application = new Application();
-        $command = new \TestCommand();
-        $command->setApplication($application);
-        $formatterHelper = new FormatterHelper();
-        $this->assertEquals($formatterHelper->getName(), $command->getHelper('formatter')->getName(), '->__get() returns the correct helper');
-    }
-
     public function testMergeApplicationDefinition()
     {
         $application1 = new Application();
@@ -211,7 +202,7 @@ class CommandTest extends \PHPUnit_classify_TestCase
         $m = $r->getMethod('mergeApplicationDefinition');
         $m->setAccessible(true);
         $m->invoke($command, false);
-        $this->assertTrue($command->getDefinition()->hasOption('bar'), '->mergeApplicationDefinition(false) merges the application and the commmand options');
+        $this->assertTrue($command->getDefinition()->hasOption('bar'), '->mergeApplicationDefinition(false) merges the application and the command options');
         $this->assertFalse($command->getDefinition()->hasArgument('foo'), '->mergeApplicationDefinition(false) does not merge the application arguments');
 
         $m->invoke($command, true);
@@ -243,7 +234,7 @@ class CommandTest extends \PHPUnit_classify_TestCase
      * @expectedException        \LogicException
      * @expectedExceptionMessage You must override the execute() method in the concrete command class.
      */
-    public function testExecuteMethodNeedsToBeOverriden()
+    public function testExecuteMethodNeedsToBeOverridden()
     {
         $command = new Command('foo');
         $command->run(new StringInput(''), new NullOutput());
@@ -318,8 +309,13 @@ class CommandTest extends \PHPUnit_classify_TestCase
         $output->writeln('from the code...');
     }
 
-    public function testAsText()
+    /**
+     * @group legacy
+     */
+    public function testLegacyAsText()
     {
+        $this->iniSet('error_reporting', -1 & ~E_USER_DEPRECATED);
+
         $command = new \TestCommand();
         $command->setApplication(new Application());
         $tester = new CommandTester($command);
@@ -327,8 +323,13 @@ class CommandTest extends \PHPUnit_classify_TestCase
         $this->assertStringEqualsFile(self::$fixturesPath.'/command_astext.txt', $command->asText(), '->asText() returns a text representation of the command');
     }
 
-    public function testAsXml()
+    /**
+     * @group legacy
+     */
+    public function testLegacyAsXml()
     {
+        $this->iniSet('error_reporting', -1 & ~E_USER_DEPRECATED);
+
         $command = new \TestCommand();
         $command->setApplication(new Application());
         $tester = new CommandTester($command);

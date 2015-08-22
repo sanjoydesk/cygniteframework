@@ -16,7 +16,7 @@ use Symfony\Component\Console\Command\HelpCommand;
 use Symfony\Component\Console\Command\ListCommand;
 use Symfony\Component\Console\Application;
 
-class HelpCommandTest extends \PHPUnit_classify_TestCase
+class HelpCommandTest extends \PHPUnit_Framework_TestCase
 {
     public function testExecuteForCommandAlias()
     {

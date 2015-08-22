@@ -24,7 +24,15 @@ class BlueScreen
 	private $panels = array();
 
 	/** @var string[] paths to be collapsed in stack trace (e.g. core libraries) */
-	public $collapsePaths = array(__DIR__);
+	public $collapsePaths = array();
+
+
+	public function __construct()
+	{
+		$this->collapsePaths[] = preg_match('#(.+/vendor)/tracy/tracy/src/Tracy$#', strtr(__DIR__, '\\', '/'), $m)
+			? $m[1]
+			: __DIR__;
+	}
 
 
 	/**
@@ -50,7 +58,16 @@ class BlueScreen
 	{
 		$panels = $this->panels;
 		$info = array_filter($this->info);
-		require __DIR__ . '/templates/bluescreen.phtml';
+		$source = Helpers::getSource();
+		$sourceIsUrl = preg_match('#^https?://#', $source);
+		$title = $exception instanceof \ErrorException
+			? Helpers::errorTypeToString($exception->getSeverity())
+			: get_class($exception);
+		$skipError = $sourceIsUrl && $exception instanceof \ErrorException && !empty($exception->skippable)
+			? $source . (strpos($source, '?') ? '&' : '?') . '_tracy_skip_error'
+			: NULL;
+
+		require __DIR__ . '/assets/BlueScreen/bluescreen.phtml';
 	}
 
 
@@ -61,15 +78,15 @@ class BlueScreen
 	 * @param  int
 	 * @return string
 	 */
-	public static function highlightFile($file, $line, $lines = 15, $vars = array())
+	public static function highlightFile($file, $line, $lines = 15, array $vars = NULL)
 	{
 		$source = @file_get_contents($file); // intentionally @
 		if ($source) {
-			return substr_replace(
-				static::highlightPhp($source, $line, $lines, $vars),
-				' data-tracy-href="' . htmlspecialchars(strtr(Debugger::$editor, array('%file' => rawurlencode($file), '%line' => $line))) . '"',
-				4, 0
-			);
+			$source = static::highlightPhp($source, $line, $lines, $vars);
+			if ($editor = Helpers::editorUri($file, $line)) {
+				$source = substr_replace($source, ' data-tracy-href="' . htmlspecialchars($editor, ENT_QUOTES, 'UTF-8') . '"', 4, 0);
+			}
+			return $source;
 		}
 	}
 
@@ -81,7 +98,7 @@ class BlueScreen
 	 * @param  int
 	 * @return string
 	 */
-	public static function highlightPhp($source, $line, $lines = 15, $vars = array())
+	public static function highlightPhp($source, $line, $lines = 15, array $vars = NULL)
 	{
 		if (function_exists('ini_set')) {
 			ini_set('highlight.comment', '#998; font-style: italic');
@@ -95,14 +112,19 @@ class BlueScreen
 		$source = explode("\n", highlight_string($source, TRUE));
 		$out = $source[0]; // <code><span color=highlight.html>
 		$source = str_replace('<br />', "\n", $source[1]);
-
 		$out .= static::highlightLine($source, $line, $lines);
-		$out = preg_replace_callback('#">\$(\w+)(&nbsp;)?</span>#', function($m) use ($vars) {
-			return isset($vars[$m[1]])
-				? '" title="' . str_replace('"', '&quot;', strip_tags(Dumper::toHtml($vars[$m[1]]))) . $m[0]
-				: $m[0];
-		}, $out);
 
+		if ($vars) {
+			$out = preg_replace_callback('#">\$(\w+)(&nbsp;)?</span>#', function($m) use ($vars) {
+				return array_key_exists($m[1], $vars)
+					? '" title="'
+						. str_replace('"', '&quot;', trim(strip_tags(Dumper::toHtml($vars[$m[1]], array(Dumper::DEPTH => 1)))))
+						. $m[0]
+					: $m[0];
+			}, $out);
+		}
+
+		$out = str_replace('&nbsp;', ' ', $out);
 		return "<pre class='php'><div>$out</div></pre>";
 	}
 

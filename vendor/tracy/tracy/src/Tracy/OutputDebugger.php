@@ -17,11 +17,8 @@ class OutputDebugger
 {
 	const BOM = "\xEF\xBB\xBF";
 
-	/** @var array of [file, line, output] */
+	/** @var array of [file, line, output, stack] */
 	private $list = array();
-
-	/** @var string */
-	private $lastFile;
 
 
 	public static function enable()
@@ -42,14 +39,18 @@ class OutputDebugger
 	}
 
 
+	/** @internal */
 	public function handler($s, $phase)
 	{
-		$trace = debug_backtrace(FALSE);
+		$trace = debug_backtrace(PHP_VERSION_ID >= 50306 ? DEBUG_BACKTRACE_IGNORE_ARGS : FALSE);
 		if (isset($trace[0]['file'], $trace[0]['line'])) {
-			if ($this->lastFile === $trace[0]['file']) {
-				$this->list[count($this->list) - 1][2] .= $s;
+			$stack = $trace;
+			unset($stack[0]['line'], $stack[0]['args']);
+			$i = count($this->list);
+			if ($i && $this->list[$i - 1][3] === $stack) {
+				$this->list[$i - 1][2] .= $s;
 			} else {
-				$this->list[] = array($this->lastFile = $trace[0]['file'], $trace[0]['line'], $s);
+				$this->list[] = array($trace[0]['file'], $trace[0]['line'], $s, $stack);
 			}
 		}
 		if ($phase === PHP_OUTPUT_HANDLER_FINAL) {
@@ -62,9 +63,17 @@ class OutputDebugger
 	{
 		$res = '<style>code, pre {white-space:nowrap} a {text-decoration:none} pre {color:gray;display:inline} big {color:red}</style><code>';
 		foreach ($this->list as $item) {
-			list($file, $line, $s) = $item;
+			$stack = array();
+			foreach (array_slice($item[3], 1) as $t) {
+				$t += array('class' => '', 'type' => '', 'function' => '');
+				$stack[] = "$t[class]$t[type]$t[function]()"
+					. (isset($t['file'], $t['line']) ? ' in ' . basename($t['file']) . ":$t[line]" : '');
+			}
+
 			$res .= Helpers::editorLink($item[0], $item[1]) . ' '
-				. str_replace(self::BOM, '<big>BOM</big>', Dumper::toHtml($item[2])) . "<br>\n";
+				. '<span title="' . htmlspecialchars(implode("\n", $stack), ENT_IGNORE | ENT_QUOTES, 'UTF-8') . '">'
+				. str_replace(self::BOM, '<big>BOM</big>', Dumper::toHtml($item[2]))
+				. "</span><br>\n";
 		}
 		return $res . '</code>';
 	}

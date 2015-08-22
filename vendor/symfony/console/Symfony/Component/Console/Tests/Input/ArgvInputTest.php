@@ -16,7 +16,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class ArgvInputTest extends \PHPUnit_classify_TestCase
+class ArgvInputTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
@@ -57,92 +57,92 @@ class ArgvInputTest extends \PHPUnit_classify_TestCase
                 array('cli.php', '--foo'),
                 array(new InputOption('foo')),
                 array('foo' => true),
-                '->parse() parses long options without a value'
+                '->parse() parses long options without a value',
             ),
             array(
                 array('cli.php', '--foo=bar'),
                 array(new InputOption('foo', 'f', InputOption::VALUE_REQUIRED)),
                 array('foo' => 'bar'),
-                '->parse() parses long options with a required value (with a = separator)'
+                '->parse() parses long options with a required value (with a = separator)',
             ),
             array(
                 array('cli.php', '--foo', 'bar'),
                 array(new InputOption('foo', 'f', InputOption::VALUE_REQUIRED)),
                 array('foo' => 'bar'),
-                '->parse() parses long options with a required value (with a space separator)'
+                '->parse() parses long options with a required value (with a space separator)',
             ),
             array(
                 array('cli.php', '-f'),
                 array(new InputOption('foo', 'f')),
                 array('foo' => true),
-                '->parse() parses short options without a value'
+                '->parse() parses short options without a value',
             ),
             array(
                 array('cli.php', '-fbar'),
                 array(new InputOption('foo', 'f', InputOption::VALUE_REQUIRED)),
                 array('foo' => 'bar'),
-                '->parse() parses short options with a required value (with no separator)'
+                '->parse() parses short options with a required value (with no separator)',
             ),
             array(
                 array('cli.php', '-f', 'bar'),
                 array(new InputOption('foo', 'f', InputOption::VALUE_REQUIRED)),
                 array('foo' => 'bar'),
-                '->parse() parses short options with a required value (with a space separator)'
+                '->parse() parses short options with a required value (with a space separator)',
             ),
             array(
                 array('cli.php', '-f', ''),
                 array(new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL)),
                 array('foo' => ''),
-                '->parse() parses short options with an optional empty value'
+                '->parse() parses short options with an optional empty value',
             ),
             array(
                 array('cli.php', '-f', '', 'foo'),
                 array(new InputArgument('name'), new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL)),
                 array('foo' => ''),
-                '->parse() parses short options with an optional empty value followed by an argument'
+                '->parse() parses short options with an optional empty value followed by an argument',
             ),
             array(
                 array('cli.php', '-f', '', '-b'),
                 array(new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL), new InputOption('bar', 'b')),
                 array('foo' => '', 'bar' => true),
-                '->parse() parses short options with an optional empty value followed by an option'
+                '->parse() parses short options with an optional empty value followed by an option',
             ),
             array(
                 array('cli.php', '-f', '-b', 'foo'),
                 array(new InputArgument('name'), new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL), new InputOption('bar', 'b')),
                 array('foo' => null, 'bar' => true),
-                '->parse() parses short options with an optional value which is not present'
+                '->parse() parses short options with an optional value which is not present',
             ),
             array(
                 array('cli.php', '-fb'),
                 array(new InputOption('foo', 'f'), new InputOption('bar', 'b')),
                 array('foo' => true, 'bar' => true),
-                '->parse() parses short options when they are aggregated as a single one'
+                '->parse() parses short options when they are aggregated as a single one',
             ),
             array(
                 array('cli.php', '-fb', 'bar'),
                 array(new InputOption('foo', 'f'), new InputOption('bar', 'b', InputOption::VALUE_REQUIRED)),
                 array('foo' => true, 'bar' => 'bar'),
-                '->parse() parses short options when they are aggregated as a single one and the last one has a required value'
+                '->parse() parses short options when they are aggregated as a single one and the last one has a required value',
             ),
             array(
                 array('cli.php', '-fb', 'bar'),
                 array(new InputOption('foo', 'f'), new InputOption('bar', 'b', InputOption::VALUE_OPTIONAL)),
                 array('foo' => true, 'bar' => 'bar'),
-                '->parse() parses short options when they are aggregated as a single one and the last one has an optional value'
+                '->parse() parses short options when they are aggregated as a single one and the last one has an optional value',
             ),
             array(
                 array('cli.php', '-fbbar'),
                 array(new InputOption('foo', 'f'), new InputOption('bar', 'b', InputOption::VALUE_OPTIONAL)),
                 array('foo' => true, 'bar' => 'bar'),
-                '->parse() parses short options when they are aggregated as a single one and the last one has an optional value with no separator'
+                '->parse() parses short options when they are aggregated as a single one and the last one has an optional value with no separator',
             ),
             array(
                 array('cli.php', '-fbbar'),
                 array(new InputOption('foo', 'f', InputOption::VALUE_OPTIONAL), new InputOption('bar', 'b', InputOption::VALUE_OPTIONAL)),
                 array('foo' => 'bbar', 'bar' => null),
-                '->parse() parses short options when they are aggregated as a single one and one of them takes a value'
-            )
+                '->parse() parses short options when they are aggregated as a single one and one of them takes a value',
+            ),
         );
     }
 
@@ -163,43 +163,43 @@ class ArgvInputTest extends \PHPUnit_classify_TestCase
             array(
                 array('cli.php', '--foo'),
                 new InputDefinition(array(new InputOption('foo', 'f', InputOption::VALUE_REQUIRED))),
-                'The "--foo" option requires a value.'
+                'The "--foo" option requires a value.',
             ),
             array(
                 array('cli.php', '-f'),
                 new InputDefinition(array(new InputOption('foo', 'f', InputOption::VALUE_REQUIRED))),
-                'The "--foo" option requires a value.'
+                'The "--foo" option requires a value.',
             ),
             array(
                 array('cli.php', '-ffoo'),
                 new InputDefinition(array(new InputOption('foo', 'f', InputOption::VALUE_NONE))),
-                'The "-o" option does not exist.'
+                'The "-o" option does not exist.',
             ),
             array(
                 array('cli.php', '--foo=bar'),
                 new InputDefinition(array(new InputOption('foo', 'f', InputOption::VALUE_NONE))),
-                'The "--foo" option does not accept a value.'
+                'The "--foo" option does not accept a value.',
             ),
             array(
                 array('cli.php', 'foo', 'bar'),
                 new InputDefinition(),
-                'Too many arguments.'
+                'Too many arguments.',
             ),
             array(
                 array('cli.php', '--foo'),
                 new InputDefinition(),
-                'The "--foo" option does not exist.'
+                'The "--foo" option does not exist.',
             ),
             array(
                 array('cli.php', '-f'),
                 new InputDefinition(),
-                'The "-f" option does not exist.'
+                'The "-f" option does not exist.',
             ),
             array(
                 array('cli.php', '-1'),
                 new InputDefinition(array(new InputArgument('number'))),
-                'The "-1" option does not exist.'
-            )
+                'The "-1" option does not exist.',
+            ),
         );
     }
 
@@ -257,7 +257,7 @@ class ArgvInputTest extends \PHPUnit_classify_TestCase
     public function testGetFirstArgument()
     {
         $input = new ArgvInput(array('cli.php', '-fbbar'));
-        $this->assertEquals('', $input->getFirstArgument(), '->getFirstArgument() returns the first argument from the raw input');
+        $this->assertNull($input->getFirstArgument(), '->getFirstArgument() returns null when there is no arguments');
 
         $input = new ArgvInput(array('cli.php', '-fbbar', 'foo'));
         $this->assertEquals('foo', $input->getFirstArgument(), '->getFirstArgument() returns the first argument from the raw input');
@@ -304,6 +304,7 @@ class ArgvInputTest extends \PHPUnit_classify_TestCase
             array(array('app/console', 'foo:bar', '-e', 'dev'), array('-e', '--env'), 'dev'),
             array(array('app/console', 'foo:bar', '--env=dev'), array('-e', '--env'), 'dev'),
             array(array('app/console', 'foo:bar', '--env=dev', '--en=1'), array('--en'), '1'),
+            array(array('app/console', 'foo:bar', '--env=dev', '', '--en=1'), array('--en'), '1'),
         );
     }
 

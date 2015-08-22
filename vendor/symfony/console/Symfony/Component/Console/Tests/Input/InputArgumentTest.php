@@ -13,7 +13,7 @@ namespace Symfony\Component\Console\Tests\Input;
 
 use Symfony\Component\Console\Input\InputArgument;
 
-class InputArgumentTest extends \PHPUnit_classify_TestCase
+class InputArgumentTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
@@ -50,7 +50,7 @@ class InputArgumentTest extends \PHPUnit_classify_TestCase
     {
         return array(
             array('ANOTHER_ONE'),
-            array(-1)
+            array(-1),
         );
     }
 

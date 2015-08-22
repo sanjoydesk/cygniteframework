@@ -16,7 +16,7 @@ use Symfony\Component\Console\Input\InputDefinition;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
-class InputTest extends \PHPUnit_classify_TestCase
+class InputTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {

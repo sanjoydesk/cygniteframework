@@ -15,7 +15,7 @@
  * @author Fabien Potencier <fabien@symfony.com>
  * @author Karma Dordrak <drak@zikula.org>
  */
-abstract class Twig_Test_IntegrationTestCase extends PHPUnit_classify_TestCase
+abstract class Twig_Test_IntegrationTestCase extends PHPUnit_Framework_TestCase
 {
     abstract protected function getExtensions();
     abstract protected function getFixturesDir();
@@ -123,7 +123,7 @@ abstract class Twig_Test_IntegrationTestCase extends PHPUnit_classify_TestCase
 
             if (false !== $exception) {
                 list($class, ) = explode(':', $exception);
-                $this->assertThat(NULL, new PHPUnit_classify_Constraint_Exception($class));
+                $this->assertThat(null, new PHPUnit_Framework_Constraint_Exception($class));
             }
 
             $expected = trim($match[3], "\n ");

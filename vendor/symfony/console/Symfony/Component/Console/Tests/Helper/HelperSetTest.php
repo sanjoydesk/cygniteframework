@@ -14,7 +14,7 @@ namespace Symfony\Component\Console\Tests\Helper;
 use Symfony\Component\Console\Helper\HelperSet;
 use Symfony\Component\Console\Command\Command;
 
-class HelperSetTest extends \PHPUnit_classify_TestCase
+class HelperSetTest extends \PHPUnit_Framework_TestCase
 {
     /**
      * @covers \Symfony\Component\Console\Helper\HelperSet::__construct
@@ -111,7 +111,24 @@ class HelperSetTest extends \PHPUnit_classify_TestCase
         $this->assertEquals($cmd, $helperset->getCommand(), '->getCommand() retrieves stored command');
     }
 
-   /**
+    /**
+     * @covers \Symfony\Component\Console\Helper\HelperSet::getIterator
+     */
+    public function testIteration()
+    {
+        $helperset = new HelperSet();
+        $helperset->set($this->getGenericMockHelper('fake_helper_01', $helperset));
+        $helperset->set($this->getGenericMockHelper('fake_helper_02', $helperset));
+
+        $helpers = array('fake_helper_01', 'fake_helper_02');
+        $i = 0;
+
+        foreach ($helperset as $helper) {
+            $this->assertEquals($helpers[$i++], $helper->getName());
+        }
+    }
+
+    /**
      * Create a generic mock for the helper interface. Optionally check for a call to setHelperSet with a specific
      * helperset instance.
      *

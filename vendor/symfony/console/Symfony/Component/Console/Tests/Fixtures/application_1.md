@@ -51,7 +51,7 @@ To display the list of available commands, please use the <info>list</info> comm
 * Is value required: yes
 * Is multiple: no
 * Description: To output help in other formats
-* Default: `NULL`
+* Default: `'txt'`
 
 **raw:**
 
@@ -70,7 +70,7 @@ To display the list of available commands, please use the <info>list</info> comm
 * Accept value: no
 * Is value required: no
 * Is multiple: no
-* Description: Display this help message.
+* Description: Display this help message
 * Default: `false`
 
 **quiet:**
@@ -80,7 +80,7 @@ To display the list of available commands, please use the <info>list</info> comm
 * Accept value: no
 * Is value required: no
 * Is multiple: no
-* Description: Do not output any message.
+* Description: Do not output any message
 * Default: `false`
 
 **verbose:**
@@ -100,7 +100,7 @@ To display the list of available commands, please use the <info>list</info> comm
 * Accept value: no
 * Is value required: no
 * Is multiple: no
-* Description: Display this application version.
+* Description: Display this application version
 * Default: `false`
 
 **ansi:**
@@ -110,7 +110,7 @@ To display the list of available commands, please use the <info>list</info> comm
 * Accept value: no
 * Is value required: no
 * Is multiple: no
-* Description: Force ANSI output.
+* Description: Force ANSI output
 * Default: `false`
 
 **no-ansi:**
@@ -120,7 +120,7 @@ To display the list of available commands, please use the <info>list</info> comm
 * Accept value: no
 * Is value required: no
 * Is multiple: no
-* Description: Disable ANSI output.
+* Description: Disable ANSI output
 * Default: `false`
 
 **no-interaction:**
@@ -130,7 +130,7 @@ To display the list of available commands, please use the <info>list</info> comm
 * Accept value: no
 * Is value required: no
 * Is multiple: no
-* Description: Do not ask any interactive question.
+* Description: Do not ask any interactive question
 * Default: `false`
 
 list
@@ -196,4 +196,4 @@ It's also possible to get raw list of commands (useful for embedding command run
 * Is value required: yes
 * Is multiple: no
 * Description: To output list in other formats
-* Default: `NULL`
+* Default: `'txt'`

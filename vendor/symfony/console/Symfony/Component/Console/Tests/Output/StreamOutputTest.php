@@ -14,7 +14,7 @@ namespace Symfony\Component\Console\Tests\Output;
 use Symfony\Component\Console\Output\Output;
 use Symfony\Component\Console\Output\StreamOutput;
 
-class StreamOutputTest extends \PHPUnit_classify_TestCase
+class StreamOutputTest extends \PHPUnit_Framework_TestCase
 {
     protected $stream;
 

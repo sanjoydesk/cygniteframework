@@ -14,7 +14,7 @@ namespace Symfony\Component\Console\Tests\Output;
 use Symfony\Component\Console\Output\NullOutput;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class NullOutputTest extends \PHPUnit_classify_TestCase
+class NullOutputTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {

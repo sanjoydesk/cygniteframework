@@ -13,7 +13,7 @@ namespace Symfony\Component\Console\Tests\Input;
 
 use Symfony\Component\Console\Input\InputOption;
 
-class InputOptionTest extends \PHPUnit_classify_TestCase
+class InputOptionTest extends \PHPUnit_Framework_TestCase
 {
     public function testConstructor()
     {
@@ -86,7 +86,7 @@ class InputOptionTest extends \PHPUnit_classify_TestCase
     {
         return array(
             array('ANOTHER_ONE'),
-            array(-1)
+            array(-1),
         );
     }
 

@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-class Twig_Tests_AutoloaderTest extends PHPUnit_classify_TestCase
+class Twig_Tests_AutoloaderTest extends PHPUnit_Framework_TestCase
 {
     public function testAutoload()
     {

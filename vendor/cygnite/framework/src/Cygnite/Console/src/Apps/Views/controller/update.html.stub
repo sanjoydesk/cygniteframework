@@ -1,4 +1,4 @@
-{% extends 'layout/main/base.html.twig' %}
+{% extends 'layouts/main/base.html.twig' %}
 
 {% block title %}
     {{ title }}
@@ -12,8 +12,12 @@
         {{  link('#controllerName#/', 'Back',{'class': 'btn btn-default btn-small btn-inverse'}) | raw }}
     </div>
 
-    <div class="error" style="color:#FF0000;">
-        {{ validation_errors | raw }}
+    <div class="error" >
+            {%  if validation_errors|length > 0 %}
+                {% for key, message in validation_errors %}
+                      <p style="color:#FF0000;">{{ message | raw }} </p>
+                {% endfor %}
+            {% endif %}
     </div>
 
     <div style="float:left;">

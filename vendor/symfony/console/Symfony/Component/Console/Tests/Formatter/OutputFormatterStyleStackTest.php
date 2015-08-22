@@ -14,7 +14,7 @@ namespace Symfony\Component\Console\Tests\Formatter;
 use Symfony\Component\Console\Formatter\OutputFormatterStyleStack;
 use Symfony\Component\Console\Formatter\OutputFormatterStyle;
 
-class OutputFormatterStyleStackTest extends \PHPUnit_classify_TestCase
+class OutputFormatterStyleStackTest extends \PHPUnit_Framework_TestCase
 {
     public function testPush()
     {

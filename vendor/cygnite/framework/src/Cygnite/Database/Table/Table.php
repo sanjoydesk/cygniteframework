@@ -58,7 +58,7 @@ class Table
     public function getColumns()
     {
         list($instance, $schema) = Schema::make($this, function ($table) {
-            $table->tableName = $this->tableName;
+                $table->tableName = $this->tableName;
 
             return [$table, $table->setTableSchema()->schema];
         });

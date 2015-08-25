@@ -29,8 +29,15 @@ use Symfony\Component\Console\Application as SymfonyApplication;
  */
 class Application extends SymfonyApplication implements ConsoleApplicationInterface
 {
+    /**
+     * Stack of Commands, Need to be registered into console
+     * application
+     *
+     * @var array
+     */
     protected $commandsStack = [
         'Cygnite\Console\Command\InitCommand',
+        'Cygnite\Console\Command\SeederCommand',
         'Cygnite\Console\Command\GeneratorCommand',
         'Cygnite\Console\Command\MigrationCommand',
         'Cygnite\Console\Command\FormGeneratorCommand',
@@ -38,8 +45,6 @@ class Application extends SymfonyApplication implements ConsoleApplicationInterf
         'Cygnite\Console\Command\ModelGeneratorCommand',
         'Cygnite\Console\Command\ControllerGeneratorCommand',
     ];
-
-    protected $stack = [];
 
     public $cygnite;
 

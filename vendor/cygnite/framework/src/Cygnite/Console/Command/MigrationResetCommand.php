@@ -32,19 +32,48 @@ use Symfony\Component\Console\Formatter\OutputFormatterStyle;
  */
 class MigrationResetCommand extends Command
 {
+    /**
+     * Name of your console command
+     *
+     * @var string
+     */
     protected $name = 'migration:reset';
 
+    /**
+     * Description of your console command
+     *
+     * @var string
+     */
     protected $description = 'Migrate Entire Database By Cygnite CLI';
 
+    /**
+     * Console command arguments
+     *
+     * @var array
+     */
+    protected $arguments = [
+        ['type', null, InputArgument::OPTIONAL, ''],
+    ];
+
+    /**
+     *
+     * @var \Cygnite\Database\Table\Table
+     */
     public $table;
 
+    /**
+     * @var \Apps\Resources\Database\DatabaseMigration
+     */
     public $migrationReset;
 
+    /**
+     * @var \Cygnite\Console\Generator\Migrator
+     */
     public $migrator;
 
     /**
-     * @param Table $table
-     * @throws \InvalidArgumentException
+     * @param Table             $table
+     * @param DatabaseMigration $migration
      */
     public function __construct(Table $table, DatabaseMigration $migration)
     {
@@ -68,28 +97,15 @@ class MigrationResetCommand extends Command
     }
 
     /**
-     * Add parameters to your console command
+     * Execute your console command
      *
+     * @return mixed|void
      */
-    protected function configure()
+    public function process()
     {
-        $this->addArgument('type', null, InputArgument::OPTIONAL, '');
-    }
-
-    /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     * @return int|null|void
-     */
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        $this->setInput($input)->setOutput($output);
-
         // Migrate init - to create migration table
-        $type = $input->getArgument('type');
+        $type = $this->argument('type');
         $this->processMigrations($type);
-
-
         $this->info("Migration completed Successfully!");
     }
 
@@ -102,7 +118,7 @@ class MigrationResetCommand extends Command
             show($files);
         }
 
-        show($this->migrationReset->getMigrations());
+        //show($this->migrationReset->getMigrations());
     }
 
     /**

@@ -14,7 +14,7 @@ use Cygnite\Mvc\Controller\AbstractBaseController;
 * You may alter code to fit your needs
 */
 
-class %ControllerName%Controller extends AbstractBaseController
+class {%ControllerClassName%}Controller extends AbstractBaseController
 {
     /* If you are using twig template you don't require to set layout */
     //protected $layout = '';
@@ -91,7 +91,7 @@ class %ControllerName%Controller extends AbstractBaseController
                 $postArray = $input->except('btnSubmit')->post();
 %modelColumns%
                 // Save information into database
-                if ($%modelName%->save()) {
+                    if ($%modelName%->save()) {
                     $this->setFlash('success', '%ControllerName% added successfully!')
                         ->redirectTo('%controllerName%/index/');
                 } else {
@@ -99,7 +99,7 @@ class %ControllerName%Controller extends AbstractBaseController
                         ->redirectTo('%controllerName%/index/');
                 }
 
-            } else {
+                } else {
                 //validation error here
                 $form->errors = $%modelName%->validationErrors();
             }
@@ -109,7 +109,7 @@ class %ControllerName%Controller extends AbstractBaseController
 
         // render view page
         $this->render('%controllerName%.create')->with([
-                'form' => $form->buildForm()->render(),
+                'form' => $form->render(),
                 'validation_errors' => $form->errors,
                 'title' => 'Add a new %ControllerName%'
         ]);
@@ -137,7 +137,6 @@ class %ControllerName%Controller extends AbstractBaseController
                 // get post array value except the submit button
                 $postArray = $input->except('btnSubmit')->post();
 %modelColumns%
-
                 // Save form information
                 if ($%modelName%->save()) {
                     $this->setFlash('success', '%ControllerName% updated successfully!')
@@ -157,7 +156,7 @@ class %ControllerName%Controller extends AbstractBaseController
 
          // render view page
         $this->render('%controllerName%.update')->with([
-                'form' => $form->buildForm()->render(),
+                'form' => $form->render(),
                 'validation_errors' => $form->errors,
                 'title' => 'Update %ControllerName%'
         ]);
@@ -190,7 +189,7 @@ class %ControllerName%Controller extends AbstractBaseController
             $this->setFlash('success', '%ControllerName% Deleted Successfully!')
                  ->redirectTo('%controllerName%/');
         } else {
-            $this->setFlash('error', 'Error Occured while deleting %ControllerName%!')
+            $this->setFlash('error', 'Error Occured While Deleting %ControllerName%!')
                  ->redirectTo('%controllerName%/');
         }
     }

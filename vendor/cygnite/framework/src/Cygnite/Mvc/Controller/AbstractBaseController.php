@@ -12,13 +12,12 @@
 namespace Cygnite\Mvc\Controller;
 
 use Exception;
-use Cygnite\Common\Encrypt;
-use Cygnite\Helpers\Inflector;
-use Cygnite\Mvc\View\ViewFactory;
-use Cygnite\Common\UrlManager\Url;
 use Cygnite\Base\EventHandler\Event;
+use Cygnite\Common\Encrypt;
 use Cygnite\Common\SessionManager\Session;
 use Cygnite\Foundation\Application as App;
+use Cygnite\Helpers\Inflector;
+use Cygnite\Mvc\View\ViewFactory;
 use Cygnite\Mvc\ControllerViewBridgeTrait;
 
 /**
@@ -62,7 +61,6 @@ abstract class AbstractBaseController
     public function __call($method, $arguments)
     {
         if (in_array($method, $this->validFlashMessage)) {
-
             return $this->setFlashMessage($method, $arguments);
         }
 
@@ -79,7 +77,8 @@ abstract class AbstractBaseController
      */
     protected function redirectTo($uri = '', $type = 'location', $httpResponseCode = 302)
     {
-        Url::redirectTo($uri, $type, $httpResponseCode);
+        $url = $this->get('cygnite.common.url-manager.url');
+        $url->redirectTo($uri, $type, $httpResponseCode);
 
         return $this;
     }

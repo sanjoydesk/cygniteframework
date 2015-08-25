@@ -24,7 +24,7 @@ class MigrationReset
      * @return mixed
      */
     public function getMigrations()
-    { echo "3........";
+    {
         return $this->migrations;
     }
 

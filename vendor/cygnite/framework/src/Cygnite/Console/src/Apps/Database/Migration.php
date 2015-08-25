@@ -11,21 +11,21 @@ class {%className%} extends Migration
 {
     protected $database = '{%database%}';
 
-	/**
-	 * Run the migrations.
-	 *
-	 * @return void
-	 */
-	public function up()
-	{
-		//Your schema to migrate
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        //Your schema to migrate
         Schema::make($this, function ($table)
         {
             $table->tableName = '{%table_name%}';
             $table->create([
                     ['column'=> 'id', 'type' => 'int', 'length' => 11,
                      'increment' => true, 'key' => 'primary'],
-
+		
                     /*..Add columns to your table schema .*/
 
                     ['column'=> 'created_at', 'type' => 'datetime'],
@@ -34,21 +34,21 @@ class {%className%} extends Migration
             ], 'InnoDB', 'latin1')->run();
         });
 		
-	}
+    }
 
-	/**
-	 * Revert back your migrations.
-	 *
-	 * @return void
-	 */
-	public function down()
-	{
-		 //Roll back your changes done by up method.
+    /**
+     * Revert back your migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        //Roll back your changes done by up method.
         Schema::make($this, function ($table)
         {
             $table->tableName = '{%table_name%}';
             $table->drop()->run();
         });
 		 
-	}
+    }
 }// End of the Migration

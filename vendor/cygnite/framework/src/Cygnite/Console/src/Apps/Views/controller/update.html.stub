@@ -12,12 +12,10 @@
         {{  link('#controllerName#/', 'Back',{'class': 'btn btn-default btn-small btn-inverse'}) | raw }}
     </div>
 
-    <div class="error" >
-            {%  if validation_errors|length > 0 %}
-                {% for key, message in validation_errors %}
-                      <p style="color:#FF0000;">{{ message | raw }} </p>
-                {% endfor %}
-            {% endif %}
+    <div class="error">
+        {% for key, message in validation_errors %}
+              <p style="color:#FF0000;">{{ message | raw }} </p>
+        {% endfor %}
     </div>
 
     <div style="float:left;">

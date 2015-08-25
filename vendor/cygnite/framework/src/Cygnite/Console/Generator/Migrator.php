@@ -257,8 +257,7 @@ class Migrator
 
         $this->command->info("Migrated: $file OK!");
     }
-
-
+    
     public function updateMigrationTable()
     {
         $this->command->table()->updateMigrationVersion($this);

@@ -1,4 +1,3 @@
-
 namespace {%Apps%}\Models;
 
 use Cygnite\Database\Schema;

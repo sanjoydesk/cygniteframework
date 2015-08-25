@@ -76,15 +76,6 @@ class Url
                 header("Location: " . $uri, true, $httpResponseCode);
                 break;
         }
-
-        /**
-         * If user want to redirect to other page then we will
-         * exit from the script execution soon after redirection
-         * @link  http://stackoverflow.com/questions/768431/how-to-make-a-redirect-in-php
-         */
-        if ($httpResponseCode == 301 || $httpResponseCode == 302) {
-            exit(0);
-        }
     }
 
     /**

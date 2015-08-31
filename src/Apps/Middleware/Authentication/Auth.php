@@ -7,7 +7,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Application\Middlewares\Authentication;
+namespace Apps\Middleware\Authentication;
 
 use Cygnite\Auth\AuthManager;
 use Cygnite\Auth\AuthInterface;
@@ -16,6 +16,11 @@ use Cygnite\Foundation\Application;
 use Cygnite\Common\SessionManager\Session;
 use Cygnite\Auth\Exception\InvalidCredentialException;
 
+/**
+ * Class Auth
+ *
+ * @package Apps\Middleware\Authentication
+ */
 class Auth extends AuthManager implements AuthInterface
 {
     public static $user = array();

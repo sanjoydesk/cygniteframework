@@ -7,11 +7,16 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Apps\Middlewares\Events;
+namespace Apps\Middleware\Events;
 
 use Cygnite\Foundation\Application;
 use Cygnite\Base\EventHandler\Event as EventListener;
 
+/**
+ * Class Event
+ *
+ * @package Apps\Middleware\Events
+ */
 class Event extends EventListener
 {
     /**
@@ -21,7 +26,7 @@ class Event extends EventListener
      * get executed
      *
      * <code>
-     * 'event.api.run' => '\\Apps\\Resources\\Extensions\\Api@run'
+     * 'event.api.run' => '\Apps\Resources\Extensions\Api@run'
      *
      *  will execute
      *
@@ -38,7 +43,7 @@ class Event extends EventListener
      * @var array
      */
     protected $listen = [
-        'event.api.run' => '\\Apps\\Resources\\Extensions\\Api@run',
+        'event.api.run' => '\Apps\Resources\Extensions\Api@run',
     ];
 
     /**
@@ -48,8 +53,8 @@ class Event extends EventListener
      * @var array
      */
     public static $appEvents = [
-        'beforeBootingApplication' => '\\Apps\\Resources\\Extensions\\Api@payment',
-        'afterBootingApplication' => '\\Apps\\Resources\\Extensions\\Api@paymentSuccess'
+        'beforeBootingApplication' => '\Apps\Resources\Extensions\Api@payment',
+        'afterBootingApplication' => '\Apps\Resources\Extensions\Api@paymentSuccess'
     ];
 
     public static $activateAppEvent = false;

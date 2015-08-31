@@ -39,6 +39,6 @@ return [
      */
 
     'register.alias' => [
-        'CustomInterface' => 'Apps\Resources\Extensions\Custom'
+        //'CustomInterface' => 'Apps\Resources\Extensions\Custom'
     ]
 ];

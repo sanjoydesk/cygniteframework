@@ -25,4 +25,3 @@ class IndexController extends AbstractBaseController
        echo "Demo Index";
    }
 }//End of your controller
-

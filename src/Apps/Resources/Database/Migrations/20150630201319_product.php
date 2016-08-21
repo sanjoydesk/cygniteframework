@@ -70,4 +70,3 @@ class Product extends Migration
         });
     }
 }// End of the Migration
-

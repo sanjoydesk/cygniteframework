@@ -12,13 +12,13 @@ App::service(function ($app) {
      $app->registerServiceProvider([
             "Apps\Services\Providers\Payment\ApiServiceProvider",
      ]);
-    
+
     // Use Controller as Service manual configuration
     $app['user.controller'] = function () use($app)
     {
         return new \Apps\Controllers\HelloController(new \Cygnite\Mvc\Controller\ServiceController, $app);
-    }; 
-    // OR 
+    };
+    // OR
     // Controller as Service automatic configuration
     $app->setServiceController('hello.controller', '\Apps\Controllers\HelloController');*/
 });

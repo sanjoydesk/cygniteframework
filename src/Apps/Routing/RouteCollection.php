@@ -83,7 +83,6 @@ class RouteCollection extends StaticResolver
          | Set multiple group routes
          */
         $this->router->group('/movies', function ($route) {
-
             $route->get('/', function () {
                 echo "Movies Overview";
             });

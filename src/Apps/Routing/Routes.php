@@ -24,7 +24,7 @@ $app = Application::instance();
 
 // Before Router Middle Ware
 $app->router->before('GET', '/{:all}', function () {
-   //echo "This site is under maintenance.";exit(1);
+    //echo "This site is under maintenance.";exit(1);
 });
 
 $app->router->get('/module/{:id}', function ($router, $id) {
@@ -73,7 +73,7 @@ $app->router->set404Page(function () {
  * Will call after executing all user defined routing.
  */
 $app->router->after(function () {
-   //echo "After Routing callback";
+    //echo "After Routing callback";
 });
 
 

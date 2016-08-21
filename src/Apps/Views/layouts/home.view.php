@@ -40,7 +40,7 @@ $asset = AssetCollection::make(function ($asset) {
     <!--  Mobile Viewport Fix -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-    <?php $asset->dump('style');// Header Style block ?>
+    <?php $asset->dump('style');// Header Style block?>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
     <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>

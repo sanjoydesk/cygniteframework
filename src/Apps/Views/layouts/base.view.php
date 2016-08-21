@@ -4,7 +4,7 @@ use Cygnite\Common\UrlManager\Url;
 use Cygnite\AssetManager\AssetCollection;
 
 $asset = AssetCollection::make(function ($asset) {
-        // Set of resources tagged to header
+    // Set of resources tagged to header
         $asset->where('header')
             ->add('style', array('path' => 'public/assets/css/bootstrap/css/bootstrap.min.css'))
             ->add('style', array('path' => 'public/assets/css/bootstrap/css/bootstrap-theme.min.css'))
@@ -25,8 +25,8 @@ $asset = AssetCollection::make(function ($asset) {
             ->add('script', array('path' => 'public/assets/js/dataTables/datatables.fnReloadAjax.js'))
             ->add('script', array('path' => 'public/assets/js/dataTables/prettify.js'));
 
-        return $asset;
-    });
+    return $asset;
+});
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +45,7 @@ $asset = AssetCollection::make(function ($asset) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <link rel="shortcut icon" href="<?php echo Url::getBase(); ?>/public/assets/img/cygnite/fevicon.png" > </link>
 
-    <?php $asset->where('header')->dump('style');// Header Style block ?>
+    <?php $asset->where('header')->dump('style');// Header Style block?>
     <style type="text/css">
         body {padding: 60px 0;}
         .navbar-inverse {background: none repeat scroll 0 0 #07508f!important;}
